@@ -1,0 +1,233 @@
+/* ----------------------------------------
+   Variables para consistencia
+---------------------------------------- */
+:root {
+  --loader-primary: #a70000;
+  --loader-secondary: #2e7d32;
+  --loader-tertiary: #f9f3f3;
+  --loader-background: #ffffff;
+  --loader-text: #333333;
+  --loader-shadow: rgba(0, 0, 0, 0.1);
+  
+  --loader-animation-duration: 0.8s;
+  --loader-entrance-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --loader-exit-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----------------------------------------
+   Base del Loader
+---------------------------------------- */
+.screen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity var(--loader-animation-duration) var(--loader-exit-timing);
+}
+
+.screen-loader.fade-out {
+  opacity: 0;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  max-width: 90%;
+}
+
+/* ----------------------------------------
+   Logo y animación de pétalos
+---------------------------------------- */
+.logo-animation {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.loader-logo {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInLogo 1.2s forwards 0.2s;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fadeInLogo {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ----------------------------------------
+   Barra de progreso
+---------------------------------------- */
+.loader-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--loader-secondary), var(--loader-primary));
+  width: 0%;
+  animation: fillProgress 2s ease-out forwards;
+  border-radius: 4px;
+}
+
+@keyframes fillProgress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.loader-text {
+  margin-top: 0.8rem;
+  font-family: "Jost", sans-serif;
+  font-size: 0.95rem;
+  color: #121212;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards 0.5s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ----------------------------------------
+   Optimización para dispositivos móviles
+---------------------------------------- */
+@media (max-width: 768px) {
+  .loader-content {
+    gap: 2rem;
+  }
+  
+  .loader-logo {
+    width: 180px;
+  }
+  
+  .petals-container {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .petal {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader-content {
+    gap: 1.5rem;
+  }
+  
+  .loader-logo {
+    width: 150px;
+  }
+  
+  .petals-container {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .petal {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .loader-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* ----------------------------------------
+   Modo oscuro
+---------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --loader-background: #121212;
+    --loader-text: #e0e0e0;
+    --loader-shadow: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Para sitios con clase dark-mode */
+body.dark-mode .screen-loader {
+  --loader-background: #121212;
+  --loader-text: #e0e0e0;
+  --loader-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* ----------------------------------------
+   Animaciones adicionales
+---------------------------------------- */
+.loader-content {
+  animation: pulseScale 3s infinite alternate;
+}
+
+@keyframes pulseScale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+/* Soporte para preferencias de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .screen-loader, .loader-logo, .petal, .progress-fill, .loader-text, .loader-content {
+    animation: none !important;
+    transition: opacity 0.5s linear !important;
+  }
+  
+  .progress-fill {
+    width: 100%;
+  }
+  
+  .loader-logo, .loader-text {
+    opacity: 1;
+  }
+}

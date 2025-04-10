@@ -1,0 +1,138 @@
+.navBar {
+  display: flex;
+  margin: 0%;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #FFD1DC, #FFB6C1);
+  text-align: center;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+/* DARKMODE  */
+#navBarTop{
+  font-size: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: none!important;
+  flex-wrap: wrap;
+  height: 150px;
+  background: white !important;
+  flex-direction: row;
+}
+
+#navBarTop.dark-mode {
+  background-color: none!important;
+  background: linear-gradient(to bottom, #8f0000, #390000) !important;
+  color: #fff;
+
+}
+
+
+.imgNavBar {
+  width: 150px;
+  margin: 5px;
+  height: 95px;
+  object-fit: contain;
+}
+.searcher-navseccions{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+}
+
+.loginContainer a {
+  text-decoration-line: none;
+  color: rgb(105 8 80);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transition: color .50s ease-in;
+}
+
+.loginContainer a:hover {
+  color: rgb(87, 0, 124);
+}
+
+.loginWelcome {
+  display: flex;
+  flex-direction: column;
+  align-self: end;
+}
+
+.containerUser {
+  text-decoration-line: none;
+  color: #690850;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  transition: color .50s ease-in;
+  cursor: pointer;
+  transition: color .20s ease-in-out;
+  margin: 10px;
+}
+
+.containerUser:hover {
+  color: darkmagenta;
+}
+
+@media screen and (max-width: 1100px) {
+  .searcher-navseccions{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 15px;
+  }
+
+}
+
+@media screen and (max-width: 850px) {
+  .loginContainer a {
+    font-size: small;
+  }
+  .loginContainer  {
+    margin-top: 10px;
+  }
+
+
+}
+
+
+@media screen and (max-width: 750px) {
+
+  .containerUser {
+    font-size: small;
+  }
+
+  .navBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  .navBar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .containerUser {
+    font-size: x-small;
+  }
+
+  .imgNavBar {
+    width: 110px;
+    height: 80px;
+  }
+
+
+}

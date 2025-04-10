@@ -1,0 +1,15 @@
+.div-new-category{
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    color: #670000;
+}
+
+.div-editCategory{
+    background: linear-gradient(to top, #a70000, #670000);
+    margin-top: 20px;
+    padding-top: 20px;
+
+}

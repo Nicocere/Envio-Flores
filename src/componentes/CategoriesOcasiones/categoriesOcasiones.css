@@ -1,0 +1,104 @@
+
+.ocasionesSeccions {
+  display: flex;
+  margin: 0%;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #a00303;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 3 ;
+  z-index: 1000;
+}
+.ocasionesSeccions.dark-mode{
+  background: #420000!important;
+  border-top: 1px solid white!important;
+}
+
+.seccionCerradaOcasiones{
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  justify-content: center;
+  z-index: 1000;
+  margin-left: 20px;
+}
+
+.ocasionesSeccions ul {
+padding: 0;
+}
+
+.seccionOcasionesLi {
+  list-style: none;
+  color: black;
+  align-self: center;
+  border-top: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 0px solid transparent;
+  text-align: start;
+  border-right: 0px solid transparent;
+  padding: 5px 5px;
+  width: 200px;
+  margin: 5px 2px;
+  font-family: "Jost", sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color .3s ease-out;
+  transition: border .3s ease-in-out;
+
+  }
+
+  .categorySeccionOcasiones {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .seccionOcasionesLi.dark-mode:hover {
+    color: white;
+  }
+  
+
+  .seccionOcasionesLi:hover {
+    text-decoration: none;
+    color: #a00303;
+    border-radius: 10px;
+    border: 1px solid #a00303;
+
+  
+  }
+  
+  .seccionOcasionesLi.dark-mode.active {
+    color: white!important;
+  }
+
+  .seccionOcasionesLi.active {
+    color: #a00303;
+    font-size: 120%;
+    /* background: rgb(255, 224, 224); */
+    /* border: 2px solid rgba(238, 130, 238, 0.423); */
+    border-radius: 5px;
+  }
+
+  .categorySeccion {
+    display: flex;
+    flex-direction: column;
+  }
+  
+@media screen and (max-width: 650px) {
+
+    .seccionOcasionesLi {
+        display: none;
+      }
+
+      .ocasionesSeccions {
+        display: contents;
+      }
+      .seccionCerradaOcasiones{
+        display: none;
+      }
+}

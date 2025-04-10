@@ -1,0 +1,32 @@
+/* .div-filtros{
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 15px;
+    flex-wrap: nowrap;
+}
+
+.div-filtros div{
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media screen and (max-width: 650px) {
+
+    .div-filtros{
+        margin-right: 0;
+        margin-left: 0;
+        width: 100%;
+        font-size: 15px;
+    }
+
+  .div-filtros label{
+    display: flex;
+    flex-direction: column;
+    margin: 1px 4px;
+  }
+  } */

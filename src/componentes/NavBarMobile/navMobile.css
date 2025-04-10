@@ -1,0 +1,139 @@
+.img-navbar {
+    width: 80px;
+    padding: 5px 0;
+}
+
+.divSeccionMobile a {
+    text-decoration: none;
+    margin: 20px 0;
+    color: darkred;
+    width: 100%;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.divSeccionMobile a:hover {
+    color: #420000;
+}
+
+.divSeccionMobile a.dark-mode:hover {
+    color: silver;
+}
+
+.divSeccionMobile a.dark-mode {
+    color: #d4d4d4;
+}
+
+.divSeccionMobile {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    padding: 15px  0px 0px 25px;
+}
+
+
+.link-products {
+    font-weight: 400;
+    transition: 1s ease-in
+}
+
+.link-products.active {
+    font-weight: 700;
+    color: #420000;
+    font-family: "Jost", sans-serif;
+    font-size: larger;
+}
+.dark-mode .link-products.active{
+    color: silver;
+
+}
+
+.divSeccionMobile div {
+    display: flex;
+    flex-direction: row;
+}
+
+.list-products{
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.list-products a {
+    text-decoration: none;
+    margin: 0px 0px 0px 20px;
+    color: darkred;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+}
+
+.list-products a:hover {
+    color: #420000;
+}
+
+.dark-mode .list-products:hover {
+    color: silver;
+}
+
+.dark-mode .list-products {
+    color: #d4d4d4;
+}
+
+
+.div-prods-SeccionMobile{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 2;
+    padding: 15px  0px 0px 25px;
+}
+
+.div-prods-SeccionMobile a {
+    margin: 20px 0;
+    color: darkred;
+    width: 100%;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.15;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-top: 10px;
+    transition: all .25s ease-in-out;
+}
+
+.div-prods-SeccionMobile a:hover {
+    color: #420000;
+}
+
+.div-prods-SeccionMobile a.dark-mode:hover {
+    color: silver;
+}
+
+.div-prods-SeccionMobile a.dark-mode {
+    color: #d4d4d4;
+}
+
+
+@media screen and (max-width: 550px) {
+
+    .div-prods-SeccionMobile a {
+        text-decoration: none;
+        font-size: small;
+        margin: 15px 0;
+        font-weight: 700;
+        color: darkred;
+        font-family: "Jost", sans-serif;
+    }
+    
+
+}

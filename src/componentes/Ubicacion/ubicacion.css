@@ -1,0 +1,27 @@
+.divUbicacion{
+padding-bottom: 70px;
+margin:  0px 20px;
+margin-top: 30px;
+}
+
+.divText{
+    padding-top: 20px;
+    font-family: "Jost", sans-serif;
+    color: darkred;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.textStrong{
+    color: red;
+}
+
+.linkWhatsapp{
+    color: red;
+}
+.iconWP{
+    color: rgb(1, 53, 1);
+    margin: 0px 6px 0 15px;
+    font-size: 22px;
+
+}

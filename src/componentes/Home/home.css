@@ -1,0 +1,200 @@
+/* ========================================
+   ENCABEZADO DE SECCIÓN "NUESTRAS COLECCIONES"
+   ======================================== */
+:root{
+    --primary-color: #a70000;
+    --primary-dark: #670000;
+    --primary-light: #ff4d4d;
+    --primary-gradient: linear-gradient(45deg, var(--primary-color), var(--primary-light));
+    --secondary-color: #570000;
+    --accent-color: #ffcaca;
+    
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --text-muted: #6c757d;
+    
+    --background-light: #ffffff;
+    --background-dark: #222222;
+    
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+}
+
+/* Título principal */
+.simple-title {
+    font-family: var(--font-family);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dark-mode .simple-title {
+    color: var(--accent-color);
+    text-shadow: 0 2px 10px rgba(255, 202, 202, 0.1);
+  }
+  
+  .simple-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+    transition: width var(--transition-normal);
+  }
+  
+  .top-items-header{
+    margin-top: 90px;
+
+  }
+  
+  .top-items-header:hover .simple-title::after {
+    width: 80px;
+  }
+  
+  /* Subtítulo */
+  .simple-subtitle {
+    font-family: var(--font-family);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+  }
+  
+  .dark-mode .simple-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Decoración del título */
+  .top-items-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--spacing-md) 0;
+  }
+  
+  .decoration-line {
+    height: 1px;
+    flex-grow: 1;
+    max-width: 120px;
+    background: linear-gradient(to right, transparent, var(--primary-color) 50%, transparent);
+    transition: all var(--transition-normal);
+  }
+  
+  .dark-mode .decoration-line {
+    background: linear-gradient(to right, transparent, var(--accent-color) 50%, transparent);
+  }
+  
+  .top-items-header:hover .decoration-line {
+    max-width: 150px;
+  }
+  
+  .decoration-icon {
+    margin: 0 var(--spacing-sm);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transform-origin: center;
+    transition: transform var(--transition-slow);
+    animation: gentle-pulse 3s infinite ease-in-out;
+  }
+  
+  .dark-mode .decoration-icon {
+    color: var(--accent-color);
+  }
+  
+  .top-items-header:hover .decoration-icon {
+    transform: rotate(45deg);
+  }
+  
+  /* Animación de pulso sutil */
+  @keyframes gentle-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+  
+  /* Media queries para responsividad */
+  @media (max-width: 768px) {
+    .simple-title {
+      font-size: 2.2rem;
+    }
+    
+    .simple-subtitle {
+      font-size: 1.1rem;
+    }
+    
+    .decoration-line {
+      max-width: 80px;
+    }
+    
+    .decoration-icon {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .top-items-header {
+      margin-bottom: var(--spacing-md);
+      padding: 0 var(--spacing-xs);
+    }
+    
+    .simple-title {
+      font-size: 1.8rem;
+    }
+    
+    .simple-subtitle {
+      font-size: 1rem;
+      margin-top: var(--spacing-xs);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .decoration-line {
+      max-width: 60px;
+    }
+    
+    .decoration-icon {
+      font-size: 1.1rem;
+      margin: 0 var(--spacing-xs);
+    }
+    
+    .top-items-decoration {
+      margin: var(--spacing-sm) 0;
+    }
+  }
+  
+  .dark-mode .simple-title {
+    color: #f5f5f5;
+  }
+  
+  .simple-subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  
+  .dark-mode .simple-subtitle {
+    color: #aaa;
+  }

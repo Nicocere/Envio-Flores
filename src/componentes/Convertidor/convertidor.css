@@ -1,0 +1,95 @@
+/* Convertidor.css */
+
+/* DARKMODE */
+.change-to-dolar-mobile.dark-mode,
+.change-to-dolar.dark-mode,
+.lbl-usd-mobile.dark-mode,
+.lbl-usd.dark-mode {
+  /* Tus estilos para el modo oscuro aquí */
+  color: #fff;
+}
+
+.change-icon.dark-mode {
+  /* Tus estilos para el modo oscuro aquí */
+  fill: #fff;
+  
+}
+
+
+.lbl-usd {
+    font-family: "Jost", sans-serif !important;
+
+    color: #353535;
+    font-weight: 500;
+    padding-right: 0px;
+}
+.lbl-usd .dark-mode{
+    color: #fff!important;
+
+}
+.change-to-dolar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+
+.price-usd-idx {
+    margin: 0px;
+}
+
+.change-icon {
+    transition: transform 0.5s;
+    /* Agrega una transición para suavizar el cambio */
+}
+
+.rotate-anti-clockwise {
+    transform: rotateZ(180deg);
+    /* Rotación antihoraria */
+    transition: transform .44s ease-in-out;
+}
+
+.rotate-clockwise {
+    transform: rotateZ(0deg);
+    /* No hay rotación */
+    transition: transform .44s ease-in-out;
+
+}
+
+.change-to-dolar-mobile {
+    display: flex;
+    align-items: center;
+}
+
+.lbl {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    font-family: "Jost", sans-serif;
+
+}
+
+.lbl-hiddenUSD {
+    transform: translateY(10px);
+    opacity: 0;
+    position: absolute;
+}
+
+.lbl-hiddenARS {
+    transform: translateY(-10px);
+    opacity: 0;
+    position: absolute;
+
+}
+
+@media screen and (max-width: 850px) {
+
+    .lbl-usd-mobile.dark-mode {
+        
+        color: white!important;
+    
+    }
+    
+
+}

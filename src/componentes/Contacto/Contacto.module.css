@@ -1,0 +1,134 @@
+.navTop {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-decoration: none;
+  font-size: 75%;
+}
+
+
+
+.icons {
+  color: rgba(164, 7, 125, 0.797);
+  margin: 0px 10px 0 10px;
+  font-size: 20px;
+}
+
+.icons:hover{
+  color: rgb(59, 0, 74);
+
+}
+
+.divContacto {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-evenly;
+
+}
+
+.divContactoIconsRedes {
+  display: flex;
+  flex-direction: row;
+}
+
+.divContactoIconsRedes a {
+  align-self: center;
+}
+
+
+.divContacto {
+  display: flex;
+  align-items: center;
+}
+
+.contactoMail {
+  border-radius: 3px;
+
+}
+
+.contacto {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all .5s;
+  margin-left: 10px;
+  margin-right: 5px;
+  font-family: "Jost", sans-serif;
+  color: #561b42;
+}
+
+.contacto:hover {
+  color: #460000;
+}
+
+
+.direc {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+  transition: all .5s;
+  margin-left: 0px;
+}
+
+.dir {
+  margin-right: .5%;
+  margin-left: .5%;
+  text-decoration: none;
+  transition: color .5s;
+  font-family: "Jost", sans-serif;
+  color: #561b42;
+  ;
+}
+
+.dir:hover {
+  color: #460000;
+}
+
+.redesSociales {
+  width: 100%;
+  margin-left: 0px;
+  display: flex;
+  align-items: self-end;
+  transition: transform .5s;
+}
+
+
+@media screen and (max-width: 800px) {
+
+  .navTop {
+    font-size: 9.25px;
+  }
+
+  .divContacto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .icons {
+    font-size: 15px;
+  }
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+  .imgNavBar {
+    width: 250px;
+  }
+  .navTop {
+    font-size: 9px;
+  }
+  .icons {
+    font-size: 12px;
+  }
+
+
+}

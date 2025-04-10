@@ -1,0 +1,99 @@
+
+.ocasionesSeccion a{
+  margin: 5px 14px 5px;
+  font-family: "Jost", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 2px;
+  vertical-align: sub;
+  color: white;
+  transition: all .5s;
+  text-decoration: none;
+} 
+
+.ocasionesSeccion {
+    position: relative;
+}
+
+  
+  .submenuOcasiones {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    color: black;
+    top: 100%;
+    left: 0;
+    padding-top: 18px;
+    background: linear-gradient(to bottom, transparent 3%, #a70000 2%, #670000);
+    /* border: 1px solid #670000; */
+    z-index: 1;
+    transition: all 1s ease-in-out;
+    border-radius: 0px 1px 18px 18px;
+  
+  }
+  
+  .submenuOcasiones a{
+  
+    font-family: "Jost", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: white;
+    padding: 3px;
+    transition: all .45s;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.submenuOcasiones a:hover{
+    background: white;
+    padding: 8px;
+    color: #670000!important;
+}
+
+.submenuOcasiones.dark-mode{
+  background:  #420000!important;
+}
+
+.seccionLi:hover .submenuOcasiones {
+    border: rgba(255, 255, 255, 0.401) 1px solid;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 800px) {
+
+    .ocasionesSeccion a{
+      margin: 0 10px;
+      font-size: 13px;
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+
+    .ocasionesSeccion a{
+      margin: 0 10px;
+      font-size: 15px;
+      font-weight: 800;
+      vertical-align: bottom;
+
+    }
+
+  
+  }
+  
+  
+@media screen and (max-width: 450px) {
+
+
+  .ocasionesSeccion a{
+    font-size: 10px;
+    font-weight: 800;
+    vertical-align: unset;
+
+  } 
+
+
+
+
+}

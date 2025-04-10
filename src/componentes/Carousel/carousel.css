@@ -1,0 +1,550 @@
+/* ===================================
+   Variables de estilos
+=================================== */
+:root {
+  --carousel-primary: #a70000;
+  --carousel-primary-dark: #800000;
+  --carousel-primary-light: #ff6b6b;
+  
+  --carousel-text-light: #ffffff;
+  --carousel-text-dark: #333333;
+  
+  --carousel-bg-light: #ffffff;
+  --carousel-bg-dark: #121212;
+  
+  --carousel-transition: 0.3s ease;
+  --carousel-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  --carousel-shadow-dark: 0 5px 20px rgba(0, 0, 0, 0.25);
+  
+  --carousel-height-lg: clamp(500px, 89vh, 600px);
+  --carousel-height-md: clamp(400px, 60vh, 500px);
+  --carousel-height-sm: clamp(300px, 45vh, 400px);
+}
+
+/* ===================================
+   Contenedor principal
+=================================== */
+.carousel-box {
+  background-color: transparent !important;
+  border-radius: 200px !important;
+  box-shadow: var(--carousel-shadow) !important;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  position: relative;
+  transition: var(--carousel-transition);
+}
+
+.carousel-box.dark-mode {
+  box-shadow: var(--carousel-shadow-dark) !important;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: var(--carousel-height-lg);
+  border-radius: 12px;
+  background-color: var(--carousel-bg-light);
+  overflow: hidden;
+}
+
+.carousel-container.mobile {
+  height: var(--carousel-height-md);
+}
+
+.carousel-container.small-mobile {
+  height: var(--carousel-height-sm);
+}
+
+.carousel-container.dark-mode {
+  background-color: var(--carousel-bg-dark);
+}
+
+/* ===================================
+   Swiper container
+=================================== */
+.swiper-carousel {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide-custom {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 5s ease-out;
+  will-change: transform;
+}
+
+.swiper-slide-active .carousel-image {
+  transform: scale(1.05);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 1;
+}
+
+.dark-mode .image-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+
+/* ===================================
+   Contenido del banner - MEJORADO
+=================================== */
+.carousel-banner-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  padding: 2rem;
+}
+
+.text-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 70%;
+  padding: 2.5rem;
+  background-color: rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: var(--carousel-transition);
+  transform: translateY(0);
+}
+
+.carousel-link:hover .text-content {
+  transform: translateY(-5px);
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.mobile-text {
+  padding: 1.5rem;
+  max-width: 85%;
+}
+
+.small-mobile .text-content {
+  padding: 1rem;
+  max-width: 90%;
+}
+
+.banner-title {
+  font-family: 'Jost', sans-serif;
+  color: white;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+}
+
+.banner-title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 30%;
+  right: 30%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--carousel-primary), transparent);
+}
+
+.dark-mode .banner-title::after {
+  background: linear-gradient(90deg, transparent, var(--carousel-primary-light), transparent);
+}
+
+.mobile .banner-title {
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  margin-bottom: 0.8rem;
+}
+
+.small-mobile .banner-title {
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  margin-bottom: 0.6rem;
+}
+
+.banner-description {
+  font-family: 'Jost', sans-serif;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+.mobile .banner-description {
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  margin-bottom: 1.2rem;
+  max-width: 90%;
+}
+
+.small-mobile .banner-description {
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+.banner-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: var(--carousel-primary);
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(167, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: left 0.6s ease;
+}
+
+.carousel-link:hover .banner-button {
+  background-color: var(--carousel-primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(167, 0, 0, 0.4);
+}
+
+.carousel-link:hover .banner-button::before {
+  left: 100%;
+}
+
+.mobile .banner-button {
+  padding: 0.7rem 1.8rem;
+  font-size: 0.95rem;
+}
+
+.small-mobile .banner-button {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.dark-mode .banner-button {
+  background-color: var(--carousel-primary-light);
+  color: var(--carousel-text-dark);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.dark-mode .carousel-link:hover .banner-button {
+  background-color: #ff8585;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* ===================================
+   Paginación y navegación de Swiper
+=================================== */
+.swiper-pagination-bullet {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  opacity: 0.7 !important;
+  transition: var(--carousel-transition);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--carousel-primary) !important;
+  opacity: 1 !important;
+  transform: scale(1.2);
+}
+
+.dark-mode .swiper-pagination-bullet-active {
+  background-color: var(--carousel-primary-light) !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgba(255, 255, 255, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  transition: var(--carousel-transition);
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: var(--carousel-primary);
+  color: white !important;
+  transform: scale(1.1);
+}
+
+.dark-mode .swiper-button-next:hover,
+.dark-mode .swiper-button-prev:hover {
+  background-color: var(--carousel-primary-light);
+  color: var(--carousel-text-dark) !important;
+}
+
+/* ===================================
+   Barra de progreso
+=================================== */
+.carousel-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--carousel-primary);
+  width: 0;
+  transition: width 3000ms linear;
+}
+
+.dark-mode .progress-bar {
+  background-color: var(--carousel-primary-light);
+}
+
+/* ===================================
+   Elementos adicionales
+=================================== */
+.swipe-indicator {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%) !important;
+  z-index: 5;
+  animation: pulse 2s infinite alternate;
+  text-align: center;
+}
+
+.swipe-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 6px 14px;
+  border-radius: 30px;
+  display: inline-block;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+/* ===================================
+   Estados informativos
+=================================== */
+.carousel-loading,
+.carousel-error,
+.carousel-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-text,
+.error-message,
+.empty-message {
+  margin-top: 1.5rem !important;
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.error-icon,
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.error-icon {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.empty-icon {
+  font-size: 2rem;
+}
+
+.retry-button {
+  margin-top: 1.5rem;
+  padding: 0.7rem 2rem;
+  background-color: var(--carousel-primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--carousel-transition);
+}
+
+.retry-button:hover {
+  background-color: var(--carousel-primary-dark);
+}
+
+.dark-mode .retry-button {
+  background-color: var(--carousel-primary-light);
+  color: var(--carousel-text-dark);
+}
+
+.dark-mode .retry-button:hover {
+  background-color: #ff8585;
+}
+
+/* ===================================
+   Responsive para diversos dispositivos
+=================================== */
+@media (max-width: 480px) {
+  .swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+  }
+
+  .carousel-box {
+    border-radius: 0px !important;
+  }
+  .carousel-container{
+    border-radius: 0px !important;
+  }
+  .carousel-progress {
+    height: 3px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .carousel-container {
+    height: 80vh;
+  }
+  
+  .text-content {
+    padding: 1.2rem;
+    max-width: 60%;
+  }
+  
+  .banner-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+  
+  .banner-description {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin-bottom: 0.8rem;
+  }
+  
+  .banner-button {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===================================
+   Accesibilidad
+=================================== */
+@media (prefers-reduced-motion: reduce) {
+  .swiper-slide-active .carousel-image,
+  .banner-button,
+  .swiper-button-next,
+  .swiper-button-prev,
+  .swiper-pagination-bullet {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .swiper-container {
+    --swiper-theme-color: var(--carousel-primary);
+  }
+}

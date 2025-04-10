@@ -1,0 +1,17 @@
+.btn.registro{
+    margin: 25px 0;
+    background: linear-gradient(to bottom, #FFD1DC, #FFB6C1);
+    font-family: "Jost", sans-serif;
+    font-size: 15px;
+    border: 1px solid pink;
+    color: rgb(105 8 80);
+    border-radius: 3px;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}

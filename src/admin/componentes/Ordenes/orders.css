@@ -1,0 +1,91 @@
+.div-orders h1{
+    color: white;
+}
+
+.orderDetails{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0 0 10px #000;
+    width: 100%;
+    min-height: 60vh;
+}
+
+.ordersTable{
+    color: white;
+    width: 100%;
+    font-family: "Jost", sans-serif;
+}
+
+
+.ordersTable th{
+    border: 1px solid white;
+    border-radius: 3px;
+    background: rgba(255, 0, 0, 0.452);
+}
+.ordersTable td{
+    border: 1px solid white;
+    border-radius: 3px;
+    font-size: large;
+
+}
+.orderDetails {
+ background: white;
+}
+.orderDetails p{
+    color: black;
+    font-family: "Jost", sans-serif;
+    margin: 5px 5px;
+}
+
+.orderDetails strong{
+    color: black;
+    font-family: "Jost", sans-serif;
+    margin: 5px 5px;
+    font-size: larger;
+    padding: 5px 10px;
+    background: rgba(255, 0, 0, 0.327);
+    
+}
+
+.div-prods-order{
+    border: 1px solid black;
+    border-radius: 3px;
+    color: black;
+    padding: 12px 0;
+    flex: 1;
+}
+
+.div-prods-order li{
+   text-align: left;
+}
+
+.div-prods-order h5{
+    text-decoration: underline;
+}
+
+.orderDetails h3{
+    color: black;
+    margin: 0 0 10px 0;
+}
+
+.orderDetails p{
+    font-size: large;
+}
+
+@media screen and (max-width: 650px){
+
+    .orderDetails p{
+        font-size: medium;
+    }
+    .orderDetails strong{
+        padding: 5px;
+    }
+
+}

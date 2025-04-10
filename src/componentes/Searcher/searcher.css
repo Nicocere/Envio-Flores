@@ -1,0 +1,307 @@
+/* ========================================
+   VARIABLES GLOBALES
+   ======================================== */
+:root {
+  --searcher-primary: #a70000;
+  --searcher-primary-light: #ff4d4d;
+  --searcher-primary-dark: #800000;
+  --searcher-primary-gradient: linear-gradient(135deg, #a70000, #ff4d4d);
+  
+  --searcher-bg-light: #ffffff;
+  --searcher-bg-dark: #1e1e1e;
+  --searcher-input-bg-light: #f9f9f9;
+  --searcher-input-bg-dark: #2d2d2d;
+  
+  --searcher-text-light: #333333;
+  --searcher-text-muted-light: #757575;
+  --searcher-text-dark: #ffffff;
+  --searcher-text-muted-dark: #b0b0b0;
+  
+  --searcher-border-light: rgba(0, 0, 0, 0.12);
+  --searcher-border-dark: rgba(255, 255, 255, 0.12);
+  --searcher-border-active-light: rgba(167, 0, 0, 0.5);
+  --searcher-border-active-dark: rgba(255, 77, 77, 0.5);
+  
+  --searcher-shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --searcher-shadow-hover-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --searcher-shadow-dark: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --searcher-shadow-hover-dark: 0 4px 12px rgba(0, 0, 0, 0.25);
+  
+  --searcher-radius-sm: 8px;
+  --searcher-radius-md: 12px;
+  --searcher-radius-lg: 16px;
+  
+  --searcher-transition: 0.3s ease;
+  --searcher-font: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --searcher-spacing-xs: 0.5rem;
+  --searcher-spacing-sm: 1rem;
+  --searcher-spacing-md: 1.5rem;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
+.searcher-container {
+  width: 100%;
+  border-radius: var(--searcher-radius-md);
+  overflow: hidden;
+  transition: all var(--searcher-transition);
+}
+
+.searcher-container.light {
+  background-color: var(--searcher-bg-light);
+  box-shadow: var(--searcher-shadow-light);
+  border: 1px solid var(--searcher-border-light);
+}
+
+.searcher-container.dark {
+  background-color: var(--searcher-bg-dark);
+  box-shadow: var(--searcher-shadow-dark);
+  border: 1px solid var(--searcher-border-dark);
+}
+
+.searcher-container:hover {
+  transform: translateY(-2px);
+}
+
+.searcher-container.light:hover {
+  box-shadow: var(--searcher-shadow-hover-light);
+}
+
+.searcher-container.dark:hover {
+  box-shadow: var(--searcher-shadow-hover-dark);
+}
+
+/* ========================================
+   ENCABEZADO DEL BUSCADOR
+   ======================================== */
+.searcher-header {
+  padding: var(--searcher-spacing-sm) var(--searcher-spacing-md);
+  border-bottom: 1px solid;
+}
+
+.searcher-container.light .searcher-header {
+  border-bottom-color: var(--searcher-border-light);
+}
+
+.searcher-container.dark .searcher-header {
+  border-bottom-color: var(--searcher-border-dark);
+}
+
+.searcher-title {
+  display: flex;
+  align-items: center;
+  font-family: var(--searcher-font);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.searcher-container.light .searcher-title {
+  color: var(--searcher-text-light);
+}
+
+.searcher-container.dark .searcher-title {
+  color: var(--searcher-text-dark);
+}
+
+.searcher-title-icon {
+  margin-right: var(--searcher-spacing-xs);
+  color: var(--searcher-primary);
+}
+
+.searcher-container.dark .searcher-title-icon {
+  color: var(--searcher-primary-light);
+}
+
+/* ========================================
+   CUERPO DEL BUSCADOR
+   ======================================== */
+.searcher-body {
+  padding: var(--searcher-spacing-md);
+}
+
+.searcher-form {
+  position: relative;
+  margin-bottom: var(--searcher-spacing-xs);
+}
+
+/* ========================================
+   INPUT DEL BUSCADOR
+   ======================================== */
+.searcher-input {
+  transition: all var(--searcher-transition);
+}
+
+/* Sobrescribir estilos de MUI */
+.searcher-container.light .searcher-input .MuiOutlinedInput-root {
+  background-color: var(--searcher-input-bg-light);
+  border-radius: var(--searcher-radius-sm);
+}
+
+.searcher-container.dark .searcher-input .MuiOutlinedInput-root {
+  background-color: var(--searcher-input-bg-dark);
+  border-radius: var(--searcher-radius-sm);
+  color: var(--searcher-text-dark);
+}
+
+.searcher-container.light .searcher-input .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-border-light);
+}
+
+.searcher-container.dark .searcher-input .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-border-dark);
+}
+
+.searcher-input.focused .MuiOutlinedInput-notchedOutline {
+  border-width: 2px !important;
+}
+
+.searcher-container.light .searcher-input.focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-border-active-light) !important;
+}
+
+.searcher-container.dark .searcher-input.focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-border-active-dark) !important;
+}
+
+.searcher-container.light .searcher-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-primary);
+}
+
+.searcher-container.dark .searcher-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--searcher-primary-light);
+}
+
+.searcher-container.light .searcher-input input::placeholder {
+  color: var(--searcher-text-muted-light);
+  opacity: 0.8;
+}
+
+.searcher-container.dark .searcher-input input::placeholder {
+  color: var(--searcher-text-muted-dark);
+  opacity: 0.7;
+}
+
+/* ========================================
+   ICONOS
+   ======================================== */
+.searcher-icon {
+  color: var(--searcher-primary);
+}
+
+.searcher-container.dark .searcher-icon {
+  color: var(--searcher-primary-light);
+}
+
+.searcher-clear-button {
+  opacity: 0.7;
+  transition: opacity var(--searcher-transition), transform var(--searcher-transition);
+}
+
+.searcher-clear-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ========================================
+   INFORMACIÓN DE RESULTADOS
+   ======================================== */
+.search-result-info {
+  padding: var(--searcher-spacing-xs) var(--searcher-spacing-xs) 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.search-result-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.searcher-container.light .search-result-text {
+  color: var(--searcher-text-light);
+}
+
+.searcher-container.dark .search-result-text {
+  color: var(--searcher-text-dark);
+}
+
+.search-keywords {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 0.8125rem;
+}
+
+.search-for {
+  color: var(--searcher-text-muted-light);
+}
+
+.searcher-container.dark .search-for {
+  color: var(--searcher-text-muted-dark);
+}
+
+.search-term {
+  font-weight: 600;
+  color: var(--searcher-primary);
+  background-color: rgba(167, 0, 0, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.searcher-container.dark .search-term {
+  color: var(--searcher-primary-light);
+  background-color: rgba(255, 77, 77, 0.15);
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ========================================
+   MEDIA QUERIES
+   ======================================== */
+@media (max-width: 768px) {
+  .searcher-body {
+    padding: var(--searcher-spacing-sm);
+  }
+  
+  .searcher-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .searcher-header {
+    padding: var(--searcher-spacing-xs) var(--searcher-spacing-sm);
+  }
+  
+  .search-keywords {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ========================================
+   ACCESIBILIDAD
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .searcher-container,
+  .searcher-container:hover,
+  .searcher-input,
+  .searcher-clear-button,
+  .searcher-clear-button:hover {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}

@@ -1,0 +1,875 @@
+/* ===================================
+   Variables de estilos
+=================================== */
+:root {
+  --form-primary: #a70000;
+  --form-primary-hover: #800000;
+  --form-primary-light: #f5e1e1;
+  --form-secondary: #4caf50;
+  --form-secondary-hover: #388e3c;
+  --form-error: #d32f2f;
+  --form-warning: #ff9800;
+  
+  --form-bg: #ffffff;
+  --form-bg-alt: #f8f8f8;
+  --form-bg-dark: #f1f1f1;
+  
+  --form-text: #333333;
+  --form-text-light: #666666;
+  --form-text-muted: #888888;
+  
+  --form-border: #e0e0e0;
+  --form-border-focus: #a70000;
+  --form-border-hover: #cccccc;
+  
+  --form-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --form-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+  
+  --form-radius: 8px;
+  --form-radius-sm: 4px;
+  --form-transition: all 0.25s ease;
+}
+
+/* Encabezado del formulario - Diseño mejorado */
+.form-header {
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
+  padding: 24px;
+  background: linear-gradient(to bottom, var(--form-primary-light), white);
+  border-radius: var(--form-radius);
+  box-shadow: var(--form-shadow);
+}
+
+/* Título principal */
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--form-primary);
+  margin: 0 0 20px 0;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+.form-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--form-primary);
+  border-radius: 3px;
+}
+
+/* Contenedor de introducción */
+.form-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0 20px;
+  background-color: white;
+  padding: 16px 20px;
+  border-radius: var(--form-radius);
+  box-shadow: 0 2px 4px rgba(167, 0, 0, 0.1);
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Icono decorativo */
+.form-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Texto de introducción */
+.form-intro p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--form-text);
+}
+
+.form-intro strong {
+  color: var(--form-primary);
+  font-weight: 600;
+}
+
+/* Indicador de progreso */
+.form-progress {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.progress-step {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: var(--form-transition);
+}
+
+.progress-step.active {
+  opacity: 1;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--form-primary);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.step-text {
+  font-size: 0.95rem;
+  color: var(--form-text);
+  font-weight: 500;
+}
+
+/* Adaptación a dispositivos móviles */
+@media (max-width: 768px) {
+  .form-header {
+    padding: 20px 16px;
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+  }
+  
+  .form-intro {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 16px;
+  }
+  
+  .form-icon {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+/* Efecto visual para indicar al usuario que debe desplazarse hacia abajo */
+.form-header::after {
+  content: '↓';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--form-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--form-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+  40% { transform: translateY(-10px) translateX(-50%); }
+  60% { transform: translateY(-5px) translateX(-50%); }
+}
+/* ===================================
+   Estilos generales del formulario
+=================================== */
+.form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--form-bg);
+  box-shadow: var(--form-shadow);
+  border-radius: var(--form-radius);
+  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif;
+}
+
+.form h3,
+.form h4 {
+  color: var(--form-primary);
+  margin-bottom: 1rem;
+}
+
+.form p {
+  color: var(--form-text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.message-error {
+  color: var(--form-error);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  animation: errorShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.message-error::before {
+  content: "⚠️";
+  margin-right: 6px;
+  font-size: 0.85rem;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+/* ===================================
+   Secciones del formulario
+=================================== */
+.datos-recibe,
+.datos-Fecha-Envio,
+.datos-comprador {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background: var(--form-bg-alt);
+  border-radius: var(--form-radius);
+  border-left: 4px solid var(--form-primary);
+  position: relative;
+  box-shadow: var(--form-shadow);
+  transition: var(--form-transition);
+  width: -webkit-fill-available;
+}
+
+.datos-recibe:hover,
+.datos-Fecha-Envio:hover,
+.datos-comprador:hover {
+  box-shadow: var(--form-shadow-hover);
+}
+
+.titulo-datosEnvio {
+  font-size: 1.25rem;
+  color: var(--form-primary);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--form-primary-light);
+  position: relative;
+  display: inline-block;
+}
+
+.titulo-datosEnvio::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 50%;
+  height: 2px;
+  background-color: var(--form-primary);
+}
+
+/* ===================================
+   Campos de formulario
+=================================== */
+.input-nombreApellido,
+.input-phone,
+.input-calle,
+.input-altura,
+.input-piso,
+.input-email {
+  width: 100%;
+  margin-bottom: 0.75rem !important;
+}
+
+/* ===================================
+   Fecha y Horario de Envío - Mejorado
+=================================== */
+.datos-Fecha-Envio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  background-color: #fefaf9;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.datos-Fecha-Envio::before {
+  content: '📅';
+  position: absolute;
+  top: .5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  opacity: 0.2;
+}
+
+.datos-Fecha-Envio .titulo-datosEnvio {
+  grid-column: 1 / -1;
+}
+
+.lbl-fecha-envio,
+.lbl-horario-envio {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--form-text);
+  font-size: 0.95rem;
+}
+
+.input-fecha-envio {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius-sm);
+  background-color: white;
+  color: var(--form-text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--form-transition);
+  margin-bottom: 1rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a70000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  background-size: 18px;
+  padding-right: 40px;
+}
+
+.input-fecha-envio:focus,
+.select-horario-envio:focus {
+  outline: none;
+  border-color: var(--form-primary);
+  box-shadow: 0 0 0 3px var(--form-primary-light);
+}
+
+.select-horario-envio {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius-sm);
+  background-color: white;
+  color: var(--form-text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--form-transition);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a70000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  background-size: 18px;
+  padding-right: 40px;
+}
+
+.input-fecha-envio:hover,
+.select-horario-envio:hover {
+  border-color: var(--form-border-hover);
+}
+
+/* Servicio Premium */
+.div-horarioPremium-envio {
+  grid-column: 1 / -1;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fff9f9;
+  border-radius: var(--form-radius-sm);
+  border: 1px solid var(--form-primary-light);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--form-transition);
+}
+
+.div-horarioPremium-envio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background:  var(--form-primary);
+}
+
+.div-horarioPremium-envio:hover {
+  background-color: #fff5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(167, 0, 0, 0.1);
+}
+
+.div-horarioPremium-envio input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--form-primary);
+  border-radius: 4px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: var(--form-transition);
+}
+
+.div-horarioPremium-envio input[type="checkbox"]:checked {
+  background-color: var(--form-primary);
+}
+
+.div-horarioPremium-envio input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.div-horarioPremium-envio label {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--form-text);
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+/* Premium time selector */
+.select-horarioPremium-envio {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #fff9f9;
+  border-radius: var(--form-radius-sm);
+  border: 1px solid var(--form-primary-light);
+  box-shadow: 0 2px 8px rgba(167, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.select-horarioPremium-envio label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--form-text);
+  font-size: 0.95rem;
+}
+
+/* ===================================
+   Datos del Comprador - Mejorado
+=================================== */
+.datos-comprador {
+  background-color: #f8faff;
+  border-left: 4px solid #3f51b5;
+  position: relative;
+}
+
+.datos-comprador::before {
+  content: '👤';
+  position: absolute;
+  top: .5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  opacity: 0.2;
+}
+
+.datos-comprador .titulo-datosEnvio {
+  color: #3f51b5;
+}
+
+.datos-comprador .titulo-datosEnvio::after {
+  background-color: #3f51b5;
+}
+
+/* ===================================
+   Totales y Botones
+=================================== */
+.totalPrecio {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--form-primary);
+  background: linear-gradient(to right, #f8f8f8, #fff, #f8f8f8);
+  padding: 1rem;
+  border-radius: var(--form-radius);
+  border: 1px dashed var(--form-primary-light);
+  box-shadow: var(--form-shadow);
+  position: relative;
+}
+
+.form button[type="submit"],
+.form button[variant="contained"] {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  margin: 1.5rem 0;
+  border: none;
+  border-radius: var(--form-radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--form-transition);
+}
+
+/* ===================================
+   Elementos especiales
+=================================== */
+.location-container {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: var(--form-radius-sm);
+  transition: var(--form-transition);
+}
+
+.location-container.error {
+  border: 1px solid var(--form-error);
+  background-color: rgba(211, 47, 47, 0.05);
+  padding: 0.5rem;
+  border-radius: var(--form-radius-sm);
+}
+
+.div-dedicatoria {
+  margin-top: 1.5rem;
+  grid-column: 1 / -1;
+}
+
+.dedic-text {
+  font-size: 1rem;
+  color: var(--form-text);
+  margin-bottom: 0.75rem;
+}
+
+.dedicatoria {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius-sm);
+  background-color: white;
+  color: var(--form-text);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--form-transition);
+  resize: vertical;
+}
+
+.dedicatoria:focus {
+  outline: none;
+  border-color: var(--form-primary);
+  box-shadow: 0 0 0 3px var(--form-primary-light);
+}
+
+.dedic-titulo {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--form-text-light);
+}
+
+.dedic-save {
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: var(--form-radius-sm);
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--form-text);
+  border-left: 3px solid var(--form-primary);
+  line-height: 1.5;
+  font-style: italic;
+  position: relative;
+}
+
+.dedic-save::before,
+.dedic-save::after {
+  content: '"';
+  color: var(--form-primary);
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+
+/* Sección de métodos de pago - Diseño mejorado */
+.payment-section {
+  background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  margin: 40px 0;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+.payment-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, #a70000, #f44336);
+}
+
+/* Encabezado de la sección de pago */
+.payment-header {
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+/* Título principal de pago */
+.metodo-pago-title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 15px 0;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+.metodo-pago-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background-color: #a70000;
+  border-radius: 3px;
+}
+
+/* Contenedor de información de pago */
+.payment-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+/* Icono de pago */
+.payment-icon {
+  font-size: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Subtítulo de pago */
+.payment-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Indicador de seguridad */
+.payment-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f8ff;
+  padding: 10px 15px;
+  border-radius: 50px;
+  width: fit-content;
+  margin: 20px auto 0;
+  border: 1px solid #e0e0ff;
+}
+
+.security-icon {
+  color: #4caf50;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.security-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+
+/* ===================================
+   Responsive Adaptations
+=================================== */
+@media (max-width: 768px) {
+  .form {
+    padding: 1rem;
+  }
+  
+  .datos-recibe,
+  .datos-Fecha-Envio,
+  .datos-comprador {
+    padding: 1.25rem;
+  }
+  
+  .datos-Fecha-Envio {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 0.75rem;
+  }
+  
+  .datos-recibe,
+  .datos-Fecha-Envio,
+  .datos-comprador {
+    padding:.75rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .titulo-datosEnvio {
+    font-size: 1.1rem;
+  }
+  
+  .totalPrecio {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+  }
+  
+  .div-horarioPremium-envio,
+  .select-horarioPremium-envio {
+    padding: 0.75rem;
+  }
+}
+
+/* ===================================
+   Estados de Validación 
+=================================== */
+input:valid,
+select:valid,
+textarea:valid {
+  border-color: #4caf50;
+}
+
+.input-error {
+  border-color: var(--form-error) !important;
+  background-color: rgba(211, 47, 47, 0.05);
+}
+
+/* ===================================
+   Animaciones para mejor UI
+=================================== */
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  transform: translateY(-2px);
+}
+
+/* Efecto de slide para mostrar los errores */
+.message-error {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, margin 0.3s ease;
+}
+
+.message-error:not(:empty) {
+  max-height: 40px;
+  margin-bottom: 0.75rem;
+}
+
+/* ===================================
+   Personalizaciones MUI
+=================================== */
+.MuiTextField-root {
+  width: 100% !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.MuiInputBase-input {
+  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.MuiFilledInput-root {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border-radius: var(--form-radius-sm) !important;
+  transition: var(--form-transition) !important;
+}
+
+.MuiFilledInput-root:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.MuiFilledInput-root.Mui-focused {
+  background-color: rgba(167, 0, 0, 0.03) !important;
+}
+
+.MuiButtonBase-root {
+  text-transform: none !important;
+  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif !important;
+  font-weight: 500 !important;
+}
+
+/* Tooltips y ayudas */
+.premium-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 0.5rem;
+  cursor: help;
+}
+
+.premium-tooltip:hover::before {
+  content: "El servicio premium permite elegir un horario específico de entrega para su envío";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 220px;
+  padding: 0.5rem;
+  background: #333;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  text-align: center;
+  z-index: 100;
+}
+
+.premium-tooltip:hover::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  z-index: 100;
+}
+
+/* Badge para premium */
+.premium-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: gold;
+  color: black;
+  border-radius: 20px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg);
+}

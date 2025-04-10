@@ -1,0 +1,29 @@
+
+
+.div-buscador-navBar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+  
+.input-buscador{
+    color: #670000!important;
+}
+
+
+
+
+  @media screen and (max-width: 650px) {
+
+    /* BUSCADOR */
+    .div-buscador-chg-usd {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+    }
+  
+}
