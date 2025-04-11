@@ -1,0 +1,684 @@
+.swalTitle {
+  font-size: 2rem !important;
+  color: #D4AF37 !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.5rem !important;
+  text-transform: none !important;
+  width: 100% !important;
+  max-width: -webkit-fill-available !important;
+  font-family: inherit !important;
+}
+
+.swalHtmlContainer {
+  z-index: 90000 !important;
+  max-width: -webkit-fill-available !important;
+  width: 100% !important;
+}
+
+.swalContent {
+  z-index: 90000 !important;
+  width: 100% !important;
+  max-width: -webkit-fill-available !important;
+}
+
+.swalHtmlContainer {
+  padding: 1.5rem !important;
+  font-size: 1rem !important;
+  width: -webkit-fill-available !important;
+  color: inherit !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.swalHtmlContainer h3 {
+  color: #D4AF37 !important;
+  font-size: 1.5rem !important;
+  margin: 1.5rem 0 1rem !important;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.2) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.swalHtmlContainer p {
+  margin: 0.5rem 0 !important;
+  line-height: 1.6 !important;
+}
+
+.swalHtmlContainer strong {
+  color: #D4AF37 !important;
+  font-weight: 600 !important;
+  margin-right: 0.5rem !important;
+}
+
+.swalConfirmButton {
+  background: linear-gradient(135deg, #D4AF37, #FFD700) !important;
+  color: #2f1a0f !important;
+  padding: 1rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  border: none !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.swalConfirmButton:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3) !important;
+}
+
+.swalCancelButton {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #d33 !important;
+  padding: 1rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  border: 2px solid #d33 !important;
+  transition: all 0.3s ease !important;
+}
+
+.swalCancelButton:hover {
+  background: rgba(211, 51, 51, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+@media (max-width: 768px) {
+  .swalTitle {
+    font-size: 1.5rem !important;
+  }
+
+  .swalContent h3 {
+    font-size: 1.2rem !important;
+  }
+
+  .swalConfirmButton,
+  .swalCancelButton {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+.container {
+  min-height: 100vh;
+  padding: 120px 2rem;
+  transition: background-color 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 50%);
+  pointer-events: none;
+}
+
+.dark {
+  background-color: #2f1a0f;
+  color: #FAF3EB;
+}
+
+.light {
+  background-color: #FAF3EB;
+  color: #2f1a0f;
+}
+
+.infoSection {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.infoSection h2 {
+  font-size: 2.5rem;
+  color: #D4AF37;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.infoSection h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+/* Sección de Planes */
+.subscriptionPlans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 3rem;
+  position: relative;
+  display: inline-block;
+}
+
+.planCard {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.planCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #D4AF37, #FFD700);
+}
+
+.planHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.planIcon {
+  font-size: 3rem !important;
+  color: #D4AF37;
+  margin-bottom: 1rem;
+}
+
+.planHeader h3 {
+  font-size: 2.2rem;
+  color: #D4AF37;
+  margin: 1rem 0;
+}
+
+.planHeader h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  color: #888;
+}
+
+
+.period {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.benefitsList li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+}
+
+.checkIcon {
+  color: #D4AF37 !important;
+  font-size: 1.5rem !important;
+}
+
+.subscribeButton {
+  width: 100%;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* Sección de Beneficios */
+.benefitsSection {
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.benefitsGrid {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.benefitCard {
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-5px);
+}
+
+.benefitCard svg {
+  font-size: 2.5rem;
+  color: #D4AF37;
+  margin-bottom: 1rem;
+}
+
+/* Formulario */
+.subscriptionForm {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  scroll-margin-top: 25vh;
+
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.inputGroup:focus-within {
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.inputGroup svg {
+  color: #D4AF37;
+  font-size: 1.5rem;
+}
+
+/* Políticas */
+.policiesSection {
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.policiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.policyCard {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.policyCard:hover {
+  transform: translateY(-5px);
+}
+
+.policyCard h3 {
+  color: #D4AF37;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.submitButton {
+  position: relative;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: #2f1a0f;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FFD700, #D4AF37);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.submitButton:hover::before {
+  opacity: 1;
+}
+
+.submitButton:active {
+  transform: translateY(1px);
+}
+
+.success,
+.error {
+  padding: 1rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.3s ease forwards;
+}
+
+.success {
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4CAF50;
+}
+
+.error {
+  background: rgba(244, 67, 54, 0.1);
+  border-left: 4px solid #D4AF37;
+}
+
+.success::before,
+.error::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  animation: shine 2s infinite;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  margin: 1.5rem 0;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.imageContainer.expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  height: 100vh;
+  margin: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  border-radius: 10px;
+}
+
+.imageContainer.expanded .planImage {
+  width: auto;
+  height: auto;
+  max-width: -webkit-fill-available;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 50px;
+}
+
+.imageContainer.expanded::before {
+  display: none;
+  border-radius: 10px;
+
+}
+
+.expandIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px;
+  border-radius: 50%;
+  color: white;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.imageContainer:hover .expandIcon {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.imageContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg,
+      rgba(47, 26, 15, 0.2) 0%,
+      rgba(47, 26, 15, 0.1) 100%);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.imageContainer:hover::before {
+  opacity: 0.3;
+}
+
+.planImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.planCard:hover .imageContainer {
+  transform: translateY(-5px);
+}
+
+.planCard:hover .planImage {
+  transform: scale(1.05);
+}
+.overlayText {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .overlayText {
+    bottom: 15px;
+    left: 15px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    
+  }
+}
+
+@media (max-width: 480px) {
+  .overlayText {
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+}
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 200px;
+    margin: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageContainer {
+    height: 180px;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .container {
+    padding: 140px 1rem;
+  }
+
+  .subscriptionPlans {
+
+    padding: 1rem 5px;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .planCard {
+    padding: 2rem 1rem;
+  }
+
+  .infoSection {
+    place-items: anchor-center;
+    padding: 2rem 5px;
+  }
+
+  .benefitCard {
+    width: -webkit-fill-available;
+  }
+
+  .infoSection h2 {
+    font-size: 2rem;
+  }
+
+  .subscriptionForm {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .inputGroup {
+    padding: 0.8rem 1rem;
+  }
+
+  .policiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .container,
+  .planCard,
+  .benefitCard,
+  .inputGroup,
+  .policyCard {
+    transition: none;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+
+  .subscriptionForm,
+  .benefitsSection,
+  .policiesSection {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}

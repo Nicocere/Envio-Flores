@@ -1,21 +1,5 @@
 /* Variables */
-:root {
-  --primary-color: #a70000;
-  --primary-hover: #d40000;
-  --primary-dark: #670000;
-  --secondary-color: #ffd1d1;
-  --text-light: #ffffff;
-  --text-dark: #333333;
-  --text-muted: #777777;
-  --background-light: #ffffff;
-  --background-dark: #222222;
-  --background-gradient: linear-gradient(to bottom, #fff 0%, #f9f9f9 100%);
-  --border-color: rgba(167, 0, 0, 0.1);
-  --transition-speed: 0.3s;
-  --border-radius: 8px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --footer-padding: 4rem 5%;
-}
+
 
 /* Estilos del Footer */
 .footer-container {
@@ -359,9 +343,7 @@
 
 /* Media Queries */
 @media (max-width: 1200px) {
-  :root {
-    --footer-padding: 3rem 5%;
-  }
+
   
   .footer-content {
     grid-template-columns: repeat(2, 1fr);
@@ -369,9 +351,7 @@
 }
 
 @media (max-width: 768px) {
-  :root {
-    --footer-padding: 2.5rem 5%;
-  }
+
   
   .footer-content {
     grid-template-columns: 1fr;
@@ -403,9 +383,7 @@
 }
 
 @media (max-width: 480px) {
-  :root {
-    --footer-padding: 2rem 3%;
-  }
+
   
   .footer-title {
     font-size: 1.2rem;

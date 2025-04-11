@@ -1,120 +1,141 @@
-"use client";
-
-import Head from 'next/head';
 import React from 'react';
-import { Lora } from "next/font/google";
+import { Jost, Nunito } from "next/font/google";
+import MainLayout from '@/componentes/Main/Main';
+import NavBarTop from '@/componentes/Nav/NavBar';
+import Footer from '@/componentes/Footer/Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./globals.css";
+import Providers from '@/Providers/providers';
+import ClientLayoutComponent from '../Client/LayoutHome';
+import { initMercadoPago } from '@mercadopago/sdk-react';
+import { Metadata } from 'next'
+import { CookieProvider } from '@/context/CookieContext';
 
-// import { Metadata } from 'next'
 
-import '../index.css';
-import { CookieProvider } from '../context/CookieContext';
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import SearchProvider from '../context/SearchContext';
-import CartProvider from '../context/CartContext';
-import { ThemeProvider } from 'react-bootstrap';
-import TextStyleGlobal from '../global/TextGlobal';
+const jost = Jost({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-jost',
+});
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-nunito',
+});
 
-const inter = Lora({ subsets: ["latin"], weight: '400', style: 'normal' });
 
-// export const metadata: Metadata = {
-//     metadataBase: new URL('https://floreriasargentinas.com'),
-//     title: {
-//         template: '%s | Envio Flores',
-//         default: 'Envio Flores - Envío de Flores y Regalos a Domicilio',
-//     },
-//     description:
-//         'Envío de flores, rosas, chocolates, peluches y regalos a domicilio en Argentina. Entregas en el día, pagos con tarjeta. Envíos a CABA, GBA y todo el país. ✓ Garantía de Satisfacción',
-//     keywords: [
-//         'flores Argentina',
-//         'envío flores',
-//         'floreria online',
-//         'rosas',
-//         'ramos',
-//         'arreglos florales',
-//         'peluches',
-//         'chocolates',
-//         'regalos',
-//         'delivery flores',
-//         'envio regalos',
-//         'flores a domicilio',
-//         'floristeria CABA',
-//         'regalos Buenos Aires',
-//     ],
-//     alternates: {
-//         canonical: '/',
-//     },
-//     openGraph: {
-//         type: 'website',
-//         locale: 'es_AR',
-//         url: 'https://floreriasargentinas.com',
-//         siteName: 'Envio Flores',
-//         title: 'Envio Flores - Venta y envío de arreglos florales',
-//         description:
-//             'Envío de flores, rosas, chocolates, peluches y regalos a domicilio en Argentina',
-//         images: [
-//             {
-//                 url: 'https://www.floreriasargentinas.com/imagenes/productos/destacados-florerias-argentinas.jpg',
-//                 width: 800,
-//                 height: 600,
-//                 alt: 'Envio Flores - Productos Destacados',
-//             },
-//         ],
-//     },
-//     twitter: {
-//         card: 'summary_large_image',
-//         site: '@FloreriasArg',
-//         creator: '@FloreriasArg',
-//     },
-//     verification: {
-//         google: 'bPFq4uTn-hfAA3MPuYC3rXA0sBZPth8vUKAlqFEKCwI',
-//     },
-//     robots: {
-//         index: true,
-//         follow: true,
-//         googleBot: {
-//             index: true,
-//             follow: true,
-//             'max-snippet': -1,
-//             'max-image-preview': 'large',
-//             'max-video-preview': -1,
 
-//         },
-//     },
-//     icons: {
-//         icon: '/favicon.ico',
-//     },
-//     other: {
-//         'geo.region': 'AR',
-//         'geo.placename': 'Buenos Aires',
-//         'geo.position': '-34.603722;-58.381592',
-//         ICBM: '-34.603722, -58.381592',
-//         'theme-color': '#D4AF37',
-//     },
-// };
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://envioflores.com'),
+  title: {
+    template: '%s | Envio Flores',
+    default: 'Envio Flores - Flores Frescas y Regalos Premium a Domicilio',
+  },
+  description:
+    'Envío express de arreglos florales, rosas premium, plantas exóticas, chocolates gourmet y regalos personalizados a domicilio. Entregas en el día, seguimiento en tiempo real. Pago seguro con todas las tarjetas. Envíos a nivel nacional con garantía de frescura ✓ Atención 24/7.',
+  keywords: [
+    'flores frescas',
+    'envío express flores',
+    'florería premium',
+    'rosas importadas',
+    'ramos personalizados',
+    'arreglos florales exclusivos',
+    'flores para eventos',
+    'plantas exóticas',
+    'regalos corporativos',
+    'delivery flores premium',
+    'flores para cumpleaños',
+    'flores para aniversarios',
+    'ramos de novia',
+    'flores para hospitales',
+    'decoración floral',
+    'flores para condolencias',
+    'flores para ocasiones especiales',
+    'suscripción de flores'
+  ],
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    url: 'https://envioflores.com',
+    siteName: 'Envio Flores',
+    title: 'Envio Flores - Especialistas en Arreglos Florales Premium y Regalos Exclusivos',
+    description:
+      'Diseños florales exclusivos con garantía de frescura por 7 días. Envío express a todo el país, seguimiento en tiempo real y atención personalizada 24/7.',
+    images: [
+      {
+        url: 'https://www.envioflores.com/imagenes/productos/destacados-envio-flores.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Envio Flores - Colección Premium de Arreglos Florales',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@EnvioFlores',
+    creator: '@EnvioFlores',
+  },
+  verification: {
+    google: 'bPFq4uTn-hfAA3MPuYC3rXA0sBZPth8vUKAlqFEKCwI',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon-32x32.png',
+  },
+  other: {
+    'geo.region': 'ES',
+    'geo.placename': 'Madrid',
+    'geo.position': '40.416775;-3.703790',
+    ICBM: '40.416775, -3.703790',
+    'theme-color': '#ff5b84',
+    'application-name': 'Envio Flores',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-title': 'Envio Flores',
+    'format-detection': 'telephone=no',
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-
-    return (
-        <html lang="en">
-
-
-            <body id="body-index">
-                <CookieProvider>
-                    <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "" }} >
-                        {/* <FilterProvider> */}
-                        <SearchProvider>
-                            <CartProvider>
-                                <ThemeProvider theme={TextStyleGlobal}>
-                                    <div id="root">
-                                        {children}
-                                    </div>
-                                </ThemeProvider>
-                            </CartProvider>
-                        </SearchProvider>
-                    </PayPalScriptProvider>
-                </CookieProvider>
-            </body>
-
-        </html>
-    );
+  return (
+    <html lang="es">
+      <head>
+        <style>
+          {`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:wght@300;400;600;700;800&display=swap');`}
+        </style>
+        <meta name="author" content="Envio Flores" />
+        <meta name="copyright" content="© 2024 Envio Flores" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body className={`${jost.variable} ${nunito.variable}`}>
+        <CookieProvider>
+        <Providers>
+        
+          <MainLayout>
+            <ClientLayoutComponent>
+              {children}
+            </ClientLayoutComponent>
+          </MainLayout>
+          <Footer />
+        </Providers>
+        </CookieProvider>
+      </body>
+    </html>
+  );
 }

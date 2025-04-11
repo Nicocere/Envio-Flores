@@ -1,0 +1,50 @@
+.dark{
+    --background: #2f1a0f;
+    --secondary-background: #ffffff;
+    --color: #fcf5f0;
+    --color2: #D4AF37;
+
+}
+.light{
+    --background: #fcf5f0;
+    --color: #2f1a0f;
+    --color2: #D4AF37;
+}
+
+.divUbicacion {
+    padding-bottom: 70px;
+    padding: 175px 20px 150px;
+    text-align: center;
+    background: var(--background) ;
+    font-weight: 300;
+}
+
+.titulo{
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: var(--color);
+    font-size: 2rem;
+}
+
+.divText {
+    padding-top: 20px;
+    color: var(--color);
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.textStrong {
+    color: var(--color2) ;
+}
+
+.linkWhatsapp {
+    color: #D4AF37  ;
+}
+
+.iconWP {
+    color: #D4AF37  ;
+    margin: 0px 6px 0 15px;
+    font-size: 22px;
+
+}

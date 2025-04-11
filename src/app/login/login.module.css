@@ -1,0 +1,109 @@
+.dark {
+    --background: #2f1a0f;
+    --secondary-background: rgba(255, 255, 255, 0.8);
+    --color: #fcf5f0;
+    --color2: #D4AF37;
+}
+
+.light {
+    --background: #fcf5f0;
+    --color: #2f1a0f;
+    --color2: #D4AF37;
+}
+
+.divLogin{
+    padding: 180px 25px ;
+}
+.divLoginForm {
+    color: var(--color);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(92, 92, 92, 0.5);
+    margin: 0 70px;
+    border-radius: 10px;
+    font-size: 17px;
+    text-align: center;
+    max-width: 800px;
+    place-self: center;
+    background: var(--background);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 50px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.divLoginForm a {
+    text-decoration: none;
+    color: var(--color2);
+    font-size: large;
+    transition: all 0.35s ease;
+}
+
+.divLoginForm a:hover {
+    font-size:larger ;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.inputGroup {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.inputEmail, .inputPassword {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(92, 92, 92, 0.5);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.passwordInputContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: -webkit-fill-available;
+}
+
+.passwordInputWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.togglePasswordButton {
+    margin-left: -40px;
+}
+
+
+.btnRegistro {
+    margin: 25px 0;
+    background: #D4AF37;
+    font-size: 15px;
+    border: 1px solid #D4AF37;
+    color: #fcf5f0;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+.btnRegistro:hover {
+    background: #fcf5f0;
+    color: #2f1a0f;
+    border: 1px solid #D4AF37;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 650px) {
+    .divLoginForm {
+        margin: 20px;
+        padding: 30px 10px;
+    }
+    .inputEmail, .input-password {
+        width: 100%;
+    }
+}

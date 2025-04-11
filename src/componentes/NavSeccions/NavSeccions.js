@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom'
+import Link from 'next/link';
 import'./navSeccions.css'
 import { CategoriesSubMenu } from '../SubCategories/SubCategory';
-import '../../index.css'
+
 import { OcasionesSubMenu } from '../SubMenuOcasiones/OcasionesSubMenu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useTheme } from '../../context/ThemeSwitchContext';
@@ -25,31 +25,31 @@ const NavSeccions = () => {
         <ul className={`ulSeccion ${className}`}>
 
             <div className={`divSeccion ${className}`} >
-                <NavLink className="navSeccions" to='/' onClick={() => setShowMobileMenu(!showMobileMenu)}> Inicio </NavLink>
+                <Link className="navSeccions" href='/' onClick={() => setShowMobileMenu(!showMobileMenu)}> Inicio </Link>
 
                 <div className={`navSeccion ${className}`} //onClick={toggleSubMenu}
                                             onMouseEnter={() => setShowSubMenuProducts(true)} 
                                             onMouseLeave={() => setShowSubMenuProducts(false)}>
-                    <NavLink  to='/productos'>Productos
+                    <Link  href='/productos'>Productos
                     <KeyboardArrowDownIcon sx={{ transition:'transform .54s ease-in-out', transform: showSubMenuProducts && 'rotateX(180deg)'}}/>
-                    </NavLink>
+                    </Link>
                     {showSubMenuProducts && <CategoriesSubMenu />}
                 </div> 
 
                 <div className={`ocasionesSeccion ${className}`} //onClick={toggleSubMenu}
                                             onMouseEnter={() => setShowSubMenuOcasiones(true)} 
                                             onMouseLeave={() => setShowSubMenuOcasiones(false)}>
-                    <NavLink  to='/ocasiones'>Ocasiones
+                    <Link  href='/ocasiones'>Ocasiones
                     <KeyboardArrowDownIcon   sx={{ transition:'transform .54s ease-in-out', transform: showSubMenuOcasiones && 'rotateX(180deg)'}}/>
-                    </NavLink>
+                    </Link>
                     {showSubMenuOcasiones && <OcasionesSubMenu />}
                 </div> 
                
-                <NavLink className={`navSeccions ${className}`} to="/ayuda" onClick={() => setShowMobileMenu(!showMobileMenu)}>¿Cómo Comprar?</NavLink> 
+                <Link className={`navSeccions ${className}`} href="/ayuda" onClick={() => setShowMobileMenu(!showMobileMenu)}>¿Cómo Comprar?</Link> 
 
-                <NavLink className={`navSeccions ${className}`} to="/ubicacion" onClick={() => setShowMobileMenu(!showMobileMenu)}>Contacto</NavLink>
+                <Link className={`navSeccions ${className}`} href="/ubicacion" onClick={() => setShowMobileMenu(!showMobileMenu)}>Contacto</Link>
 
-                <NavLink className={`navSeccions ${className}`} to="/envios" onClick={() => setShowMobileMenu(!showMobileMenu)}>Zonas de Envio</NavLink>
+                <Link className={`navSeccions ${className}`} href="/envios" onClick={() => setShowMobileMenu(!showMobileMenu)}>Zonas de Envio</Link>
 
             </div>
 

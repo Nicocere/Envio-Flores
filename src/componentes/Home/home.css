@@ -1,31 +1,4 @@
-/* ========================================
-   ENCABEZADO DE SECCIÓN "NUESTRAS COLECCIONES"
-   ======================================== */
-:root{
-    --primary-color: #a70000;
-    --primary-dark: #670000;
-    --primary-light: #ff4d4d;
-    --primary-gradient: linear-gradient(45deg, var(--primary-color), var(--primary-light));
-    --secondary-color: #570000;
-    --accent-color: #ffcaca;
-    
-    --text-light: #ffffff;
-    --text-dark: #333333;
-    --text-muted: #6c757d;
-    
-    --background-light: #ffffff;
-    --background-dark: #222222;
-    
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2.5rem;
-    
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-    --font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-}
 
 /* Título principal */
 .simple-title {

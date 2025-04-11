@@ -1,0 +1,605 @@
+.container {
+    min-height: 100vh;
+    padding: 200px 2rem;
+    transition: all 0.3s ease;
+}
+
+.divContainer{
+    padding: 50px 20px;
+    border-radius: 20px;
+
+}
+
+.dark {
+    background-color: #2f1a0f;
+    color: #FAF3EB;
+}
+
+.light {
+    background-color: #FAF3EB;
+    color: #2f1a0f;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #D4AF37, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.carousel {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+}
+
+.carouselItem img {
+    height: 60vh;
+    object-fit: cover;
+}
+
+.benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.benefitCard {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.benefitCard svg {
+    font-size: 3rem;
+    color: #D4AF37;
+    margin-bottom: 1rem;
+}
+
+.scheduleInfo {
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.scheduleGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+}
+
+.scheduleCard {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: rgba(212, 175, 55, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.scheduleCard svg {
+    font-size: 3rem;
+    color: #D4AF37;
+}
+
+.subscriptionForm {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.inputGroup svg {
+    color: #D4AF37;
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+}
+
+.submitButton {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, #D4AF37, #FFD700);
+    color: #2f1a0f;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+/* Estilos existentes... */
+
+.planCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.linkCard{
+    text-decoration: none;
+    color: #D4AF37;
+}
+
+.planCard {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.planCard img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.planInfo {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.planInfo h3 {
+  color: #D4AF37;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #D4AF37;
+  margin: 1rem 0;
+}
+
+.detailsSection,
+.policySection {
+  position: relative;
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 3rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.detailsSection::before,
+.policySection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.detailsSection:hover::before,
+.policySection:hover::before {
+  opacity: 0.2;
+}
+
+.detailsSection h2,
+.policySection h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.detailsSection h2::after,
+.policySection h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50%;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, transparent);
+  transition: width 0.3s ease;
+}
+
+.detailsSection h2:hover::after,
+.policySection h2:hover::after {
+  width: 100%;
+}
+
+.detailsContent,
+.policyContent {
+  position: relative;
+  padding: 2rem;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detailsContent:hover,
+.policyContent:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.detailsContent p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: inherit;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.detailsContent p:hover {
+  opacity: 1;
+}
+
+.detailsContent h3 {
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem;
+  color: #D4AF37;
+  font-weight: 600;
+}
+
+.detailsContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.detailsContent li,
+.policyContent li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.detailsContent li:hover,
+.policyContent li:hover {
+  background: rgba(212, 175, 55, 0.05);
+  transform: translateX(10px);
+}
+
+.detailsContent li svg,
+.policyContent li svg {
+  color: #D4AF37;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.detailsContent li:hover svg,
+.policyContent li:hover svg {
+  transform: scale(1.2);
+}
+
+.policyContent h3 {
+  font-size: 1.6rem;
+  color: #D4AF37;
+  margin: 2rem 0 1rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.policyContent h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 25px;
+  background: #D4AF37;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .detailsSection,
+  .policySection {
+    padding: 2rem 1rem;
+    margin: 2rem auto;
+  }
+
+  .detailsSection h2,
+  .policySection h2 {
+    font-size: 2rem;
+  }
+
+  .detailsContent,
+  .policyContent {
+    padding: 1.5rem;
+  }
+
+  .detailsContent li,
+  .policyContent li {
+    padding: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detailsSection,
+  .policySection,
+  .detailsContent,
+  .policyContent,
+  .detailsContent li,
+  .policyContent li {
+    transition: none;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .detailsSection,
+  .policySection {
+    background: rgba(47, 26, 15, 0.9);
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 180px 1rem;
+  }
+
+  .divContainer {
+    padding: 30px 15px;
+    border-radius: 15px;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    padding: 0 1rem;
+    background: linear-gradient(135deg, #D4AF37, #FFD700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .planCards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .planCard {
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .planCard img {
+    height: 200px;
+  }
+
+  .planInfo {
+    padding: 1.25rem;
+  }
+
+  .planInfo h3 {
+    font-size: 1.5rem;
+  }
+
+  .price {
+    font-size: 1.25rem;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .infoSection{
+    padding: 30px 0;
+    margin: 20px 0;
+  }
+  .benefitCard {
+    padding: 1.5rem;
+    max-width: -webkit-fill-available;
+    margin: 0 auto;
+    width: -webkit-fill-available;
+  }
+
+  .benefitCard svg {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .detailsSection,
+  .policySection {
+    padding: 2rem 1rem;
+    margin: 2rem .2rem;
+    border-radius: 15px;
+  }
+
+  .detailsSection h2,
+  .policySection h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .detailsContent,
+  .policyContent {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .detailsContent p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .detailsContent h3 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .detailsContent ul,
+  .policyContent ul {
+    margin: 1.5rem 0;
+  }
+
+  .detailsContent li,
+  .policyContent li {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  .detailsContent li svg,
+  .policyContent li svg {
+    font-size: 1.25rem;
+  }
+
+  .policyContent h3 {
+    font-size: 1.3rem;
+    padding-left: 1.25rem;
+  }
+
+  .policyContent h3::before {
+    width: 4px;
+    height: 20px;
+  }
+
+  .subscriptionForm {
+    padding: 1.5rem;
+    margin: 2rem 1rem;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .inputGroup {
+    padding: 0.5rem;
+  }
+
+  .inputGroup input {
+    font-size: 1rem;
+  }
+
+  .submitButton {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+
+  /* Mejoras de touch targets */
+  .detailsContent li:hover,
+  .policyContent li:hover,
+  .planCard:hover,
+  .benefitCard:hover {
+    transform: none;
+  }
+
+  .detailsContent li:active,
+  .policyContent li:active {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(5px);
+  }
+
+  /* Optimizaciones de rendimiento */
+  .detailsSection::before,
+  .policySection::before {
+    display: none;
+  }
+
+  /* Mejoras de accesibilidad */
+  .inputGroup input:focus {
+    outline: 2px solid #D4AF37;
+    outline-offset: -2px;
+  }
+
+  .submitButton:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 375px) {
+  .container {
+    padding: 80px 0.75rem;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .planInfo h3 {
+    font-size: 1.25rem;
+  }
+
+  .detailsSection h2,
+  .policySection h2 {
+    font-size: 1.5rem;
+  }
+
+  .detailsContent p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Optimizaciones de orientación */
+@media (max-width: 768px) and (orientation: landscape) {
+  .container {
+    padding: 60px 1rem;
+  }
+
+  .planCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefits {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

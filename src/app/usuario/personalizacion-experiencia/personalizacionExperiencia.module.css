@@ -1,0 +1,427 @@
+.personalizacionContainer {
+    padding: 2rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98)); */
+}
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+    display: flex;
+    justify-content: flex-end;
+    padding: 180px 30px 20px;
+    margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+    background-color: var(--color2);
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--color);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+    width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+    color: var(--color2);
+    transform: scale(1.05);
+}
+
+.container {
+    padding: 10px 2rem 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.titulo {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.titulo:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #d4af37, #c4a032);
+    border-radius: 2px;
+}
+
+.subtitulo {
+    color: #d4af37;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.seccion {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(47, 26, 15, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.seccion:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(47, 26, 15, 0.15);
+}
+
+.productoCard {
+    position: relative;
+    height: 100%;
+    /* Altura fija */
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.productoCard img {
+    width: 100%;
+    height: 200px;
+    /* Altura fija para imágenes */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.productoCard:hover img {
+    transform: scale(1.05);
+}
+
+.productoCard:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #d4af37;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
+}
+
+/* .productoCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+} */
+
+.productoCard:hover::before {
+    opacity: 1;
+}
+
+.cardContent {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardActions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.cardActions button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardActions button:hover {
+    transform: scale(1.15);
+}
+
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.linkProducto {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 5px 0px;
+    width: 200px;
+    align-self: center;
+    max-width: 200px;
+    color: #d4af37;
+    font-weight: 900;
+    transition: all .3s;
+    align-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    border: 2px solid #D4AF38;
+}
+
+.linkProducto::before {
+    content: '';
+    position: absolute;
+    top: 78%;
+    left: -24px;
+    width: 50%;
+    height: 315%;
+    z-index: -1;
+    background: linear-gradient(87deg, #8E7346, transparent, transparent);
+    transform-origin: 0 0;
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    transition: transform 0.6s ease;
+}
+
+.linkProducto:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    border: 2px solid #d4af37;
+    background: #2f1a0f;
+    color: white;
+}
+
+.linkProducto:hover::before {
+    transform: translate(-50%, -50%) scale(1.2) rotate(-45deg);
+}
+
+.linkProducto:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+
+.favoriteButton {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    padding: 8px !important;
+    transition: all 0.3s ease !important;
+    z-index: 2;
+}
+
+.favoriteButton:hover {
+    transform: scale(1.1) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.favoriteButton:active {
+    transform: scale(0.95) !important;
+}
+
+/* Mejora del botón cuando está seleccionado */
+.favoriteButton[data-active="true"] {
+    background-color: rgba(255, 69, 58, 0.1) !important;
+}
+
+.favoriteButton[data-active="true"]:hover {
+    background-color: rgba(255, 69, 58, 0.2) !important;
+}
+
+/* Animación del icono */
+.favoriteButton svg {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.favoriteButton:hover svg {
+    transform: scale(1.2);
+}
+
+.recordatorioCard {
+    height: 300px;
+    /* Altura fija */
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #ffffff 0%, #f9f9f9 100%);
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    padding: 1.5rem;
+}
+
+
+.recordatorioCard:hover {
+    transform: translateY(-5px);
+    border-color: #d4af37;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+}
+
+.recordatorioCard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(225deg, rgba(212, 175, 55, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.recordatorioCard:hover::after {
+    opacity: 1;
+}
+
+.btnAgregarRecordatorio {
+    margin-top: 2rem;
+    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btnAgregarRecordatorio:hover {
+    background: #2f1a0f;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    border-color: #d4af37;
+}
+
+.btnAgregarRecordatorio::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s ease-out;
+}
+
+.btnAgregarRecordatorio:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes favoritosPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.favoriteIcon {
+    transition: all 0.3s ease;
+}
+
+.favoriteIcon:hover {
+    animation: favoritosPulse 0.8s infinite;
+    color: #ff4444;
+}
+
+
+@media screen and (max-width: 768px) {
+    .perfilUsuarioBtns {
+        display: flex;
+        justify-content: flex-end;
+        padding: 50px 30px 20px;
+        margin-bottom: 30px;
+    }
+
+    .container {
+        padding: 20px 10px 10px;
+    }
+
+    .personalizacionContainer {
+        padding: 2rem 15px;
+    }
+
+    .titulo {
+        font-size: 2rem;
+    }
+
+    .subtitulo {
+        font-size: 1.5rem;
+    }
+
+    .seccion {
+        padding: 1rem;
+    }
+
+    .productoCard {
+        width: -webkit-fill-available;
+    }
+
+
+    .cardContent {
+        padding: 0.5rem;
+    }
+
+    .cardActions {
+        padding: 0.3rem;
+    }
+
+    .linkProducto {
+        width: -webkit-fill-available;
+        max-width: -webkit-fill-available;
+    }
+
+    .recordatorioCard {
+        height: 250px;
+        padding: 1rem;
+    }
+
+    .btnAgregarRecordatorio {
+        padding: 1rem 2rem;
+    }
+
+}

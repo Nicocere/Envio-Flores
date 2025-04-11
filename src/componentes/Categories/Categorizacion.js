@@ -6,7 +6,8 @@ import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import { styled } from '@mui/material/styles';
 import { green, red } from '@mui/material/colors';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { NavLink, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useTheme } from '../../context/ThemeSwitchContext';
 
@@ -70,7 +71,7 @@ export default function Categorization({ name }) {
         },
       }} fontSize="small" />}>
 
-        <NavLink className="categories-navigation" to="/" >
+        <Link className="categories-navigation" href="/" >
           <Typography underline='none'
             sx={{
               display: 'flex', alignItems: 'center', color: isDarkMode ? 'white' : green[900], '&:hover': {
@@ -83,7 +84,7 @@ export default function Categorization({ name }) {
 
             Inicio
           </Typography>
-        </NavLink>
+        </Link>
         <Typography
           sx={{
             display: 'flex', alignItems: 'center', color: isDarkMode ? 'white' : '#a00303', '&:hover': {

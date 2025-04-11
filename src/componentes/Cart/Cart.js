@@ -623,7 +623,7 @@ const Cart = () => {
                             <>
                                 <h1 className='cartVacio'>
                                     El Carrito esta vacío...
-                                    Puedes ir al <Link to="/" className='cart-home'>Inicio</Link>{' '}
+                                    Puedes ir al <Link href="/" className='cart-home'>Inicio</Link>{' '}
                                     para buscar y agregar algún producto
                                 </h1>
                             </>

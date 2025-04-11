@@ -1,3 +1,4 @@
+"use client"
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -20,8 +21,8 @@ const generateRandomCode = (length) => {
 
 const CartProvider = ({ children }) => {
     // Estado inicial del carrito
-    const cartLocalStorage = localStorage.getItem('c', []);
-    const [cart, setCart] = useState(JSON.parse(cartLocalStorage) || []);
+    const [cart, setCart] = useState([]);
+    const [cartLocalStorage, setCartLocalStorage] = useState(null);
     
     // Estados para precios y ubicación
     const [finalPriceARS, setFinalPriceARS] = useState(0); // Precio en pesos argentinos
@@ -92,15 +93,19 @@ const CartProvider = ({ children }) => {
         }
     };
 
-    // Cargar el carrito desde localStorage al montar el componente
+    // Inicializar el carrito solo cuando estamos en el cliente
     useEffect(() => {
         try {
-            const storedEncryptedCart = localStorage.getItem('c');
-            if (storedEncryptedCart) {
-                const parsed = JSON.parse(storedEncryptedCart);
-                const decryptedCart = decryptCart(parsed);
-                if (Array.isArray(decryptedCart)) {
-                    setCart(decryptedCart);
+            if (typeof window !== 'undefined') {
+                const storedEncryptedCart = localStorage.getItem('c');
+                setCartLocalStorage(storedEncryptedCart);
+                
+                if (storedEncryptedCart) {
+                    const parsed = JSON.parse(storedEncryptedCart);
+                    const decryptedCart = decryptCart(parsed);
+                    if (Array.isArray(decryptedCart)) {
+                        setCart(decryptedCart);
+                    }
                 }
             }
         } catch (error) {
@@ -109,11 +114,13 @@ const CartProvider = ({ children }) => {
         }
     }, []);
 
-    // Guardar el carrito en localStorage cuando cambie
+    // Guardar el carrito en localStorage cuando cambie (solo en el cliente)
     useEffect(() => {
         try {
-            const encrypted = encryptCart(cart);
-            localStorage.setItem('c', JSON.stringify(encrypted));
+            if (typeof window !== 'undefined' && cart.length > 0) {
+                const encrypted = encryptCart(cart);
+                localStorage.setItem('c', JSON.stringify(encrypted));
+            }
         } catch (error) {
             console.error('Error al guardar el carrito en localStorage:', error);
         }

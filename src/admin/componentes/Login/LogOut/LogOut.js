@@ -1,14 +1,15 @@
 // useLogout.js
+import { useRouter } from "next/navigation.js";
 import { auth } from "../../../FireBaseConfig.js";
-import { useNavigate } from "react-router-dom";
+
 
 function useLogout() {
-    const navigate = useNavigate();
+    const navigate = useRouter();
 
     function logout() {
         auth.signOut()
             .then(() => {
-                navigate('/'); 
+                navigate.push('/'); 
             })
             .catch((error) => {
                 console.error("Error al cerrar sesión:", error);

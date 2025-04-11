@@ -53,7 +53,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--item-spacing-lg);
-  font-family: "Jost", sans-serif;
+   ;
   color: var(--item-text-light);
   box-sizing: border-box;
 }
@@ -77,7 +77,7 @@
   border: 1px solid var(--item-primary-dark);
   border-radius: var(--item-border-radius);
   padding: 8px 16px;
-  font-family: "Jost", sans-serif;
+   ;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;

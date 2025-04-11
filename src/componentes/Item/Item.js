@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ItemCount from '../ItemCount/ItemCount';
 import { CartContext } from '../../context/CartContext';
 import { useInView } from 'react-intersection-observer';
@@ -57,7 +57,7 @@ const Item = ({ items }) => {
       className={`item-card ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`}
     >
       {/* Imagen del producto */}
-      <Link to={`/detail/${items.id}`} className="item-image-container">
+      <Link href={`/detail/${items.id}`} className="item-image-container">
         <img 
           src={items.opciones[0].img || items.img} 
           alt={items.nombre}
@@ -86,7 +86,7 @@ const Item = ({ items }) => {
         {/* Encabezado: título y precio */}
         <div className="item-header">
           <h3 className="item-title">
-            <Link to={`/detail/${items.id}`} className="item-title-link">
+            <Link href={`/detail/${items.id}`} className="item-title-link">
               {items.nombre}
             </Link>
           </h3>
@@ -148,7 +148,7 @@ const Item = ({ items }) => {
           {/* Botón Ver más opciones */}
           {items.opciones.length > 1 && (
             <div className="view-more-container">
-              <Link to={`/detail/${items.id}`} className="view-more-button">
+              <Link href={`/detail/${items.id}`} className="view-more-button">
                 {isDesktop ? 'Ver opciones' : 'Ver más'}
               </Link>
             </div>
@@ -158,7 +158,7 @@ const Item = ({ items }) => {
       
       {/* Versión móvil: botón de acción rápida */}
       {isMobile && (
-        <Link to={`/detail/${items.id}`} className="mobile-action-button">
+        <Link href={`/detail/${items.id}`} className="mobile-action-button">
           <span className="mobile-action-icon"></span>
         </Link>
       )}

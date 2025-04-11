@@ -1,4 +1,5 @@
-import { NavLink, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
+import Link from 'next/link';
 import './Categories.css'
 import { FaBars } from '@react-icons/all-files/fa/FaBars'
 import React, { useState, useRef, useEffect } from 'react';
@@ -64,25 +65,25 @@ const Categories = () => {
 
         <div className='categorySeccion'>
 
-          <NavLink className={`seccionLi ${className}`} to='/productos' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Todo </NavLink>
+          <Link className={`seccionLi ${className}`} href='/productos' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Todo </Link>
 
-          <NavLink className={`seccionLi ${className}`} to='/categoria/Rosas' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Rosas</NavLink>
+          <Link className={`seccionLi ${className}`} href='/categoria/Rosas' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Rosas</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Floreros" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Floreros</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Floreros" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Floreros</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Arreglos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Arreglos</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Arreglos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Arreglos</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Especiales" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Especiales</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Especiales" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Especiales</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Canastas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Canastas</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Canastas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Canastas</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Ramos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Ramos</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Ramos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Ramos</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Plantas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Plantas</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Plantas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Plantas</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Comestibles" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Comestibles</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Comestibles" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Comestibles</Link>
 
-          <NavLink className={`seccionLi ${className}`} to="/categoria/Desayunos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Desayunos</NavLink>
+          <Link className={`seccionLi ${className}`} href="/categoria/Desayunos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Desayunos</Link>
         </div>
 
       </ul>

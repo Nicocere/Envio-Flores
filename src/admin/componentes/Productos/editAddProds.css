@@ -11,7 +11,7 @@
 }
 
 .div-add-edit-prods h1 {
-  font-family: "Jost", sans-serif;
+   ;
   background: #3d3d3df8;
   border-radius: 3px;
   padding: 8px;
@@ -23,7 +23,7 @@
 }
 
 .title-edit-prods {
-  font-family: "Jost", sans-serif;
+   ;
   background: #3d3d3df8;
   border-radius: 3px;
   padding: 8px;
@@ -35,7 +35,7 @@
   flex-direction: column;
   margin-bottom: 100px;
   text-align: justify;
-  font-family: "Jost", sans-serif;
+   ;
   background: linear-gradient(to bottom, white, #b4b4b4);
   color: black;
   padding: 30px;
@@ -97,17 +97,17 @@ textarea {
 
 .thead-table {
   background: rgb(0, 0, 0);
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
+     ;
+     ;
+     ;
 
 }
 
 .td-tbody {
   border: .8px solid black;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
+     ;
+     ;
+     ;
 }
 
 .tr-tbody:hover {
@@ -118,7 +118,7 @@ textarea {
 .td-tbody-price {
   font-weight: 700;
   border: .8px solid black;
-    font-family: "Jost", sans-serif;
+     ;
   padding: 3px 10px;
 }
 
@@ -126,23 +126,23 @@ textarea {
   font-size: small;
   border: .8px solid black;
   width: 25%;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
+     ;
+     ;
 }
 
 .td-tbody-cats {
   font-size: medium;
   border: .8px solid black;
   width: 15%;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
+     ;
+     ;
 }
 
 .td-tbody-btns{
   width: 30%;
   border: .8px solid black;
-    font-family: "Jost", sans-serif;
-    font-family: "Jost", sans-serif;
+     ;
+     ;
 }
 
 .btns-table {
@@ -159,7 +159,7 @@ textarea {
 }
 .waiting-all-changes{
   color: black;
-    font-family: "Jost", sans-serif;
+     ;
   font-weight: 500;
   font-size: 1.75rem;
   line-height: 1.75;
@@ -177,7 +177,7 @@ textarea {
   border-radius: 5px;
   background: darkred;
   color: white;
-    font-family: "Jost", sans-serif;
+     ;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
@@ -196,7 +196,7 @@ textarea {
   border-radius: 5px;
   background: rgba(0, 0, 219, 0.763);
   color: white;
-  font-family: "Jost", sans-serif;
+   ;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
@@ -240,7 +240,7 @@ textarea {
   margin: 0 15px 9px 0px;
   font-weight: 700;
   font-size: 22px;
-  font-family: "Jost", sans-serif;
+   ;
 }
 
 .div-newOpt input {
@@ -270,7 +270,7 @@ textarea {
 
 .div-mapedit-massive label {
   margin: 0 5px 0 0;
-  font-family: "Jost", sans-serif;
+   ;
 }
 
 .div-edit-massive {
@@ -283,7 +283,7 @@ textarea {
 }
 
 .div-edit-massive h2 {
-  font-family: "Jost", sans-serif;
+   ;
 }
 
 
@@ -292,7 +292,7 @@ textarea {
   background: rgb(7, 169, 7);
   color: white;
   border: 1px solid green;
-  font-family: "Jost", sans-serif;
+   ;
   font-size: large;
   border-radius: 5px;
   cursor: pointer;
@@ -309,7 +309,7 @@ textarea {
 }
 
 .div-porcentaje label {
-  font-family: "Jost", sans-serif;
+   ;
   margin: 0 10px;
 
 }

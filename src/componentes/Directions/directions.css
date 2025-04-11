@@ -2,7 +2,7 @@
     background: white;
     border-radius: 10px;
     border: 1px solid grey;
-    font-family: "Jost", sans-serif;
+     ;
       margin: 30px 20px;
     padding: 0 10px;
 
@@ -30,7 +30,7 @@
 .li-directs a{
     font-size: 20px;
     font-weight: 800;
-    font-family: "Jost", sans-serif;
+     ;
     color: darkred!important;
       transition: all .5s;
     text-decoration: none;

@@ -1,5 +1,5 @@
 /* Variables globales para consistencia */
-:root {
+.occasionsContainer {
   --primary-color: #a70000;
   --primary-light: #ff4d4d;
   --primary-dark: #800000;
@@ -46,7 +46,7 @@
 }
 
 .darkMode {
-  background-color: var(--bg-dark);
+  background-color: var(--background-dark) !important;
 }
 
 /* ===========================
@@ -272,6 +272,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  color: var(--text-light);
   padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
   transform: translateY(0);
   transition: transform var(--transition-medium);
@@ -308,6 +309,7 @@
 .occasionTitle {
   font-family: var(--font-primary);
   font-size: 2rem;
+  color: var(--text-light);
   font-weight: 700;
   margin: 0 0 8px;
   position: relative;
@@ -420,8 +422,8 @@
   }
   
   .darkMode .viewAllButton {
-    background-color: #ff7070;
-    color: #1a1a1a;
+    background-color: var(--primary-color);
+    color: var(--text-light);
   }
   
   .viewAllButton:hover {
@@ -432,7 +434,8 @@
   }
   
   .darkMode .viewAllButton:hover {
-    background-color: #ff9090;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
   }
 
 .arrowLong {
@@ -446,13 +449,13 @@
 }
 
 .darkMode .arrowLong {
-  stroke: #1a1a1a;
+  stroke: var(--text-light);
 }
 
 .viewAllButton:hover .arrowLong {
   transform: translateX(5px);
-  stroke: var(--primary-color);
-  fill: var(--primary-color);
+  stroke: var(--text-light);
+  fill: var(--text-light);
 }
 
 /* ===========================

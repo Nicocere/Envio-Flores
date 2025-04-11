@@ -26,7 +26,7 @@ function SuccessPage() {
       <p>El estado del pago es: {status}</p>
       <p>Tu compra ha sido procesada correctamente. ¡Gracias por tu pedido!</p>
 
-      <h5>Puedes ir al <Link to="/" className='cart-home'>Inicio</Link>{' '} para buscar y agregar algún producto </h5>
+      <h5>Puedes ir al <Link href="/" className='cart-home'>Inicio</Link>{' '} para buscar y agregar algún producto </h5>
     </div>
   );
 }

@@ -1,0 +1,86 @@
+.dark{
+    --background: #2f1a0f;
+    --secondary-background: #ffffff;
+    --color: #fcf5f0;
+    --color2: #D4AF37;
+    --color3: #2f1a0f;
+
+}
+.light{
+    --secondary-background: #2f1a0f;
+    --background: #fcf5f0;
+    --color: #2f1a0f;
+    --color2: #D4AF37;
+    --color3: #fcf5f0;
+}
+
+.directionsDiv {
+    background: var(--background)  ; 
+    border-radius: 10px;
+    border: 1px solid var(--secondary-background);
+    padding: 150px 20px 50px;
+    text-align: center;
+    color: var(--color); 
+}
+
+.directionsDiv h1 {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: var(--color); 
+    font-size: 2rem;
+}
+
+.envioDirectionList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.liDirects {
+    margin: 10px 0;
+    text-align: left;
+}
+
+.liDirects a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color3) ; 
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.liDirects a:hover {
+    color: var(--color2);
+}
+
+.letterHeader {
+    background: #D4AF37; 
+    text-align: center;
+    color: #F1E4D3; 
+    font-weight: 800;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.groupContainer {
+    flex: 1 1 30%;
+    margin: 20px;
+    background: var(--secondary-background); 
+    border-radius: 10px;
+    padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+
+    .groupContainer {
+        flex: 1 1 50%;
+        max-width: -webkit-fill-available;
+    }
+    
+}

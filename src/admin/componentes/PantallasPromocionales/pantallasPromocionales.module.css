@@ -1,0 +1,385 @@
+.DivContainer {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 150px;
+  padding-bottom: 150px;
+
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--secondary-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+  border-radius: 3px;
+  padding: 8px;
+  color: var(--color2);
+  /* background: var(--color2); */
+  text-transform: uppercase;
+}
+
+
+.divTextsOrders {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
+  width: 100%;
+  /* padding: 30px 20px; */
+  border-radius: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color2);
+  background-color: var(--secondary-background);
+}
+
+.divTextsOrders p {
+  color: var(--color);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.divTextsOrders strong {
+  color: var(--color2);
+  letter-spacing: 1px;
+  padding: 10px 50px;
+}
+
+
+/* Personalizar la barra de desplazamiento para que sea más visible */
+.divTextsOrders::-webkit-scrollbar {
+  width: 12px;
+  /* Ancho de la barra de desplazamiento */
+}
+
+.divTextsOrders::-webkit-scrollbar-thumb {
+  background-color: var(--color2);
+  /* Color de la barra de desplazamiento */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  transition: background-color 1s ease-in;
+  /* Efecto de transición al pasar el ratón */
+  cursor: grab;
+}
+
+.divTextsOrders::-webkit-scrollbar-thumb:hover {
+  background-color: #D4AF37;
+  /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+.divTextsOrders::-webkit-scrollbar-thumb:active {
+  cursor: grabbing;
+  /* Cambiar el cursor a grabbing cuando se hace clic */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input,
+.form textarea,
+.form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.selectContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.previewBox {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  width: -webkit-fill-available;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: -webkit-fill-available;
+
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}
+
+
+.preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  z-index: 1000;
+  text-shadow: 1px 2px 5px black;
+}
+
+.preview h2 {
+  font-size: 5rem;
+  margin: 60px 0 20px
+}
+
+.preview p {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.preview small {
+  padding: 0 0 40px;
+}
+
+.preview .iconos {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.preview .buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.preview .buttons button {
+  padding: 10px 20px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.preview .buttons button:last-child {
+  background: #dc3545;
+}
+
+.preview .buttons button:hover {
+  background: #218838;
+}
+
+.preview .buttons button:last-child:hover {
+  background: #c82333;
+}
+
+.preview .countdown {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.containerPantallasActivas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 150px;
+  margin: 40px;
+  width: -webkit-fill-available;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px var(--shadow);
+  background-color: var(--background);
+}
+
+.pantallasList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 50px;
+  border-radius: 20px;
+  margin: 40px;
+  width: -webkit-fill-available;
+  background: var(--secondary-background);
+}
+
+.empty {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #333;
+
+}
+.divNewPromo{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 40px;
+  margin: 0px;
+  width: -webkit-fill-available;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px var(--shadow);
+  background-color: var(--hover);
+}
+
+.pantallaItem {
+  padding: 50px;
+  background: var(--hover);
+  border: 2px solid #d4af37;
+  border-radius: 15px;
+  max-width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease;
+}
+.pantallaItem:hover{
+  border: 5px solid #d4af37;
+}
+
+.pantallaItem h3 {
+  margin: 0 0 10px;
+  color: var(--color);
+}
+
+.pantallaItem p {
+  margin: 5px 0;
+  color: var(--color2);
+}
+
+
+/* Efectos de lluvia de partículas */
+.snow,
+.hearts,
+.spiders {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.particle {
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: fall linear infinite;
+}
+
+.snow .particle {
+  background-image: url('/imagenes/png/nieve.png');
+}
+
+.hearts .particle {
+  background-image: url('/imagenes/png/heart.png');
+}
+
+.spiders .particle {
+  background-image: url('/imagenes/png/telaraña.png');
+}
+
+@keyframes fall {
+  0% {
+    top: -10%;
+  }
+
+  100% {
+    top: 110%;
+  }
+}
+
+
+.btnTableEdit, .btnTableDelete {
+  padding: 8px 15px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btnsTable{
+    display: flex;
+    justify-content: space-around;
+
+}
+.btnTableEdit {
+  background: #D4AF37;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover{
+    background: #836c22;
+}
+.btnTableDelete:hover{
+    background: #6f0c0c;
+}
+
+.btnTableDelete {
+  background: #450707;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover, .btnTableDelete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px var(--shadow);
+}

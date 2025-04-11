@@ -1,27 +1,4 @@
-/* ----------------------------------------
-   Variables de estilo
----------------------------------------- */
-:root {
-  --stepper-primary: #a00303;
-  --stepper-primary-dark: #800000;
-  --stepper-primary-light: #d64040;
-  
-  --stepper-success: #035b0e;
-  --stepper-success-dark: #024a0b;
-  --stepper-success-light: #4caf50;
-  
-  --stepper-text-dark: #333333;
-  --stepper-text-light: #fcfcfc;
-  --stepper-text-muted: #757575;
-  
-  --stepper-bg-light: #ffffff;
-  --stepper-bg-dark: #121212;
-  
-  --stepper-transition: 0.3s ease;
-  --stepper-border-radius: 12px;
-  --stepper-shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --stepper-shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
+
 
 /* ----------------------------------------
    Contenedor principal

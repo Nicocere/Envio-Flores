@@ -56,7 +56,7 @@
   transition: all .5s;
   margin-left: 10px;
   margin-right: 5px;
-  font-family: "Jost", sans-serif;
+   ;
   color: #561b42;
 }
 
@@ -80,7 +80,7 @@
   margin-left: .5%;
   text-decoration: none;
   transition: color .5s;
-  font-family: "Jost", sans-serif;
+   ;
   color: #561b42;
   ;
 }

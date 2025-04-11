@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import Link from 'next/link';
 import './ocasionesSubMenu.css'
 import { useTheme } from '../../context/ThemeSwitchContext';
 
@@ -11,17 +11,17 @@ export const OcasionesSubMenu = () => {
 
     return (
         <div className={`submenuOcasiones ${className}`}>
-            <NavLink className='ocasionesSeccion' to='/ocasiones/Aniversarios' >Aniversarios</NavLink>
+            <Link className='ocasionesSeccion' href='/ocasiones/Aniversarios' >Aniversarios</Link>
 
-            <NavLink className='ocasionesSeccion' to="/ocasiones/Casamientos" >Casamientos</NavLink>
+            <Link className='ocasionesSeccion' href="/ocasiones/Casamientos" >Casamientos</Link>
 
-            <NavLink className='ocasionesSeccion' to="/ocasiones/Cumpleaños" >Cumpleaños</NavLink>
+            <Link className='ocasionesSeccion' href="/ocasiones/Cumpleaños" >Cumpleaños</Link>
 
-            <NavLink className='ocasionesSeccion' to="/ocasiones/Condolencias" >Condolencias</NavLink>
+            <Link className='ocasionesSeccion' href="/ocasiones/Condolencias" >Condolencias</Link>
 
-            <NavLink className='ocasionesSeccion' to="/ocasiones/Nacimientos" >Nacimientos</NavLink>
+            <Link className='ocasionesSeccion' href="/ocasiones/Nacimientos" >Nacimientos</Link>
 
-            <NavLink className='ocasionesSeccion' to="/ocasiones/RegalosHombres" >Regalos para Ellos</NavLink>
+            <Link className='ocasionesSeccion' href="/ocasiones/RegalosHombres" >Regalos para Ellos</Link>
 
         </div>
     );

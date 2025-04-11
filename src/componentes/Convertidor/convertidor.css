@@ -17,8 +17,6 @@
 
 
 .lbl-usd {
-    font-family: "Jost", sans-serif !important;
-
     color: #353535;
     font-weight: 500;
     padding-right: 0px;
@@ -66,7 +64,7 @@
     opacity: 1;
     transform: translateY(0);
     transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    font-family: "Jost", sans-serif;
+     ;
 
 }
 

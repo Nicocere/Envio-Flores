@@ -6,7 +6,7 @@
     border-radius: 14px;
 }
 .perfil-usuario p{
-    font-family: "Jost", sans-serif;
+     ;
     color: white;
     font-weight: 700;
     font-size: large;
@@ -15,7 +15,7 @@
 }
 
 .perfil-usuario h1{
-    font-family: "Jost", sans-serif;
+     ;
     font-weight: 700;
     margin-top: 15px;
     color: black;
@@ -25,7 +25,7 @@
 }
 
 .perfil-usuario h2{
-    font-family: "Jost", sans-serif;
+     ;
     font-weight: 700;
     margin-top: 15px;
     color: rgb(255, 255, 255);
@@ -37,7 +37,7 @@
 .perfil-usuario strong{
 
     font-weight: 700;
-    font-family: "Jost", sans-serif;
+     ;
     color: darkred;
 } 
 
@@ -52,7 +52,7 @@
 
 .div-btns div{
     margin: 5px;
-    font-family: "Jost", sans-serif;
+     ;
     color: darkred;
     border: 1px solid rgb(143, 0, 0);
     padding: 2%;

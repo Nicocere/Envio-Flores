@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 import './middlemenu.css';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import { useInView } from 'react-intersection-observer';
@@ -106,8 +106,8 @@ export default function MiddleMenu({banners, loading}) {
               const Icon = getIconForBanner(banner);
               
                 return (
-                <NavLink 
-                  to={banner.ruta || '/productos'} 
+                <Link 
+                  href={banner.ruta || '/productos'} 
                   className="simple-card" 
                   key={banner.id || index}
                 >
@@ -131,17 +131,17 @@ export default function MiddleMenu({banners, loading}) {
                     {banner.descripcion || `Descubre nuestra coleccion de ${banner.nombre || 'flores'}`}
                   </p>
                   </div>
-                </NavLink>
+                </Link>
                 );
             })}
           </div>
         )}
         
         <div className="simple-footer">
-          <NavLink to="/productos" className="simple-all-button">
+          <Link href="/productos" className="simple-all-button">
             <span>Ver todas las colecciones</span>
             <FaArrowRight />
-          </NavLink>
+          </Link>
         </div>
       </div>
     </animated.div>

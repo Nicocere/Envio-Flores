@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from  'next/link';
 import { collection, getDocs } from 'firebase/firestore';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
 import { useMediaQuery } from '@mui/material';
@@ -99,7 +99,7 @@ export default function TopItems() {
                                 </div>
                                 
                                 <div className="product-image-container">
-                                    <Link to={`/detail/${item.id}`} className="product-image-link">
+                                    <Link href={`/detail/${item.id}`} className="product-image-link">
                                         <img 
                                             src={item?.opciones[0].img} 
                                             alt={item.nombre} 
@@ -108,7 +108,7 @@ export default function TopItems() {
                                         />
                                     </Link>
                                     <div className="product-quick-view">
-                                        <Link to={`/detail/${item.id}`} className="quick-view-button">
+                                        <Link href={`/detail/${item.id}`} className="quick-view-button">
                                             Ver Detalles
                                         </Link>
                                     </div>
@@ -121,7 +121,7 @@ export default function TopItems() {
                                     </div>
                                     
                                     <h3 className="product-title">
-                                        <Link to={`/detail/${item.id}`}>{item.nombre}</Link>
+                                        <Link href={`/detail/${item.id}`}>{item.nombre}</Link>
                                     </h3>
                                     
                                     <div className="product-details">
@@ -159,7 +159,7 @@ export default function TopItems() {
             )}
             
             <div className="view-all-container">
-                <Link to="/productos" className="view-all-button">
+                <Link href="/productos" className="view-all-button">
                     Ver Todos los Productos
                 </Link>
             </div>

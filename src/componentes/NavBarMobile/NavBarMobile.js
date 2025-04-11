@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SwipeableDrawer, IconButton, Box, TextField, Typography, Button, useMediaQuery, Slide, useScrollTrigger, AppBar, Toolbar, Avatar, Paper } from '@mui/material';
-import { NavLink, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
 import { SubMenuUsers } from '../SubMenuUsers/SubMenuUsers';
 import CartWidget from '../CartWidget/CartWidget';
 import styled from '@emotion/styled';
@@ -20,6 +20,7 @@ import SearcherMobile from '../SearcherMobile/SearcherMobile';
 import Convertidor from '../Convertidor/Convertidor';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import { useTheme } from '../../context/ThemeSwitchContext';
+import { useRouter } from 'next/navigation';
 
 const NavBarMobile = () => {
 
@@ -83,13 +84,13 @@ const NavBarMobile = () => {
   //USUARIO CONECTADO
   const logout = useLogout()
 
-  const navigate = useNavigate()
+  const navigate = useRouter()
 
   const handleProfileNavigation = () => {
     if (userData.rol === 'administrador') {
-      navigate('/administrador');
+      navigate.push('/administrador');
     } else {
-      navigate('/perfil');
+      navigate.push('/perfil');
     }
   };
 
@@ -98,7 +99,7 @@ const NavBarMobile = () => {
   };
 
   const handleInitSession = () => {
-    navigate('/login');
+    navigate.push('/login');
   };
 
 
@@ -203,13 +204,13 @@ const NavBarMobile = () => {
 
             </div>
 
-            <NavLink to="/">
+            <Link href="/">
               <img className='img-navbar'
 
                 src={'/assets/imagenes/logo-envio-flores.png'}
                 alt="logo envio flores"
               />
-            </NavLink>
+            </Link>
 
             <div style={{
               position: 'absolute',
@@ -226,9 +227,9 @@ const NavBarMobile = () => {
               {/* <ThemeSwitch /> */}
             </div>
 
-            <NavLink to="/cart">
+            <Link href="/cart">
               <CartWidget />
-            </NavLink>
+            </Link>
 
           </CustomizedToolbar>
         </CustomizedAppBar>
@@ -285,25 +286,25 @@ const NavBarMobile = () => {
               <div className='divSeccionMobile' >
                 <SearcherMobile onClick={handleToggleDrawer(false)} />
 
-                <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to='/' onClick={handleToggleDrawer(!openDrawer)}  > Inicio </NavLink>
+                <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href='/' onClick={handleToggleDrawer(!openDrawer)}  > Inicio </Link>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}   >
-                  <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to="/productos" onClick={handleToggleProductsDrawer(true)}>
+                  <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href="/productos" onClick={handleToggleProductsDrawer(true)}>
                     Productos
-                  </NavLink>
+                  </Link>
                 </div>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}   >
-                  <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to="/ocasiones" onClick={handleToggleOcassionsDrawer(true)}>
+                  <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href="/ocasiones" onClick={handleToggleOcassionsDrawer(true)}>
                     Ocasiones
-                  </NavLink>
+                  </Link>
                 </div>
 
-                <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to="/ayuda" onClick={handleToggleDrawer(!openDrawer)}  >¿Cómo Comprar?</NavLink>
+                <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href="/ayuda" onClick={handleToggleDrawer(!openDrawer)}  >¿Cómo Comprar?</Link>
 
-                <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to="/ubicacion" onClick={handleToggleDrawer(!openDrawer)}  >Contacto</NavLink>
+                <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href="/ubicacion" onClick={handleToggleDrawer(!openDrawer)}  >Contacto</Link>
 
-                <NavLink className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} to="/envios" onClick={handleToggleDrawer(!openDrawer)}  >Zonas de Envio</NavLink>
+                <Link className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} href="/envios" onClick={handleToggleDrawer(!openDrawer)}  >Zonas de Envio</Link>
 
               </div>
 
@@ -371,23 +372,23 @@ const NavBarMobile = () => {
             </div>
 
             <div className="div-prods-SeccionMobile">
-              <NavLink className='list-products' to='/categoria/Rosas'>Rosas</NavLink>
+              <Link className='list-products' href='/categoria/Rosas'>Rosas</Link>
 
-              <NavLink className='list-products' to="/categoria/Floreros">Floreros</NavLink>
+              <Link className='list-products' href="/categoria/Floreros">Floreros</Link>
 
-              <NavLink className='list-products' to="/categoria/Arreglos">Arreglos</NavLink>
+              <Link className='list-products' href="/categoria/Arreglos">Arreglos</Link>
 
-              <NavLink className='list-products' to="/categoria/Especiales">Especiales</NavLink>
+              <Link className='list-products' href="/categoria/Especiales">Especiales</Link>
 
-              <NavLink className='list-products' to="/categoria/Canastas">Canastas</NavLink>
+              <Link className='list-products' href="/categoria/Canastas">Canastas</Link>
 
-              <NavLink className='link-products' to="/categoria/Ramos">Ramos</NavLink>
+              <Link className='link-products' href="/categoria/Ramos">Ramos</Link>
 
-              <NavLink className='list-products' to="/categoria/Plantas">Plantas</NavLink>
+              <Link className='list-products' href="/categoria/Plantas">Plantas</Link>
 
-              <NavLink className='list-products' to="/categoria/Comestibles">Comestibles</NavLink>
+              <Link className='list-products' href="/categoria/Comestibles">Comestibles</Link>
 
-              <NavLink className='list-products' to="/categoria/Desayunos">Desayunos</NavLink>
+              <Link className='list-products' href="/categoria/Desayunos">Desayunos</Link>
             </div>
 
           </div>
@@ -450,17 +451,17 @@ const NavBarMobile = () => {
             </Button>
 
             <div className="div-prods-SeccionMobile">
-              <NavLink className='ocasionesSeccion' to='/ocasiones/Aniversarios' >Aniversarios</NavLink>
+              <Link className='ocasionesSeccion' href='/ocasiones/Aniversarios' >Aniversarios</Link>
 
-              <NavLink className='ocasionesSeccion' to="/ocasiones/Casamientos" >Casamientos</NavLink>
+              <Link className='ocasionesSeccion' href="/ocasiones/Casamientos" >Casamientos</Link>
 
-              <NavLink className='ocasionesSeccion' to="/ocasiones/Cumpleaños" >Cumpleaños</NavLink>
+              <Link className='ocasionesSeccion' href="/ocasiones/Cumpleaños" >Cumpleaños</Link>
 
-              <NavLink className='ocasionesSeccion' to="/ocasiones/Condolencias" >Condolencias</NavLink>
+              <Link className='ocasionesSeccion' href="/ocasiones/Condolencias" >Condolencias</Link>
 
-              <NavLink className='ocasionesSeccion' to="/ocasiones/Nacimientos" >Nacimientos</NavLink>
+              <Link className='ocasionesSeccion' href="/ocasiones/Nacimientos" >Nacimientos</Link>
 
-              <NavLink className='ocasionesSeccion' to="/ocasiones/RegalosHombres" >Regalos para Ellos</NavLink>
+              <Link className='ocasionesSeccion' href="/ocasiones/RegalosHombres" >Regalos para Ellos</Link>
             </div>
 
           </div>

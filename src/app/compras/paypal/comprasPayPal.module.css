@@ -1,0 +1,341 @@
+/* Light Mode */
+.lightMode {
+    --primary-color: #D4AF37;
+    --background-color: #fcf5f0;
+    --secondary-background-color: #F5E9D7;
+    --card-background-color: #FFF8F0;
+    --text-color: #2f1a0f;
+    --accent-color: #4a2e0c;
+    --success-color: #5CB85C;
+    --navbar-light: rgba(245, 233, 215, 0.9);
+    --icon-container: #d4af37;
+    --icon-color: #2f1a0f;
+    --icon-hover: #fff8f0;
+  }
+  
+  /* Dark Mode */
+  .darkMode {
+    --primary-color: #D4AF37;
+    --background-color: #2f1a0f00;
+    --text-color: #2f1a0f;
+    --accent-color: #432e0c;
+    --navbar-dark: #2f1a0fb8;
+    --icon-container: #2f1a0f;
+    --icon-color: #ffffff;
+    --icon-hover: #D4af32;
+  }
+  
+  .logoLink {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .mainContainer {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--background-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 180px 20px;
+  }
+  
+  .spinnerBox {
+    background: #fff;
+    padding: 30px 45px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .infoText {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 1rem;
+  }
+  
+  .ticketContainer {
+    background: #fff;
+    max-width: 500px;
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    margin: 0 0 10px;
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--accent-color);
+  }
+  
+  .subtitleSmall {
+    font-size: .9rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--primary-color);
+  }
+  
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: var(--icon-container);
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .icon {
+    font-size: 2rem;
+    margin: 0 10px;
+    cursor: pointer;
+    color: var(--icon-color);
+    transition: color 0.3s ease;
+  }
+  
+  .icon:hover {
+    color: var(--icon-hover);
+  }
+  
+  .section {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--accent-color);
+  }
+  
+  .section h2 {
+    margin-bottom: 8px;
+    font-size: 1.5rem;
+    color: var(--text-color);
+  }
+  
+  .sectionTitle {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .detailContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .detailLabel {
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  
+  .detailValue {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    text-align: right;
+  }
+  
+  .productCard {
+    display: flex;
+    gap: 15px;
+    background: var(--card-background-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .productCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .productImageContainer {
+    flex-shrink: 0;
+  }
+  
+  .productImage {
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .productDetails p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  
+  .productName {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+  }
+  
+  .productPrice {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+  }
+  
+  .productDiscount {
+    font-size: 1rem;
+    color: var(--success-color);
+  }
+  
+  .productSubtotal {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: bold;
+  }
+  
+  .localContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-content: center;
+    align-items: stretch;
+  }
+  
+  .footerText {
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 650px) {
+    .mainContainer {
+      padding: 150px 10px;
+    }
+  
+    .spinnerBox {
+      padding: 20px 30px;
+    }
+  
+    .ticketContainer {
+      padding: 20px;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .subtitle {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+  
+    .subtitleSmall {
+      font-size: .8rem;
+      margin-bottom: 8px;
+    }
+  
+    .iconContainer {
+      margin-bottom: 15px;
+      padding: 8px;
+    }
+  
+    .icon {
+      font-size: 1.5rem;
+      margin: 0 5px;
+    }
+  
+    .section {
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+    }
+  
+    .section h2 {
+      font-size: 1.2rem;
+    }
+  
+    .sectionTitle {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+  
+    .detailContainer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .detailLabel,
+    .detailValue {
+      font-size: 1rem;
+      font: message-box;
+    }
+  
+    .productCard {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+  
+    .productImageContainer {
+      width: 100%;
+    }
+  
+    .productImage {
+      width: 100%;
+      height: auto;
+    }
+  
+    .productDetails {
+      align-items: flex-start;
+    }
+  
+    .productDetails p {
+      font-size: 0.9rem;
+    }
+  
+    .productName {
+      font-size: 1rem;
+    }
+  
+    .productPrice,
+    .productDiscount,
+    .productSubtotal {
+      font-size: 0.9rem;
+    }
+  
+    .localContainer {
+      margin-bottom: 15px;
+    }
+  
+    .footerText {
+      font-size: 0.85rem;
+      margin-top: 20px;
+    }
+  }

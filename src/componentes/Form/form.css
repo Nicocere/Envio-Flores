@@ -1,34 +1,6 @@
 /* ===================================
    Variables de estilos
 =================================== */
-:root {
-  --form-primary: #a70000;
-  --form-primary-hover: #800000;
-  --form-primary-light: #f5e1e1;
-  --form-secondary: #4caf50;
-  --form-secondary-hover: #388e3c;
-  --form-error: #d32f2f;
-  --form-warning: #ff9800;
-  
-  --form-bg: #ffffff;
-  --form-bg-alt: #f8f8f8;
-  --form-bg-dark: #f1f1f1;
-  
-  --form-text: #333333;
-  --form-text-light: #666666;
-  --form-text-muted: #888888;
-  
-  --form-border: #e0e0e0;
-  --form-border-focus: #a70000;
-  --form-border-hover: #cccccc;
-  
-  --form-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --form-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
-  
-  --form-radius: 8px;
-  --form-radius-sm: 4px;
-  --form-transition: all 0.25s ease;
-}
 
 /* Encabezado del formulario - Diseño mejorado */
 .form-header {

@@ -1,0 +1,291 @@
+.swal-custom-popup {
+  border-radius: 20px !important;
+  padding: 2rem !important;
+}
+
+.swal-custom-confirm {
+  background: linear-gradient(135deg, #D4AF37, #FFD700) !important;
+  border-radius: 30px !important;
+  padding: 1rem 2rem !important;
+  font-weight: bold !important;
+}
+
+.swal-custom-cancel {
+  border-radius: 30px !important;
+  padding: 1rem 2rem !important;
+}
+
+@media (max-width: 768px) {
+  .swal2-popup {
+    width: 90% !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+
+.promotionsSection {
+  --light-bg: #faf3eb;
+  --dark-bg: #2f1a0f;
+  --gold: #d4af37;
+  --card-radius: 1rem;
+  --transition: all .3s ease-in-out;
+  --ultra-dark-bg: #0c0402;
+  width: -webkit-fill-available;
+  padding: 2rem;
+  min-height: 150vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Grid de promociones */
+.promotionsGrid {
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: --webkit-fill-available;
+  padding: 3rem;
+
+}
+
+/* Tarjeta de promoción */
+.promoCard {
+  position: relative;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.promoCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Contenido de la promo */
+.promoContent {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  background: #2f1a0f51;
+  -webkit-backdrop-filter: blur(10px);
+
+  backdrop-filter: blur(5px);
+}
+
+/* Etiqueta de la promo */
+.promoTag {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--light-bg);
+  border-radius: 2rem;
+  font-weight: 500;
+  -webkit-backdrop-filter: blur(10px);
+
+  backdrop-filter: blur(4px);
+}
+
+/* Validez */
+.validez {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-top: auto;
+}
+
+/* Botón de promo */
+.promoButton {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 2rem;
+  background: var(--gold);
+  color: var(--dark-bg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  align-self: center;
+}
+
+.promoButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.specialOffer {
+  --card-padding: clamp(2rem, 5vw, 3rem);
+  --border-radius: 1.5rem;
+  max-width: 800px;
+  align-self: center;
+  padding: var(--card-padding);
+  border-radius: var(--border-radius);
+  background: rgba(47, 26, 15, 0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.specialOffer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.specialOffer h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.specialOffer p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.contactButton {
+  padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
+  border: none;
+  border-radius: 3rem;
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: var(--dark-bg);
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.contactButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  height: 100%;
+  background: linear-gradient(135deg, #FFD700, #D4AF37);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.contactButton:hover::before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .specialOffer {
+    margin: 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .specialOffer::before {
+    background: linear-gradient(
+      180deg,
+      rgba(212, 175, 55, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+  }
+  
+  .contactButton {
+    width: -webkit-fill-available;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
+@media (hover: hover) {
+  .specialOffer:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-color: rgba(212, 175, 55, 0.5);
+  }
+}
+/* Estado de carga y sin promos */
+.noPromos {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(47, 26, 15, 0.05);
+  border-radius: var(--card-radius);
+  -webkit-backdrop-filter: blur(10px);
+
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .promotionsSection {
+    padding: 1rem;
+  }
+  
+  .promotionsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .specialOffer {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Modo oscuro */
+:global([data-theme='dark']) .promoCard {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme='dark']) .specialOffer {
+  background: rgba(250, 243, 235, 0.05);
+}
+
+/* Animaciones */
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.promoTag {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.2) 25%,
+    rgba(212, 175, 55, 0.4) 50%,
+    rgba(212, 175, 55, 0.2) 75%
+  );
+  background-size: 200% auto;
+  animation: shine 3s linear infinite;
+}

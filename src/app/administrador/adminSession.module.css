@@ -1,0 +1,223 @@
+/* adminSession.module.css */
+
+/* Variables del tema */
+.dark {
+  --background: #1a0f0a;
+  --secondary-background: #2d1810;
+  --color: #fcf5f0;
+  --color2: #D4AF37;
+  --input-bg: #704630;
+  --shadow: rgba(0,0,0,0.3);
+  --hover: #3a2116;
+}
+
+.light {
+  --background: #fcf5f0;
+  --secondary-background: #fff5ec;
+  --color: #2f1a0f;
+  --color2: #D4AF37;
+  --input-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.1);
+  --hover: #f5e6d3;
+}
+
+/* adminSession.module.css */
+
+.infoText {
+  text-align: left;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--secondary-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow);
+  color: var(--color);
+  font-size: 1rem;
+  max-width: 800px;
+}
+
+.infoText ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.infoText li {
+  margin-bottom: 15px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.infoText li::before {
+  content: '•';
+  color: var(--color2);
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.infoText strong {
+  color: var(--color2);
+  font-weight: bold;
+}
+.mainAdmin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background: var(--background); */
+  color: var(--color);
+  min-height: 100vh;
+  padding: 235px 0px 50px;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: var(--color);
+}
+
+.userInfoContainer {
+  background: var(--secondary-background);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow);
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.userAvatar {
+  display: flex;
+  align-items: center;
+}
+
+.userIcon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.signOutButton {
+  background: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signOutButton:hover {
+  background: var(--hover);
+  color: var(--color2);
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.value {
+  color: var(--color2);
+}
+
+.containerPerfil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 50px;
+    background: var(--background); /* Purpura del home BASE DE LA PAGINA a Gris antracita */
+    /* color: #fcf5f0; Marfil claro */
+}
+
+.perfilUsuario {
+    color: #fcf5f0; /* Marfil claro */
+    background: linear-gradient(to bottom, #2f1a0f, #2f1a0f); /* Purpura del home BASE DE LA PAGINA a Gris antracita */
+    border-radius: 20px;
+    padding-bottom: 100px;
+    text-align: center;
+    
+}
+
+.perfilUsuario p {
+    color: #fcf5f0 ; /* Rosa vino suave */
+    font-weight: 700;
+}
+
+.perfilUsuario h1 {
+    font-weight: 700;
+    margin-top: 15px;
+    color: #D4AF37 ; /* Violeta oscuro profundo */
+}
+
+.perfilUsuario strong {
+    font-weight: 700;
+    color: #fcf5f0 ; /* Rosa vino suave */
+}
+
+.divBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 11px 200px 50px;
+    border-radius: 10px;
+}
+
+.divBtns h4{
+    color: #2f1a0f;
+}
+
+.divBtns div {
+    margin: 5px;
+    color: #D4AF37 ; /* Violeta oscuro profundo */
+    border: 2px solid #D4AF37; /* Dorado metálico */
+    padding: 2%;
+    border-radius: 5px;
+    flex: 1;
+    background:  #F1E4D3; /* Transparente a Crema suave */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    justify-content: space-between;
+    text-align: center;
+    transition: all 0.25s ease-out;
+}
+
+.divBtns div:hover {
+    border: 2px solid #D4AF37; /* Azul oscuro profundo */
+    background: #fcf5f0; /* Marfil claro */
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+@media screen and (max-width: 550px) {
+    .divBtns {
+        padding: 0;
+    }
+}

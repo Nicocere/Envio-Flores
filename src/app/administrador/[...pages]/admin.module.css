@@ -1,0 +1,7 @@
+/* .adminPage{
+    padding-top: 165px;
+} */
+
+.adminPage {
+    width: -webkit-fill-available;
+}

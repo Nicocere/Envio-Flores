@@ -1,41 +1,6 @@
 /* ----------------------------------------
    Variables para mejor mantenimiento
 ---------------------------------------- */
-:root {
-  --adicionales-primary: #a70000;
-  --adicionales-primary-light: #ff4d4d;
-  --adicionales-primary-dark: #800000;
-  
-  --adicionales-accent: #4caf50;
-  --adicionales-accent-light: #80e27e;
-  
-  --adicionales-bg-light: #ffffff;
-  --adicionales-bg-dark: #222222;
-  
-  --adicionales-text-light: #333333;
-  --adicionales-text-secondary: #666666;
-  --adicionales-text-tertiary: #888888;
-  --adicionales-text-dark: #f5f5f5;
-  
-  --adicionales-border-light: #e0e0e0;
-  --adicionales-border-dark: #444444;
-  
-  --adicionales-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --adicionales-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  
-  --adicionales-spacing-xs: 4px;
-  --adicionales-spacing-sm: 8px;
-  --adicionales-spacing-md: 16px;
-  --adicionales-spacing-lg: 24px;
-  --adicionales-spacing-xl: 32px;
-  
-  --adicionales-border-radius-sm: 8px;
-  --adicionales-border-radius: 12px;
-  --adicionales-border-radius-lg: 16px;
-  
-  --adicionales-transition: 0.3s ease;
-  --adicionales-transition-slow: 0.5s ease;
-}
 
 /* ----------------------------------------
    Estilos generales del contenedor

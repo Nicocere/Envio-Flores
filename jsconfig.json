@@ -1,13 +1,8 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["src/*"],
-        "@admin/*": ["src/admin/*"],
-        "@components/*": ["src/components/*"],
-        "@context/*": ["src/context/*"],
-        "@styles/*": ["src/styles/*"],
-        "@utils/*": ["src/utils/*"]
-      }
+  "compilerOptions": {
+    "jsx": "react",
+    "paths": {
+      "@/*": ["./src/*"]
     }
   }
+}

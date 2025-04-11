@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Link from 'next/link';
 import './directions.css';
 
 const generateSlug = (str) => {
@@ -62,9 +63,9 @@ const LocalidadPage = () => {
                         <ul className="envio-direction-list">
                             {directionsGroup.map((direc) => (
                                 <li className='li-directs' key={direc.id}>
-                                    <NavLink className="envio-direction" to={`/envios/${generateSlug(direc.name)}`}>
+                                    <Link className="envio-direction" href={`/envios/${generateSlug(direc.name)}`}>
                                         Envíos a {direc.name}
-                                    </NavLink>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

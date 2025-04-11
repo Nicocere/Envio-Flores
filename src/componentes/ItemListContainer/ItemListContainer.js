@@ -804,7 +804,7 @@ const ItemListContainer = () => {
                                     <Typography variant="body1" className="no-products-description">
                                         No encontramos productos que coincidan con los criterios seleccionados.
                                     </Typography>
-                                    <Link to="/productos" className="browse-all-link">
+                                    <Link href="/productos" className="browse-all-link">
                                         Ver todos los productos
                                     </Link>
                                 </motion.div>

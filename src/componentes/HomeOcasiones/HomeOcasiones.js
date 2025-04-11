@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Container, useMediaQuery } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import Link from 'next/link';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaLeaf, FaHeart, FaBirthdayCake, FaSmile, FaBaby, FaPray } from 'react-icons/fa';
@@ -204,7 +204,7 @@ export default function HomeOcasiones() {
               }}
             ></div>
             
-            <NavLink to={ocasion.ruta} className={styles.occasionLink} aria-label={`Ver productos para ${ocasion.nombre}`}>
+            <Link href={ocasion.ruta} className={styles.occasionLink} aria-label={`Ver productos para ${ocasion.nombre}`}>
               <div className={styles.contentWrapper}>
                 <div className={styles.iconContainer}>
                   {getOcasionIcon(ocasion.id)}
@@ -218,7 +218,7 @@ export default function HomeOcasiones() {
                   </svg>
                 </div>
               </div>
-            </NavLink>
+            </Link>
           </motion.div>
         ))}
       </motion.div>
@@ -229,12 +229,12 @@ export default function HomeOcasiones() {
         transition={{ delay: 0.6, duration: 0.7 }}
         className={styles.sectionFooter}
       >
-        <NavLink to="/productos" className={styles.viewAllButton}>
+        <Link href="/prohrefductos" className={styles.viewAllButton}>
           <span>Ver todas las colecciones</span>
           <svg className={styles.arrowLong} viewBox="0 0 24 24">
             <path d="M5,12H19M19,12L13,6M19,12L13,18" />
           </svg>
-        </NavLink>
+        </Link>
       </motion.div>
     </Container>
   );

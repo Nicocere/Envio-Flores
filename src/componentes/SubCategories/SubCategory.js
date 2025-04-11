@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import Link from 'next/link';
 import './subCategoria.css'
 import { useTheme } from '../../context/ThemeSwitchContext';
 
@@ -12,23 +12,23 @@ export const CategoriesSubMenu = () => {
     return (
         <div className={`submenu ${className}`}>
 
-            <NavLink className='navSeccion' to='/categoria/Rosas' >Rosas</NavLink>
+            <Link className='navSeccion' href='/categoria/Rosas' >Rosas</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Floreros" >Floreros</NavLink>
+            <Link className='navSeccion' href="/categoria/Floreros" >Floreros</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Arreglos" >Arreglos</NavLink>
+            <Link className='navSeccion' href="/categoria/Arreglos" >Arreglos</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Especiales" >Especiales</NavLink>
+            <Link className='navSeccion' href="/categoria/Especiales" >Especiales</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Canastas" >Canastas</NavLink>
+            <Link className='navSeccion' href="/categoria/Canastas" >Canastas</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Ramos" >Ramos</NavLink>
+            <Link className='navSeccion' href="/categoria/Ramos" >Ramos</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Plantas" >Plantas</NavLink>
+            <Link className='navSeccion' href="/categoria/Plantas" >Plantas</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Comestibles" >Comestibles</NavLink>
+            <Link className='navSeccion' href="/categoria/Comestibles" >Comestibles</Link>
 
-            <NavLink className='navSeccion' to="/categoria/Desayunos" >Desayunos</NavLink>
+            <Link className='navSeccion' href="/categoria/Desayunos" >Desayunos</Link>
         </div>
     );
 }

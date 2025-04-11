@@ -1,10 +1,11 @@
+"use client";
 import React from 'react';
 import { FiPhoneCall, FiMail, FiMapPin, FiClock, FiHeart } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { SiMercadopago, SiVisa, SiMastercard, SiPaypal } from 'react-icons/si';
 import './footer.css';
 import { useTheme } from '../../context/ThemeSwitchContext';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Footer = () => {
     const { isDarkMode } = useTheme();
@@ -65,13 +66,13 @@ const Footer = () => {
                 <div className="footer-section links">
                     <h3 className="footer-title">Enlaces Rápidos</h3>
                     <ul className="footer-links-list">
-                        <li><Link to="/">Inicio</Link></li>
-                        <li><Link to="/productos">Productos</Link></li>
-                        <li><Link to="/categoria/Ramos">Ramos</Link></li>
-                        <li><Link to="/categoria/Canastas">Canastas</Link></li>
-                        <li><Link to="/categoria/Desayunos">Desayunos</Link></li>
-                        <li><Link to="/ayuda">Preguntas frecuentes</Link></li>
-                        <li><Link to="/ubicacion">Contacto</Link></li>
+                        <li><Link href="/">Inicio</Link></li>
+                        <li><Link href="/productos">Productos</Link></li>
+                        <li><Link href="/categoria/Ramos">Ramos</Link></li>
+                        <li><Link href="/categoria/Canastas">Canastas</Link></li>
+                        <li><Link href="/categoria/Desayunos">Desayunos</Link></li>
+                        <li><Link href="/ayuda">Preguntas frecuentes</Link></li>
+                        <li><Link href="/ubicacion">Contacto</Link></li>
                     </ul>
                 </div>
 

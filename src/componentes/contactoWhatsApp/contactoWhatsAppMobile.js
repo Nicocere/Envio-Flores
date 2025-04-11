@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { SwipeableDrawer, IconButton, Box, TextField, Typography, Button, useMediaQuery } from '@mui/material';
 import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';

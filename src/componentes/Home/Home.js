@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import CarouselComponent from "../Carousel/Carousel";
 import ItemListContainer from "../ItemListContainer/ItemListContainer"
@@ -96,14 +98,14 @@ const Home = () => {
 
     return (
         <>
-            <Helmet>
+            {/* <Helmet>
                 <title>Envio Flores - Venta y envio de arreglos florales, comestibles, chocolates , bebidas y demás
                     a domicilio en el día
                     a Gran Buenos Aires y Capital Federal</title>
                 <meta name="description" content="Envio de flores, rosas, ramos, bombones, regalos 
                     a domicilio en Argentina. Venta online y telefónica. Pagos en efectivo y 
                     con tarjetas de crédito. Entrega inmediata. Delivery en el día en Buenos Aires. Envioflores.com" />
-            </Helmet>
+            </Helmet> */}
             <HomeBanner />
 
 

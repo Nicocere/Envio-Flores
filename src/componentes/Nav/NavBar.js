@@ -1,5 +1,7 @@
+"use client"
+
 import CartWidget from '../CartWidget/CartWidget'
-import { NavLink } from 'react-router-dom'
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import NavSeccions from '../NavSeccions/NavSeccions';
 import { onAuthStateChanged } from "@firebase/auth";
@@ -98,9 +100,9 @@ const NavBarTop = () => {
 
               {/* Imagen */}
               <Grid item xs={2} md={2}>
-                <NavLink className='linkImg' to="/" style={{ alignSelf: 'flex-start', gridArea: '1 / 1 / span 1 / span 1' , marginTop:'10px'}}>
+                <Link className='linkImg' href="/" style={{ alignSelf: 'flex-start', gridArea: '1 / 1 / span 1 / span 1' , marginTop:'10px'}}>
                   <img className='imgNavBar' src={'/assets/imagenes/logo-envio-flores.png'} alt="logo envio flores" />
-                </NavLink>
+                </Link>
               </Grid>
 
               {/* Buscador */}
@@ -113,9 +115,9 @@ const NavBarTop = () => {
                <ThemeSwitch mobile={isMobileScreen} responsive={isSmallScreen}/> 
 
                 <Convertidor />
-                <NavLink to="/cart" style={{ marginLeft: '10px' }}>
+                <Link href="/cart" style={{ marginLeft: '10px' }}>
                   <CartWidget />
-                </NavLink>
+                </Link>
               </Grid>
             </Paper>
 

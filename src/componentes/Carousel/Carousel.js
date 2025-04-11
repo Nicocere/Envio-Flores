@@ -1,6 +1,7 @@
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { Paper, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import  Link  from 'next/link';
 import { PulseLoader } from 'react-spinners';
 import { useInView } from 'react-intersection-observer';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -175,16 +176,16 @@ const CarouselComponent = ({ banners = [], loading = false }) => {
               fadeEffect={{ crossFade: true }}
               onSlideChange={handleSlideChange}
               className="swiper-carousel"
-              preloadImages={true}
+              
               loop={true}
               watchSlidesProgress={true}
               speed={800}
             >
               {banners.map((banner, index) => (
                 <SwiperSlide key={banner.id || index} className="swiper-slide-custom">
-                  <NavLink 
+                  <Link 
                     className="carousel-link" 
-                    to={banner.ruta || '/productos'}
+                    href={banner.ruta || '/productos'}
                     aria-label={`Ver ${banner.nombre || 'colección'}`}
                   >
                     <div className="image-container">
@@ -241,7 +242,7 @@ const CarouselComponent = ({ banners = [], loading = false }) => {
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </NavLink>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>

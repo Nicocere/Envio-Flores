@@ -151,9 +151,9 @@ const Informacion = () => {
                 
                 <Box className={style.contactPrompt}>
                   <FaMapMarkerAlt className={style.mapMarker} />
-                  <Typography variant="subtitle1">
+                  <h6 className={style.contactText}>
                     Entregas en CABA y alrededores. Ante cualquier duda no dudes en comunicarte con nosotros.
-                  </Typography>
+                  </h6>
                 </Box>
               </div>
             </AnimatedSection>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useMediaQuery } from '@mui/material';
-import './homeBanner.css';
+import styles from './homeBanner.module.css'
 import { baseDeDatos } from '../../admin/FireBaseConfig';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { useTheme } from '../../context/ThemeSwitchContext';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const HomeBanner = memo(() => {
     // Estado para la imagen de fondo
@@ -58,44 +58,54 @@ const HomeBanner = memo(() => {
     }, []);
     
     return (
-        <div className={`home-banner ${isDarkMode ? 'dark-mode' : ''}`}>
+        <div className={`${styles.homeBanner} ${isDarkMode ? styles.darkMode : ''}`}>
             <div 
-                className="banner-background"
+                className={styles.bannerBackground}
                 style={{
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundAttachment: device === 'ios' ? 'initial' : 'fixed',
                 }}
             >
-                <div className="banner-overlay"></div>
+                <div className={styles.bannerOverlay}></div>
                 
-                <div className="banner-content">
-                    <h1 className="banner-title">
+                <div className={styles.bannerContent}>
+                    <h1 className={styles.bannerTitle}>
                         Envío de Flores a Domicilio
-                        <span className="banner-subtitle">CABA y Gran Buenos Aires</span>
+                        <span className={styles.bannerSubtitle}>CABA y Gran Buenos Aires</span>
                     </h1>
                     
-                    <div className="banner-tagline">
+                    <div className={styles.bannerTagline}>
                         Flores frescas con garantía de satisfacción | Servicio premium con entrega en horario exacto
                     </div>
                     
-                    <div className="banner-cta">
-                        <Link to="/productos" className="primary-button">
+                    <div className={styles.bannerCta}>
+                        <Link href="/productos" className={styles.primaryButton}>
                             Ver Productos
                         </Link>
-                        <Link to="/categoria/Ramos" className="secondary-button">
+                        <Link href="/categoria/Ramos" className={styles.secondaryButton}>
                             Ramos de Flores
                         </Link>
-                        <Link to="/envios" className="tertiary-button">
+                        <Link href="/envios" className={styles.tertiaryButton}>
                             Zonas de Envío
                         </Link>
                     </div>
                 </div>
                 
-                <div className="scroll-indicator">
-                    <div className="scroll-mouse">
-                        <div className="scroll-wheel"></div>
+                <div className={styles.scrollIndicator}>
+                    <div className={styles.scrollMouse}>
+                        <div className={styles.scrollWheel}></div>
                     </div>
                     <span>Desliza hacia abajo</span>
+                </div>
+
+                <div className={styles.floralWaveDecoration}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                        <path className={styles.floralWavePath1} d="M0,48C120,32,240,16,360,16C480,16,600,32,720,37.3C840,43,960,37,1080,37.3C1200,37,1320,43,1380,46.7L1440,50L1440,120L0,120Z" opacity={1}></path>
+                        <path className={styles.floralWavePath2} d="M0,70C48,74,96,78,240,78C384,78,432,74,576,70C720,66,768,62,912,62C1056,62,1104,66,1248,69.3C1392,73,1416,75.7,1440,77L1440,120L0,120Z"></path>
+                        <path className={styles.floralWavePath3} d="M0,96C120,96,240,96,360,96C480,96,600,96,720,96C840,96,960,96,1080,96C1200,96,1320,96,1380,96L1440,96L1440,120L0,120Z"></path>
+                        <path className={styles.floralWavePath4} d="M0,96C120,96,240,96,360,96C480,96,600,96,720,96C840,96,960,96,1080,96C1200,96,1320,96,1380,96L1440,96L1440,120L0,120Z" opacity={1}></path>
+
+                    </svg>
                 </div>
             </div>
         </div>

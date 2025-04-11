@@ -1,4 +1,5 @@
-import { NavLink, useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom';
+import Link from 'next/link';
 import './categoriesOcasiones.css'
 import { FaBars } from '@react-icons/all-files/fa/FaBars'
 import React, { useState, useRef, useEffect } from 'react';
@@ -37,17 +38,17 @@ const CategoriesOcasiones = () => {
 
         <div className='categorySeccionOcasiones'>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to='/ocasiones/Aniversarios'> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Aniversarios </NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href='/ocasiones/Aniversarios'> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Aniversarios </Link>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to="/ocasiones/Casamientos"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Casamientos</NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href="/ocasiones/Casamientos"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Casamientos</Link>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to="/ocasiones/Cumpleaños"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Cumpleaños</NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href="/ocasiones/Cumpleaños"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Cumpleaños</Link>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to="/ocasiones/Condolencias"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Condolencias</NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href="/ocasiones/Condolencias"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Condolencias</Link>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to="/ocasiones/Nacimientos"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Nacimientos</NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href="/ocasiones/Nacimientos"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Nacimientos</Link>
 
-          <NavLink className={`seccionOcasionesLi ${className}`} to="/ocasiones/RegalosHombres"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Regalos para Ellos</NavLink>
+          <Link className={`seccionOcasionesLi ${className}`} href="/ocasiones/RegalosHombres"> <ArrowForwardIosIcon sx={{fontSize: 'small', }}/>  Regalos para Ellos</Link>
 
         
         </div>

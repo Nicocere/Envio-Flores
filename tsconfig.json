@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "baseUrl": ".", // Puedes configurar esto según la estructura de tu proyecto
+    "paths": {
+      "@/*": [
+        "src/*"
+      ] // Este es un ejemplo, asegúrate de que coincida con la estructura de tu proyecto
+    },
     "lib": [
       "dom",
       "dom.iterable",
@@ -8,12 +13,12 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
-    "module": "esnext",
     "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -23,25 +28,23 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@admin/*": ["src/admin/*"],
-      "@components/*": ["src/components/*"],
-      "@context/*": ["src/context/*"],
-      "@styles/*": ["src/styles/*"],
-      "@utils/*": ["src/utils/*"]
-    }
+    "target": "es6"
   },
   "include": [
-    "next-env.d.ts",
-    "build/types/**/*.ts",
+    "**/*.js",
+    "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx"
-  ],
+    "src",
+    "src/app/api/mercadopago/payment/route.ts",
+    "src/app/api/pdf-generate/route.ts",
+    "src/app/layout.tsx",
+    "src/app/productos/[categoria]/page.tsx",
+    "src/componentes/MercadoPago/MercadoPago.js",
+    "src/componentes/PantallaPromocion/PantallaContador.js",
+    "src/componentes/Reviews/Reviews.js",
+    ".next/types/**/*.ts"
+, "next.config.mjs"  ],
   "exclude": [
     "node_modules"
   ]

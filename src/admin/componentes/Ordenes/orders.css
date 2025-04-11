@@ -20,7 +20,7 @@
 .ordersTable{
     color: white;
     width: 100%;
-    font-family: "Jost", sans-serif;
+     ;
 }
 
 
@@ -40,13 +40,13 @@
 }
 .orderDetails p{
     color: black;
-    font-family: "Jost", sans-serif;
+     ;
     margin: 5px 5px;
 }
 
 .orderDetails strong{
     color: black;
-    font-family: "Jost", sans-serif;
+     ;
     margin: 5px 5px;
     font-size: larger;
     padding: 5px 10px;

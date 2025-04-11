@@ -8,7 +8,7 @@
     margin: 20px 0;
     color: darkred;
     width: 100%;
-    font-family: "Jost", sans-serif;
+     ;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -45,7 +45,7 @@
 .link-products.active {
     font-weight: 700;
     color: #420000;
-    font-family: "Jost", sans-serif;
+     ;
     font-size: larger;
 }
 .dark-mode .link-products.active{
@@ -67,7 +67,7 @@
     text-decoration: none;
     margin: 0px 0px 0px 20px;
     color: darkred;
-    font-family: "Jost", sans-serif;
+     ;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -100,7 +100,7 @@
     margin: 20px 0;
     color: darkred;
     width: 100%;
-    font-family: "Jost", sans-serif;
+     ;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.15;
@@ -132,7 +132,7 @@
         margin: 15px 0;
         font-weight: 700;
         color: darkred;
-        font-family: "Jost", sans-serif;
+         ;
     }
     
 

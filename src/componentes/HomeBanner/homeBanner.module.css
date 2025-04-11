@@ -1,0 +1,383 @@
+/* Estilos Generales */
+.homeBanner {
+  font-family: var(--font-primary);
+  width: 100%;
+  height: var(--banner-height);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.bannerBackground {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: filter 0.5s ease;
+  will-change: background-image;
+}
+
+.bannerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-light);
+  transition: background-color var(--transition-time) ease;
+}
+
+.darkMode .bannerOverlay {
+  background-color: var(--overlay-dark);
+}
+
+/* Contenido del Banner */
+.bannerContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1200px;
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título Estático */
+.bannerTitle {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 500;
+  color: var(--text-light);
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin-bottom: 1rem;
+}
+
+.bannerSubtitle {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-top: 0.5rem;
+  letter-spacing: 1px;
+}
+
+/* Tagline */
+.bannerTagline {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-light);
+  margin-bottom: 3rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+
+/* CTA Section */
+.bannerCta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  max-width: 800px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton,
+.tertiaryButton {
+  font-family: var(--font-primary);
+  padding: 1.1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: all var(--transition-time) ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+}
+
+.primaryButton {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 4px 15px rgba(167, 0, 0, 0.3);
+}
+
+.primaryButton:hover {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-dark);
+  color: var(--text-light);
+  box-shadow: 0 6px 20px rgba(167, 0, 0, 0.4);
+  transform: translateY(-3px);
+}
+
+.secondaryButton {
+  background-color: var(--primary-light);
+  color: var(--text-light);
+  border: 2px solid var(--primary-light);
+  box-shadow: 0 4px 15px rgba(87, 0, 0, 0.3);
+}
+
+.secondaryButton:hover {
+  background-color: var(--primary-light-hover);
+  border-color: var(--primary-light-hover);
+  color: var(--text-light);
+  box-shadow: 0 6px 20px rgba(87, 0, 0, 0.4);
+  transform: translateY(-3px);
+}
+
+.tertiaryButton {
+  background-color: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--text-light);
+}
+
+.tertiaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  mix-blend-mode: difference;
+}
+
+/* Indicador de Scroll */
+.scrollIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-family: var(--font-primary);
+  letter-spacing: 1px;
+  opacity: 0.8;
+  z-index: 2;
+  mix-blend-mode: difference;
+}
+
+.scrollMouse {
+  width: 26px;
+  height: 40px;
+  border: 2px solid var(--text-light);
+  border-radius: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.scrollWheel {
+  width: 4px;
+  height: 8px;
+  background-color: var(--text-light);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: wheel 1.5s infinite;
+}
+
+@keyframes wheel {
+  0% {
+    top: 8px;
+  }
+  50% {
+    top: 20px;
+  }
+  100% {
+    top: 8px;
+  }
+}
+
+/* Modo oscuro */
+.darkMode .bannerBackground {
+  filter: brightness(0.85);
+}
+
+.darkMode .bannerSubtitle {
+  color: #ffb8b8;
+}
+
+/* Decoración de ondas florales */
+.floralWaveDecoration {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 1;
+}
+
+.floralWavePath1 {
+  fill: rgba(255, 255, 255, 0.7);
+  transition: fill 0.2s ease;
+}
+
+.floralWavePath2 {
+  fill: rgb(255, 255, 255);
+  transition: fill 0.2s ease;
+}
+.floralWavePath3 {
+  fill: rgba(255, 255, 255, 0.5);
+  transition: fill 0.2s ease;
+}
+.floralWavePath4 {
+  fill: rgba(255, 255, 255, 0.3);
+  transition: fill 0.2s ease;
+}
+
+/* Ajustes para darkmode */
+
+.darkMode .floralWavePath1 {
+  fill: rgba(10, 10, 10, 0.822);
+}
+.darkMode .floralWavePath2 {
+  fill: rgba(8, 8, 8, 0.863);
+}
+.darkMode .floralWavePath3 {
+  fill: rgba(15, 15, 15, 0.74);
+}
+.darkMode .floralWavePath4 {
+  fill: rgba(14, 14, 14, 0.3);
+}
+
+
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+  .bannerTitle {
+    font-size: 4rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 2.2rem;
+  }
+  
+  .bannerTagline {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .bannerTitle {
+    font-size: 3.5rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 2rem;
+  }
+  
+  .bannerContent {
+    width: 90%;
+  }
+  
+  .bannerTagline {
+    padding: 0.8rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton,
+  .tertiaryButton {
+    padding: 1rem 1.8rem;
+    font-size: 1.1rem;
+    min-width: 180px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bannerTitle {
+    font-size: 3rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 1.8rem;
+  }
+  
+  .bannerTagline {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .bannerCta {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .primaryButton,
+  .secondaryButton,
+  .tertiaryButton {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  
+  .bannerTitle {
+    font-size: 2.3rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 1.5rem;
+  }
+  
+  .bannerTagline {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton,
+  .tertiaryButton {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .scrollIndicator {
+    bottom: 1rem;
+  }
+}
+
+/* Preferencias de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .scrollWheel {
+    animation: none;
+  }
+  
+  .primaryButton:hover,
+  .secondaryButton:hover,
+  .tertiaryButton:hover {
+    transform: none;
+  }
+}

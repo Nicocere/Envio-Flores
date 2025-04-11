@@ -1,18 +1,3 @@
-/* ----------------------------------------
-   Variables para consistencia
----------------------------------------- */
-:root {
-  --loader-primary: #a70000;
-  --loader-secondary: #2e7d32;
-  --loader-tertiary: #f9f3f3;
-  --loader-background: #ffffff;
-  --loader-text: #333333;
-  --loader-shadow: rgba(0, 0, 0, 0.1);
-  
-  --loader-animation-duration: 0.8s;
-  --loader-entrance-timing: cubic-bezier(0.4, 0, 0.2, 1);
-  --loader-exit-timing: cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* ----------------------------------------
    Base del Loader
@@ -120,7 +105,7 @@
 
 .loader-text {
   margin-top: 0.8rem;
-  font-family: "Jost", sans-serif;
+   ;
   font-size: 0.95rem;
   color: #121212;
   letter-spacing: 0.5px;
@@ -182,16 +167,7 @@
   }
 }
 
-/* ----------------------------------------
-   Modo oscuro
----------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --loader-background: #121212;
-    --loader-text: #e0e0e0;
-    --loader-shadow: rgba(0, 0, 0, 0.3);
-  }
-}
+
 
 /* Para sitios con clase dark-mode */
 body.dark-mode .screen-loader {
