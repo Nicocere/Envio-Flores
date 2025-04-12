@@ -12,10 +12,10 @@ import style from './gestionPedidos.module.css';
 import { PulseLoader } from 'react-spinners';
 import Image from 'next/image';
 import localforage from 'localforage';
-import { useCartContext } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
 import { usePageContext } from '@/context/Context';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 
 function UserOrders() {
     const [ordenes, setOrdenes] = useState([]);
@@ -24,9 +24,9 @@ function UserOrders() {
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
-    const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useTheme();
     const [newSize, setNewSize] = useState('');
-    const { cart, setCart } = useCartContext();
+    const { cart, setCart } = useCart();
     const { CartID, UserID } = usePageContext();
     const navigate = useRouter();
 

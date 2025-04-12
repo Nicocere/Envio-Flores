@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
 import { useTheme } from '../../context/ThemeSwitchContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Importaciones de Swiper
 import 'swiper/css';
@@ -21,8 +22,8 @@ import './carousel.css';
 const CarouselComponent = ({ banners = [], loading = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [error, setError] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [isSmallMobile, setIsSmallMobile] = useState(window.innerWidth < 480);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isSmallMobile = useMediaQuery('(max-width: 480px)');
   const { isDarkMode } = useTheme();
   const swiperRef = useRef(null);
   const progressRef = useRef(null);
@@ -47,17 +48,7 @@ const CarouselComponent = ({ banners = [], loading = false }) => {
     }
   }, [inView]);
   
-  // Detector de tamaño de pantalla
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsSmallMobile(window.innerWidth < 480);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  
+
   // Barra de progreso personalizada
   useEffect(() => {
     return () => {

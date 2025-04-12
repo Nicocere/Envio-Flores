@@ -9,7 +9,7 @@ import { Favorite, FavoriteBorder, AddShoppingCart, NotificationsActive } from '
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import localforage from 'localforage';
-import { useCartContext } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext';
 import { usePageContext } from '@/context/Context';
 import style from './personalizacionExperiencia.module.css';
 import Swal from 'sweetalert2';
@@ -17,7 +17,7 @@ import ItemCount from '@/componentes/ItemCount/ItemCount';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 
 function PersonalizacionExperiencia() {
     const [favoritos, setFavoritos] = useState([]);
@@ -26,8 +26,8 @@ function PersonalizacionExperiencia() {
     const [recordatorios, setRecordatorios] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const {isDarkMode} = useThemeContext();
-    const { cart, setCart } = useCartContext();
+    const {isDarkMode} = useTheme();
+    const { cart, setCart } = useCart();
     const { CartID, UserID } = usePageContext();
     const navigate = useRouter();
 

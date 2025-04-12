@@ -16,12 +16,12 @@ import { FaUser, FaTruck } from 'react-icons/fa';
 import { FaShop } from "react-icons/fa6";
 import LocalFloristRoundedIcon from '@mui/icons-material/LocalFloristRounded';
 import { IconButton, Tooltip } from '@mui/material';
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 import Comentarios from '@/componentes/Comentarios/Comentarios';
 
 const CompraPayPalFinalizada = React.memo(() => {
     const [newEvent, setNewEvent] = useState(null);
-    const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
     const [activeSection, setActiveSection] = useState('comprador');
     const imgLogo =

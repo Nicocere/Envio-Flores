@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
-import mercadopago from 'mercadopago';
+import { MercadoPagoConfig, Preference } from 'mercadopago';
 
 export async function POST(request: Request) {
     const body = await request.json()
-    const { MercadoPago, retiraEnLocal, datosComprador, datosEnvio, products, CartID } = body;
+    const { retiraEnLocal, datosEnvio, products } = body;
+
+    console.log('Datos recibidos:', body);
 
     try {
         const envioDatos = body;
@@ -49,15 +51,21 @@ export async function POST(request: Request) {
         const itemsForMercadoPago = [...mappedProducts, shippingItem];
 
         // Add Your credentials
-        const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+        const accessToken = process.env.MERCADOPAGO_EF_ACCESS_TOKEN;
         if (!accessToken) {
-            throw new Error('MERCADOPAGO_ACCESS_TOKEN is not configured in environment variables');
+            throw new Error('MERCADOPAGO_EF_ACCESS_TOKEN is not configured in environment variables');
         }
-        mercadopago.configure({
-            access_token: accessToken,
+        
+        // Inicializar el cliente de MercadoPago con la nueva API
+        const client = new MercadoPagoConfig({ 
+            accessToken: accessToken 
         });
-        // Create a preference object
-        const preference = {
+        
+        // Instanciar el recurso Preference
+        const preference = new Preference(client);
+        
+        // Crear la preferencia con los datos necesarios
+        const preferenceData = {
             binary_mode: true,
             purpose: 'wallet_purchase',
             items: itemsForMercadoPago,
@@ -69,18 +77,17 @@ export async function POST(request: Request) {
             auto_return: "approved" as "approved" | "all",
         };
 
-        const response = await mercadopago.preferences.create(preference);
-        const preferenceId = response.body.id;
+        const response = await preference.create({ body: preferenceData });
+        const preferenceId = response.id;
 
-        await mercadopago.preferences.findById(preferenceId);
+        // Verificar que la preferencia se creó correctamente
+        await preference.get({ preferenceId: preferenceId });
 
         // Devuelve la preferencia creada al frontend
         return NextResponse.json({ preferenceId });
 
-
     } catch (error) {
         console.log('Hubo un error al procesar la solicitud: ', error);
         return NextResponse.json({ error: error })
-
     }
 }

@@ -1,13 +1,16 @@
-import { CartContext, useCart } from '../../context/CartContext';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+"use client"
+import { useCart } from '../../context/CartContext';
+import React, { useEffect, useState } from 'react';
+
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import Form from '../Form/Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 //Material UI
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, IconButton, List, ListItem, ListItemText, Paper, Tab, Tabs, TextField, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
@@ -31,7 +34,9 @@ import { useForm } from 'react-hook-form';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
 import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
-import { CookieContext, useCookies } from '../../context/CookieContext';
+import { useCookies } from '../../context/CookieContext';
+import localforage from 'localforage';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
 
 const MySwal = withReactContent(Swal);
@@ -106,9 +111,10 @@ function a11yProps(index) {
     };
 }
 
-const Cart = () => {
+const CartComponents = () => {
 
-    //Cart
+    const { isDarkMode } = useTheme()
+    //CartComponents
     const { cart, setCart, decryptCart, finalPrice, eliminarProd, totalPrecio, priceDolar, dolar } = useCart();
 
     //Cookie
@@ -247,20 +253,17 @@ const Cart = () => {
 
     }
 
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-
-    const pagoExitoso = queryParams.get('PagoExistoso');
-    const paymentID = queryParams.get('Payment-ID');
-    const order = queryParams.get('Order')
-    const pagoPaypalExitoso = queryParams.get('PagoPayPalExistoso');
-    // const CartID = queryParams.get('CartID');
+    const searchParams = useSearchParams();
+    const pagoExitoso = searchParams.get('PagoExistoso');
+    const paymentID = searchParams.get('Payment-ID');
+    const order = searchParams.get('Order');
+    const pagoPaypalExitoso = searchParams.get('PagoPayPalExistoso');
 
 
-    //manejo de errores
-    const error = queryParams.get('Error');
+    // Manejo de errores
+    const error = searchParams.get('Error');
+    const pagoFallido = searchParams.get('PagoFallido');
 
-    const pagoFallido = queryParams.get('PagoFallido');
 
     const [lastOrder, setLastOrder] = useState(null);
     let order_number = parseFloat(order)
@@ -303,18 +306,53 @@ const Cart = () => {
     console.log("orderCartID", orderCartID)
     // const [showCookiePrompt, setShowCookiePrompt] = useState(false);
 
-    const handleAcceptCookies = () => {
-        acceptCookies();
+    // Modificar la función handleAcceptCookies para usar localForage
+    const handleAcceptCookies = async () => {
+        try {
+            await localForage.setItem('acceptedCookies', 'true');
+            acceptCookies();
+        } catch (error) {
+            console.error("Error al guardar cookies:", error);
+        }
     };
 
     const handleViewCookies = () => {
         // Handle view cookies logic here
         window.location.href = '/cookies';
     };
-    let hasAcceptedCookies = null
-    const storedCartID = localStorage.getItem('CartID');
-    const storedUserID = localStorage.getItem('UserID');
-    hasAcceptedCookies = localStorage.getItem('acceptedCookies');
+
+
+    // Estados para almacenar información del storage
+    const [storedCartID, setStoredCartID] = useState('');
+    const [storedUserID, setStoredUserID] = useState('');
+    const [hasAcceptedCookies, setHasAcceptedCookies] = useState(null);
+
+    // Cargar datos de localForage de forma segura en el lado del cliente
+    useEffect(() => {
+        const loadStorageData = async () => {
+            try {
+
+
+                // Obtener datos de manera asíncrona
+                const cartID = await localforage.getItem('CartID') || '';
+                const userID = await localforage.getItem('UserID') || '';
+                const cookies = await localforage.getItem('acceptedCookies');
+
+                // Actualizar estados
+                setStoredCartID(cartID);
+                setStoredUserID(userID);
+                setHasAcceptedCookies(cookies);
+            } catch (error) {
+                console.error("Error al cargar datos de almacenamiento:", error);
+            }
+        };
+
+        // Ejecutar solo en el cliente
+        if (typeof window !== 'undefined') {
+            loadStorageData();
+        }
+    }, []);
+
 
     useEffect(() => {
         if (!hasAcceptedCookies || !storedCartID || !storedUserID) {
@@ -646,15 +684,17 @@ const Cart = () => {
 
                                                     isSmallScreen ?
                                                         (<>
-                                                            <Typography variant='h4' sx={{ color: 'black' }} >Tu pedido está listo<LocalFloristIcon sx={{ color: '#a70000', ml: 1, verticalAlign: 'middle' }} /></Typography>
-                                                            <Typography variant='overline' sx={{ color: 'black' }}>Sorprende a alguien especial con tu elección</Typography>
+                                                            <h1 style={{ color: 'black', fontWeight: '400' }}>Tu pedido está listo<LocalFloristIcon style={{ color: '#a70000', ml: 1, verticalAlign: 'middle' }} /></h1>
+                                                            <p style={{ color: 'black' }}>Sorprende a alguien especial con tu elección</p>
 
                                                             <List>
                                                                 {itemSelected.map((prod, indx) => (
                                                                     <ListItem key={indx} sx={{ paddingLeft: '7px', borderBottom: '1px solid #c0c0c085' }}>
                                                                         <img className='imgInCart' src={prod.img} alt="Imagen producto en carrito" style={{ marginRight: '5px' }} />
-                                                                        <ListItemText sx={{ fontWeight: '700', flex: '2', color: '#670000', maxWidth: '13ch' }} primary={prod.name} secondary={`Cantidad: ${prod.quantity}, Talle: ${prod.size}`} />
-                                                                        <ListItemText sx={{ fontWeight: '600', flex: '1', marginLeft: '10px', color: 'black' }} primary={priceDolar ? `USD$${(prod.precio / dolar).toFixed(2)}` : `$${prod.precio.toLocaleString('es-AR')}`} />
+                                                                        <ListItemText sx={{ fontWeight: '700', flex: '2', color: '#670000', maxWidth: '13ch', fontFamily: 'Jost, sans-serif' }} primary={prod.name} secondary={`Cantidad: ${prod.quantity}, Talle: ${prod.size}`} primaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} secondaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} />
+
+                                                                        <ListItemText sx={{ fontWeight: '600', flex: '1', marginLeft: '10px', color: 'black', fontFamily: 'Jost, sans-serif' }} primary={priceDolar ? `USD$${(prod.precio / dolar).toFixed(2)}` : `$${prod.precio.toLocaleString('es-AR')}`} primaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} />
+
                                                                         <IconButton aria-label="delete" size="large"
 
                                                                             onClick={() => eliminarProd(prod.name,
@@ -671,17 +711,17 @@ const Cart = () => {
                                                             <Button color='error' size='small' variant='contained' sx={{ alignSelf: 'center', margin: '15px' }} onClick={() => { deleteAll() }}>Eliminar Todo</Button>
                                                             {
                                                                 priceDolar ?
-                                                                    <h3 className='totalPrecio'>Precio total: USD${total}</h3>
+                                                                    <h2 className='totalPrecio'>Precio total: USD${total}</h2>
                                                                     :
-                                                                    <h3 className='totalPrecio'>Precio total: ${total.toLocaleString('es-AR')}</h3>
+                                                                    <h2 className='totalPrecio'>Precio total: ${total.toLocaleString('es-AR')}</h2>
                                                             }
                                                         </>
 
                                                         )
                                                         :
                                                         <>
-                                                            <Typography variant='h4' sx={{ color: 'black' }} >Tu pedido está casi listo<LocalFloristIcon sx={{ color: '#a70000', ml: 1, verticalAlign: 'middle' }} /></Typography>
-                                                            <Typography variant='overline' sx={{ color: 'black' }}>Todo lo que necesitas para sorprender a alguien especial.</Typography>
+                                                            <h1 style={{ color: 'black', fontWeight: '400' }} >Tu pedido está casi listo<LocalFloristIcon sx={{ color: '#a70000', ml: 1, verticalAlign: 'middle' }} /></h1>
+                                                            <p style={{ color: 'black' }}>Todo lo que necesitas para sorprender a alguien especial.</p>
                                                             <TableContainer>
                                                                 <Table sx={{ maxWidth: '1200px', margin: '0 auto' }} aria-label="simple table" size='small'>
                                                                     <TableHead>
@@ -744,11 +784,11 @@ const Cart = () => {
 
                                     <>
 
-                                        <Paper elevation={24} sx={{  background: isSmallScreen ? 'transparent' :'linear-gradient(to top, #a70000, #670000)', padding: '30px, 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Paper elevation={24} sx={{ background: isSmallScreen ? isDarkMode ? '#670000' : '#fafafa' : isDarkMode ? 'linear-gradient(to top, #a70000, #670000)' : 'linear-gradient(to top, #FCFCFC, #FFFFFF)', padding: '30px, 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
-                                            <Typography variant='h3' sx={{ color: isSmallScreen ? '#670000' : 'white', fontSize: '25px', padding: '20px' }}>
-                                                {showPayments ? 'Retiro en local seleccionado' : `Envío de ${cart.length <= 1 ? 'producto' : 'productos'}`}
-                                            </Typography>
+                                            <h1 style={{ color: isDarkMode ? 'white' : '#670000', padding: '20px', fontSize: isSmallScreen && '22px',fontWeight:'500' }}>
+                                                {showPayments ? 'Retiro en local seleccionado' : `¿Cómo desea enviar ${cart.length <= 1 ? 'su producto?' : 'sus productos?'}`}
+                                            </h1>
 
 
 
@@ -915,9 +955,9 @@ const Cart = () => {
                                                                     }}>
                                                                         <h4 className='dedic-text'>Personalice su pedido con un mensaje especial:</h4>
 
-                                                                        <textarea 
-                                                                            {...register('dedicatoria')} 
-                                                                            className='dedicatoria' 
+                                                                        <textarea
+                                                                            {...register('dedicatoria')}
+                                                                            className='dedicatoria'
                                                                             name="dedicatoria"
                                                                             placeholder="Escriba aquí su dedicatoria o mensaje personal..."
                                                                         />
@@ -1138,11 +1178,11 @@ const Cart = () => {
                                             {
                                                 showPayments ? null :
 
-                                                    <Button variant='contained' color='error' sx={{ color: 'white', borderColor: 'darkgreen', margin: '10px 30px' }} className='btn-eliminarProd' onClick={handleFinishPayment}>Retiro en el Local</Button>
+                                                    <Button variant='contained' color='error' sx={{ color: 'white', borderColor: 'darkgreen', margin: '10px 30px' }} onClick={handleFinishPayment}>Retiro en el Local</Button>
                                             }
 
                                             {
-                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px 10px 5px', padding: '20px', background: 'white',border: '1px solid #670000', width: '100%', color: 'black' }}>¡Quiero enviar mis productos!</Typography>
+                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px 10px 5px', padding: '20px', background: 'white', border: '1px solid #670000', width: '100%', color: 'black' }}>¡Quiero enviar mis productos!</Typography>
                                             }
                                             <Button variant="contained" color='success' sx={{ color: 'white', margin: '10px 30px' }} onClick={() => { handleStepChange(3); handleChangeRetirarProducto(); }}>
                                                 Enviar a domicilio
@@ -1156,7 +1196,7 @@ const Cart = () => {
                                             Ver el carrito de compras
                                         </Button>
 
-                                        <Button variant="outlined" color='error' sx={{ color: 'black', width: 'fit-content', alignSelf: 'center', marginBottom: 0, marginTop: 1.25, marginLeft: isSmallScreen ? '0px' : '10px' }} onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>Quiero retirar en el Local </Button>
+                                        <Button variant="outlined" color='error' sx={{ color: isDarkMode ? 'white' : 'var(--text-dark)', width: 'fit-content', alignSelf: 'center', marginBottom: 0, marginTop: 1.25, marginLeft: isSmallScreen ? '0px' : '10px' }} onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>Quiero retirar en el Local </Button>
                                     </>
                                 }
 
@@ -1178,4 +1218,4 @@ const Cart = () => {
     );
 
 };
-export default Cart;
+export default CartComponents;

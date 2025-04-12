@@ -105,8 +105,8 @@ if (retiraEnLocal) {
     setProcessingMessage('Procesando el pago, por favor espere...');
 
     try {
-      // const response = await axios.post('http://localhost:8080/mercadopago/payment',
-      const response = await axios.post('https://envio-flores.rj.r.appspot.com/mercadopago/payment',
+      const response = await axios.post('http://localhost:3000/api/mercadopago/payment',
+      // const response = await axios.post('https://envio-flores.rj.r.appspot.com/mercadopago/payment',
         bodyMP,
         {
           headers: {

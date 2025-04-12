@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@mui/material';
 import style from './adminSession.module.css'
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 import useLogout from '../login/logout/page';
 import { useAsync } from 'react-use';
 import { doc, getDoc } from 'firebase/firestore';
@@ -13,7 +13,7 @@ import { auth } from '@/admin/FireBaseConfig';
 function PerfilUser() {
     const logout = useLogout();
     const navigate = useRouter();
-    const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useTheme();
 
     const { value: userData, loading, error } = useAsync(async () => {
         if (auth.currentUser) {

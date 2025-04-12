@@ -62,10 +62,10 @@ export async function POST(request: Request) {
         // Unir los productos mapeados con el ítem de envío
         const itemsForMercadoPago = [...mappedProducts, shippingItem];
         // Realiza el pago en Mercado Pago
-        if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
-            throw new Error('MERCADOPAGO_ACCESS_TOKEN is not defined');
+        if (!process.env.MERCADOPAGO_EF_ACCESS_TOKEN) {
+            throw new Error('MERCADOPAGO_EF_ACCESS_TOKEN is not defined');
         }
-        mercadopago.configurations.setAccessToken(process.env.MERCADOPAGO_ACCESS_TOKEN);
+        mercadopago.configurations.setAccessToken(process.env.MERCADOPAGO_EF_ACCESS_TOKEN);
 
         const paymentResponse = await mercadopago.payment.save(mp_data.data);
 

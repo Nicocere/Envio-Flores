@@ -1,9 +1,8 @@
+"use client";   
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import ItemCount from '../ItemCount/ItemCount';
 import styles from './ItemDetail.module.css';
-import { useContext } from 'react';
-import { CartContext, useCart } from '../../context/CartContext';
+import { useCart } from '../../context/CartContext';
 import AdicionalListContainer from '../AdicionalListContainer/AdicionalListContainer';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet';
@@ -22,9 +21,13 @@ import Categorization from '../Categories/Categorizacion';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import { collection, getDocs } from 'firebase/firestore';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
+import { useRouter } from 'next/navigation';
 
-const ItemDetail = ({ item }) => {
-  const navigate = useNavigate();
+const ItemDetail = ({ item, prodId }) => {
+
+  console.log("ItemDetail", item, prodId);
+
+  const navigate = useRouter();
   const { cantidadProducto, dolar, priceDolar, rose_unit } = useCart();
   const [tipoProductoSeleccionado, setTipoProductoSeleccionado] = useState("");
   const [optionID, setOptionID] = useState('');
@@ -32,7 +35,6 @@ const ItemDetail = ({ item }) => {
   const [cantidadRosas, setCantidadRosas] = useState("");
   const prodOptions = item.opciones;
   const [showManualAdd, setShowManualAdd] = useState(true);
-  const { prodId } = useParams();
   const quantity = cantidadProducto(prodId);
   const [selectedOption, setSelectedOption] = useState(0); // Seleccionar la primera opción por defecto
   const [activeImage, setActiveImage] = useState(false);
@@ -53,7 +55,7 @@ const ItemDetail = ({ item }) => {
   const [costos, setCostos] = useState([]);
   const [costosCanasta, setCostosCanasta] = useState(0);
   const [costosFlorero, setCostosFlorero] = useState(0);
-  
+
   // Variantes para animaciones
   const fadeVariants = {
     hidden: { opacity: 0 },
@@ -62,10 +64,10 @@ const ItemDetail = ({ item }) => {
 
   const scaleVariants = {
     hidden: { scale: 0.8, opacity: 0 },
-    visible: { 
-      scale: 1, 
-      opacity: 1, 
-      transition: { type: "spring", stiffness: 300, damping: 25 } 
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 25 }
     },
     hover: { scale: 1.05, transition: { duration: 0.2 } }
   };
@@ -142,7 +144,7 @@ const ItemDetail = ({ item }) => {
       });
       cantidad = "50";
     }
-    
+
     setCantidadRosas(cantidad);
     actualizarPrecioTotal(cantidad);
   };
@@ -156,7 +158,7 @@ const ItemDetail = ({ item }) => {
   const handleChangeColor = (e) => {
     const color = e.target.value;
     setColorProducto(color);
-    
+
     if (color === "Mixto") {
       setShowMixedOptions(true);
       // Precio adicional para rosas mixtas
@@ -169,15 +171,15 @@ const ItemDetail = ({ item }) => {
 
   const handleMixedColorChange = (color, value) => {
     const valorNumerico = parseInt(value) || 0;
-    
+
     // Validar que la suma no exceda el total de rosas
     const nuevosMixedColors = {
       ...mixedColors,
       [color]: valorNumerico
     };
-    
+
     const suma = Object.values(nuevosMixedColors).reduce((a, b) => a + b, 0);
-    
+
     if (suma <= cantidadRosas) {
       setMixedColors(nuevosMixedColors);
     } else {
@@ -197,23 +199,23 @@ const ItemDetail = ({ item }) => {
 
   const actualizarPrecioTotal = (cantidad, tipoSeleccionado, mixto = colorProducto === "Mixto") => {
     if (!cantidad) return;
-    
+
     const cantidadNum = parseInt(cantidad) || 0;
     const tipoActual = tipoSeleccionado || tipoProductoSeleccionado;
     const precioTipoSeleccionado = preciosProductos[tipoActual] || 0;
-    
+
     let precio = cantidadNum * rose_unit;
-    
+
     // Añadir costo adicional si se cambia el tipo de producto
     if (tipoActual && tipoActual !== item.tipo) {
       precio += precioTipoSeleccionado;
     }
-    
+
     // Añadir costo adicional para rosas mixtas
     if (mixto) {
       precio += 1500; // Precio adicional por elegir mixto
     }
-    
+
     setPrecioTotal(precio);
   };
 
@@ -232,7 +234,7 @@ const ItemDetail = ({ item }) => {
       const randomChar2 = chars.charAt(Math.floor(Math.random() * chars.length));
       return randomChar1 + randomChar2 + paddedNum;
     }
-    
+
     setOptionID(generateUniqueId());
   }, [cantidadRosas]);
 
@@ -253,9 +255,9 @@ const ItemDetail = ({ item }) => {
   const SelectedOptionDisplay = () => {
     const option = prodOptions[selectedOption];
     const dolarPrice = (option.precio / dolar).toFixed(2);
-    
+
     return (
-      <motion.div 
+      <motion.div
         className={styles.selectedOptionContainer}
         initial="hidden"
         animate="visible"
@@ -264,10 +266,10 @@ const ItemDetail = ({ item }) => {
         <h3 className={styles.optionTitle}>
           Opción {selectedOption + 1}: <span>{option.size}</span>
         </h3>
-        
+
         <div className={styles.productImageContainer}>
-          <motion.img 
-            src={option.img || item.img} 
+          <motion.img
+            src={option.img || item.img}
             alt={item.nombre}
             className={activeImage ? styles.productImageZoomed : styles.productImage}
             onClick={toggleImageSize}
@@ -278,17 +280,17 @@ const ItemDetail = ({ item }) => {
             <span>{activeImage ? 'Reducir' : 'Ampliar'}</span>
           </div>
         </div>
-        
+
         <div className={styles.productPriceContainer}>
           <span className={styles.priceLabel}>Precio:</span>
           <span className={styles.price}>
-            {priceDolar 
+            {priceDolar
               ? <span>USD <strong>${dolarPrice}</strong></span>
               : <span>$ <strong>{option.precio.toLocaleString('es-AR')}</strong></span>
             }
           </span>
         </div>
-        
+
         <div className={styles.addToCartSection}>
           <ItemCount
             idProd={prodId}
@@ -308,44 +310,32 @@ const ItemDetail = ({ item }) => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {selectedOption !== null
-            ? `${item.tipo} ${item.opciones[selectedOption].size} - Envio Flores`
-            : `${item.nombre} - Envio Flores`
-          }
-        </title>
-        <meta 
-          name="description" 
-          content="Envio de flores, rosas, ramos, bombones, regalos a domicilio en Argentina. Entrega inmediata. Delivery en el día en Buenos Aires." 
-        />
-      </Helmet>
-      
+
       <div className={styles.container}>
-        <motion.div 
+        <motion.div
           className={styles.navigationBar}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <button 
-            className={styles.backButton} 
-            onClick={() => navigate(-1)}
+          <button
+            className={styles.backButton}
+            onClick={() => navigate.back(-1)}
           >
             <ArrowBackIcon fontSize="small" /> Volver
           </button>
-          
+
           <Categorization name={item.nombre} className={styles.categorization} />
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className={styles.productHeader}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h1 className={styles.productTitle}>{item.nombre}</h1>
-          
+
           {item.vendidos > 10 && (
             <div className={styles.popularBadge}>
               <ShoppingCartIcon fontSize="small" />
@@ -353,24 +343,24 @@ const ItemDetail = ({ item }) => {
             </div>
           )}
         </motion.div>
-        
+
         <div className={styles.productContent}>
           <div className={styles.productMainContent}>
             {/* Columna izquierda: Imagen y detalles principales */}
             <div className={styles.productImageSection}>
               <SelectedOptionDisplay />
             </div>
-            
+
             {/* Columna derecha: Opciones y selecciones */}
             <div className={styles.productOptionsSection}>
-              <motion.div 
+              <motion.div
                 className={styles.optionsContainer}
                 initial="hidden"
                 animate="visible"
                 variants={scaleVariants}
               >
                 <h3 className={styles.sectionTitle}>Elige tu presentación</h3>
-                
+
                 <div className={styles.productOptions}>
                   {prodOptions.map((option, index) => (
                     <motion.div
@@ -381,10 +371,10 @@ const ItemDetail = ({ item }) => {
                       whileTap={{ scale: 0.97 }}
                     >
                       <div className={styles.optionImageContainer}>
-                        <img 
-                          src={option.img} 
-                          alt={`${item.nombre} ${option.size}`} 
-                          className={styles.optionImage} 
+                        <img
+                          src={option.img}
+                          alt={`${item.nombre} ${option.size}`}
+                          className={styles.optionImage}
                         />
                         {selectedOption === index && (
                           <div className={styles.selectedIndicator}></div>
@@ -393,8 +383,8 @@ const ItemDetail = ({ item }) => {
                       <div className={styles.optionInfo}>
                         <span className={styles.optionSize}>{option.size}</span>
                         <span className={styles.optionPrice}>
-                          {priceDolar 
-                            ? `USD $${(option.precio / dolar).toFixed(2)}` 
+                          {priceDolar
+                            ? `USD $${(option.precio / dolar).toFixed(2)}`
                             : `$ ${option.precio.toLocaleString('es-AR')}`
                           }
                         </span>
@@ -402,10 +392,10 @@ const ItemDetail = ({ item }) => {
                     </motion.div>
                   ))}
                 </div>
-                
+
                 {/* Color options */}
                 {showColorOptions && (
-                  <motion.div 
+                  <motion.div
                     className={styles.colorOptions}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -414,10 +404,10 @@ const ItemDetail = ({ item }) => {
                     <h3 className={styles.sectionTitle}>
                       <ColorLensIcon /> Elige el color
                     </h3>
-                    
+
                     <div className={styles.colorSelectionGrid}>
                       {["Rojo", "Rosa", "Amarillo", "Blanco", "Mixto"].map((color) => (
-                        <div 
+                        <div
                           key={color}
                           className={`${styles.colorOption} ${colorProducto === color ? styles.colorOptionSelected : ''}`}
                           onClick={() => {
@@ -426,25 +416,25 @@ const ItemDetail = ({ item }) => {
                             actualizarPrecioTotal(cantidadRosas, tipoProductoSeleccionado, color === "Mixto");
                           }}
                         >
-                          <div 
-                            className={styles.colorSwatch} 
-                            style={{ 
-                              backgroundColor: 
+                          <div
+                            className={styles.colorSwatch}
+                            style={{
+                              backgroundColor:
                                 color === "Rojo" ? "#e91e63" :
-                                color === "Rosa" ? "#f48fb1" :
-                                color === "Amarillo" ? "#ffc107" :
-                                color === "Blanco" ? "#f5f5f5" :
-                                "linear-gradient(45deg, #e91e63, #f48fb1, #ffc107, #f5f5f5)"
+                                  color === "Rosa" ? "#f48fb1" :
+                                    color === "Amarillo" ? "#ffc107" :
+                                      color === "Blanco" ? "#f5f5f5" :
+                                        "linear-gradient(45deg, #e91e63, #f48fb1, #ffc107, #f5f5f5)"
                             }}
                           ></div>
                           <span>{color}</span>
                         </div>
                       ))}
                     </div>
-                    
+
                     <AnimatePresence>
                       {showMixedOptions && (
-                        <motion.div 
+                        <motion.div
                           className={styles.mixedColorsContainer}
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
@@ -483,10 +473,10 @@ const ItemDetail = ({ item }) => {
                     </AnimatePresence>
                   </motion.div>
                 )}
-                
+
                 {/* Manual add roses */}
                 {showManualAdd && (
-                  <motion.div 
+                  <motion.div
                     className={styles.manualAddSection}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -495,7 +485,7 @@ const ItemDetail = ({ item }) => {
                     <h3 className={styles.sectionTitle}>
                       <LocalFloristIcon /> Personaliza tu arreglo
                     </h3>
-                    
+
                     <div className={styles.manualAddContent}>
                       <div className={styles.rosesInputContainer}>
                         <label htmlFor="rosesQuantity">Cantidad de rosas:</label>
@@ -509,25 +499,25 @@ const ItemDetail = ({ item }) => {
                           className={styles.rosesInput}
                         />
                       </div>
-                      
+
                       {cantidadRosas && (
-                        <motion.div 
+                        <motion.div
                           className={styles.styleOptionsContainer}
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           transition={{ duration: 0.3 }}
                         >
                           <h4>Selecciona el estilo:</h4>
-                          
+
                           <div className={styles.styleOptions}>
                             {Object.entries(preciosProductos).map(([tipo, precio]) => {
                               // Solo mostrar opciones válidas para este tipo de producto
                               if (opcionesDisponiblesPorTipo[item.tipo]?.includes(tipo) || tipo === item.tipo) {
                                 const isOriginalType = tipo === item.tipo;
-                                
+
                                 return (
-                                  <div 
-                                    key={tipo} 
+                                  <div
+                                    key={tipo}
                                     className={`
                                       ${styles.styleOption}
                                       ${tipoProductoSeleccionado === tipo ? styles.styleOptionSelected : ''}
@@ -545,7 +535,7 @@ const ItemDetail = ({ item }) => {
                                         )}
                                       </div>
                                     </div>
-                                    
+
                                     <div className={styles.styleOptionInfo}>
                                       <span className={styles.styleOptionName}>
                                         {isOriginalType ? 'Original' : ''} {tipo}
@@ -564,9 +554,9 @@ const ItemDetail = ({ item }) => {
                           </div>
                         </motion.div>
                       )}
-                      
+
                       {cantidadRosas && tipoProductoSeleccionado && (
-                        <motion.div 
+                        <motion.div
                           className={styles.customSummary}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -575,34 +565,34 @@ const ItemDetail = ({ item }) => {
                           <div className={styles.customSummaryHeader}>
                             <h4>Resumen de tu selección</h4>
                           </div>
-                          
+
                           <div className={styles.customSummaryContent}>
                             <div className={styles.summaryItem}>
                               <span>Rosas:</span>
                               <strong>{cantidadRosas}</strong>
                             </div>
-                            
+
                             <div className={styles.summaryItem}>
                               <span>Estilo:</span>
                               <strong>{tipoProductoSeleccionado}</strong>
                             </div>
-                            
+
                             <div className={styles.summaryItem}>
                               <span>Color:</span>
                               <strong>{colorProducto}</strong>
                             </div>
-                            
+
                             <div className={styles.summaryTotal}>
                               <span>Total:</span>
                               <strong>
-                                {priceDolar 
-                                  ? `USD $${precioTotalEnUsd}` 
+                                {priceDolar
+                                  ? `USD $${precioTotalEnUsd}`
                                   : `$ ${precioTotal.toLocaleString('es-AR')}`
                                 }
                               </strong>
                             </div>
                           </div>
-                          
+
                           <div className={styles.customAddToCart}>
                             <ItemCount
                               idProd={prodId}
@@ -624,9 +614,9 @@ const ItemDetail = ({ item }) => {
               </motion.div>
             </div>
           </div>
-          
+
           {/* Product details & description */}
-          <motion.div 
+          <motion.div
             className={styles.productDetails}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -636,14 +626,14 @@ const ItemDetail = ({ item }) => {
               <h3 className={styles.descriptionTitle}>Descripción</h3>
               <p className={styles.descriptionText}>{item.descr}</p>
             </div>
-            
+
             <div className={styles.categoriesContainer}>
               <h3 className={styles.categoriesTitle}>Categorías</h3>
               <div className={styles.categoriesList}>
                 {item.categoria?.map((category, idx) => (
-                  <Chip 
-                    key={idx} 
-                    label={category} 
+                  <Chip
+                    key={idx}
+                    label={category}
                     className={styles.categoryChip}
                     size={isMobileScreen ? "small" : "medium"}
                   />
@@ -652,9 +642,9 @@ const ItemDetail = ({ item }) => {
             </div>
           </motion.div>
         </div>
-        
+
         {/* Adicionales section */}
-        <motion.div 
+        <motion.div
           className={styles.adicionalesSection}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

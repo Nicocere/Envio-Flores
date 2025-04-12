@@ -2,6 +2,27 @@
    Variables de estilos
 =================================== */
 
+.dark-mode .form{
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-dark);
+}
+
+.formulario {
+  text-align: -webkit-center;
+  background: var(--form-bg);
+  border: var(--form-primary);
+  border-radius: 7px;
+  margin: 25px 20px 20px;
+}
+
+.dark-mode .formulario {
+  background: var(--bg-dark);
+  border: var(--border-dark);
+  color: var(--text-light);
+}
+
 /* Encabezado del formulario - Diseño mejorado */
 .form-header {
   margin-bottom: 32px;
@@ -18,7 +39,7 @@
   font-size: 1.75rem;
   font-weight: 600;
   color: var(--form-primary);
-  margin: 0 0 20px 0;
+  padding: 20px 50px;
   position: relative;
   display: inline-block;
   letter-spacing: 0.5px;
@@ -35,6 +56,38 @@
   background-color: var(--form-primary);
   border-radius: 3px;
 }
+
+.dark-mode .form-title {
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(255, 202, 202, 0.1);
+}
+
+.dark-mode .form-title::after {
+  background-color: var(--text-light);
+}
+
+.form-title-h1 {
+  font-size: 2.75rem;
+  font-weight: 600;
+  color: var(--form-primary);
+  padding: 20px 50px;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.5px;
+}
+.form-title-h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--form-primary);
+  border-radius: 3px;
+}
+
+
 
 /* Contenedor de introducción */
 .form-intro {
@@ -534,7 +587,7 @@
   min-height: 100px;
   padding: 0.85rem 1rem;
   border: 1px solid var(--form-border);
-  border-radius: var(--form-radius-sm);
+  border-radius: 18px;
   background-color: white;
   color: var(--form-text);
   font-family: inherit;

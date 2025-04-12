@@ -1,4 +1,4 @@
-import CartComponent from "@/Client/Cart/CartClient";
+import CartComponents from "@/componentes/Cart/Cart";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 const Cart = () => {
-  return <CartComponent />;
+  return <CartComponents />;
 };
 
 export default Cart;

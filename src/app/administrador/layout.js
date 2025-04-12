@@ -11,14 +11,14 @@ import { baseDeDatos } from '@/admin/FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/admin/FireBaseConfig'; // Asegúrate de importar auth correctamente
 import useLogout from '../login/logout/page';
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 
 export default function RootLayout({ children }) {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState(null);
     const logout = useLogout();
-    const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {

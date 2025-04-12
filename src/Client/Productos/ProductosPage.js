@@ -10,32 +10,17 @@ import { useTheme } from '@/context/ThemeSwitchContext';
 
 const ProductsComponent = () => {
     const { isDarkMode } = useTheme();
-    const isSmallScreen = useMediaQuery('(max-width:650px)');
 
 
     return (
-        <div style={{
-            background: isDarkMode ? '#fcf5f0' : '#1a0f0a',
-            backdropFilter: !isDarkMode && 'blur(5px)',
-            paddingTop: '50px'
-        }}>
+        <div style={{paddingTop: '30px'}}>
             <CheckoutStepper activeStep={0} />
             <div>
                 <div className={style.products}>
                     <div className={style.productsContent}>
                         <Categories />
                         <div className={style.productsListContainer}>
-                            <h2 style={{
-                                fontSize: isSmallScreen && '1.76rem',
-                                color: isDarkMode ? '#2f1a0f' : '#fcf5f0',
-                                background: isDarkMode ? '#fcf5f0' : '#2f1a0f',
-                                textAlign: '-webkit-center',
-                                margin: '0',
-                                transition: 'all 0.8s ease',
-                                padding: '10px',
-                            }}>
-                                Todos nuestros productos
-                            </h2>
+            
                             <ItemListContainer />
                         </div>
                     </div>

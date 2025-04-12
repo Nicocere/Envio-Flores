@@ -140,7 +140,7 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
     try {
 
       // const response = await axios.post('https://envio-flores.rj.r.appspot.com/mercadopago/process_payment',
-        const response = await axios.post('http://localhost:8080/mercadopago/process_payment',
+        const response = await axios.post('http://localhost:3000/api/mercadopago/process_payment',
         bodyMP,
         {
           headers: {

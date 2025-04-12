@@ -1,0 +1,286 @@
+/* Estilos para el componente LocalidadPageContent */
+.directionsDiv {
+  padding: 2.5rem;
+  margin: 3rem auto;
+  max-width: 1200px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-normal);
+}
+
+.light {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+.dark {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border-color-dark);
+}
+
+.directionsDiv h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  letter-spacing: 0.5px;
+  color: var(--primary-color);
+}
+
+.dark .directionsDiv h1 {
+  color: var(--primary-light);
+  border-bottom-color: var(--border-color-dark);
+}
+
+/* Alfabeto y filtrado */
+.alphabetContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+}
+
+.light .alphabetContainer {
+  background-color: var(--background-light-alt);
+}
+
+.dark .alphabetContainer {
+  background-color: var(--background-card-dark);
+}
+
+.letterButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.light .letterButton {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.dark .letterButton {
+  background-color: var(--background-dark-alt);
+  color: var(--text-light);
+  box-shadow: var(--shadow-dark-sm);
+}
+
+.letterButton:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.light .letterButton:hover {
+  background-color: var(--secondary-color);
+}
+
+.dark .letterButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.activeLetterButton {
+  background-color: var(--primary-color) !important;
+  color: var(--text-light) !important;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Grupos de localidades */
+.groupsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.groupContainer {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.light .groupContainer {
+  background-color: var(--background-light);
+  box-shadow: var(--shadow-normal);
+  border: 1px solid var(--border-color);
+}
+
+.dark .groupContainer {
+  background-color: var(--background-card-dark);
+  box-shadow: var(--shadow-dark-sm);
+  border: 1px solid var(--border-color-dark);
+}
+
+.groupContainer:hover {
+  transform: translateY(-5px);
+}
+
+.light .groupContainer:hover {
+  box-shadow: var(--shadow-strong);
+}
+
+.dark .groupContainer:hover {
+  box-shadow: var(--shadow-dark-md);
+}
+
+.letterHeader {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--text-light);
+}
+
+.envioDirectionList {
+  list-style-type: none;
+  padding: 1.5rem;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.liDirects {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  transition: all 0.2s ease;
+}
+
+.liDirects:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.liDirects a {
+  display: block;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.light .liDirects a {
+  color: var(--text-dark);
+}
+
+.dark .liDirects a {
+  color: var(--text-light);
+}
+
+.liDirects a:hover {
+  transform: translateX(5px);
+}
+
+.light .liDirects a:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+.dark .liDirects a:hover {
+  color: var(--primary-light);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Loader */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.5rem;
+}
+
+.light .loader {
+  color: var(--primary-color);
+}
+
+.dark .loader {
+  color: var(--primary-light);
+}
+
+/* Empty state */
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+}
+
+.emptyState p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .directionsDiv {
+    padding: 1.5rem;
+    margin: 1.5rem 1rem;
+    border-radius: var(--radius-md);
+  }
+  
+  .directionsDiv h1 {
+    font-size: 1.8rem;
+  }
+  
+  .groupsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .alphabetContainer {
+    padding: 0.8rem;
+  }
+  
+  .letterButton {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .directionsDiv {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .directionsDiv h1 {
+    font-size: 1.5rem;
+  }
+  
+  .groupsContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .alphabetContainer {
+    gap: 0.3rem;
+  }
+  
+  .letterButton {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+}
+

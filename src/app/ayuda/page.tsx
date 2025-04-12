@@ -1,27 +1,26 @@
-
-import React, { useContext } from 'react';
+import React from 'react';
 import ComoComprarComponent from '@/componentes/ComoComprar/comoComprar';
 import type { Metadata } from 'next';
 
 
 export const metadata: Metadata = {
-  title: '¿Cómo Comprar en Florerias Argentinas? - Venta y envío de arreglos florales',
-  description: 'Envío de flores, rosas, ramos, bombones, regalos a domicilio en Argentina. Venta online y telefónica. Pagos en efectivo y con tarjetas de crédito. Entrega inmediata.',
+  title: '¿Cómo Comprar en Envio Flores? - Venta y envío de arreglos florales',
+  description: 'Envío de flores, rosas, ramos, bombones, regalos a domicilio en Argentina. Venta online y telefónica. Pagos seguros con múltiples opciones. Entrega inmediata y garantizada.',
   alternates: {
-    canonical: 'https://www.floreriasargentinas.com/como-comprar',
+    canonical: 'https://envioflores.com/como-comprar',
   },
   openGraph: {
     type: 'article',
-    title: 'Guía de Compra - Florerias Argentinas',
-    description: 'Aprende cómo comprar en Florerias Argentinas. Proceso de compra, formas de pago y políticas de envío.',
-    url: 'https://www.floreriasargentinas.com/como-comprar',
-    siteName: 'Florerias Argentinas',
+    title: 'Guía de Compra - Envio Flores',
+    description: 'Aprende cómo comprar en Envio Flores. Proceso sencillo, formas de pago seguras y políticas de envío transparentes. Garantía de satisfacción en cada entrega.',
+    url: 'https://envioflores.com/como-comprar',
+    siteName: 'Envio Flores',
     images: [
       {
-        url: 'https://www.floreriasargentinas.com/images/guia-compra.jpg',
+        url: 'https://envioflores.com/images/guia-compra.jpg',
         width: 800,
         height: 600,
-        alt: 'Guía de compra Florerias Argentinas',
+        alt: 'Guía de compra Envio Flores',
       },
     ],
   },
@@ -38,15 +37,15 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  keywords: 'comprar flores, envío flores argentina, formas pago florería, envío regalos buenos aires',
-  authors: [{ name: 'Florerias Argentinas' }],
-  creator: 'Florerias Argentinas',
-  publisher: 'Florerias Argentinas',
+  keywords: 'comprar flores online, envío flores Argentina, formas pago florería, entrega flores a domicilio, ramos florales, arreglos florales, enviar flores, regalo flores, flores para cumpleaños, flores para aniversarios, flores para eventos, flores premium',
+  authors: [{ name: 'Envio Flores' }],
+  creator: 'Envio Flores',
+  publisher: 'Envio Flores',
 };
 
 
 function ComoComprar() {
-  const emailPaypal = "paypal@regalosflores.com.ar";
+  const emailPaypal = "paypal@envioflores.com";
 
 
   return <ComoComprarComponent />;

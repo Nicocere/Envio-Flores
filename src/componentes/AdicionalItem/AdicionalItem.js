@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { CartContext } from '../../context/CartContext';
+import { CartContext, useCart } from '../../context/CartContext';
 import AdicionalCount from '../AdicionalCount/AdicionalCount';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';

@@ -14,20 +14,15 @@ const OcasionesComponent = () => {
 
     return (
 
-        <div style={{
-            background: isDarkMode ? '#fcf5f0' : '#1a0f0a',
-            backdropFilter: !isDarkMode && 'blur(5px)',
-            paddingTop: '50px'
-        }}>     
+        <div style={{paddingTop: '50px'}}>     
                <CheckoutStepper activeStep={0} />
             <div className={style.products}>
-                <div className={style.productsContent}>
+                <div className={style.productsContent}> 
                     <Categories />
                     <div className={style.productsListContainer}>
                         <h2
                             style={{
-                                fontSize: isSmallScreen && '1.76rem',
-                                color: isDarkMode ? '#2f1a0f' : '#A6855D',
+                            
                                 textAlign: '-webkit-center'
                             }}
                         >

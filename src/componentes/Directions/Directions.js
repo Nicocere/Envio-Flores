@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+"use client"
+
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { CartContext, useCart } from '../../context/CartContext';
-import axios from 'axios';
+import { useCart } from '../../context/CartContext';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 const Directions = ({ locationSelect, comoComprar }) => {

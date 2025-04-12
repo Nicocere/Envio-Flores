@@ -1,35 +1,32 @@
 import React, { useEffect, useState } from "react";
 import ItemDetail from "../ItemDetail/ItemDetail";
-import { useParams } from 'react-router-dom'
 import { FadeLoader } from "react-spinners";
-import axios from "axios";
 import CheckoutStepper from "../ProgressBar/CheckoutStepper";
-import { baseDeDatos } from "../../admin/FireBaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { useProductsContext } from "@/context/ProductsContext";
+;
 
-const ItemDetailContainer = ({ activeStep, stepLabels }) => {
+const ItemDetailContainer = ({ activeStep, stepLabels, prodId }) => {
 
     const [item, setItem] = useState({});
     const [isLoading, setIsLoading] = useState(true)
-    const { prodId } = useParams()
+    const {products} = useProductsContext()
 
     useEffect(() => {
 
         async function fetchData() {
             try {
-                // Referencia al documento específico por ID en la colección 'productos'
-                const productRef = doc(baseDeDatos, 'productos', prodId);
-                const productDoc = await getDoc(productRef);
+                if (products) {
+                    const product = products.find(p =>  p.id === prodId);
+                    console.log("product", product)
+                    if (product) {
+                        setItem(product);
+                        setIsLoading(false); // Actualiza el estado de isLoading en caso de error
 
-                if (productDoc.exists()) {
-                    const productData = {
-                        ...productDoc.data(),
-                    };
-                    setItem(productData);
-                    setIsLoading(false); // Actualiza el estado de isLoading después de obtener los datos
+                    } else {
+                        console.error(`Producto con ID ${prodId} no encontrado en localforage`);
+                    }
                 } else {
-                    console.log("El producto no existe en la base de datos.");
-                    setIsLoading(false); // Actualiza el estado de isLoading incluso si el producto no existe
+                    console.error('No se encontraron productos en localforage');
                 }
             } catch (error) {
                 console.log("No se pudo obtener la base de datos:", error);
@@ -38,7 +35,7 @@ const ItemDetailContainer = ({ activeStep, stepLabels }) => {
         }
 
         fetchData();
-    }, [prodId]);
+    }, [prodId, products]);
 
 
     return (
@@ -53,7 +50,7 @@ const ItemDetailContainer = ({ activeStep, stepLabels }) => {
                 </>
             ) : (
                 <>
-                    <ItemDetail item={item} />
+                    <ItemDetail item={item} prodId={prodId}/>
                 </>
             )}
 

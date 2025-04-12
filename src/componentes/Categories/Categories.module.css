@@ -1,0 +1,136 @@
+.darkMode{
+  --color-text: var(--text-light);
+}
+.lightMode{
+  --color-text: var(--text-dark);
+}
+
+
+.seccionLi {
+  list-style: none;
+  color: var(--primary-color);
+  align-self: center;
+  border-top: 0px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 0px solid transparent;
+  text-align: start;
+  border-right: 0px solid transparent;
+  padding: 5px 5px;
+  width: 200px;
+  margin: 5px 2px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all var(--transition-speed) ease-out;
+}
+
+.seccionLi:hover {
+  text-decoration: none;
+  color: var(--primary-color);
+  border-radius: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+.seccionLi.active {
+  color: var(--primary-color-hover);
+  font-size: 120%;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.darkMode .seccionLi {
+  color: var(--text-light);
+  border: 1px solid transparent;
+  border-radius: 20px;
+}
+.darkMode .seccionLi:hover {
+  color: var(--text-light);
+  border: 1px solid var(--text-light);
+}
+
+.categorySeccion {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.categories{
+ display:flex;
+ flex-direction: column;   
+}
+
+.navBarSeccions {
+    display: flex;
+    margin: 0%;
+    align-items: center;
+    width: 100%;
+    border-top: 2px solid var(--primary-color);
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 3 ;
+    z-index: 1000;
+  }
+  
+  .imgNavBar {
+    width: 150px;
+    margin: 5px;
+  }
+  
+  .openMenu{
+    padding-left: 25px;
+  }
+  
+  @media screen and (max-width: 1000px) {
+  
+    .navBar {
+      align-items: flex-end;
+    }
+    
+    
+    
+    .navTop {
+      display: flex;
+      background: linear-gradient(rgb(255 255 255 / 77%), rgb(255 187 187 / 70%));
+      justify-content: space-around;
+      text-decoration: none;
+      font-size: 50%;
+    }
+    
+    .divContacto {
+      
+      display: flex;
+      flex-direction: row;
+      
+    }
+    
+    
+  }
+
+
+  
+  @media screen and (max-width: 650px) {
+    .navBarSeccions {
+      display: contents;
+    }
+    
+    
+    .divNavBarSeccions{
+      display: none;
+    }
+    
+    
+  }
+  
+  
+  @media screen and (max-width: 400px) {
+    .imgNavBar {
+      width: 250px;
+    }
+  
+  
+  
+  }

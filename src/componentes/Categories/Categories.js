@@ -1,95 +1,121 @@
-import {  useParams } from 'react-router-dom'
-import Link from 'next/link';
-import './Categories.css'
-import { FaBars } from '@react-icons/all-files/fa/FaBars'
-import React, { useState, useRef, useEffect } from 'react';
+"use client"
+
+import { useTheme } from '@/context/ThemeSwitchContext';
+import { collection, getDocs } from 'firebase/firestore';
+import { baseDeDatos } from '@/admin/FireBaseConfig';
+import style from './Categories.module.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useTheme } from '../../context/ThemeSwitchContext';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
-
-
-const Categories = () => {
-
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const { categoryName, searchParam } = useParams()
-  const [categoryroute, setCategoryRoute] = useState();
-
-  const openMenu = showMobileMenu ? 'seccion' : 'seccionCerrada';
-  
-
-
+const Categories = ({ categoryName }) => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const { isDarkMode } = useTheme();
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  const pathname = usePathname();
 
-  const { isDarkMode } = useTheme();
-  const className = isDarkMode ? 'dark-mode' : '';
-
+  const getCategoryType = (path) => {
+    if (path.includes('/ocasiones')) return 'ocassionList';
+    if (path.includes('/fechas-especiales')) return 'especialDates';
+    return 'categoryList';
+  };
 
   useEffect(() => {
-    function handleDocumentInteraction(event) {
-      // Si el menú está abierto y la interacción no fue en el menú ni en el botón, cierra el menú
-      if (showMobileMenu && !menuRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
+    const fetchCategories = async () => {
+      try {
+        const categoriesDoc = await getDocs(collection(baseDeDatos, 'categorias'));
+        const categoryData = categoriesDoc.docs[0]?.data();
+        
+        if (!categoryData) {
+          console.error('No se encontraron categorías');
+          return;
+        }
+
+        const categoryType = getCategoryType(pathname);
+        const categoryList = categoryData[categoryType] || [];
+
+        // Ordenar categorías alfabéticamente
+        const sortedCategories = [...categoryList].sort((a, b) => 
+          a.value.localeCompare(b.value)
+        );
+
+        // Mover "Todos" al principio si existe
+        const todosIndex = sortedCategories.findIndex(cat => cat.id === 'Todos');
+        if (todosIndex > -1) {
+          const todos = sortedCategories.splice(todosIndex, 1)[0];
+          sortedCategories.unshift(todos);
+        }
+
+        setCategories(sortedCategories);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, [pathname]);
+
+  useEffect(() => {
+    const handleDocumentInteraction = (event) => {
+      if (showMobileMenu && !menuRef.current?.contains(event.target) && !buttonRef.current?.contains(event.target)) {
         setShowMobileMenu(false);
       }
-    }
+    };
 
-    // Agrega el event listener
     document.addEventListener('click', handleDocumentInteraction);
     document.addEventListener('touchstart', handleDocumentInteraction);
 
-    // Limpieza: remueve el event listener cuando el componente se desmonte
     return () => {
       document.removeEventListener('click', handleDocumentInteraction);
       document.removeEventListener('touchstart', handleDocumentInteraction);
     };
-
   }, [showMobileMenu]);
 
+  if (loading) {
+    return <div style={{color:isDarkMode ? 'var(--text-light)': 'var(--text-dark)'}}>Cargando categorías...</div>;
+  }
 
-
-  useEffect(() => {
-    if (categoryName) {
-      setCategoryRoute(categoryName)
-    } else if (searchParam) {
-      setCategoryRoute(searchParam)
-    } else {
-      setCategoryRoute("Productos")
-    }
-  }, [categoryName, searchParam]);
+  const getBaseUrl = () => {
+    if (pathname.includes('/ocasiones')) return '/ocasiones';
+    if (pathname.includes('/fechas-especiales')) return '/fechas-especiales';
+    return '/productos';
+  };
 
   return (
-
-    <nav className={`navBarSeccions ${className}`}>
-      
-      <ul className={openMenu} ref={menuRef}>
-
-        <div className='categorySeccion'>
-
-          <Link className={`seccionLi ${className}`} href='/productos' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Todo </Link>
-
-          <Link className={`seccionLi ${className}`} href='/categoria/Rosas' ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Rosas</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Floreros" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Floreros</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Arreglos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Arreglos</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Especiales" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Especiales</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Canastas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Canastas</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Ramos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Ramos</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Plantas" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Plantas</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Comestibles" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Comestibles</Link>
-
-          <Link className={`seccionLi ${className}`} href="/categoria/Desayunos" ><ArrowForwardIosIcon sx={{fontSize: 'small', }}/> Desayunos</Link>
-        </div>
-
-      </ul>
-    </nav>
+    <div className={style.divNavBarSeccions}>
+      <h5 style={{
+        color: 'var(--primary-color)',
+        fontWeight: '800',
+        textAlign: '-webkit-center',
+        paddingLeft: '40px',
+      }}>
+        Categorias:
+      </h5>
+      <nav className={style.navBarSeccions}>
+        <ul className={style.openMenu} ref={menuRef}>
+          <div className={`${style.categorySeccion} ${isDarkMode ? style.darkMode : style.lightMode}`}>
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href={category.id === 'Todos' ? getBaseUrl() : `${getBaseUrl()}/${category.id}`}
+                className={categoryName === category.id || (categoryName === undefined && category.id === 'Todos')
+                  ? `${style.seccionLi} ${style.active}`
+                  : style.seccionLi}
+              >
+                <ArrowForwardIosIcon sx={{ fontSize: 'small' }} /> {category.value}
+              </Link>
+            ))}
+          </div>
+        </ul>
+      </nav>
+    </div>
   );
-}
+};
 
 export default Categories;
-

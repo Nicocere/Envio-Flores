@@ -12,14 +12,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { PulseLoader } from 'react-spinners';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useThemeContext } from '@/context/ThemeSwitchContext';
+import { useTheme} from '@/context/ThemeSwitchContext';
 
 function Login() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState(null);
-    const { isDarkMode } = useThemeContext();
+    const { isDarkMode } = useTheme();
     const navigate = useRouter();
 
     useEffect(() => {

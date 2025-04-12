@@ -108,7 +108,7 @@
    ======================================== */
 .search-filter-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-md);
 }

@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Directions from '../Directions/Directions.js';
-import { CartContext, useCart } from '../../context/CartContext.js';
+import { useCart } from '../../context/CartContext.js';
 import MercadoPagoButton from '../MercadoPago/MercadoPago.js';
 import PayPalButton from '../PaypalCheckoutButton/PayPalButton.js';
 import Swal from 'sweetalert2';
 import CardPaymentMP from '../MercadoPago/PasarelaDePago/CardPayment.js';
-import { Button, FormHelperText, TextField } from '@mui/material';
+import { Button, FormHelperText, TextField, useTheme } from '@mui/material';
 import CheckoutStepper from '../ProgressBar/CheckoutStepper.js';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
@@ -36,7 +36,8 @@ const Form = ({ itemSelected }) => {
         setIsPremium, locationName,
         location, cart, dolar,
         priceDolar, setPriceDolar
-    } = useContext(CartContext);
+    } = useCart();
+    const {isDarkMode} = useTheme();
 
     const [saveDedicatoria, setSaveDedicatoria] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
@@ -185,12 +186,12 @@ const Form = ({ itemSelected }) => {
     }, [watch]);
 
     return (
-        <div ref={formularioEnvioRef}>
+        <div ref={formularioEnvioRef} className={`form-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             {activeStep === 3 && (
                 <form onSubmit={handleSubmit} className='form'>
                     <CheckoutStepper activeStep={3} cartEmpty={cart.length === 0} />
                     <div className='form-header'>
-                        <h2 className='form-title'>Detalles de su envío</h2>
+                        <h1 className='form-title-h1'>Detalles de su envío</h1>
                         <div className='form-intro'>
                             <span className='form-icon'>🌹</span>
                             <p>Gracias por confiar en <strong>Envío Flores</strong>. Complete los siguientes datos para finalizar su pedido.</p>
@@ -310,6 +311,12 @@ const Form = ({ itemSelected }) => {
                             <h4 className='dedic-text'>Aqui puede agregar una dedicatoria:</h4>
 
                             <textarea {...register('dedicatoria')} className='dedicatoria' name="dedicatoria" />
+                            <div className='dedic-instructions'>
+                                <small className='dedic-text'>• Ejemplo: "Feliz Cumpleaños, te quiero mucho!"</small>
+                                <small className='dedic-text'>• El mensaje se enviará junto con su pedido</small>
+                                <small className='dedic-text'>• Deje el campo vacío si no desea incluir mensaje</small>
+                                <small className='dedic-text'>• Haga clic en "Guardar Mensaje" para confirmar</small>
+                            </div>
                             <Button
                                 size='small'
                                 variant='contained'
@@ -562,17 +569,17 @@ const Form = ({ itemSelected }) => {
                             </Button>
                             <CheckoutStepper activeStep={4} />
                             <div className="payment-section">
-                              <div className="payment-header">
-                                <h3 className='metodo-pago-title'>Seleccione un método de pago seguro</h3>
-                                <div className="payment-info">
-                                  <span className="payment-icon">💳</span>
-                                  <span className='payment-subtitle'>¡Último paso! Elija cómo desea pagar su pedido</span>
+                                <div className="payment-header">
+                                    <h3 className='metodo-pago-title'>Seleccione un método de pago seguro</h3>
+                                    <div className="payment-info">
+                                        <span className="payment-icon">💳</span>
+                                        <span className='payment-subtitle'>¡Último paso! Elija cómo desea pagar su pedido</span>
+                                    </div>
+                                    <div className="payment-security">
+                                        <span className="security-icon">🔒</span>
+                                        <span className="security-text">Todos nuestros pagos son procesados en un entorno seguro</span>
+                                    </div>
                                 </div>
-                                <div className="payment-security">
-                                  <span className="security-icon">🔒</span>
-                                  <span className="security-text">Todos nuestros pagos son procesados en un entorno seguro</span>
-                                </div>
-                              </div>
                             </div>
                             <div id='Payment' ref={paymentsRef} className='payments-btn-container'>
                                 <div className='payments-buttons'>

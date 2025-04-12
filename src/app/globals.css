@@ -13,17 +13,20 @@ svg {
   /* Colores */
   --background-light: #FCFCFC;
   --background-dark: #0a0a0a;
+  
+  /* --textos */
   --primary-color: #A70000;
   --primary-color-hover: #800000;
   --primary-dark: #350000;
   --primary-light: #ff4d4d;
   --primary-light-hover: #ff6b6b;
-
   --secondary-color: #FFF5F5;
   --accent-color: #ffcaca;
-  /* --text-dark: #353535; */
   --text-light: #FFFFFF;
-  --text-muted: #757575;
+  --text-muted: #030303;
+  --text-dark: #333333;
+
+  /* border */
   --border-color: #E0E0E0;
   --overlay-light: rgba(0, 0, 0, 0.35);
   --overlay-dark: rgba(0, 0, 0, 0.6);
@@ -38,7 +41,6 @@ svg {
   --border-radius: 8px;
   --transition-speed: 0.3s;
 
-  --text-dark: #333333;
   /* --text-light: #ffffff;
   --text-muted: #6c757d; */
   --background-light: #ffffff;
@@ -277,6 +279,39 @@ svg {
 
   --adicional-border-dark: #334155;
   --adicional-border-dark-hover: #475569;
+  --adicionales-primary: #a70000;
+  --adicionales-primary-light: #ff4d4d;
+  --adicionales-primary-dark: #800000;
+  
+  --adicionales-accent: #4caf50;
+  --adicionales-accent-light: #80e27e;
+  
+  --adicionales-bg-light: #ffffff;
+  --adicionales-bg-dark: #222222;
+  
+  --adicionales-text-light: #333333;
+  --adicionales-text-secondary: #666666;
+  --adicionales-text-tertiary: #888888;
+  --adicionales-text-dark: #f5f5f5;
+  
+  --adicionales-border-light: #e0e0e0;
+  --adicionales-border-dark: #444444;
+  
+  --adicionales-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --adicionales-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  
+  --adicionales-spacing-xs: 4px;
+  --adicionales-spacing-sm: 8px;
+  --adicionales-spacing-md: 16px;
+  --adicionales-spacing-lg: 24px;
+  --adicionales-spacing-xl: 32px;
+  
+  --adicionales-border-radius-sm: 8px;
+  --adicionales-border-radius: 12px;
+  --adicionales-border-radius-lg: 16px;
+  
+  --adicionales-transition: 0.3s ease;
+  --adicionales-transition-slow: 0.5s ease;
 
   /* Sombras */
   --adicional-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1273,7 +1308,12 @@ input {
   padding: 20px;
   align-self: center;
   flex: 1;
-  
+}
+
+.dark-mode .cart {
+  background: #222222;
+  border: 0.5px solid #444444;
+  color: #f5f5f5;
 }
 
 .cartVacio {
@@ -1413,7 +1453,7 @@ input {
   min-height: 100px;
   padding: 12px 15px;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 18px;
   background-color: white;
   color: #333;
   font-family: inherit;
@@ -1891,21 +1931,6 @@ input {
 }
 /* FIN ADICIONALES */
 
-/* FORMULARIO */
-.formulario {
-  margin: 20px;
-  background: #ffffff78;
-  border: rgb(255, 0, 191);
-  border-radius: 7px;
-  margin-top: 25px;
-  text-align: -webkit-center;
-}
-
-.form-title {
-  font-family: "Jost", sans-serif !important;
-
-  color: black;
-}
 
 .select-directions {
   width: 60%;
