@@ -1,11 +1,9 @@
 "use client"
 
 import { use } from 'react';
-import CheckoutStepper from '@/componentes/ProgressBar/CheckoutStepper';
-import { Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
+import style from './admin.module.css';
 
-const ItemListContainer = dynamic(() => import('@/componentes/ItemListContainer/ItemListContainer'), { ssr: false });
 const VerVentas = dynamic(() => import('@/admin/componentes/Ventas/Ventas'), { ssr: false });
 const AddProds = dynamic(() => import('@/admin/componentes/Productos/addProds'), { ssr: false });
 const EditProds = dynamic(() => import('@/admin/componentes/Productos/editProds'), { ssr: false });
@@ -22,7 +20,6 @@ const Promociones = dynamic(() => import('@/admin/componentes/Promociones/Promoc
 const PantallasPromocionales = dynamic(() => import('@/admin/componentes/PantallasPromocionales/PantallasPromocionales'), { ssr: false });
 
 
-import style from './admin.module.css';
 
 export default function Administrador(props) {
 
@@ -58,10 +55,10 @@ export default function Administrador(props) {
             {
                 adminRoute === 'banners' && <AddBanners />
             }
- {
-    (adminRoute === 'edit' && productId === 'banners') && <EditBanners bannerId={paramId} />
+            {
+                (adminRoute === 'edit' && productId === 'banners') && <EditBanners bannerId={paramId} />
 
- }
+            }
 
 
             {
