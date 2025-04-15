@@ -83,7 +83,7 @@ const Informacion = () => {
       url: "https://www.aflorar.com.ar/"
     },
     {
-      name: "Florerias Argentinas",
+      name: "Envio Flores",
       image: "/assets/imagenes/empresas-asociadas/FloreriasArgentinas.png",
       url: "https://floreriasargentinas.vercel.app/"
     },

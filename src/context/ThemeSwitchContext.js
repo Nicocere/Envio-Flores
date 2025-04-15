@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
       
       toast: true,
       position: 'bottom-end',
-      timer: 5000,
+      timer: 1000,
       timerProgressBar: true,
       customClass: {
         popup: isDarkMode ? 'dark-mode-swal' : 'light-mode-swal'

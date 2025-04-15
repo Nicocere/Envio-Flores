@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation';
 
 const NavBarMobile = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const isSmallScreen = useMediaQuery('(max-width:850px)');
   const [currentUser, setCurrentUser] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -30,7 +29,6 @@ const NavBarMobile = () => {
   const [openOcassionsDrawer, setOpenOcassionsDrawer] = useState(false);
 
   const { isDarkMode } = useTheme();
-  const className = isDarkMode ? 'dark-mode' : '';
 
   const navigate = useRouter();
 
@@ -56,36 +54,10 @@ const NavBarMobile = () => {
     setOpenOcassionsDrawer(open);
   };
 
-  const closeProductsDrawer = () => {
-    setOpenProductsDrawer(false);
-  };
-
-  const handleToggleProfileDrawer = (open) => (event) => {
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setOpenProfileDrawer(open);
-  };
-
   const closeProfileDrawer = () => {
     setOpenProfileDrawer(false);
   };
 
-  const handleProfileNavigation = () => {
-    if (userData.rol === 'administrador') {
-      navigate.push('/administrador');
-    } else {
-      navigate.push('/perfil');
-    }
-  };
-
-  const handleToggleSubMenuDrawer = () => {
-    setOpenProfileDrawer(!openProfileDrawer);
-  };
-
-  const handleInitSession = () => {
-    navigate.push('/login');
-  };
 
   // Función para cerrar el cajón de perfiles
   const handleVolverAtras = () => {
@@ -94,7 +66,7 @@ const NavBarMobile = () => {
   };
 
   // Estilos personalizados para AppBar y Toolbar
-  const CustomizedAppBar = styled(AppBar)(({ theme }) => ({
+  const CustomizedAppBar = styled(AppBar)(() => ({
     fontSize: '14px',
     padding: 0,
     backgroundColor: isDarkMode ? 'var(--primary-dark)' : 'var(--background-light)',
@@ -103,8 +75,8 @@ const NavBarMobile = () => {
       : 'linear-gradient(145deg, #ffffff, #f8f8f8)',
     flexWrap: 'nowrap',
     top: 0,
-    height: '60px',
-    boxShadow: isDarkMode ? '0 2px 10px rgba(0,0,0,0.4)' : '0 2px 8px rgba(0,0,0,0.1)',
+    height: '95px',
+    boxShadow: isDarkMode ? '0 2px 10px rgba(0, 0, 0, 0.69)' : '0 2px 8px rgba(0, 0, 0, 0.2)',
     backdropFilter: 'blur(8px)',
     borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.05)',
     transition: 'all 0.3s ease',
@@ -133,20 +105,6 @@ const NavBarMobile = () => {
     whileHover: { scale: 1.1 }
   };
 
-  const logoVariants = {
-    initial: { opacity: 0, y: -20 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        type: 'spring',
-        stiffness: 300,
-        damping: 20
-      }
-    },
-    whileHover: { scale: 1.05 },
-    whileTap: { scale: 0.95 }
-  };
 
   useEffect(() => {
     // Observador para el estado de autenticación
@@ -200,11 +158,7 @@ const NavBarMobile = () => {
             }}
           >
             <motion.div
-              initial="initial"
-              animate="animate"
-              whileHover="whileHover"
-              whileTap="whileTap"
-              variants={logoVariants}
+
               className="logo-container"
             >
               <Link href="/">
@@ -226,30 +180,7 @@ const NavBarMobile = () => {
               gap: '10px'
             }}
           >
-            {/* Carrito */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            >
-              <Link href="/cart">
-                <IconButton
-                  aria-label="carrito de compras"
-                  size="medium"
-                  sx={{
-                    color: isDarkMode ? 'white' : 'var(--primary-color)',
-                    backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.7)',
-                    '&:hover': {
-                      backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.9)',
-                    }
-                  }}
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-              </Link>
-            </motion.div>
+  
             
             {/* Botón del menú */}
             <motion.div
@@ -257,17 +188,18 @@ const NavBarMobile = () => {
               whileHover="whileHover"
               whileTap="whileTap"
               variants={menuIconVariants}
+              style={{ padding:'0 5px' }}
             >
               <IconButton
                 onClick={handleToggleDrawer(!openDrawer)}
                 size="medium"
                 aria-label="menu"
-                sx={{
+                sx={{ padding:'0 5px',
                   color: isDarkMode ? 'white' : 'var(--primary-color)',
                   backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.7)',
                   '&:hover': {
                     backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.9)',
-                  }
+                  }, width: '45px', height: '45px', borderRadius: '50%'
                 }}
               >
                 <HiMenuAlt2 style={{ fontSize: '24px', fontWeight: 'bold' }} />
@@ -279,7 +211,7 @@ const NavBarMobile = () => {
 
       {/* MENU GENERAL - Mantenemos el resto del código existente */}
       <SwipeableDrawer
-        anchor="left"
+        anchor="right"
         open={openDrawer}
         onClick={handleToggleDrawer(false)}
         onClose={handleToggleDrawer(false)}
@@ -306,7 +238,7 @@ const NavBarMobile = () => {
                 backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio20.png")' : 'url("/assets/imagenes/fondosHome/fondo-inicio5.png")',
                 backgroundSize: 'cover',
                 WebkitBackgroundSize: 'cover', 
-                backgroundPosition: 'left'
+                backgroundPosition: 'right'
               }}>
                 <Typography variant="subtitle1" sx={{
                   fontSize: '1.25rem',
@@ -388,7 +320,7 @@ const NavBarMobile = () => {
 
       {/* Mantenemos los SwipeableDrawers existentes de productos y ocasiones */}
       <SwipeableDrawer
-        anchor="left"
+        anchor="right"
         open={openProductsDrawer}
         onClick={handleToggleProductsDrawer(false)}
         onClose={handleToggleProductsDrawer(false)}
@@ -431,14 +363,16 @@ const NavBarMobile = () => {
 
             <div style={{ flex: '0' }}>
               <Button
-                variant='text'
+                variant='outlined'
                 size='small'
+                color='error'
                 sx={{
                   color: isDarkMode ? 'white' : 'darkred',
                   margin: '0 14px',
-                  fontWeight: '600',
-                  fontSize: '15px',
+                  fontWeight: '500',
+                  fontSize: '10px',
                   flex: '0',
+                  borderColor: isDarkMode ? 'white' : 'darkred',
                   width: 'fit-content',
                   zIndex: 1300
                 }}
@@ -464,7 +398,7 @@ const NavBarMobile = () => {
       </SwipeableDrawer>
 
       <SwipeableDrawer
-        anchor="left"
+        anchor="right"
         open={openOcassionsDrawer}
         onClick={handleToggleOcassionsDrawer(false)}
         onClose={handleToggleOcassionsDrawer(false)}

@@ -7,7 +7,7 @@ import { useTheme } from '@/context/ThemeSwitchContext';
 function UbicacionPage() {
     const {isDarkMode} = useTheme();
     return (
-        <div className={`${style.divUbicacion} ${!isDarkMode ? style.dark : style.light}`}>
+        <div className={`${style.divUbicacion} ${isDarkMode ? style.dark : style.light}`}>
             <div className={style.container}>
                 <h1 className={style.titulo}>Ubicación y Contacto</h1>
                 
@@ -25,7 +25,7 @@ function UbicacionPage() {
                                 <div>
                                     <h3>Teléfonos</h3>
                                     <p>Atención <strong className={style.textStrong}>(Lunes a Domingo de 9 a 20 hs)</strong></p>
-                                    <p className={style.contactDetail}>54 (11) 4896-1147 / 4788-9185</p>
+                                    <p className={style.contactDetail}>54 (11) 6542-1003 / 4788-9185</p>
                                 </div>
                             </div>
                             
@@ -44,7 +44,7 @@ function UbicacionPage() {
                                 <FaEnvelope className={style.icon} />
                                 <div>
                                     <h3>Email</h3>
-                                    <p className={style.contactDetail}>info@envioflores.com</p>
+                                    <p className={style.contactDetail}>ventas@aflorar.com.ar</p>
                                 </div>
                             </div>
                             
@@ -70,8 +70,8 @@ function UbicacionPage() {
                         <div className={style.socialLinks}>
                             <h3>Síguenos en redes sociales</h3>
                             <div className={style.socialButtons}>
-                                <a href="https://instagram.com/envioflores" className={style.socialButton}>Instagram</a>
-                                <a href="https://facebook.com/envioflores" className={style.socialButton}>Facebook</a>
+                                <a href="https://instagram.com/aflorar.arg" className={style.socialButton}>Instagram</a>
+                                <a href="https://facebook.com/aflorar.arg" className={style.socialButton}>Facebook</a>
                             </div>
                         </div>
                     </div>

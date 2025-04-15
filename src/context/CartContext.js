@@ -288,7 +288,7 @@ const CartProvider = ({ children }) => {
                     toast: true,
                     position: 'bottom-right',
                     showConfirmButton: false,
-                    timer: 2100,
+                    timer: 1500,
                     timerProgressBar: true,
                     background: '#f3f3f3',
                     iconColor: '#a30000'
@@ -309,8 +309,6 @@ const CartProvider = ({ children }) => {
     const totalPrecio = () => {
         return priceDolar ? finalPriceUSD : finalPriceARS;
     };
-
-    console.log(finalPriceARS, finalPriceUSD)
 
     // Valores a exportar en el contexto
     const contextValue = {

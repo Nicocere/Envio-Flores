@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import SubscripcionComponent from '@/Client/SubscripcionFlores/SubscripcionFlores';
 
 export const metadata: Metadata = {
-  title: "Suscripción de Flores - Florerias Argentinas | Servicio para Empresas y Particulares",
-  description: "Renueva tus espacios con flores frescas. Servicio de suscripción semanal o quincenal para empresas y hogares. Diseños exclusivos, instalación y mantenimiento incluidos. Transforma tu ambiente con flores naturales.",
+  title: "Suscripción de Flores - Envio Flores | Servicio para Empresas y Particulares",
+  description: "Renueva tus espacios con flores frescas. Servicio de suscripción semanal o quincenal para empresas y hogares en CABA y Gran Buenos Aires. Diseños exclusivos, instalación, mantenimiento y envío a domicilio incluidos.",
   keywords: [
     "suscripción flores",
     "flores semanales",
@@ -15,22 +15,32 @@ export const metadata: Metadata = {
     "decoración floral corporativa",
     "mantenimiento flores",
     "arreglos florales semanales",
-    "flores para empresas"
+    "flores para empresas",
+    "envío de flores a domicilio",
+    "entrega de flores CABA",
+    "flores Gran Buenos Aires",
+    "regalos florales",
+    "ramos de flores a domicilio",
+    "regalo empresarial",
+    "delivery de flores",
+    "arreglos florales para eventos",
+    "flores para regalos",
+    "suscripción flores Buenos Aires"
   ],
   alternates: {
-    canonical: 'https://www.floreriasargentinas.com/suscripcion-semanal',
+    canonical: 'https://www.envioflores.com/suscripcion-semanal',
     languages: {
-      'es-AR': 'https://www.floreriasargentinas.com/suscripcion-semanal',
+      'es-AR': 'https://www.envioflores.com/suscripcion-semanal',
     },
   },
   openGraph: {
     type: 'website',
-    url: 'https://www.floreriasargentinas.com/suscripcion-semanal',
-    title: 'Suscripción de Flores - Florerias Argentinas',
-    description: 'Servicio premium de suscripción floral semanal para empresas y particulares. Transforma tus espacios con flores frescas cada semana.',
-    siteName: 'Florerias Argentinas',
+    url: 'https://www.envioflores.com/suscripcion-semanal',
+    title: 'Suscripción de Flores - Envio Flores',
+    description: 'Servicio premium de suscripción floral semanal para empresas y particulares. Transforma tus espacios con flores frescas cada semana. Envíos en CABA y Gran Buenos Aires.',
+    siteName: 'Envio Flores',
     images: [{
-      url: 'https://www.floreriasargentinas.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg',
+      url: 'https://www.envioflores.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg',
       width: 800,
       height: 600,
       alt: 'Servicio de Suscripción Semanal de Flores',
@@ -38,11 +48,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@FloreriasArg',
-    creator: '@FloreriasArg',
-    images: ['https://www.floreriasargentinas.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg'],
+    site: '@EnvioFlores',
+    creator: '@EnvioFlores',
+    images: ['https://www.envioflores.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg'],
     title: 'Suscripción Semanal de Flores para Empresas y Hogares',
-    description: 'Renueva tus espacios cada semana con flores frescas. Servicio premium de suscripción floral.'
+    description: 'Renueva tus espacios cada semana con flores frescas. Servicio premium de suscripción floral con envío a domicilio en CABA y GBA.'
   },
   robots: {
     index: true,
@@ -57,13 +67,18 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Florerias Argentinas' }],
+  authors: [{ name: 'Envio Flores' }],
   other: {
     'geo.region': 'AR',
+    'geo.placename': 'Buenos Aires',
     'format-detection': 'telephone=no',
     'business.type': 'Florist.SubscriptionService',
     'og:price:amount': 'Desde 15000',
     'og:price:currency': 'ARS',
+    'og:locality': 'Buenos Aires',
+    'og:region': 'CABA y GBA',
+    'og:country-name': 'Argentina',
+    'og:available': 'true',
   }
 };
 

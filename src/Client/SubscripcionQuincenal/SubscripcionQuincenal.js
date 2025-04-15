@@ -79,7 +79,7 @@ const SubscripcionComponent = () => {
 
   const formatWhatsAppMessage = (data) => {
     const message = `
-  ¡Hola Florerias Argentinas! 🌸
+  ¡Hola Envio Flores! 🌸
   
   Me inscribí en el Plan Semanal de Flores. Estos son mis datos:
   

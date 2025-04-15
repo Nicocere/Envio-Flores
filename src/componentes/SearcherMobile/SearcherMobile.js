@@ -13,7 +13,9 @@ import {
   CardContent,
   Chip
 } from '@mui/material';
-import { Search as SearchIcon, Clear as ClearIcon } from '@mui/icons-material';
+import {  Clear as ClearIcon } from '@mui/icons-material';
+import { BsSearchHeart } from "react-icons/bs";
+
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
 import { useProductsContext } from "@/context/ProductsContext";
@@ -174,9 +176,9 @@ const SearcherMobile = ({ onClick }) => {
             color={isDarkMode ? "default" : "primary"}
             aria-label="buscar productos"
             className="navbar-search-icon-button"
-            size="small"
+            size="large"
           >
-            <SearchIcon fontSize="small" />
+            <BsSearchHeart fontSize={24} style={{transform:'rotateY(180deg)'}} />
           </IconButton>
         </motion.div>
 

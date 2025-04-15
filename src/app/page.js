@@ -6,7 +6,6 @@ export default function HomePage() {
   return (
     <ClientComponent>
         <Home />
-        <WhatsAppMobile />
     </ClientComponent>
   );
 }

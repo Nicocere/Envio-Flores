@@ -20,13 +20,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   const localidad = formatCategory(rawCategory);
-  const siteUrl = `https://www.floreriasargentinas.com/envios/${localidad}`;
-  const siteImage = "https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png";
+  const siteUrl = `https://www.envioflores.com/envios/${localidad}`;
+  const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   return {
-    title: `Productos para enviar a ${localidad} - Florerias Argentinas`,
-    description: `Compra productos para enviar a ${localidad}. Flores frescas, chocolates, peluches, regalos, comestibles, rosas, ramos, paquetes y más.`,
-    keywords: [`flores`, `entrega de flores`, `${localidad}`, `chocolates`, `peluches`, `regalos`, `comestibles`, `rosas`, `ramos`, `paquetes`],
+    title: `Productos para enviar a ${localidad} - Envio Flores`,
+    description: `Compra productos para enviar a ${localidad}. Flores frescas, arreglos florales, chocolates, peluches, regalos personalizados, envíos a domicilio en el día para CABA y Gran Buenos Aires.`,
+    keywords: [
+      `flores`, `envío de flores`, `flores a domicilio`, `${localidad}`, 
+      `envío rápido`, `ramos florales`, `arreglos florales`, 
+      `regalos`, `regalos personalizados`, `regalos románticos`, 
+      `peluches`, `chocolates`, `vinos`, `delivery de flores`, 
+      `envíos a CABA`, `envíos a Gran Buenos Aires`, `florería online`, 
+      `flores para cumpleaños`, `flores para aniversarios`, 
+      `rosas`, `girasoles`, `liliums`, `gerberas`,
+      `canastas de regalo`, `plantas`, `regalos corporativos`
+    ],
     alternates: {
       canonical: siteUrl,
       languages: {
@@ -36,20 +45,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `Productos para enviar a ${localidad} - Florerias Argentinas`,
-      description: `Compra productos para enviar a ${localidad}. Flores frescas, chocolates, peluches, regalos, comestibles, rosas, ramos, paquetes y más.`,
-      siteName: 'Florerias Argentinas',
+      title: `Productos para enviar a ${localidad} - Envio Flores`,
+      description: `Compra productos para enviar a ${localidad}. Flores frescas, arreglos florales, chocolates, peluches, regalos personalizados, envíos a domicilio en el día para CABA y Gran Buenos Aires.`,
+      siteName: 'Envio Flores',
       images: [{
         url: siteImage,
         width: 800,
         height: 600,
-        alt: `Productos para enviar a ${localidad} - Florerias Argentinas`,
+        alt: `Productos para enviar a ${localidad} - Envio Flores`,
       }],
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@FloreriasArg',
-      creator: '@FloreriasArg',
+      site: '@EnvioFlores',
+      creator: '@EnvioFlores',
       images: [siteImage],
     },
     robots: {
@@ -65,11 +74,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Florerias Argentinas' }],
+    authors: [{ name: 'Envio Flores' }],
     other: {
       'geo.region': 'AR-C',
       'geo.placename': localidad,
       'language': 'es',
+      'revisit-after': '7 days',
+      'distribution': 'global',
+      'rating': 'general',
+      'category': 'flores, regalos, envíos'
     }
   };
 }

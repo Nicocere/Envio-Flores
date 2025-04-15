@@ -32,6 +32,8 @@ const nextConfig = {
     compress: true,
     poweredByHeader: false,
     reactStrictMode: true,
+
+    allowedDevOrigins: ['http://45.162.168.207:3000'],
   
     // Agregar encabezados para CORS
     async headers() {

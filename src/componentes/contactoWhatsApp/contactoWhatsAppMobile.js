@@ -42,7 +42,7 @@ const WhatsAppMobile = () => {
         // Aquí puedes redirigir al enlace de WhatsApp
         window.location.href = generateWhatsAppLink();
       };
-console.log("cart", cart.length)
+
   return (
     <div className='whatsapp-mobile-container' >
      <SwipeableDrawer

@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
         const newOrder = lastCode + 1;
         envioDatos.order_number = newOrder;
-        envioDatos.paginaCompra = 'Florerias Argentinas';
+        envioDatos.paginaCompra = 'Envio Flores';
 
         // Mapeo de productos
         const mappedProducts = products.map((product: { id: any; name: any; quantity: any; precio: any; }) => {

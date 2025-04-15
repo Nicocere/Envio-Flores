@@ -6,6 +6,7 @@ import { SiMercadopago, SiVisa, SiMastercard, SiPaypal } from 'react-icons/si';
 import './footer.css';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
+import { WhatsApp } from '@mui/icons-material';
 
 const Footer = () => {
     const { isDarkMode } = useTheme();
@@ -31,7 +32,7 @@ const Footer = () => {
                         <a href="http://instagram.com/aflorar.arg" className="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <FaInstagram />
                         </a>
-                        <a href="https://wa.me/5491147889185" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                        <a href="https://wa.me/5491165421003" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                             <FaWhatsapp />
                         </a>
                     </div>
@@ -40,6 +41,10 @@ const Footer = () => {
                 <div className="footer-section contact">
                     <h3 className="footer-title">Contáctanos</h3>
                     <ul className="footer-contact-list">
+                        <li className="footer-contact-item">
+                            <WhatsApp className="contact-icon" />
+                            <a href="https://wa.me/5491165421003">+54 9 11 6542 1003</a>
+                        </li>
                         <li className="footer-contact-item">
                             <FiPhoneCall className="contact-icon" />
                             <a href="tel:+5491147889185">+54 9 11 4788 9185</a>

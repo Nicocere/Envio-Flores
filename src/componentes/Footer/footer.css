@@ -211,8 +211,8 @@
 
 /* Footer Bottom */
 .footer-bottom {
-  background-color: var(--primary-dark);
-  color: var(--text-light);
+  background-color: #fafafa;
+  color: var(--text-dark);
   padding: 1.5rem 5%;
   text-align: center;
 }
@@ -263,6 +263,7 @@
 .developer-logo {
   height: 30px;
   border-radius: 4px;
+  mix-blend-mode: difference;
 }
 
 /* Animaciones */
@@ -331,13 +332,18 @@
 
 .dark-mode .footer-bottom {
   background-color: rgba(0, 0, 0, 0.8);
+  color: var(--secondary-color);
 }
 
-.dark-mode .developer-link {
+.developer-link{
+  color: #670000;
+}
+
+.developer-link.dark-mode  {
   color: #e0e0e0;
 }
 
-.dark-mode .developer-link:hover {
+.developer-link:hover .dark-mode  {
   color: #ff9e9e;
 }
 
@@ -352,7 +358,15 @@
 
 @media (max-width: 768px) {
 
-  
+  .footer-bottom, .developer-info{
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-bottom{
+    padding: 1.5rem 10px 5rem;
+  }
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;

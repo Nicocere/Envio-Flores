@@ -121,7 +121,7 @@ const PromosHomeBanner = () => {
             }
         };
     }
-    const whatsappMessage = encodeURIComponent("Hola Florerias Argentinas, me contacto por que quería solicitar información sobre descuentos para eventos especiales...");
+    const whatsappMessage = encodeURIComponent("Hola Envio Flores, me contacto por que quería solicitar información sobre descuentos para eventos especiales...");
     const whatsappUrl = `https://wa.me/5491148961147?text=${whatsappMessage}`;
 
     return (

@@ -146,14 +146,11 @@ const MercadoPagoButton = ({
   const onSubmit = async (formData) => {
     setProcessingMessage('Procesando tu pago. Por favor espera...');
     setIsProcessingBackend(true);
-
-    // El proceso continúa en MercadoPago
-    console.log('Formulario enviado a MercadoPago', formData);
   };
 
   const onReady = () => {
     setIsLoading(false);
-    console.log('Payment Brick listo');
+
   };
 
   const onError = (error) => {
@@ -161,9 +158,6 @@ const MercadoPagoButton = ({
     setError(`Ocurrió un problema: ${error.message || 'Error desconocido'}`);
     setIsLoading(false);
   };
-
-  console.log('Preference ID:', preferenceId);
-  console.log('total:', total);
 
   
   // Configuración de Payment Brick

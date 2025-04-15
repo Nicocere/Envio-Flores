@@ -12,16 +12,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const rawCategory = decodeURIComponent(resolvedParams.prodId);
 
-
-
   const categoryName = rawCategory;
-  const siteUrl = `https://www.floreriasargentinas.com/productos/${categoryName}`;
-  const siteImage = "https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png";
+  const siteUrl = `https://www.envioflores.com/productos/${categoryName}`;
+  const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   return {
-    title: `Productos y Regalos | Florerias Argentinas`,
-    description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a todo Argentina.`,
-    keywords: [`${categoryName}`, 'flores', 'regalos', 'envío de flores', 'florería online', 'ramos florales', 'arreglos florales', 'chocolates', 'peluches', 'regalos Argentina'],
+    title: `Productos y Regalos | Envio Flores`,
+    description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a todo CABA y Gran Buenos Aires.`,
+    keywords: [
+      `${categoryName}`, 'flores', 'regalos', 'envío de flores', 
+      'florería online', 'ramos florales', 'arreglos florales', 
+      'chocolates', 'peluches', 'regalos personalizados', 
+      'envío a domicilio', 'flores CABA', 'envío Gran Buenos Aires',
+      'florería Capital Federal', 'envío mismo día', 'rosas', 'tulipanes', 
+      'lirios', 'girasoles', 'regalos corporativos', 'ocasiones especiales',
+      'cumpleaños', 'aniversario', 'bodas', 'condolencias', 'nacimientos'
+    ],
     alternates: {
       canonical: siteUrl,
       languages: {
@@ -31,20 +37,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `Productos y Regalos | Florerias Argentinas`,
-      description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a todo Argentina.`,
-      siteName: 'Florerias Argentinas',
+      title: `Productos y Regalos | Envio Flores`,
+      description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a todo CABA y Gran Buenos Aires.`,
+      siteName: 'Envio Flores',
       images: [{
         url: siteImage,
         width: 800,
         height: 600,
-        alt: `${categoryName} - Florerias Argentinas`,
+        alt: `${categoryName} - Envio Flores`,
       }],
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@FloreriasArg',
-      creator: '@FloreriasArg',
+      site: '@EnvioFlores',
+      creator: '@EnvioFlores',
       images: [siteImage],
     },
     robots: {
@@ -60,10 +66,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Florerias Argentinas' }],
+    authors: [{ name: 'Envio Flores' }],
     other: {
       'geo.region': 'AR',
+      'geo.placename': 'Buenos Aires',
       'format-detection': 'telephone=no',
+      'distribution': 'global',
+      'coverage': 'Argentina',
+      'target': 'all'
     }
   };
 }

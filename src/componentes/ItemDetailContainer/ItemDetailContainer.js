@@ -17,7 +17,6 @@ const ItemDetailContainer = ({ activeStep, stepLabels, prodId }) => {
             try {
                 if (products) {
                     const product = products.find(p =>  p.id === prodId);
-                    console.log("product", product)
                     if (product) {
                         setItem(product);
                         setIsLoading(false); // Actualiza el estado de isLoading en caso de error

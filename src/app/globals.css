@@ -13,6 +13,11 @@ svg {
   /* Colores */
   --background-light: #FCFCFC;
   --background-dark: #0a0a0a;
+  --background-light-gradient: linear-gradient(135deg, #ffffff, #f0f0f0);
+  --background-dark-gradient: linear-gradient(135deg, #1e1e1e, #121212);
+  --background-primary-grandient: linear-gradient(135deg, #A70000, #ff4d4d);
+  --background-primary-dark-gradient: linear-gradient(135deg, #800000, #670000);
+
   
   /* --textos */
   --primary-color: #A70000;

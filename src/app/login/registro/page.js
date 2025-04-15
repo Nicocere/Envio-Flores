@@ -101,7 +101,7 @@ function RegistroUser() {
                 apellido: data.apellidoUser,
                 tel: data.telUser,
                 rol: userRole,
-                website: 'Florerias Argentinas',
+                website: 'Envio Flores',
                 preferencias: {
                     tiposFlores: data.tiposFloresPreferidas
                 },

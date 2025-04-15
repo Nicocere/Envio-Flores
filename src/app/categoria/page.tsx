@@ -2,33 +2,33 @@ import ProductsCategoryComponent from '@/Client/Categorias/CategoryComponent';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Productos por Categoría - Florerias Argentinas",
-  description: "Explora nuestra amplia selección de productos por categoría. Flores frescas, regalos, chocolates, peluches y más. Envíos a todo Argentina.",
-  keywords: "categorías productos, flores, regalos, chocolates, peluches, ramos, arreglos florales, envíos, florería online",
-  authors: [{ name: "Florerias Argentinas" }],
+  title: "Productos por Categoría - Envio Flores",
+  description: "Explora nuestra amplia selección de productos por categoría. Flores frescas, regalos, chocolates, peluches y más. Envíos a domicilio en CABA, Gran Buenos Aires y todo Argentina.",
+  keywords: "categorías productos, flores, ramos de flores, ramos de rosas, arreglos florales, envío de flores, flores a domicilio, regalos, chocolates, peluches, vinos, desayunos, combos regalo, CABA, Gran Buenos Aires, flores para cumpleaños, flores para aniversario, flores para eventos, envíos express, florería online, regalos para enamorados, flores para el día de la madre, flores para todas las ocasiones",
+  authors: [{ name: "Envio Flores" }],
   alternates: {
-    canonical: 'https://www.floreriasargentinas.com/productos/categorias',
+    canonical: 'https://www.envioflores.com/productos/categorias',
     languages: {
-      'es': 'https://www.floreriasargentinas.com/productos/categorias',
+      'es': 'https://www.envioflores.com/productos/categorias',
     },
   },
   openGraph: {
     type: 'website',
-    url: 'https://www.floreriasargentinas.com/productos/categorias',
-    title: 'Productos por Categoría - Florerias Argentinas',
-    description: 'Explora nuestra amplia selección de productos por categoría. Flores frescas, regalos, chocolates, peluches y más. Envíos a todo Argentina.',
-    siteName: 'Florerias Argentinas',
+    url: 'https://www.envioflores.com/productos/categorias',
+    title: 'Productos por Categoría - Envio Flores',
+    description: 'Explora nuestra amplia selección de productos por categoría. Flores frescas, regalos, chocolates, peluches y más. Envíos a domicilio en CABA, Gran Buenos Aires y todo Argentina.',
+    siteName: 'Envio Flores',
     images: [{
-      url: 'https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png',
+      url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 800,
       height: 600,
-      alt: 'Categorías de productos - Florerias Argentinas',
+      alt: 'Categorías de productos - Envio Flores',
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@FloreriasArg',
-    creator: '@FloreriasArg',
+    site: '@EnvioFlores',
+    creator: '@EnvioFlores',
   },
   robots: {
     index: true,
@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   other: {
     'geo.region': 'AR',
     'language': 'es',
+    'geo.placename': 'Buenos Aires, CABA, GBA',
   }
 };
 

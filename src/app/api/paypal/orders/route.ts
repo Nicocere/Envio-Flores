@@ -45,9 +45,6 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { price } = body;
-    
-    console.log('Body de la solicitud:', body);
-    console.log('Precio recibido:', price);
 
     if (!price || isNaN(price)) {
       return NextResponse.json({ error: 'Invalid price' }, { status: 400 });

@@ -26,33 +26,39 @@
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
-  height: 36px;
-  min-width: 36px;
+  height: 45px;
+  min-width: 45px;
 }
 
-.navbar-search-wrapper.dark-mode {
-  background-color: var(--searcher-input-bg-dark, rgba(50, 50, 50, 0.8));
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+.dark-mode .navbar-search-wrapper {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
 .navbar-search-icon-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 32px;
-  height: 32px;
+  min-width: 45px;
+  height: 45px;
+
   cursor: pointer;
-  background: linear-gradient(145deg, var(--primary-color, #A70000), var(--primary-color-hover, #800000));
+  /* background: linear-gradient(145deg, var(--primary-color, #A70000), var(--primary-color-hover, #800000)); */
   border-radius: 50%;
 }
 
 .navbar-search-icon-container.dark-mode {
-  background: linear-gradient(145deg, var(--primary-dark, #350000), var(--primary-color, #A70000));
+  /* background: linear-gradient(145deg, var(--primary-dark, #350000), var(--primary-color, #A70000)); */
 }
 
 .navbar-search-icon-button {
-  color: white !important;
+  color: #A70000 !important;
   padding: 4px !important;
+}
+
+.dark-mode .navbar-search-icon-button {
+  color: #fff !important;
 }
 
 .navbar-search-input-container {
@@ -282,16 +288,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  height: 40px;
+  min-width: 50px;
+  height: 50px;
+  font-size: 24px;
   cursor: pointer;
-  background: linear-gradient(145deg, var(--primary-color), var(--primary-color-hover));
+  /* background: linear-gradient(145deg, var(--primary-color), var(--primary-color-hover)); */
   border-radius: var(--searcher-radius-lg);
   margin-right: 4px;
 }
 
 .search-icon-container.dark-mode {
-  background: linear-gradient(145deg, var(--primary-dark), var(--primary-color));
+  /* background: linear-gradient(145deg, var(--primary-dark), var(--primary-color)); */
 }
 
 .search-icon-button {

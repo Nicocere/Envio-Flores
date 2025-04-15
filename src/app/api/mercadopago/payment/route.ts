@@ -5,7 +5,6 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { retiraEnLocal, datosEnvio, products } = body;
 
-    console.log('Datos recibidos:', body);
 
     try {
         const envioDatos = body;

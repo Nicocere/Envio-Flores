@@ -10,6 +10,8 @@ import ClientLayoutComponent from '../Client/LayoutHome';
 import { initMercadoPago } from '@mercadopago/sdk-react';
 import { Metadata } from 'next'
 import { CookieProvider } from '@/context/CookieContext';
+import WhatsAppMobile from '@/componentes/contactoWhatsApp/contactoWhatsAppMobile';
+import ScreenLoader from '@/componentes/ScreenLoader/ScreenLoader';
 
 
 const jost = Jost({
@@ -124,11 +126,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={`${jost.variable} ${nunito.variable}`}>
+          
         <CookieProvider>
         <Providers>
-        
           <MainLayout>
             <ClientLayoutComponent>
+                      <WhatsAppMobile />
+                <ScreenLoader />
               {children}
             </ClientLayoutComponent>
           </MainLayout>

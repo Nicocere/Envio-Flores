@@ -77,7 +77,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
             envioPremium: envioPremium,
         };
     } 
-    console.log(envioDatos)
+
 
     return (
         <div className="App">

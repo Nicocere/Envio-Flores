@@ -119,7 +119,7 @@ const CartPopUpProducts = () => {
                 html: `<span style="font-weight: bold;">${product.nombre} (${selectedOption.nombre || product.nombre}) - ${displayPrice}</span>`,
                 icon: 'success',
                 showConfirmButton: false,
-                timer: 2500,
+                timer: 1500,
                 position: 'bottom-end',
                 background: 'linear-gradient(180deg,#dbdbdb,#fcf5f0)',
                 iconColor: '#D4AF37',

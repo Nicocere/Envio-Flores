@@ -21,13 +21,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   const categoryName = formatCategory(rawCategory);
-  const siteUrl = `https://www.floreriasargentinas.com/productos/${categoryName}`;
-  const siteImage = "https://www.floreriasargentinas.com/imagenes/productos/destacados-florerias-argentinas.jpg";
+  const siteUrl = `https://www.envioflores.com/productos/${categoryName}`;
+  const siteImage = "https://www.envioflores.com/imagenes/productos/destacados-envio-flores.jpg";
 
   return {
-    title: `${categoryName} - Productos | Florerias Argentinas`,
-    description: `Descubre nuestra selección de ${categoryName}. Flores frescas, regalos y más con envío a todo Argentina. Productos de calidad y entrega garantizada.`,
-    keywords: [`${categoryName}`, 'flores', 'regalos', 'envío de flores', 'florería online', `${categoryName.toLowerCase()}`, `productos ${categoryName.toLowerCase()}`],
+    title: `${categoryName} - Productos | Envio Flores`,
+    description: `Descubre nuestra selección de ${categoryName}. Flores frescas, ramos, arreglos florales, regalos y más con envío a CABA, Gran Buenos Aires y todo Argentina. Productos de calidad y entrega garantizada en el día.`,
+    keywords: [
+      `${categoryName}`, 
+      'flores', 
+      'ramos de flores', 
+      'arreglos florales', 
+      'regalos', 
+      'envío de flores', 
+      'florería online', 
+      'flores a domicilio', 
+      'envío mismo día', 
+      'entrega de flores CABA', 
+      'envío flores Gran Buenos Aires',
+      `${categoryName.toLowerCase()}`, 
+      `productos ${categoryName.toLowerCase()}`,
+      'regalos personalizados',
+      'flores para cumpleaños',
+      'flores para aniversario',
+      'flores para condolencias',
+      'servicio floristería',
+      'mejor florería online'
+    ],
     alternates: {
       canonical: siteUrl,
       languages: {
@@ -37,20 +57,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `${categoryName} - Productos | Florerias Argentinas`,
-      description: `Descubre nuestra selección de ${categoryName}. Flores frescas, regalos y más con envío a todo Argentina. Productos de calidad y entrega garantizada.`,
-      siteName: 'Florerias Argentinas',
+      title: `${categoryName} - Productos | Envio Flores`,
+      description: `Descubre nuestra selección de ${categoryName}. Flores frescas, ramos, arreglos florales, regalos y más con envío a CABA, Gran Buenos Aires y todo Argentina. Productos de calidad y entrega garantizada en el día.`,
+      siteName: 'Envio Flores',
       images: [{
         url: siteImage,
         width: 800,
         height: 600,
-        alt: `${categoryName} - Florerias Argentinas`,
+        alt: `${categoryName} - Envio Flores`,
       }],
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@FloreriasArg',
-      creator: '@FloreriasArg',
+      site: '@EnvioFlores',
+      creator: '@EnvioFlores',
       images: [siteImage],
     },
     robots: {
@@ -66,10 +86,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Florerias Argentinas' }],
+    authors: [{ name: 'Envio Flores' }],
     other: {
       'geo.region': 'AR',
+      'geo.placename': 'Buenos Aires',
       'language': 'es',
+      'distribution': 'global',
+      'coverage': 'Argentina, CABA, Gran Buenos Aires'
     }
   };
 }

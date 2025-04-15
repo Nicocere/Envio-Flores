@@ -2,7 +2,7 @@ import CartComponents from "@/componentes/Cart/Cart";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Carrito de Compras 🛒 | Florerias Argentinas",
+  title: "Carrito de Compras 🛒 | Envio Flores",
   description: "Revisa y finaliza tu compra de flores, regalos y más. Envíos seguros a todo Argentina. Medios de pago: Mercado Pago, PayPal, transferencia bancaria y más.",
   keywords: [
     "carrito de compras",
@@ -14,29 +14,29 @@ export const metadata: Metadata = {
     "florería online"
   ],
   alternates: {
-    canonical: 'https://www.floreriasargentinas.com/cart',
+    canonical: 'https://www.envioflores.com/cart',
     languages: {
-      'es-AR': 'https://www.floreriasargentinas.com/cart',
+      'es-AR': 'https://www.envioflores.com/cart',
     },
   },
   openGraph: {
     type: 'website',
-    url: 'https://www.floreriasargentinas.com/cart',
-    title: 'Carrito de Compras 🛒 | Florerias Argentinas',
+    url: 'https://www.envioflores.com/cart',
+    title: 'Carrito de Compras 🛒 | Envio Flores',
     description: 'Revisa y finaliza tu compra de flores, regalos y más. Envíos seguros a todo Argentina.',
-    siteName: 'Florerias Argentinas',
+    siteName: 'Envio Flores',
     images: [{
-      url: 'https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png',
+      url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 800,
       height: 600,
-      alt: 'Carrito de Compras - Florerias Argentinas',
+      alt: 'Carrito de Compras - Envio Flores',
     }],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@FloreriasArg',
-    creator: '@FloreriasArg',
-    images: ['https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png'],
+    site: '@EnvioFlores',
+    creator: '@EnvioFlores',
+    images: ['https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png'],
   },
   robots: {
     index: true,
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       'msvalidate.01': 'microsoft-site-verification-code',
     },
   },
-  authors: [{ name: 'Florerias Argentinas' }],
+  authors: [{ name: 'Envio Flores' }],
   category: 'ecommerce',
   other: {
     'geo.region': 'AR',

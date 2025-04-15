@@ -19,13 +19,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 
   const category = formatCategory(rawCategory);
-  const siteUrl = `https://www.floreriasargentinas.com/ocasiones/${category}`;
-  const siteImage = "https://www.floreriasargentinas.com/imagenes/productos/Caja-peluche-vino-rosas.png";
+  const siteUrl = `https://www.envioflores.com/ocasiones/${category}`;
+  const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   return {
-    title: `Regalos para ${category} - Florerias Argentinas`,
-    description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a todo Argentina.`,
-    keywords: [`regalos ${category}`, `flores ${category}`, `arreglos florales ${category}`, `regalos especiales ${category}`, 'flores frescas', 'chocolates', 'peluches', 'ramos personalizados'],
+    title: `Regalos para ${category} - Envio Flores`,
+    description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a CABA, Gran Buenos Aires y todo Argentina.`,
+    keywords: [
+      `regalos ${category}`, 
+      `flores ${category}`, 
+      `arreglos florales ${category}`, 
+      `regalos especiales ${category}`, 
+      'flores frescas', 
+      'chocolates', 
+      'peluches', 
+      'ramos personalizados', 
+      'envío a domicilio', 
+      'envío mismo día', 
+      'envío flores CABA', 
+      'envío flores Gran Buenos Aires', 
+      'floristería online', 
+      'ramos de rosas', 
+      'flores para cumpleaños', 
+      'flores para aniversario', 
+      'arreglos florales premium',
+      'mejor floristería argentina',
+      'envíos express de flores'
+    ],
     alternates: {
       canonical: siteUrl,
       languages: {
@@ -35,20 +55,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `Regalos para ${category} - Florerias Argentinas`,
-      description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a todo Argentina.`,
-      siteName: 'Florerias Argentinas',
+      title: `Regalos para ${category} - Envio Flores`,
+      description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a CABA, Gran Buenos Aires y todo Argentina.`,
+      siteName: 'Envio Flores',
       images: [{
         url: siteImage,
         width: 800,
         height: 600,
-        alt: `Regalos para ${category} - Florerias Argentinas`,
+        alt: `Regalos para ${category} - Envio Flores`,
       }],
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@FloreriasArg',
-      creator: '@FloreriasArg',
+      site: '@EnvioFlores',
+      creator: '@EnvioFlores',
       images: [siteImage],
     },
     robots: {
@@ -64,11 +84,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Florerias Argentinas' }],
+    authors: [{ name: 'Envio Flores' }],
     other: {
       'geo.region': 'AR',
+      'geo.placename': 'Buenos Aires',
       'format-detection': 'telephone=no',
       'language': 'es',
+      'distribution': 'global',
+      'coverage': 'Argentina'
     }
   };
 }

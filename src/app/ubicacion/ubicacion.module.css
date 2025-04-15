@@ -1,5 +1,3 @@
-
-
 .divUbicacion {
   padding: 100px 20px 100px;
   min-height: 100vh;
@@ -27,6 +25,14 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  border-radius: 20px;
+  padding: 30px 20px;
+}
+
+.dark .container {
+  background-color: var(--background-card-dark);
+
+
 }
 
 .titulo {
@@ -71,9 +77,11 @@
   padding: 30px;
   box-shadow: 0 10px 30px var(--shadow-color);
   border: 1px solid var(--card-border);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
 }
+
 
 .infoCard:hover {
   transform: translateY(-5px);
@@ -156,6 +164,7 @@
   padding: 25px;
   box-shadow: 0 10px 30px var(--shadow-color);
   border: 1px solid var(--card-border);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -175,7 +184,7 @@
 .socialButton {
   padding: 10px 20px;
   border-radius: 30px;
-  background-color: var(--primary-color);
+  background: var(--background-primary-dark-gradient);
   color: var(--text-light);
   text-decoration: none;
   font-weight: 500;
@@ -186,7 +195,7 @@
 }
 
 .socialButton:hover {
-  background-color: var(--text-color);
+  background: var(--text-color);
   color: var(--bg-color);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -223,6 +232,7 @@
   max-width: 200px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--card-border);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
 
@@ -235,7 +245,7 @@
 .mapOverlay p {
   margin: 0;
   font-size: 1rem;
-  color:var(--text-dark)
+  color: var(--text-dark)
 }
 
 .deliveryInfo {
@@ -245,6 +255,7 @@
   box-shadow: 0 10px 30px var(--shadow-color);
   text-align: center;
   border: 1px solid var(--card-border);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -265,7 +276,8 @@
   align-items: center;
   justify-content: center;
   padding: 12px 25px;
-  background-color: #25D366; /* WhatsApp color */
+  background-color: #25D366;
+  /* WhatsApp color */
   color: white;
   border-radius: 30px;
   margin-top: 15px;
@@ -289,45 +301,173 @@
   .contactGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .titulo {
     font-size: 2.5rem;
   }
 }
 
 @media (max-width: 600px) {
-  .titulo {
-    font-size: 2rem;
-  }
-  
   .divUbicacion {
-    padding: 70px 15px;
+    padding: 50px 15px;
+    min-height: auto;
   }
-  
-  .infoCard, .socialLinks, .deliveryInfo {
-    padding: 20px;
+
+  .container {
+    padding: 20px 15px;
+    text-align: center !important;
   }
-  
-  .mapContainer {
-    min-height: 300px;
+
+  .titulo {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
   }
-  
-  .mapOverlay {
-    max-width: 150px;
-    padding: 15px;
+
+  .titulo::after {
+    width: 70px;
+    bottom: -8px;
   }
-  
-  .mapOverlay h2 {
+
+  .contactGrid {
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .contactInfo {
+    gap: 20px;
+  }
+
+  .infoCard,
+  .socialLinks,
+  .deliveryInfo {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .infoTitle {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .description {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .contactItem {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+  }
+
+  .contactItem h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+
+  .icon {
     font-size: 1.2rem;
+    margin-right: 10px;
   }
-  
+
+  .contactDetail {
+    font-size: 0.9rem;
+  }
+
+  .socialLinks h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
   .socialButtons {
     flex-direction: column;
     gap: 10px;
   }
-  
-  .contactItem {
+
+  .socialButton {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .mapContainer {
+    min-height: 250px;
+  }
+
+  .mapOverlay {
+    top: 10px;
+    left: 10px;
+    padding: 12px;
+    max-width: 130px;
+  }
+
+  .mapOverlay h2 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+
+  .mapOverlay p {
+    font-size: 0.85rem;
+  }
+
+  .deliveryInfo h2 {
+    font-size: 1.4rem;
     margin-bottom: 15px;
-    padding-bottom: 15px;
+  }
+
+  .deliveryInfo p {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .deliveryButton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  .buttonIcon {
+    font-size: 1rem;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .titulo {
+    font-size: 1.6rem;
+  }
+
+  .infoCard,
+  .socialLinks,
+  .deliveryInfo {
+    padding: 15px;
+  }
+
+  .infoTitle {
+    font-size: 1.3rem;
+  }
+
+  .mapContainer {
+    min-height: 200px;
+  }
+
+  .mapOverlay {
+    padding: 10px;
+    max-width: 110px;
+  }
+
+  .mapOverlay h2 {
+    font-size: 1rem;
+  }
+
+  .contactItem .icon {
+    font-size: 1.1rem;
+  }
+
+  .deliveryButton {
+    width: 100%;
   }
 }

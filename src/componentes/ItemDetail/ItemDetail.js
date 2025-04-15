@@ -25,8 +25,6 @@ import { useRouter } from 'next/navigation';
 
 const ItemDetail = ({ item, prodId }) => {
 
-  console.log("ItemDetail", item, prodId);
-
   const navigate = useRouter();
   const { cantidadProducto, dolar, priceDolar, rose_unit } = useCart();
   const [tipoProductoSeleccionado, setTipoProductoSeleccionado] = useState("");
