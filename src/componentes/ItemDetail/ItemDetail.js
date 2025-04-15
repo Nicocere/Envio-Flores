@@ -258,7 +258,7 @@ const ItemDetail = ({ item, prodId }) => {
 
     return (
       <motion.div
-        className={styles.selectedOptionContainer}
+        className={`${styles.selectedOptionContainer} ${isDarkMode ? styles.dark : styles.light}`}
         initial="hidden"
         animate="visible"
         variants={fadeVariants}
@@ -309,9 +309,8 @@ const ItemDetail = ({ item, prodId }) => {
   };
 
   return (
-    <>
 
-      <div className={styles.container}>
+      <div className={`${styles.container} ${isDarkMode ? styles.dark : styles.light}`}>
         <motion.div
           className={styles.navigationBar}
           initial={{ opacity: 0, y: -20 }}
@@ -656,7 +655,7 @@ const ItemDetail = ({ item, prodId }) => {
           <AdicionalListContainer />
         </motion.div>
       </div>
-    </>
+
   );
 };
 

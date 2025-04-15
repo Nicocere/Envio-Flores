@@ -674,55 +674,55 @@ align-items: center;
 /* ----------------------------------------
    Dark Mode
 ---------------------------------------- */
-.dark-mode .backButton {
+.dark .backButton {
   background: rgba(255, 255, 255, 0.1);
   color: var(--item-primary-light);
   border-color: var(--item-primary-dark);
 }
 
-.dark-mode .backButton:hover {
+.dark .backButton:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.dark-mode .productTitle {
+.dark .productTitle {
   color: var(--item-primary-light);
 }
 
-.dark-mode .popularBadge {
+.dark .popularBadge {
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--item-primary-light);
 }
 
-.dark-mode .optionsContainer,
-.dark-mode .optionCard {
+.dark .optionsContainer,
+.dark .optionCard {
   background-color: var(--item-bg-dark);
   border-color: #444444;
 }
 
-.dark-mode .optionTitle,
-.dark-mode .optionSize,
-.dark-mode .descriptionText,
-.dark-mode .styleOptionName {
+.dark .optionTitle,
+.dark .optionSize,
+.dark .descriptionText,
+.dark .styleOptionName {
   color: #e0e0e0;
 }
 
-.dark-mode .productDetails,
-.dark-mode .productPriceContainer,
-.dark-mode .mixedColorsContainer,
-.dark-mode .customSummary {
+.dark .productDetails,
+.dark .productPriceContainer,
+.dark .mixedColorsContainer,
+.dark .customSummary {
   background-color: #1e1e1e;
 }
 
-.dark-mode .colorOption,
-.dark-mode .styleOption,
-.dark-mode .rosesInput ,
-.dark-mode .mixedColorInput  {
+.dark .colorOption,
+.dark .styleOption,
+.dark .rosesInput ,
+.dark .mixedColorInput  {
   border-color: #444444;
   background-color: #333333;
   color: #e0e0e0;
 }
 
-.dark-mode .summaryTotal {
+.dark .summaryTotal {
   border-color: #444444;
 }
 
@@ -760,15 +760,12 @@ align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: var(--item-bg-light);
     padding: 10px;
     margin: -12px -12px 12px -12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .dark-mode .navigationBar {
-    background-color: var(--item-bg-dark);
-  }
+
   
   .backButton {
     padding: 6px 12px;
@@ -799,7 +796,7 @@ align-items: center;
   
   /* Sección de imagen mejorada */
   .productImageSection {
-    margin: 0 -12px;
+    margin: 0;
     border-radius: 0;
   }
   
@@ -848,7 +845,7 @@ align-items: center;
     font-size: 20px;
   }
   
-  .dark-mode .productPriceContainer {
+  .dark .productPriceContainer {
     background-color: var(--item-primary-dark);
   }
   
@@ -1124,26 +1121,27 @@ align-items: center;
   
   /* Botones flotantes para móvil */
   .addToCartSection {
+    position: -webkit-sticky;
     position: sticky;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: var(--item-bg-light);
     padding: 12px;
     margin: 0 -12px -12px -12px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 90;
   }
   
-  .dark-mode .addToCartSection {
-    background-color: var(--item-bg-dark);
+  .dark .addToCartSection {
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
   }
-  
   .customAddToCart {
+    
+    position: -webkit-sticky;
     position: sticky;
     bottom: 0;
     left: 0;
+    right: 0;
     right: 0;
     background-color: var(--item-bg-light);
     padding: 12px;
@@ -1152,7 +1150,7 @@ align-items: center;
     z-index: 90;
   }
   
-  .dark-mode .customAddToCart {
+  .dark .customAddToCart {
     background-color: var(--item-bg-dark);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
   }
@@ -1192,11 +1190,7 @@ align-items: center;
   .optionTitle {
     font-size: 0.9rem;
   }
-  
-  .productImageSection {
-    margin: 0 -8px;
-  }
-  
+
   .productOptions {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
@@ -1347,11 +1341,11 @@ align-items: center;
     color: var(--item-primary-dark);
   }
   
-  .dark-mode .optionPrice,
-  .dark-mode .descriptionTitle,
-  .dark-mode .categoriesTitle,
-  .dark-mode .styleOptionPrice,
-  .dark-mode .summaryTotal strong {
+  .dark .optionPrice,
+  .dark .descriptionTitle,
+  .dark .categoriesTitle,
+  .dark .styleOptionPrice,
+  .dark .summaryTotal strong {
     color: var(--item-secondary-light);
   }
   
@@ -1378,7 +1372,7 @@ align-items: center;
     opacity: 0.8;
   }
   
-.container .dark-mode .optionsContainer::after {
+.container .dark .optionsContainer::after {
     background: linear-gradient(to top, var(--item-bg-dark) 0%, transparent 100%);
   }
 }

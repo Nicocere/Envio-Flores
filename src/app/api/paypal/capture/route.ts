@@ -7,8 +7,8 @@ import {
 } from '@paypal/paypal-server-sdk';
 import { NextResponse } from 'next/server';
 
-const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
-const clientSecret = process.env.PAYPAL_APP_SECRET;
+const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_SANDBOX;
+const clientSecret = process.env.PAYPAL_SECRET_SANDBOX;
 
 if (!clientId || !clientSecret) {
   throw new Error('Missing PayPal client ID or secret in environment variables');
@@ -20,7 +20,7 @@ const client = new Client({
     oAuthClientSecret: clientSecret
   },
   timeout: 0,
-  environment: Environment.Production,
+  environment: Environment.Sandbox,
   logging: {
     logLevel: LogLevel.Info,
     logRequest: {
@@ -38,6 +38,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { orderID } = body;
+
+    
 
     if (!orderID) {
       return NextResponse.json(

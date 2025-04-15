@@ -9,8 +9,8 @@ import {
 } from '@paypal/paypal-server-sdk';
 import { NextResponse } from 'next/server';
 
-const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
-const clientSecret = process.env.PAYPAL_APP_SECRET;
+const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_SANDBOX;
+const clientSecret = process.env.PAYPAL_SECRET_SANDBOX;
 
 // Validación más estricta de credenciales
 if (!clientId || !clientSecret) {
@@ -28,7 +28,7 @@ const client = new Client({
     oAuthClientSecret: clientSecret
   },
   timeout: 0,
-  environment: Environment.Production,
+  environment: Environment.Sandbox,
   logging: {
     logLevel: LogLevel.Info,
     logRequest: {
@@ -46,6 +46,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { price } = body;
     
+    console.log('Body de la solicitud:', body);
+    console.log('Precio recibido:', price);
+
     if (!price || isNaN(price)) {
       return NextResponse.json({ error: 'Invalid price' }, { status: 400 });
     }

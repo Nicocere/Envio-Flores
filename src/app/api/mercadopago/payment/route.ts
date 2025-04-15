@@ -51,9 +51,9 @@ export async function POST(request: Request) {
         const itemsForMercadoPago = [...mappedProducts, shippingItem];
 
         // Add Your credentials
-        const accessToken = process.env.MERCADOPAGO_EF_ACCESS_TOKEN;
+        const accessToken = process.env.MP_EF_ACC_TOK_TEST;
         if (!accessToken) {
-            throw new Error('MERCADOPAGO_EF_ACCESS_TOKEN is not configured in environment variables');
+            throw new Error('MP_EF_ACC_TOK_TEST is not configured in environment variables');
         }
         
         // Inicializar el cliente de MercadoPago con la nueva API
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
             purpose: 'wallet_purchase',
             items: itemsForMercadoPago,
             back_urls: {
-                success: `https://www.floreriasargentinas.com/compras/mercadopago/`, 
+                success: `http://localhost:3000/compras/mercadopago/exitoso`, 
                 failure: 'https://www.floreriasargentinas.com/pago-fallido',
                 pending: 'https://www.floreriasargentinas.com/pago-pendiente',
             },
@@ -81,7 +81,9 @@ export async function POST(request: Request) {
         const preferenceId = response.id;
 
         // Verificar que la preferencia se creó correctamente
-        await preference.get({ preferenceId: preferenceId });
+        if (preferenceId) {
+            await preference.get({ preferenceId: preferenceId });
+        }
 
         // Devuelve la preferencia creada al frontend
         return NextResponse.json({ preferenceId });

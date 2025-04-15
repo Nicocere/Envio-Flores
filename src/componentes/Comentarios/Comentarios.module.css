@@ -1,0 +1,450 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--spacing-8) auto;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+
+.light {
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+.dark {
+  background-color: var(--background-card-dark);
+  color: var(--text-light);
+  border: 1px solid var(--border-color-dark);
+}
+
+.title {
+  font-family: var(--font-display);
+  text-align: center;
+  margin-bottom: var(--spacing-6);
+  color: var(--primary-color);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-light);
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+}
+
+.text {
+  color: var(--text-dark);
+  font-size: var(--font-size-lg);
+  text-align: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.dark .text {
+  color: var(--text-light);
+}
+
+.form {
+  position: relative;
+  background-color: var(--bg-light-alt);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-6);
+  box-shadow: var(--adicional-shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.dark .form {
+  background-color: var(--bg-dark-alt);
+}
+
+.form:hover {
+  box-shadow: var(--adicional-shadow-md);
+  transform: translateY(-2px);
+}
+
+.inputGroup {
+  margin-bottom: var(--spacing-4);
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: var(--font-size-base);
+}
+
+.dark .inputGroup label {
+  color: var(--primary-light);
+}
+
+.input, 
+.textarea {
+  width: 100%;
+  padding: var(--spacing-3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  transition: var(--transition-fast);
+}
+
+.dark .input,
+.dark .textarea {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color-dark);
+  color: var(--text-light);
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input:focus, 
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.2);
+}
+
+.dark .input:focus,
+.dark .textarea:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.2);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.dark .input::placeholder,
+.dark .textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ratingContainer {
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+.ratingLabel {
+  display: block;
+  margin-bottom: var(--spacing-3);
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  text-align: center;
+}
+
+.dark .ratingLabel {
+  color: var(--primary-light);
+}
+
+.stars {
+  display: flex;
+  gap: var(--spacing-2);
+  justify-content: center;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 28px;
+  transition: all var(--transition-time) ease;
+  color: #e4e5e9;
+}
+
+.starActive {
+  color: var(--primary-light);
+}
+
+.dark .star {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .starActive {
+  color: var(--primary-light);
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.required {
+  color: var(--primary-color);
+  margin-left: var(--spacing-1);
+}
+
+.dark .required {
+  color: var(--primary-light);
+}
+
+.submitButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  font-family: var(--font-primary);
+  font-weight: 600;
+  border: none;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--primary-color-hover);
+  transition: var(--transition-time);
+  z-index: -1;
+}
+
+.submitButton:hover::before {
+  width: 100%;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitButton:disabled:hover::before {
+  width: 0;
+}
+
+.warningText {
+  color: var(--form-warning);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-3);
+  display: block;
+  text-align: center;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+.dark .warningText {
+  background-color: rgba(255, 152, 0, 0.2);
+}
+
+.successMessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 200, 83, 0.1);
+  z-index: 10;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.5s var(--transition-bounce);
+}
+
+.dark .successMessage {
+  background-color: rgba(0, 200, 83, 0.2);
+}
+
+.successIcon {
+  color: var(--success-color);
+  font-size: 48px;
+  margin-bottom: var(--spacing-4);
+}
+
+.successText {
+  color: var(--success-color);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  text-align: center;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: var(--radius-md);
+}
+
+.dark .loadingOverlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.characterCount {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: var(--spacing-1);
+}
+
+.characterCountWarning {
+  color: var(--form-warning);
+}
+
+.dark .characterCount {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dark .characterCountWarning {
+  color: var(--form-warning);
+}
+
+.formSeparator {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-6) 0;
+  color: var(--text-muted);
+}
+
+.formSeparator::before,
+.formSeparator::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 var(--spacing-2);
+}
+
+.dark .formSeparator::before,
+.dark .formSeparator::after {
+  background-color: var(--border-color-dark);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-4);
+    margin: var(--spacing-6) var(--spacing-4);
+    width: calc(100% - var(--spacing-8));
+  }
+  
+  .form {
+    padding: var(--spacing-4);
+  }
+  
+  .title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .text {
+    font-size: var(--font-size-base);
+  }
+  
+  .star {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-3);
+    margin: var(--spacing-4) var(--spacing-3);
+    width: calc(100% - var(--spacing-6));
+  }
+  
+  .form {
+    padding: var(--spacing-3);
+  }
+  
+  .title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .text {
+    font-size: var(--font-size-sm);
+  }
+  
+  .star {
+    font-size: 20px;
+  }
+  
+  .inputGroup label {
+    font-size: var(--font-size-sm);
+  }
+  
+  .input, 
+  .textarea {
+    padding: var(--spacing-2);
+    font-size: var(--font-size-sm);
+  }
+}

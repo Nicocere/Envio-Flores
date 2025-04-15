@@ -63,17 +63,17 @@ export async function POST(request: Request): Promise<NextResponse> {
         if (retiraEnLocal) {
             page.drawText('Retira en local', { x: 50, y: 700, font, size: fontSize });
         } else {
-            page.drawText(`Fecha de Entrega: ${datosEnvio.fecha || 'No especificado'}`, { x: 50, y: 685, font, size: fontSize });
-            page.drawText(`Horario: ${datosEnvio.horario || 'No especificado'}`, { x: 50, y: 670, font, size: fontSize });
-            page.drawText(`Destinatario: ${datosEnvio.nombreDestinatario} ${datosEnvio.apellidoDestinatario}`, { x: 50, y: 655, font, size: fontSize });
-            page.drawText(`Dirección: ${datosEnvio.calle} ${datosEnvio.altura} ${datosEnvio.piso || ''}`, { x: 50, y: 640, font, size: fontSize });
-            page.drawText(`Localidad: ${datosEnvio.localidad?.name || 'No especificada'}`, { x: 50, y: 625, font, size: fontSize });
+            page.drawText(`Fecha de Entrega: ${datosEnvio?.fecha || 'No especificado'}`, { x: 50, y: 685, font, size: fontSize });
+            page.drawText(`Horario: ${datosEnvio?.horario || 'No especificado'}`, { x: 50, y: 670, font, size: fontSize });
+            page.drawText(`Destinatario: ${datosEnvio?.nombreDestinatario} ${datosEnvio?.apellidoDestinatario}`, { x: 50, y: 655, font, size: fontSize });
+            page.drawText(`Dirección: ${datosEnvio?.calle} ${datosEnvio?.altura} ${datosEnvio?.piso || ''}`, { x: 50, y: 640, font, size: fontSize });
+            page.drawText(`Localidad: ${datosEnvio?.localidad?.name || 'No especificada'}`, { x: 50, y: 625, font, size: fontSize });
         }
 
         // Productos comprados
         page.drawText('Productos Comprados:', { x: 50, y: 595, font, size: fontSize, color: rgb(0, 0, 0) });
         let yOffset = 580;
-        products.forEach((product) => {
+        products?.forEach((product) => {
             page.drawText(`${product.name} (${product.size}) - Cantidad: ${product.quantity} - cod: ${product.precio}`, {
                 x: 50,
                 y: yOffset,
@@ -91,13 +91,13 @@ export async function POST(request: Request): Promise<NextResponse> {
         page.drawLine({ start: { x: 50, y: yOffset - 60 }, end: { x: 200, y: yOffset - 60 }, color: rgb(0, 0, 0) });
 
         // Dedicatoria
-        page.drawText(datosEnvio.dedicatoria || '', { x: 350, y: 250, font, size: 18, color: rgb(0, 0, 0) });
+        page.drawText(datosEnvio?.dedicatoria || '', { x: 350, y: 250, font, size: 18, color: rgb(0, 0, 0) });
 
         // Generar el PDF en formato bytes
         const pdfBytes = await pdfDoc.save();
 
         // Subir el PDF generado a Firebase Storage
-        const fileName = `pdfs-floreriasargentinas/paypal_compra_${datosComprador.nombreComprador}_${new Date().toISOString()}.pdf`;
+        const fileName = `pdfs-floreriasargentinas/paypal_compra_${datosComprador?.nombreComprador}_${new Date().toISOString()}.pdf`;
         const storageRef = ref(storage, fileName);
         await uploadBytes(storageRef, pdfBytes, { contentType: 'application/pdf' });
 

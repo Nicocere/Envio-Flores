@@ -8,7 +8,7 @@ import { FadeLoader } from "react-spinners";
 import React from 'react';
 import { CookieContext, useCookies } from '../../../context/CookieContext';
 
-initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_EF_PUBLIC_KEY, {
+initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY, {
   locale: 'es-AR'
 });
 
@@ -144,7 +144,7 @@ const CardPaymentMP = ({ nombreDestinatario, apellidoDestinatario, phoneDestinat
         bodyMP,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MERCADOPAGO_EF_PUBLIC_KEY}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY}`,
             'Content-Type': 'application/json',
           },
         }

@@ -1,0 +1,91 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #2f1a0f, #1a0f07);
+    padding: 1rem;
+}
+
+.card {
+    max-width: 28rem;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #D4AF37;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.paymentInfo {
+    background-color: rgba(254, 243, 199, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.section {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.sectionTitle {
+    color: #D4AF37;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.text {
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.highlight {
+    color: #D4AF37;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background-color: #D4AF37;
+    color: #2f1a0f;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #B38F1D;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.loadingContainer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #2f1a0f, #1a0f07);
+}
+
+.loadingText {
+    color: #D4AF37;
+    margin-top: 1rem;
+}

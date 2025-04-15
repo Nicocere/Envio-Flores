@@ -10,8 +10,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+  // "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
   const initialOptions = {
-    "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
+    clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_SANDBOX || "",
     currency: "USD",
     intent: "capture",
   };

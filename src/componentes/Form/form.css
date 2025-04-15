@@ -531,7 +531,7 @@
   font-size: 1.5rem;
   margin: 1.5rem 0;
   color: var(--form-primary);
-  background: linear-gradient(to right, #f8f8f8, #fff, #f8f8f8);
+  /* background: linear-gradient(to right, #f8f8f8, #fff, #f8f8f8); */
   padding: 1rem;
   border-radius: var(--form-radius);
   border: 1px dashed var(--form-primary-light);

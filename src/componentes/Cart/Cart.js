@@ -8,17 +8,11 @@ import Form from '../Form/Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 //Material UI
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, IconButton, List, ListItem, ListItemText, Paper, Tab, Tabs, TextField, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, IconButton, List, ListItem, ListItemText, Paper, TextField, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
-import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
-import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
-import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
 
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -41,41 +35,7 @@ import { useTheme } from '@/context/ThemeSwitchContext';
 
 const MySwal = withReactContent(Swal);
 
-const StyledTabs = styled((props) => (
-    <Tabs
-        {...props}
-        TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
-    />
-))({
-    '& .MuiTabs-indicator': {
-        display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: 'darkred',
-    },
-    '& .MuiTabs-indicatorSpan': {
-        maxWidth: 40,
-        width: '100%',
-        backgroundColor: 'white',
-    },
-});
 
-const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
-    ({ theme }) => ({
-        textTransform: 'none',
-        fontWeight: theme.typography.fontWeightRegular,
-        fontSize: theme.typography.pxToRem(15),
-        marginRight: theme.spacing(1),
-        color: 'rgba(255, 255, 255, 0.7)',
-        '&.Mui-selected': {
-            color: '#fff',
-            textTransform: 'uppercase',
-
-        },
-        '&.Mui-focusVisible': {
-            backgroundColor: 'darkred',
-        },
-    }),
-);
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -104,12 +64,6 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `full-width-tab-${index}`,
-        'aria-controls': `full-width-tabpanel-${index}`,
-    };
-}
 
 const CartComponents = () => {
 
@@ -142,9 +96,6 @@ const CartComponents = () => {
     //Material UI
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     const handleMercadoPagoClick = () => {
         setShowMercadoPago(true);
@@ -254,15 +205,11 @@ const CartComponents = () => {
     }
 
     const searchParams = useSearchParams();
-    const pagoExitoso = searchParams.get('PagoExistoso');
     const paymentID = searchParams.get('Payment-ID');
     const order = searchParams.get('Order');
-    const pagoPaypalExitoso = searchParams.get('PagoPayPalExistoso');
 
 
     // Manejo de errores
-    const error = searchParams.get('Error');
-    const pagoFallido = searchParams.get('PagoFallido');
 
 
     const [lastOrder, setLastOrder] = useState(null);
@@ -364,268 +311,6 @@ const CartComponents = () => {
         }
     }, [showCookiePrompt, hasAcceptedCookies]);
 
-
-    //NECESITO CREAR UNA VALIDACION PARA VERIFICAR QUE EL USUARIO NO ESTE INGRESANDO A UNA ORDEN QUE NO LE PERTENEZCA RESPECTO A SU CARTID O USERID QUE ESTA ALMACENADO EN EL LOCALSTORAGE
-    if ((orderCartID === storedCartID) && (pagoExitoso === 'true' || pagoPaypalExitoso === 'true') && order) {
-
-        if ((pagoExitoso === 'true' || pagoPaypalExitoso === 'true') && order) {
-            return (
-                <div className='div-compraFinalizada'>
-
-                    {lastOrder && (
-                        <div style={{ background: 'linear-gradient(to bottom, #dbdbdb , white)', borderRadius: '10px', margin: isSmallScreen ? '10px' : '40px' }}>
-                            <h1 style={{ alignContent: 'center', fontWeight: 800, }}>¡Compra Exitosa!</h1>
-                            <CheckCircleIcon color='success' fontSize='large' />
-                            <h3 style={{ marginTop: '30px' }} >Hola <strong style={{ color: '#670000' }}> {lastOrder.datosComprador?.nombreComprador} {lastOrder.datosComprador?.apellidoComprador}</strong></h3>
-
-                            <Paper elevation={24} sx={{ background: 'transparent', margin: '5px', borderRadius: '15px' }}>
-
-                                <Box sx={{ bgcolor: '#670000' }}>
-                                    <StyledTabs value={value} onChange={handleChange} aria-label="basic tabs example" indicatorColor="error"
-                                        textColor="inherit" centered
-                                        variant={!isSmallScreen && 'fullWidth'}>
-
-                                        <StyledTab sx={{ padding: isSmallScreen && '5px', minWidth: '50px' }} icon={<ReceiptIcon />} label={!isSmallScreen && "Resumen"} />
-                                        <StyledTab sx={{ padding: isSmallScreen && '5px', minWidth: '50px' }} icon={<CardGiftcardIcon />} label={!isSmallScreen && "Productos"} />
-                                        <StyledTab sx={{ padding: isSmallScreen && '5px', minWidth: '50px' }}
-                                            icon={lastOrder.retiraEnLocal ? <StoreRoundedIcon /> : <LocalShippingRoundedIcon />}
-                                            label={!isSmallScreen && (lastOrder.retiraEnLocal ? "Retiro" : "Envío")}
-                                        />
-                                        <StyledTab sx={{ padding: isSmallScreen && '5px', minWidth: '50px' }} icon={<CreditCardRoundedIcon />} label={!isSmallScreen && "Pago"} />
-                                    </StyledTabs>
-
-                                </Box>
-
-                                <TabPanel value={value}  {...a11yProps(0)} index={0}>
-                                    <Typography>Resumen de la compra:</Typography>
-                                    <h4>El ID de tu compra es: <strong style={{ color: '#670000' }}> {lastOrder.order_number}</strong> </h4>
-                                    <p>Tu compra ha sido procesada correctamente.</p>
-                                    <p>Compraste  <strong style={{ color: '#670000' }}> {lastOrder.products.length}</strong> {lastOrder.products.length > 1 ? 'productos' : 'producto'}</p>
-                                    <p>Precio total final: <strong style={{ color: '#670000' }}> ${lastOrder.amount}</strong> </p>
-
-                                    {isSmallScreen ?
-                                        <>
-                                            {lastOrder.retiraEnLocal ?
-                                                <>
-                                                    <p style={{ color: '#670000', fontWeight: 800, padding: '5px 10px' }}>Usted seleccionó que desea retirar el producto por nuestro local.</p>
-                                                    <p style={{ color: 'black', fontWeight: 800, padding: '5px 10px' }}>Puede hacerlo de 7hs - 18hs en Av. Cramer 1915 (Belgrano, CABA)</p>
-                                                </>
-                                                :
-                                                <>
-                                                    <Typography variant='button' sx={{ color: '#670000', fontWeight: 800 }}>Usted seleccionó que desea retirar el producto por nuestro local.</Typography>
-                                                    <Typography variant='button' sx={{ color: 'black', fontWeight: 800 }}>Puede hacerlo de 7hs - 18hs en Av. Cramer 1915 (Belgrano, CABA)</Typography>
-                                                </>
-                                            }
-                                        </>
-                                        :
-                                        <>
-                                            <h5 style={{ color: '#670000', fontWeight: 800 }}>Usted seleccionó que desea que enviemos su producto.
-                                            </h5>
-                                            <span style={{ fontWeight: '500', fontSize: '.84rem' }}>{lastOrder.datosEnvio?.servicioPremium ? `Eligio el Servicio Premium, por lo que su producto estará llegando a las ${lastOrder.datosEnvio.horario}` : `Eligio el servicio de entrega normal, por lo que estaremos enviando sus productos entre las ${lastOrder.datosEnvio.horario}.`}</span>
-                                        </>
-                                    }
-
-                                </TabPanel>
-                                <TabPanel value={value}  {...a11yProps(1)} index={1}>
-                                    <Typography>Productos comprados:</Typography>
-                                    <List>
-                                        {lastOrder.products?.map((prod, indx) => (
-                                            <ListItem key={indx} sx={{ paddingLeft: '7px', borderBottom: '1px solid #c0c0c085' }}>
-                                                <img width={120} height={120} style={{ marginRight: '15px' }} src={prod.img} alt="imagen producto en carrito" />
-                                                <ListItemText sx={{ fontWeight: '600', flex: '2', color: 'black' }} primary={prod.name} secondary={`Cantidad: ${prod.quantity}`} />
-                                                <ListItemText sx={{ fontWeight: '600', flex: '1', marginLeft: '10px', color: 'black' }} primary={priceDolar ? `USD$${Number(prod.price / dolar).toFixed(2) || Number(prod.precio / dolar).toFixed(2)}` : `$${prod.precio || prod.price}`} />
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </TabPanel>
-                                <TabPanel value={value} {...a11yProps(2)} index={2}>
-                                    {
-                                        (lastOrder.datosEnvio && !lastOrder.retiraEnLocal) &&
-                                        <>
-                                            <div>
-                                                <h2>ENVIA LOS PRODUCTOS</h2>
-                                                {isSmallScreen ?
-                                                    <>
-                                                        <p style={{ color: '#670000', fontWeight: 800, padding: '5px 10px' }}>Usted seleccionó que desea que enviemos su producto.
-                                                        </p>
-                                                        <span style={{ fontWeight: '500', fontSize: '.74rem' }}>{lastOrder.datosEnvio?.servicioPremium ? `` : `Eligio el servicio de entrega normal, por lo que estaremos enviando sus productos entre las ${lastOrder.datosEnvio.horario}.`}
-                                                        </span>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <h5 style={{ color: '#670000', fontWeight: 800 }}>Usted seleccionó que desea que enviemos su producto.
-                                                        </h5>
-                                                        <span style={{ fontWeight: '500', fontSize: '.84rem' }}>{lastOrder.datosEnvio?.servicioPremium ? `` : `Eligio el servicio de entrega normal, por lo que estaremos enviando sus productos entre las ${lastOrder.datosEnvio.horario}.`}</span>
-                                                    </>}
-                                            </div><Grid container spacing={2} sx={{ padding: '10px', display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row' }}>
-
-                                                <Paper elevation={12} sx={{ flex: '1', margin: '10px', border: '1px solid darkred', borderRadius: '5px' }}>
-                                                    <Typography variant='subtitle1' sx={{ background: '#670000', color: 'white', lineHeight: '2.75' }}>Datos del datosEnvio:</Typography>
-                                                    <Typography variant='button' sx={{ verticalAlign: '-webkit-baseline-middle' }}>
-                                                        Calle:  <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.calle} </strong> <br />
-                                                        Altura: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.altura} </strong> <br />
-                                                        Piso: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.piso} </strong> <br />
-                                                        Localidad: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.localidad?.name} </strong> <br />
-                                                        Fecha de entrega: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.fecha} </strong> <br />
-                                                        Hora de entrega: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.horario} </strong> <br />
-                                                    </Typography>
-                                                </Paper>
-
-
-                                                <Paper elevation={12} sx={{ flex: '1', margin: '10px', border: '1px solid darkred', borderRadius: '5px' }}>
-                                                    <Typography variant='subtitle1' sx={{ background: '#670000', color: 'white', lineHeight: '2.75' }}>Datos de quien recibe:</Typography>
-
-                                                    <Typography variant='button' sx={{ verticalAlign: '-webkit-baseline-middle' }}>
-                                                        Lo recibe:  <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.nombreDestinatario} {lastOrder.datosEnvio.apellidoDestinatario} </strong> <br />
-                                                        Telefono: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.phoneDestinatario} </strong> <br />
-                                                        Dedicatoria: <strong style={{ color: 'darkred' }}> {lastOrder.datosEnvio.dedicatoria} </strong> <br />
-
-                                                    </Typography>
-                                                </Paper>
-                                            </Grid>
-                                        </>
-
-                                    }
-
-                                    {
-                                        lastOrder.retiraEnLocal &&
-                                        <div >
-                                            <h2 >Retira en el Local</h2>
-                                            {isSmallScreen ?
-                                                <>
-                                                    <p style={{ color: '#670000', fontWeight: 800, padding: '5px 10px' }}>Usted seleccionó que desea retirar el producto por nuestro local.</p>
-                                                    <p style={{ color: 'black', fontWeight: 800, padding: '5px 10px' }}>Puede hacerlo de 7hs - 18hs en Av. Cramer 1915 (Belgrano, CABA)</p>
-                                                </>
-
-                                                :
-                                                <>
-                                                    <h5 style={{ color: '#670000', fontWeight: 800 }}>Usted seleccionó que desea retirar el producto por nuestro local.</h5>
-                                                    <h5 style={{ color: 'black', fontWeight: 800 }}>Puede hacerlo de 7hs - 18hs en Av. Cramer 1915 (Belgrano, CABA)</h5>
-                                                </>
-
-                                            }
-
-                                            <iframe
-                                                width={'100%'}
-                                                height={'400'}
-                                                margin={0}
-                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.4946009088108!2d-58.46220712511634!3d-34.566349655524135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d6f32252a9%3A0xe6ccbfb70807bab0!2sAv.%20Cr%C3%A1mer%201915%2C%20C1428CTC%20CABA!5e0!3m2!1ses!2sar!4v1698074048732!5m2!1ses!2sar" title="Ubicación"
-                                            ></iframe>
-                                        </div>
-
-                                    }
-
-                                </TabPanel>
-                                <TabPanel value={value}  {...a11yProps(3)} index={3}>
-                                    <Typography>Pago realizado con exito</Typography>
-
-                                    <Typography variant='h5'>Realizo la compra mediante:
-                                        <strong style={{ color: 'darkred' }}>
-
-                                            {lastOrder.code_mercadopago && 'Mercado Pago'}
-                                            {lastOrder.code_paypal && 'PayPal'}
-                                        </strong>
-                                    </Typography>
-                                    <Typography variant='button'>
-                                        El pago total de su compra fue de: <strong style={{ color: 'darkred' }}>
-                                            ${lastOrder.amount}</strong>
-                                    </Typography>
-                                    <Typography >Mail de confirmación de compra:<strong style={{ color: 'darkred' }}> {lastOrder.email || lastOrder.datosComprador.email} </strong> </Typography>
-                                    <Typography variant='caption'>Compruebe su correo electronico (en algunos casos, puede ser que este en su casillero de Spam)</Typography>
-
-                                </TabPanel>
-                            </Paper>
-                            {/* )
-} */}
-                            <hr style={{ color: 'white', border: '3px solid white' }} />
-                            <h4 style={{ color: '#670000', fontWeight: 800, marginTop: '50px' }}>¡Gracias por confiar en nosotros!</h4>
-                            <img width={isSmallScreen ? 80 : 100} height={isSmallScreen ? 80 : 100} src={'/assets/imagenes/logo-envio-flores.png'} alt="logo datosEnvio flores" />
-                            <hr style={{ color: 'white', border: '3px solid white' }} />
-
-                            <h5 style={{ padding: '20px' }}>Puedes ir al <Link href="/" style={{ color: '#670000', fontWeight: 800 }}>Inicio</Link>{' '} para buscar y agregar otros productos </h5>
-                        </div>
-                    )}
-
-                    {
-                        (error || pagoFallido) && (
-                            <>
-                                <hr />
-                                <p className='details-compra'>Hemos tenido un inconveniente al enviarte el mail de confirmacion.</p>
-                                <p className='details-compra'> Pero no te preocupes!. </p>
-                                <p className='details-compra'> Tu compra se ha realizado con exito!</p>
-                                <p className='details-compra'> A continuacion, podras enviarnos un mensaje de WhatsApp para verificar el estado de tu compra.</p>
-                                <div style={{
-                                    marginTop: '30px',
-                                }} >
-
-                                    <a style={{
-                                        color: 'white', padding: '20px', background: 'linear-gradient(to top, #a70000, #670000)', textDecoration: 'none',
-                                        border: '1px solid darkred', borderRadius: '5px', marginTop: '30px', transition: 'all .44s ease-in-out',
-                                        ':&hover': { color: 'white' }
-                                    }}
-                                        href="https://wa.me/+5491165421003?text=Hola%20EnvioFlores%20,%20He%20realizado%20un%20pedido%20mediante%20paypal%20,%20lo%20recibiste?!">
-                                        Envianos un mensaje haciendo clíck aquí
-                                    </a>
-                                </div>
-
-                            </>
-                        )
-                    }
-                </div>
-            );
-        }
-
-
-        if ((pagoExitoso === 'true' || pagoPaypalExitoso === 'true') && (error === 'true' || pagoFallido === 'true')) {
-            return (
-                <div className='div-compraFinalizada' style={{ margin: isSmallScreen ? '0' : '50px' }}>
-                    <Typography variant='h3' className='compraFinalizada'>Gracias por comprar en Envio Flores. </Typography>
-
-                    <p className='details-compra'>Hemos tenido un inconveniente al enviarte el mail de confirmacion.</p>
-                    <p className='details-compra'> Pero no te preocupes!. </p>
-                    <Typography variant='h4' className='details-compra'> ¡Tu compra se ha realizado con exito!  <CheckCircleIcon color='success' fontSize='large' />
-                    </Typography>
-                    <p className='details-compra'> A continuacion, podras enviarnos un mensaje de WhatsApp para verificar el estado de tu compra.</p>
-                    <div style={{
-                        margin: '30px',
-                        padding: '20px',
-                    }} >
-
-                        <a className="link"
-                            href="https://wa.me/+5491165421003?text=Hola%20EnvioFlores%20,%20He%20realizado%20un%20pedido%20mediante%20paypal%20,%20lo%20recibiste?!">
-                            <Typography variant='button'>
-                                Envianos un mensaje haciendo clíck aquí
-                            </Typography>              <FaWhatsapp className='link-wp' />
-
-                        </a>
-                    </div>
-                    <hr style={{ color: 'white', border: '3px solid white' }} />
-                    <Paper elevation={24}>
-
-                        <h4 style={{ color: '#670000', fontWeight: 800, marginTop: '50px' }}>¡Gracias por confiar en nosotros!</h4>
-                        <img width={isSmallScreen ? 80 : 100} height={isSmallScreen ? 80 : 100} src='/assets/imagenes/logo-envio-flores.png' alt="logo datosEnvio flores" />
-                        <hr style={{ color: 'white', border: '3px solid white' }} />
-                        <h5 style={{ padding: '20px' }}>Puedes ir al <Link href="/" style={{ color: '#670000', fontWeight: 800 }}>Inicio</Link>{' '} para buscar y agregar otros productos </h5>
-                    </Paper>
-
-
-                </div>
-            );
-        }
-    }
-
-    if ((orderCartID !== storedCartID) && (pagoExitoso === 'true' || pagoPaypalExitoso === 'true') && order) {
-        return (
-            <div style={{ margin: isSmallScreen ? '0' : '30px 25px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <h1>Lo sentimos, pero no puedes acceder a esta orden</h1>
-                <p>Por favor, verifica que la orden que intentas acceder sea la correcta.</p>
-                <p>Si tienes alguna duda, por favor, comunicate con nosotros.</p>
-                <Button variant='contained' sx={{ margin: '20px 0' }} color='error' href="https://wa.me/+5491165421003?text=Hola%20EnvioFlores%20,%20He%20realizado%20un%20pedido%20mediante%20su%20pagina%20,%20lo%20recibiste?!">Contactanos</Button>
-
-                <img src={'/assets/imagenes/logo-envio-flores.png'} alt="Error 404" style={{ width: '150px', height: '150px' }} />
-            </div>
-        )
-    }
 
     return (
         <>
@@ -1182,9 +867,9 @@ const CartComponents = () => {
                                             }
 
                                             {
-                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px 10px 5px', padding: '20px', background: 'white', border: '1px solid #670000', width: '100%', color: 'black' }}>¡Quiero enviar mis productos!</Typography>
+                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px auto 15px', padding: '15px', background: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : '#f5f5f5', borderRadius: '8px', border: '2px solid #670000', width: '80%', color: isDarkMode ? 'white' : '#670000', fontWeight: 600, textAlign: 'center', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LocalShippingRoundedIcon sx={{ mr: 1 }}/> ¿Prefiere enviar sus productos a domicilio?</Typography>
                                             }
-                                            <Button variant="contained" color='success' sx={{ color: 'white', margin: '10px 30px' }} onClick={() => { handleStepChange(3); handleChangeRetirarProducto(); }}>
+                                            <Button variant="contained"  sx={{ background:'#670000', color: 'white', margin: '10px 30px' }} onClick={() => { handleStepChange(3); handleChangeRetirarProducto(); }}>
                                                 Enviar a domicilio
                                             </Button>
                                         </Paper>

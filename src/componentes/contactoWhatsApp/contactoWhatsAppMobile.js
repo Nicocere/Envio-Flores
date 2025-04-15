@@ -6,12 +6,14 @@ import { FaWhatsapp } from '@react-icons/all-files/fa/FaWhatsapp';
 import './WhatsAppMobile.css'; // Asegúrate de importar el archivo CSS donde definas tus estilos
 import SendIcon from '@mui/icons-material/Send';
 import { useTheme } from '../../context/ThemeSwitchContext';
+import { useCart } from '@/context/CartContext';
 
 const WhatsAppMobile = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [whatsappMessage, setWhatsappMessage] = useState('');
     const isSmallScreen = useMediaQuery('(max-width:850px)');
   const { isDarkMode } = useTheme();
+  const {cart} = useCart()
 
     const handleToggleDrawer = (open) => (event) => {
       if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -40,7 +42,7 @@ const WhatsAppMobile = () => {
         // Aquí puedes redirigir al enlace de WhatsApp
         window.location.href = generateWhatsAppLink();
       };
-
+console.log("cart", cart.length)
   return (
     <div className='whatsapp-mobile-container' >
      <SwipeableDrawer
@@ -113,12 +115,11 @@ const WhatsAppMobile = () => {
       <div
         style={{
           position: 'fixed',
-          bottom: '20px',
+          bottom: cart?.length > 0 ? '112px' : '20px', // ajusta el valor según tu diseño
           right: openDrawer ? '20px' : '9px', // ajusta el valor según tu diseño
           width: '42px', // ajusta el valor según tu diseño
           height: '42px',
           backgroundColor: '#25d366',
-          transition: 'width 0.3s ease, right 0.3s ease',
           zIndex: 1200,
           color: '#fff',
           borderRadius:' 50%',
@@ -126,6 +127,7 @@ const WhatsAppMobile = () => {
           padding: '15px',
           cursor: 'pointer',
           border: '1px solid white',
+          transition: 'all 0.3s ease',
           
         }}
       >

@@ -1,23 +1,23 @@
+"use client";
 import React from 'react';
-
-import { PayPalButtons, PayPalScriptProvider, FUNDING } from "@paypal/react-paypal-js";
+import { PayPalButtons, FUNDING } from "@paypal/react-paypal-js";
 import { useContext } from "react";
-import { CartContext, useCart } from "../../context/CartContext";
+import { CartContext } from "../../context/CartContext";
 import Swal from "sweetalert2";
-import axios from "axios";
-import { CookieContext, useCookies } from '../../context/CookieContext';
+import { useRouter } from 'next/navigation';
+import localforage from 'localforage';
 
-const BACKEND_URL = "https://envio-flores.rj.r.appspot.com";
-// const BACKEND_URL = "http://localhost:8080";
+// const BACKEND_URL = "https://www.envioflores.com/api";
+const BACKEND_URL = "http://localhost:3000/api";
 
 
 const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
     phoneDestinatario, mailComprador, localidad, precioLocalidad, calle, altura, piso,
-    dedicatoria, nombreComprador, phoneComprador, apellidoComprador, fechaEnvio, horarioEnvio, 
-    description, picture_url,precioArg, category_id, quantity, unit_price, id, size, products, retiraEnLocal, envioPremium, servicioPremium, total }) => {
+    dedicatoria, nombreComprador, phoneComprador, apellidoComprador, fechaEnvio, horarioEnvio,
+    picture_url, precioArg, quantity, CartID, UserID, products, retiraEnLocal, envioPremium, servicioPremium, total }) => {
 
-    const { dolar  } = useCart();
-    const { CartID, UserID } = useCookies();
+    const navigate = useRouter();
+    const { dolar } = useContext(CartContext)
 
     const FUNDING_SOURCES = [
         FUNDING.PAYPAL,
@@ -25,7 +25,6 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
         FUNDING.VENMO,
         FUNDING.CARD
     ];
-
 
     let envioDatos = {
         PayPal: true,
@@ -41,15 +40,23 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
         datosEnvio: {
             dedicatoria: dedicatoria ? dedicatoria : 'Sin dedicatoria',
         },
-        priceDolar: Number(total),
+        totalPrice: Number(total),
         dolar: Number(dolar),
         precioArg: Number(precioArg),
         products: products,
+        quantity: quantity,
     };
-    
+
     if (retiraEnLocal) {
         envioDatos.retiraEnLocal = true;
-        envioDatos.quantity = quantity;
+        envioDatos.datosEnvio =
+        {
+            fecha: fechaEnvio,
+            horario: horarioEnvio,
+            products: products,
+            dedicatoria: dedicatoria ? dedicatoria : 'Sin dedicatoria',
+            totalPrice: Number(total),
+        };
     } else {
         envioDatos.retiraEnLocal = false
         envioDatos.datosEnvio = {
@@ -65,11 +72,12 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
             piso: piso,
             dedicatoria: dedicatoria,
             imagenProd: picture_url,
-            totalPrice: total,
+            totalPrice: Number(total),
             servicioPremium: servicioPremium,
             envioPremium: envioPremium,
         };
-    }
+    } 
+    console.log(envioDatos)
 
     return (
         <div className="App">
@@ -79,7 +87,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                         <PayPalButtons
                             fundingSource={fundingSource}
                             key={fundingSource}
-                            
+
                             style={{
                                 layout: 'vertical',
                                 shape: 'rect',
@@ -87,6 +95,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                             }}
 
                             createOrder={async () => {
+                                await localforage.setItem('shoppingCart', envioDatos);
 
                                 const response = await fetch(`${BACKEND_URL}/paypal/orders`, {
                                     method: "POST",
@@ -95,7 +104,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                                     },
                                     body: JSON.stringify({
                                         item: itemSelected,
-                                        price: total
+                                        price: Number(total)
                                     })
                                 });
                                 const details = await response.json();
@@ -103,10 +112,16 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                             }}
 
                             onApprove={async (data, actions) => {
+
                                 try {
-                                    // const response = await fetch(`http://localhost:8080/paypal/orders/${data.orderID}/capture`, {
-                                    const response = await fetch(`${BACKEND_URL}/paypal/orders/${data.orderID}/capture`, {
-                                        method: "POST"
+                                    const response = await fetch(`${BACKEND_URL}/paypal/capture`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            orderID: data.orderID
+                                        })
                                     });
                                     const details = await response.json();
 
@@ -116,16 +131,24 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                                             details,
                                             envioDatos
                                         }
-                                        // const completeOrder = await axios.post(`http://localhost:8080/paypal/orders/complete`, order)
 
-                                        await axios.post(`${BACKEND_URL}/paypal/orders/complete`, order)
-                                            .then(response => {
-                                                window.location.href = response.data.redirectURL;
-                                            })
-                                            .catch(error => {
-                                                window.location.href = `https://envioflores.com/cart?PagoPayPalExistoso=true&Error=true&ErrorDetail=${error}`;
-                                                console.error("Error en el proceso de finalización de pago:", error);
-                                            });
+                                        const response = await fetch(`${BACKEND_URL}/paypal/complete`, {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify(order)
+                                        });
+
+                                        if (response.ok) {
+                                            navigate.push(`/compras/paypal?PagoPayPalExistoso=true`);
+                                            // await localforage.removeItem('shoppingCart');
+                                            // await localforage.removeItem('cart');
+                                        } else {
+                                            const error = await response.json();
+                                            navigate.push(`/cart?PagoPayPalExistoso=true&Error=true&ErrorDetail=${error}`);
+                                            console.error("Error en el proceso de finalización de pago:", error);
+                                        }
                                     }
 
                                     // Three cases to handle:
