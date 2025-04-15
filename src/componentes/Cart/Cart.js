@@ -256,7 +256,7 @@ const CartComponents = () => {
     // Modificar la función handleAcceptCookies para usar localForage
     const handleAcceptCookies = async () => {
         try {
-            await localForage.setItem('acceptedCookies', 'true');
+            await localforage.setItem('acceptedCookies', 'true');
             acceptCookies();
         } catch (error) {
             console.error("Error al guardar cookies:", error);

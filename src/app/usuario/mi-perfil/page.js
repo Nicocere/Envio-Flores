@@ -10,6 +10,7 @@ import { PulseLoader } from 'react-spinners';
 import { FaShoppingCart, FaHeart, FaGift, FaCreditCard, FaCog } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import style from './pageUsuarios.module.css';
+import Swal from 'sweetalert2';
 
 function PerfilUser() {
     const [userData, setUserData] = useState(null);

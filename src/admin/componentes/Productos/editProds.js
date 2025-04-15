@@ -220,7 +220,7 @@ const EditProds = () => {
             navigate('/administrador/addProds');
         } catch (e) {
             console.error('Error al actualizar el producto: ', e);
-            setErrorMessages('Error al actualizar el producto');
+
         } finally {
             setIsLoading(false);
         }

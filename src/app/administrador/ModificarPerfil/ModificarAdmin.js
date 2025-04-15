@@ -7,6 +7,7 @@ import './modificarAdmin.css'
 import { updateEmail, updatePassword } from 'firebase/auth';
 import { doc, getDoc, updateDoc, } from 'firebase/firestore';
 import { auth, baseDeDatos } from '../../../FireBaseConfig';
+import { useRouter } from 'next/navigation';
 
 function ModificarPerfilAdministrador() {
     const {
