@@ -204,55 +204,6 @@ const CartComponents = () => {
 
     }
 
-    const searchParams = useSearchParams();
-    const paymentID = searchParams.get('Payment-ID');
-    const order = searchParams.get('Order');
-
-
-    // Manejo de errores
-
-
-    const [lastOrder, setLastOrder] = useState(null);
-    let order_number = parseFloat(order)
-    const [orderCartID, setOrderCartID] = useState(null);
-
-    useEffect(() => {
-
-        const getLastOrder = async () => {
-            try {
-                const ordersCollection = collection(baseDeDatos, 'ordenes');
-                const ordersQuery = query(
-                    ordersCollection,
-                    orderBy('order_number', 'desc'),
-                    where('order_number', '==', order_number),
-                    limit(1),
-                );
-
-                const ordersSnapshot = await getDocs(ordersQuery);
-                // let lastCode = Number;
-                if (!ordersSnapshot.empty) {
-                    const dataLastOrder = ordersSnapshot.docs[0].data();
-                    // lastCode = lastOrder.order_number;
-                    setLastOrder(dataLastOrder);
-                    setOrderCartID(dataLastOrder.CartID);
-                }
-            } catch (error) {
-                console.error('Error al obtener la última orden:', error);
-                // Manejar el error según sea necesario
-                setLastOrder(null);
-            }
-        };
-
-        // Solo buscar la última orden si existe el parámetro 'Order' en la URL
-        if (order) {
-            getLastOrder();
-        }
-
-    }, [order]);
-
-    console.log("orderCartID", orderCartID)
-    // const [showCookiePrompt, setShowCookiePrompt] = useState(false);
-
     // Modificar la función handleAcceptCookies para usar localForage
     const handleAcceptCookies = async () => {
         try {
@@ -890,7 +841,7 @@ const CartComponents = () => {
 
                                     <div className='formulario'>
                                         <h3 className='form-title'>Ingrese los datos de envío para confirmar la entrega.</h3>
-                                        <Form itemSelected={itemSelected} idCompra={paymentID} />
+                                        <Form itemSelected={itemSelected}  />
                                     </div>
                                 )}
 
