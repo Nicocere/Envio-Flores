@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { baseDeDatos, storage } from '../../FireBaseConfig';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -9,27 +9,22 @@ import { FadeLoader } from 'react-spinners';
 import './editAddProds.css';
 // import { stockProductos } from '../../ecommerce.productos';
 import Searcher from '../../../componentes/Searcher/Searcher';
-import { SearchContext, useSearch } from '../../../context/SearchContext';
-import { Button, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, FormControlLabel, Checkbox, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { useSearch } from '../../../context/SearchContext';
+import { Button, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, FormControlLabel, Checkbox } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { blue, deepOrange, red } from '@mui/material/colors';
 // import Filtros from '../../../componentes/Filtros/Filtros';
 
 
 
 function AddProds() {
-    const { register, watch, handleSubmit, formState: { errors }, control, reset, getValues , setValue} = useForm();
+    const { register, handleSubmit, formState: { errors }, control, reset} = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'opciones',
     });
 
-
     const [especialDatesData, setEspecialDatesData] = useState([]);
-    const [isDynamicWindowOpen, setDynamicWindowOpen] = useState(false);
-
     const [showNewProd, setShowNewProd] = useState(false)
-
     const [categoryList, setCategoryList] = useState([]);
     const [ocassionList, setOcassionList] = useState([]);
     const [especialDates, setEspecialDates] = useState([]);
@@ -79,13 +74,7 @@ function AddProds() {
     const [products, setProducts] = useState([]);
     const { prodEncontrado } = useSearch();
 
-    const handleOpenDynamicWindow = () => {
-        setDynamicWindowOpen(true);
-    };
 
-    const handleCloseDynamicWindow = () => {
-        setDynamicWindowOpen(false);
-    };
 
     const handleEspecialDateCheckboxChange = (date) => {
         if (especialDatesData.includes(date)) {
@@ -170,7 +159,7 @@ function AddProds() {
 
                     optionUploadTask.on(
                         'state_changed',
-                        (snapshot) => {
+                        () => {
                             // Manejar el progreso si es necesario
                             setIsLoading(false);
                         },

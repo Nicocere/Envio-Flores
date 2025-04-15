@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { addDoc, collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { baseDeDatos, storage, } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { useFieldArray, useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { FadeLoader } from 'react-spinners';
 // import { Adicionales } from '../../ecommerce.adicionals';
 import Searcher from '../../../componentes/Searcher/Searcher';
-import { SearchContext, useSearch } from '../../../context/SearchContext';
+import {  useSearch } from '../../../context/SearchContext';
 import { Button, Paper, Switch, Typography } from '@mui/material';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,7 +16,7 @@ import { styled } from '@mui/system';
 
 
 function AddAdicionales() {
-    const { register, watch, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
         name: 'opciones',

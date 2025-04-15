@@ -15,9 +15,7 @@ const EditProds = () => {
     const productDocRef = doc(baseDeDatos, "productos", productId);
     const [isLoading, setIsLoading] = useState(false);
     const [previousOptionImages, setPreviousOptionImages] = useState([]);
-    const [status, setStatus] = useState(true);
 
-    const [errorMessages, setErrorMessages] = useState(['']);
 
 
     const { fields, append, remove } = useFieldArray({
@@ -107,11 +105,10 @@ const EditProds = () => {
                 }
             } else {
                 console.error("El producto no existe");
-                setErrorMessages('El producto no existe')
+                
             }
         } catch (error) {
             console.error("Error al obtener el producto:", error);
-            setErrorMessages('Error al obtener el producto')
         }
     };
 
@@ -167,7 +164,6 @@ const EditProds = () => {
                             'state_changed',
                             (snapshot) => { },
                             (error) => {
-                                setErrorMessages('Error al subir la imagen de la opción');
                                 console.error('Error al subir la imagen de la opción:', error);
                                 reject(error);
                             },
@@ -186,7 +182,6 @@ const EditProds = () => {
         // Verificar si no se seleccionaron fechas especiales
         if (!data.fechasEspeciales || data.fechasEspeciales[0]?.length === 0 || data.fechasEspeciales?.length === 0) {
             console.log("No hay fechas especiales", data.fechasEspeciales);
-            setErrorMessages('No hay fechas especiales seleccionadas')
             // Asignar un array vacío a fechasEspeciales en data
             data.fechasEspeciales = [];
         }

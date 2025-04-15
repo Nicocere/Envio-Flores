@@ -1,0 +1,276 @@
+.DivContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 150px;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px var(--shadow);
+  background: var(--background);
+}
+
+.container {
+  max-width: 1500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: var(--secondary-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.containerProdsFilter {
+  border-radius: 8px;
+  border: 1px solid var(--color2);
+  padding: 30px 20px;
+  max-height: 500px;
+  overflow-y: auto;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+/* Personalizar la barra de desplazamiento para que sea más visible */
+.containerProdsFilter::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+.containerProdsFilter::-webkit-scrollbar-thumb {
+  background-color: var(--color2) ; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: background-color 1s ease-in; /* Efecto de transición al pasar el ratón */
+  cursor: grab;
+}
+.containerProdsFilter::-webkit-scrollbar-thumb:hover {
+  background-color: #D4AF37 ; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+.containerProdsFilter::-webkit-scrollbar-thumb:active {
+  cursor: grabbing; /* Cambiar el cursor a grabbing cuando se hace clic */
+}
+
+
+.divTextsOrders{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 30px 20px;
+  border-radius: 20px;
+  background-color: var(--secondary-background);
+}
+
+.pOrders{
+color: var(--color);
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.pOrders strong{
+  color: var(--color2);
+  letter-spacing: 1px;
+  padding: 30px 50px;
+}
+
+.divPantallasCreadas{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  padding: 30px 20px;
+  margin: 50px;
+  border-radius: 20px;
+  background-color: var(--secondary-background);
+}
+
+.divPromociones{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  padding: 30px 20px;
+  margin: 50px;
+  border-radius: 20px;
+  background-color: var(--secondary-background);
+}
+
+.h1 {
+    /* background: var(--color2); */
+    border-radius: 3px;
+    padding: 8px;
+    color: var(--color2);
+    /* background: var(--color2); */
+    text-transform: uppercase;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form input,
+.form textarea,
+.form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.productosList {
+  margin-top: 20px;
+}
+
+.productoItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.promocionesList {
+  margin-top: 20px;
+}
+
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+  transition: all 0.4s ease;
+}
+
+.table tr{
+  transition: all 0.4s ease;
+}
+.table tr:hover {
+  background: var(--secondary-background);
+  color: var(--color);
+}
+
+
+.table th {
+  background: var(--color2);
+  color: var(--color);
+}
+
+
+.searchInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+
+/* Estilo del checkbox personalizado */
+.inputCheckbox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color2);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  background: transparent;
+  margin-right: 10px;
+}
+
+.inputCheckbox:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.inputCheckbox::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: var(--color2);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.inputCheckbox:checked::before {
+  opacity: 1;
+}
+
+.inputCheckbox::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.inputCheckbox:checked::after {
+  border-color: var(--color2);
+  animation: borderPulse 0.5s ease;
+}
+
+@keyframes borderPulse {
+  0% { border-width: 2px; }
+  50% { border-width: 4px; }
+  100% { border-width: 2px; }
+}
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}

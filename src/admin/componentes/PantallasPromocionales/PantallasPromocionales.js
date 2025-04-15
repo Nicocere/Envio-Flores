@@ -79,7 +79,7 @@ const PantallasPromocionales = () => {
     }
     e.preventDefault();
 
-    const data = { nombre, descripcion, validoDesde, validoHasta, background, icono, efecto };
+    // const data = { nombre, descripcion, validoDesde, validoHasta, background, icono, efecto };
     const status = validoDesde < validoHasta;
     const habilitado = status ? 'Habilitado' : 'Deshabilitado';
 

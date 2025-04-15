@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FadeLoader } from 'react-spinners';
 import { Button, Checkbox, Input, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
-import MassiveEditDirections from './MassiveEditDirections';
 
 function AddDirections() {
 

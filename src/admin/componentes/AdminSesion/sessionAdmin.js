@@ -13,13 +13,11 @@ function PerfilUser() {
     const [userData, setUserData] = useState(null);
     const logout = useLogout();
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState(null);
     const isSmallScreen = useMediaQuery('(max-width:855px)');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                setCurrentUser(user);
                 const fetchData = async () => {
                     if (auth.currentUser) {
                         const uid = auth.currentUser.uid;
@@ -34,7 +32,6 @@ function PerfilUser() {
                 };
                 fetchData();
             } else {
-                setCurrentUser(null);
                 // Si no hay usuario autenticado, redirigir a /login
                 navigate('/login', { replace: true });
             }

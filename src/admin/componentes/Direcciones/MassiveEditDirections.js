@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { updateDoc, doc } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
-import { Button, IconButton, TextField } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
@@ -12,7 +12,13 @@ import { FadeLoader } from 'react-spinners';
 function MassiveEdition() {
     const navigate = useNavigate();
     const location = useLocation();
-    const initialSelectedDirections = location.state?.selectedDirections || [];
+    
+    // Usando useMemo para evitar recálculos innecesarios
+    const initialSelectedDirections = useMemo(() => 
+        location.state?.selectedDirections || [], 
+        [location.state?.selectedDirections]
+    );
+    
     const [selectedDirections, setSelectedDirections] = useState(initialSelectedDirections);
     const [percentageAdjustment, setPercentageAdjustment] = useState(0);
     const [originalValues, setOriginalValues] = useState(null);
@@ -38,12 +44,12 @@ function MassiveEdition() {
         setSelectedDirections(updatedDirections);
     };
 
-
     const handleOptionDelete = (productId, optionIndex) => {
         const updatedProducts = selectedDirections.map((product) => {
             if (product.id === productId) {
-                const updatedOptions = product.opciones.filter((option, index) => index !== optionIndex);
-                return { ...updatedOptions };
+                // Eliminé el parámetro "option" no utilizado
+                const updatedOptions = product.opciones.filter((_, index) => index !== optionIndex);
+                return { ...product, opciones: updatedOptions };
             }
             return product;
         });
@@ -55,12 +61,13 @@ function MassiveEdition() {
         const updatedProducts = selectedDirections.map((product) => {
             if (product.id === productId) {
                 const newOption = {
-                    img: '', // Puedes proporcionar valores predeterminados o requeridos aquí
+                    img: '', // Valores predeterminados
                     precio: 0,
                     size: '',
                 };
                 const updatedOptions = [...product.opciones, newOption];
-                return { ...product };
+                // Usamos la variable updatedOptions que habíamos declarado
+                return { ...product, opciones: updatedOptions };
             }
             return product;
         });
@@ -106,7 +113,7 @@ function MassiveEdition() {
         try {
             for (const updatedProduct of selectedDirections) {
                 const productDocRef = doc(baseDeDatos, 'direcciones', updatedProduct.id);
-                await updateDoc(productDocRef, updatedProduct); // Pasa los datos actualizados como segundo argumento
+                await updateDoc(productDocRef, updatedProduct);
             }
             setIsLoading(false)
     

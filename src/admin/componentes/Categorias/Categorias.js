@@ -4,27 +4,21 @@ import { baseDeDatos } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { FadeLoader } from 'react-spinners';
 import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import './categories.css'
 
 function Categories() {
-    const { watch, register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { formState: { errors } } = useForm();
 
-    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const [categorias, setCategorias] = useState([]);
     const [expanded, setExpanded] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const fetchCategory = async () => {
         const categoriasRef = collection(baseDeDatos, 'categorias');
@@ -117,10 +111,8 @@ function Categories() {
 
     const handleAddNewItem = async () => {
         try {
-            setIsLoading(true);
             // Verificar que los campos no estén vacíos
             if (!newItem.name.trim() || !newItem.value.trim()) {
-                setIsLoading(false);
                 Swal.fire({
                     icon: 'error',
                     title: 'Campos vacíos',
@@ -136,7 +128,6 @@ function Categories() {
             const exists = selectedList.some((item) => item.name.toLowerCase() === newItem.name.toLowerCase());
 
             if (exists) {
-                setIsLoading(false);
                 Swal.fire({
                     icon: 'error',
                     title: 'Elemento Duplicado',
@@ -161,7 +152,6 @@ function Categories() {
             // Actualizar la lista en el estado
             await updateCategoryList(newItem.listType, updatedList);
 
-            setIsLoading(false);
             Swal.fire({
                 icon: 'success',
                 title: 'Elemento Agregado',
@@ -171,7 +161,6 @@ function Categories() {
             // Limpiar el formulario
             setNewItem({ name: '', listType: 'categoryList' });
         } catch (error) {
-            setIsLoading(false);
             console.error('Error al agregar el elemento: ', error);
             Swal.fire({
                 icon: 'error',
@@ -252,19 +241,19 @@ function Categories() {
 
     const addAllCategories = async () => {
         try {
-            setIsLoading(true);
+            
             const categoryCollection = collection(baseDeDatos, 'categorias');
 
             await addDoc(categoryCollection, allCategories);
 
-            setIsLoading(false);
+            
             Swal.fire({
                 icon: 'success',
                 title: 'Categorías Añadidas',
                 text: 'Todas las categorías se han añadido correctamente.',
             });
         } catch (error) {
-            setIsLoading(false);
+            
             console.error('Error al añadir categorías: ', error);
             Swal.fire({
                 icon: 'error',

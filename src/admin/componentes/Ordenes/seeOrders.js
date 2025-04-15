@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
+import {  collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -13,8 +13,6 @@ function SeeOrders() {
 
     const navigate = useNavigate();
     const [ordenes, setOrdenes] = useState([]);
-    const [userData, setUserData] = useState(null);
-
 
     // Función para formatear la fecha de manera legible
     const formatReadableDate = (dateString) => {
@@ -129,10 +127,6 @@ function SeeOrders() {
                 <div className='perfil-usuario-btns'>
                     <Button sx={{ margin: 5 }} color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
                 </div>
-
-                {userData && (
-                    <Typography style={{ color: 'white', fontSize: '25px', margin: '15px' }}>Hola {userData.username}, estas son tus compras</Typography>
-                )}
 
                 <div>
 
