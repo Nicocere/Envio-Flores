@@ -2,8 +2,142 @@
    Variables de estilos
 =================================== */
 
-.dark-mode .form{
+
+/* Formularios en dark mode */
+.dark-mode .form {
+  background-color: var(--background-card-dark);
+  color: var(--text-light);
+}
+
+.dark-mode .datos-recibe,
+.dark-mode .dedic-save,
+.dark-mode .datos-Fecha-Envio,
+.dark-mode .datos-comprador {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  border: 1px solid var(--border-color-dark);
+}
+
+.dark-mode .lbl-fecha-envio, .dark-mode .lbl-horario-envio{
+  color: var(--text-light);
+}
+
+.dark-mode .div-horarioPremium-envio {
   background-color: var(--bg-dark);
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-light);
+}
+
+.dark-mode .div-horarioPremium-envio:hover {
+  background-color: var(--bg-dark);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.dark-mode .select-horarioPremium-envio {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-light);
+}
+
+.dark-mode .select-horarioPremium-envio:hover {
+  background-color: var(--bg-dark);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .input-fecha-envio {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-light);
+}
+.dark-mode .div-horarioPremium-envio label,
+.dark-mode .select-horarioPremium-envio label {
+  color: var(--text-light);
+}
+
+.dark-mode .payment-section {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  border: 1px solid var(--border-color-dark);
+}
+
+.dark-mode .payment-header {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  color: var(--text-light);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .payment-header::after {
+  background-color: var(--text-light);
+}
+
+.dark-mode .metodo-pago-title {
+  color: var(--text-light);
+  text-shadow: 0 2px 10px rgba(255, 202, 202, 0.1);
+}
+
+.dark-mode .metodo-pago-title::after {
+  background-color: var(--text-light);
+}
+
+.dark-mode .payment-info {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.dark-mode .payment-subtitle {
+  color: var(--text-light);
+}
+
+.dark-mode .payment-security {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .security-icon {
+  color: var(--text-light);
+}
+
+.dark-mode .security-text {
+  color: var(--text-light);
+}
+
+.dark-mode .totalPrecio {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-light);
+}
+
+.dark-mode .totalPrecio::before {
+  background-color: var(--text-light);
+}
+
+.dark-mode .totalPrecio::after {
+  background-color: var(--text-light);
+}
+
+.dark-mode .payments-buttons {
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  color: var(--text-light);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .payments-buttons:hover {
+  background-color: var(--bg-dark);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.dark-mode .dedicatoria {
+  background-color: #2d2d2d;
+  color: var(--text-light);
+  border: 1px solid var(--border-color-dark);
+}
+
+.dark-mode .dedicatoria::placeholder {
+  color: #a0a0a0;
+}
+
+.dark-mode .form{
+  /* background-color: var(--bg-dark); */
   color: var(--text-light);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-dark);
@@ -32,6 +166,24 @@
   background: linear-gradient(to bottom, var(--form-primary-light), white);
   border-radius: var(--form-radius);
   box-shadow: var(--form-shadow);
+}
+
+.dark-mode .form-header{
+  background: linear-gradient(to bottom, var(--bg-dark), var(--bg-dark));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .form-intro {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dark-mode .form-header::after {
+  background-color: var(--text-light);
+}
+
+.dark-mode .step-text {
+  color: var(--text-light);
 }
 
 /* Título principal */
@@ -69,7 +221,7 @@
 .form-title-h1 {
   font-size: 2.75rem;
   font-weight: 600;
-  color: var(--form-primary);
+  color: var(--form-primary) !important;
   padding: 20px 50px;
   position: relative;
   display: inline-block;
@@ -121,11 +273,11 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--form-text);
+  color: var(--form-text) !important;
 }
 
 .form-intro strong {
-  color: var(--form-primary);
+  color: var(--form-primary) !important;
   font-weight: 600;
 }
 
@@ -187,6 +339,11 @@
     margin-right: 0;
     margin-bottom: 10px;
   }
+
+  .form-title-h1 {
+    font-size: 1.75rem;
+  }
+
 }
 
 /* Efecto visual para indicar al usuario que debe desplazarse hacia abajo */
@@ -225,7 +382,7 @@
   background: var(--form-bg);
   box-shadow: var(--form-shadow);
   border-radius: var(--form-radius);
-  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif;
+  font-family: "Nexa", sans-serif;
 }
 
 .form h3,
@@ -618,6 +775,7 @@
   border-left: 3px solid var(--form-primary);
   line-height: 1.5;
   font-style: italic;
+  width: -webkit-fill-available;
   position: relative;
 }
 
@@ -752,6 +910,9 @@
   .datos-Fecha-Envio {
     grid-template-columns: 1fr;
   }
+  .payment-section {
+    padding: 20px 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -825,7 +986,7 @@ textarea:valid {
 }
 
 .MuiInputBase-input {
-  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif !important;
+  font-family: "Nexa", sans-serif;
 }
 
 .MuiFilledInput-root {
@@ -844,7 +1005,7 @@ textarea:valid {
 
 .MuiButtonBase-root {
   text-transform: none !important;
-  font-family: 'Jost', 'Segoe UI', Roboto, sans-serif !important;
+  font-family: "Nexa", sans-serif;
   font-weight: 500 !important;
 }
 

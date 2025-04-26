@@ -39,7 +39,7 @@ const ScreenLoader = ({ minDuration = 2000 }) => {
       <div className="loader-content">
         <div className="logo-animation">
           <img
-            src={'../assets/imagenes/logo-envio-flores.png'}
+            src={'/assets/imagenes/logo-envio-flores.png'}
             alt="Envío Flores"
             className="loader-logo"
           />

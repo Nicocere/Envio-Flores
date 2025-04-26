@@ -30,7 +30,7 @@ const CartWidget = () => {
 
   return (
     <Fab
-      size="small"
+      size="large"
       className={`boton-abrircarrito ${(animate ? 'expandir' : '')} ${className}`}
       aria-label="add"
       sx={{

@@ -20,7 +20,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-
         <CartProvider>
           <ThemeProvider>
             <ProductsProvider>

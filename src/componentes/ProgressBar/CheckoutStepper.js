@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Stepper, Step, StepLabel, Alert, styled, useMediaQuery } from '@mui/material';
 import { Check, LocalFlorist } from '@mui/icons-material';
-import { CookieContext } from '../../context/CookieContext';
+import {  useCookies } from '../../context/CookieContext';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import './checkout.css';
 
@@ -36,7 +36,7 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
   const isSmallScreen = useMediaQuery('(max-width:768px)');
   const isMobileScreen = useMediaQuery('(max-width:480px)');
   const [customLabels, setCustomLabels] = useState([...steps]);
-  const { acceptedCookies } = useContext(CookieContext);
+  const { acceptedCookies } = useCookies();
   const { isDarkMode } = useTheme();
 
   // Actualizar etiquetas de pasos completados
@@ -55,7 +55,7 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
     '& .MuiStepLabel-label': {
       fontSize: isMobileScreen ? '0.7rem' : isSmallScreen ? '0.8rem' : '0.9rem',
       fontWeight: 500,
-      fontFamily: '"Jost", sans-serif',
+      fontFamily: '"Nexa", sans-serif',
       transition: 'all 0.3s ease',
       whiteSpace: isMobileScreen ? 'nowrap' : 'normal',
       overflow: isMobileScreen ? 'hidden' : 'visible',
@@ -145,7 +145,7 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
 
   // Renderizar el stepper con los pasos correspondientes
   return (
-    <div className="stepper-container">
+    <div className={`checkout-stepper-container ${isDarkMode ? 'dark' : ''}`}>
       <CustomStepper 
         activeStep={activeStep} 
         alternativeLabel

@@ -1,15 +1,23 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+"use client"
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Directions from '../Directions/Directions.js';
 import { useCart } from '../../context/CartContext.js';
 import MercadoPagoButton from '../MercadoPago/MercadoPago.js';
 import PayPalButton from '../PaypalCheckoutButton/PayPalButton.js';
 import Swal from 'sweetalert2';
-import CardPaymentMP from '../MercadoPago/PasarelaDePago/CardPayment.js';
-import { Button, FormHelperText, TextField, useTheme } from '@mui/material';
+import { Button, Chip, FormHelperText, TextField } from '@mui/material';
 import CheckoutStepper from '../ProgressBar/CheckoutStepper.js';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
+
+import { Accordion, AccordionDetails, AccordionSummary, Box, Paper, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+// Añade estos imports si no los tienes ya
+import Grid from '@mui/material/Grid';
+
+
+
+
+import { useTheme } from '@/context/ThemeSwitchContext';
+import { AccessTime, Badge, CardGiftcard, CheckCircleOutline, Email, Event, ExpandMore, LocalShipping, LocationOn, Person, PersonPin, Phone, ReceiptLong, ShoppingCart, SwapHoriz } from '@mui/icons-material';
 
 import './form.css';
 
@@ -37,8 +45,9 @@ const Form = ({ itemSelected }) => {
         location, cart, dolar,
         priceDolar, setPriceDolar
     } = useCart();
-    const {isDarkMode} = useTheme();
+    const { isDarkMode } = useTheme();
 
+    const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const [saveDedicatoria, setSaveDedicatoria] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
@@ -51,6 +60,12 @@ const Form = ({ itemSelected }) => {
 
     const formularioEnvioRef = useRef(null);
     const paymentsRef = useRef(null);
+    const [characterCount, setCharacterCount] = useState(0);
+
+    // Añadir esta función para manejar el conteo de caracteres
+    const handleDedicatoriaChange = (e) => {
+        setCharacterCount(e.target.value.length);
+    };
 
     // Esta función verifica si la ubicación ha sido seleccionada
     const checkLocationSelected = () => {
@@ -310,8 +325,17 @@ const Form = ({ itemSelected }) => {
                         <div className='div-dedicatoria'>
                             <h4 className='dedic-text'>Aqui puede agregar una dedicatoria:</h4>
 
-                            <textarea {...register('dedicatoria')} className='dedicatoria' name="dedicatoria" />
-                            <div className='dedic-instructions'>
+                            <textarea
+                                {...register('dedicatoria')}
+                                className='dedicatoria'
+                                name="dedicatoria"
+                                placeholder="Escriba aquí su dedicatoria o mensaje personal..."
+                                maxLength={300}
+                                onChange={handleDedicatoriaChange}
+                            />
+                            <div style={{ textAlign: 'right', fontSize: '0.8rem', marginTop: '5px', color: characterCount > 150 ? '#a70000' : isDarkMode ? '#e0e0e0' : '#666' }}>
+                                {characterCount}/300 caracteres
+                            </div>                            <div className='dedic-instructions'>
                                 <small className='dedic-text'>• Ejemplo: "Feliz Cumpleaños, te quiero mucho!"</small>
                                 <small className='dedic-text'>• El mensaje se enviará junto con su pedido</small>
                                 <small className='dedic-text'>• Deje el campo vacío si no desea incluir mensaje</small>
@@ -569,8 +593,603 @@ const Form = ({ itemSelected }) => {
                             </Button>
                             <CheckoutStepper activeStep={4} />
                             <div className="payment-section">
+
+                                <Paper
+                                    elevation={12}
+                                    sx={{
+                                        padding: isSmallScreen ? '20px' : '40px',
+                                        borderRadius: '12px',
+                                        background: isDarkMode ? 'rgba(25, 25, 28, 0.95)' : '#ffffff',
+                                        transition: 'all 0.3s ease',
+                                        boxShadow: isDarkMode
+                                            ? '0 8px 32px rgba(150, 0, 0, 0.3)'
+                                            : '0 8px 24px rgba(0, 0, 0, 0.1)',
+                                        border: isDarkMode ? '1px solid rgba(103, 0, 0, 0.3)' : 'none',
+                                        maxWidth: '900px',
+                                        margin: '0 auto'
+                                    }}
+                                >
+                                    <Box sx={{ textAlign: 'center', mb: 3 }}>
+                                        <CheckCircleOutline
+                                            sx={{
+                                                fontSize: 40,
+                                                color: isDarkMode ? 'var(--primary-light)' : '#670000',
+                                                mb: 1
+                                            }}
+                                        />
+                                        <Typography
+                                            variant='h5'
+                                            sx={{
+                                                fontWeight: 500,
+                                                color: isDarkMode ? '#ffffff' : '#333333',
+                                                mb: 1
+                                            }}
+                                        >
+                                            ¡Gracias por completar sus datos!
+                                        </Typography>
+                                        <Typography
+                                            variant='body1'
+                                            sx={{
+                                                color: isDarkMode ? '#e0e0e0' : '#555555',
+                                                maxWidth: '600px',
+                                                margin: '0 auto'
+                                            }}
+                                        >
+                                            Hemos registrado correctamente su información. A continuación puede revisar sus datos y proceder a finalizar su compra.
+                                        </Typography>
+                                    </Box>
+
+                                    <Accordion
+                                        sx={{
+                                            mb: 2,
+                                            borderRadius: '8px',
+                                            overflow: 'hidden',
+                                            background: isDarkMode ? 'rgba(30, 30, 33, 0.9)' : '#f9f9f9',
+                                            border: isDarkMode ? '1px solid rgba(103, 0, 0, 0.2)' : '1px solid rgba(0, 0, 0, 0.08)',
+                                            '&:before': {
+                                                display: 'none',
+                                            },
+                                            boxShadow: isDarkMode ? '0 4px 20px rgba(0, 0, 0, 0.25)' : '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                            '&:hover': {
+                                                boxShadow: isDarkMode ? '0 6px 25px rgba(0, 0, 0, 0.3)' : '0 6px 16px rgba(0, 0, 0, 0.15)',
+                                                transform: 'translateY(-2px)'
+                                            }
+                                        }}
+                                    >
+                                        <AccordionSummary
+                                            sx={{
+                                                background: isDarkMode ? 'rgba(103, 0, 0, 0.9)' : '#a70000',
+                                                transition: 'all 0.2s ease',
+                                                padding: '12px 24px',
+                                                '&:hover': {
+                                                    background: isDarkMode ? 'rgba(123, 0, 0, 0.9)' : '#c70000',
+                                                }
+                                            }}
+                                            expandIcon={<ExpandMore sx={{ color: 'white' }} />}
+                                        >
+                                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                <ReceiptLong sx={{ color: 'white', mr: 1.5 }} />
+                                                <Typography
+                                                    sx={{
+                                                        color: 'white',
+                                                        textTransform: 'uppercase',
+                                                        fontWeight: 600,
+                                                        fontSize: '1rem',
+                                                        letterSpacing: '0.5px'
+                                                    }}
+                                                >
+                                                    Resumen de su pedido
+                                                </Typography>
+                                            </Box>
+                                        </AccordionSummary>
+
+                                        <AccordionDetails
+                                            sx={{
+                                                padding: { xs: 2, sm: 3 },
+                                                background: isDarkMode ? 'rgba(30, 30, 33, 0.8)' : '#ffffff'
+                                            }}
+                                        >
+                                            {/* Sección: Datos de Facturación */}
+                                            <Box sx={{ mb: 4 }}>
+                                                <Typography
+                                                    variant="h6"
+                                                    sx={{
+                                                        color: isDarkMode ? '#ffffff' : '#333333',
+                                                        borderBottom: `2px solid ${isDarkMode ? '#a70000' : '#a70000'}`,
+                                                        pb: 1,
+                                                        mb: 2,
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <Person sx={{ mr: 1, color: isDarkMode ? '#a70000' : '#a70000' }} />
+                                                    Datos del Comprador
+                                                </Typography>
+
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Badge sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Nombre y Apellido
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {`${watch('nombreComprador')} ${watch('apellidoComprador')}`}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Phone sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Teléfono de contacto
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {watch('telefonoComprador')}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Email sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Email para confirmación
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2,
+                                                                    wordBreak: 'break-word'
+                                                                }}
+                                                            >
+                                                                {watch('mailComprador')}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                            {/* Sección: Datos del Destinatario */}
+                                            <Box sx={{ mb: 4 }}>
+                                                <Typography
+                                                    variant="h6"
+                                                    sx={{
+                                                        color: isDarkMode ? '#ffffff' : '#333333',
+                                                        borderBottom: `2px solid ${isDarkMode ? '#3f51b5' : '#3f51b5'}`,
+                                                        pb: 1,
+                                                        mb: 2,
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <PersonPin sx={{ mr: 1, color: isDarkMode ? '#3f51b5' : '#3f51b5' }} />
+                                                    Datos del Destinatario
+                                                </Typography>
+
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Badge sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Nombre y Apellido
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {`${watch('nombreDestinatario')} ${watch('apellidoDestinatario')}`}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Phone sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Teléfono de contacto
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {watch('phoneDestinatario')}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <LocationOn sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Dirección completa
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {`${watch('calle')} ${watch('altura')}, ${watch('piso')} - ${locationName}`}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                            {/* Sección: Detalles del Envío */}
+                                            <Box sx={{ mb: 4 }}>
+                                                <Typography
+                                                    variant="h6"
+                                                    sx={{
+                                                        color: isDarkMode ? '#ffffff' : '#333333',
+                                                        borderBottom: `2px solid ${isDarkMode ? '#4caf50' : '#4caf50'}`,
+                                                        pb: 1,
+                                                        mb: 2,
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <LocalShipping sx={{ mr: 1, color: isDarkMode ? '#4caf50' : '#4caf50' }} />
+                                                    Detalles del Envío
+                                                </Typography>
+
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <Event sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Fecha de entrega
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2
+                                                                }}
+                                                            >
+                                                                {new Date(watch('fechaEnvio')).toLocaleDateString('es-ES', {
+                                                                    weekday: 'long',
+                                                                    year: 'numeric',
+                                                                    month: 'long',
+                                                                    day: 'numeric'
+                                                                })}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12} sm={6}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <AccessTime sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Horario{isPremium ? ' Premium' : ''}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant='body1'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                    fontWeight: 600,
+                                                                    ml: 2,
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                {watch('selectHorario')}
+                                                                {isPremium && (
+                                                                    <Chip
+                                                                        label="Premium"
+                                                                        size="small"
+                                                                        color="primary"
+                                                                        sx={{
+                                                                            ml: 1,
+                                                                            background: 'gold',
+                                                                            color: 'black',
+                                                                            fontWeight: 'bold',
+                                                                            fontSize: '0.7rem'
+                                                                        }}
+                                                                    />
+                                                                )}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+
+                                                    <Grid item xs={12}>
+                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                            <Typography
+                                                                variant='body2'
+                                                                sx={{
+                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                    mb: 0.5,
+                                                                    fontSize: '0.85rem',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center'
+                                                                }}
+                                                            >
+                                                                <CardGiftcard sx={{
+                                                                    fontSize: '0.9rem',
+                                                                    mr: 0.5,
+                                                                    color: isDarkMode ? '#888888' : '#777777'
+                                                                }} />
+                                                                Dedicatoria
+                                                            </Typography>
+                                                            <Paper
+                                                                elevation={1}
+                                                                sx={{
+                                                                    p: 2,
+                                                                    background: isDarkMode ? 'rgba(40, 40, 45, 0.5)' : '#f9f9f9',
+                                                                    borderLeft: `3px solid ${isDarkMode ? '#a70000' : '#a70000'}`,
+                                                                    borderRadius: 1,
+                                                                    fontStyle: 'italic'
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    variant='body2'
+                                                                    sx={{
+                                                                        color: isDarkMode ? '#e0e0e0' : '#555555',
+                                                                    }}
+                                                                >
+                                                                    {saveDedicatoria || <em>Sin dedicatoria</em>}
+                                                                </Typography>
+                                                            </Paper>
+                                                        </Box>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+
+                                            {/* Sección: Resumen del Pedido */}
+                                            <Box>
+                                                <Typography
+                                                    variant="h6"
+                                                    sx={{
+                                                        color: isDarkMode ? '#ffffff' : '#333333',
+                                                        borderBottom: `2px solid ${isDarkMode ? '#ff9800' : '#ff9800'}`,
+                                                        pb: 1,
+                                                        mb: 2,
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
+                                                    <ShoppingCart sx={{ mr: 1, color: isDarkMode ? '#ff9800' : '#ff9800' }} />
+                                                    Resumen del Pedido
+                                                </Typography>
+
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <TableContainer component={Paper} sx={{
+                                                            background: isDarkMode ? 'rgba(40, 40, 45, 0.5)' : '#ffffff',
+                                                            mb: 2
+                                                        }}>
+                                                            <Table size="small">
+                                                                <TableHead sx={{
+                                                                    background: isDarkMode ? 'rgba(30, 30, 33, 0.9)' : '#f5f5f5',
+                                                                }}>
+                                                                    <TableRow>
+                                                                        <TableCell sx={{
+                                                                            color: isDarkMode ? '#ffffff' : '#333333',
+                                                                            fontWeight: 600
+                                                                        }}>Concepto</TableCell>
+                                                                        <TableCell align="right" sx={{
+                                                                            color: isDarkMode ? '#ffffff' : '#333333',
+                                                                            fontWeight: 600
+                                                                        }}>Importe</TableCell>
+                                                                    </TableRow>
+                                                                </TableHead>
+                                                                <TableBody>
+                                                                    <TableRow>
+                                                                        <TableCell sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                            Productos ({cart.reduce((sum, item) => sum + item.quantity, 0)} ítems)
+                                                                        </TableCell>
+                                                                        <TableCell align="right" sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                            {priceDolar
+                                                                                ? `USD $${(finalPriceUSD - (isPremium ? envioPremiumInUsd : 0) - (locationValue / dolar)).toFixed(2)}`
+                                                                                : `$ ${(finalPriceARS - (isPremium ? precioEnvioPremium : 0) - locationValue).toFixed(2)}`}
+                                                                        </TableCell>
+                                                                    </TableRow>
+                                                                    <TableRow>
+                                                                        <TableCell sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                            Envío a {locationName}
+                                                                        </TableCell>
+                                                                        <TableCell align="right" sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                            {priceDolar ? `USD $${(locationValue / dolar).toFixed(2)}` : `$ ${locationValue.toFixed(2)}`}
+                                                                        </TableCell>
+                                                                    </TableRow>
+                                                                    {isPremium && (
+                                                                        <TableRow>
+                                                                            <TableCell sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                                                    Servicio Premium
+                                                                                    <Chip
+                                                                                        label="Premium"
+                                                                                        size="small"
+                                                                                        sx={{
+                                                                                            ml: 1,
+                                                                                            background: 'gold',
+                                                                                            color: 'black',
+                                                                                            fontWeight: 'bold',
+                                                                                            fontSize: '0.7rem'
+                                                                                        }}
+                                                                                    />
+                                                                                </Box>
+                                                                            </TableCell>
+                                                                            <TableCell align="right" sx={{ color: isDarkMode ? '#e0e0e0' : '#555555' }}>
+                                                                                {priceDolar ? `USD $${envioPremiumInUsd.toFixed(2)}` : `$ ${precioEnvioPremium.toFixed(2)}`}
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    )}
+                                                                    <TableRow>
+                                                                        <TableCell sx={{
+                                                                            fontWeight: 'bold',
+                                                                            color: isDarkMode ? '#ffffff' : '#333333',
+                                                                            borderTop: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
+                                                                        }}>
+                                                                            TOTAL
+                                                                        </TableCell>
+                                                                        <TableCell align="right" sx={{
+                                                                            fontWeight: 'bold',
+                                                                            color: isDarkMode ? '#ffffff' : '#333333',
+                                                                            fontSize: '1.1rem',
+                                                                            borderTop: `2px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
+                                                                        }}>
+                                                                            {priceDolar ? `USD $${finalPriceUSD.toFixed(2)}` : `$ ${finalPriceARS.toFixed(2)}`}
+                                                                        </TableCell>
+                                                                    </TableRow>
+                                                                </TableBody>
+                                                            </Table>
+                                                        </TableContainer>
+
+                                                        <Button
+                                                            variant="outlined"
+                                                            color="primary"
+                                                            startIcon={<SwapHoriz />}
+                                                            size="small"
+                                                            onClick={toggleCurrency}
+                                                            sx={{ mt: 1 }}
+                                                        >
+                                                            {priceDolar ? 'Ver en Pesos (ARS)' : 'Ver en Dólares (USD)'}
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Box>
+                                        </AccordionDetails>
+                                    </Accordion>
+
+
+                                </Paper>
                                 <div className="payment-header">
-                                    <h3 className='metodo-pago-title'>Seleccione un método de pago seguro</h3>
+                                    <h1 className='metodo-pago-title'>Seleccione un método de pago seguro</h1>
                                     <div className="payment-info">
                                         <span className="payment-icon">💳</span>
                                         <span className='payment-subtitle'>¡Último paso! Elija cómo desea pagar su pedido</span>
@@ -584,73 +1203,11 @@ const Form = ({ itemSelected }) => {
                             <div id='Payment' ref={paymentsRef} className='payments-btn-container'>
                                 <div className='payments-buttons'>
                                     <div className='mercadopago-buttons'>
-                                        {showMercadoPago && (
-                                            <Button
-                                                size='small'
-                                                variant='contained'
-                                                color='error'
-                                                endIcon={<CreditCardTwoToneIcon />}
-                                                sx={{ marginTop: '15px', width: 'fit-content', alignSelf: 'center' }}
-                                                onClick={handleCardPaymentClick}
-                                            >
-                                                Pagar con Tarjeta de Crédito / Débito
-                                            </Button>
-                                        )}
-
-                                        {showCardPayment && (
-                                            <Button
-                                                size='small'
-                                                variant='contained'
-                                                color='error'
-                                                endIcon={<AccountBoxIcon />}
-                                                sx={{ marginTop: '15px', width: 'fit-content', alignSelf: 'center' }}
-                                                onClick={handleMercadoPagoClick}
-                                            >
-                                                Pagar con cuenta en Mercado Pago
-                                            </Button>
-                                        )}
-
-                                        {showCardPayment && (
-                                            <div className='mercadopago-div'>
-                                                <h3 className='tarjetas'>Tarjetas Nacionales</h3>
-                                                <span>Total a pagar: ${finalPriceARS.toFixed(2)}</span>
-                                                <CardPaymentMP
-                                                    nombreDestinatario={watch('nombreDestinatario')}
-                                                    apellidoDestinatario={watch('apellidoDestinatario')}
-                                                    phoneDestinatario={watch('phoneDestinatario')}
-                                                    mailComprador={watch('mailComprador')}
-                                                    localidad={location}
-                                                    nombreLocalidad={locationName}
-                                                    precioLocalidad={locationValue}
-                                                    calle={watch('calle')}
-                                                    altura={watch('altura')}
-                                                    piso={watch('piso')}
-                                                    dedicatoria={saveDedicatoria}
-                                                    nombreComprador={watch('nombreComprador')}
-                                                    phoneComprador={watch('telefonoComprador')}
-                                                    apellidoComprador={watch('apellidoComprador')}
-                                                    fechaEnvio={watch('fechaEnvio')}
-                                                    horarioEnvio={watch('selectHorario')}
-                                                    servicioPremium={isPremium}
-                                                    envioPremium={precioEnvioPremium}
-                                                    total={finalPriceARS} // Siempre en pesos para Mercado Pago
-                                                    title={cart[0]?.name || ''}
-                                                    description={cart[0]?.descr || ''}
-                                                    picture_url={cart[0]?.img || ''}
-                                                    category_id={cart[0]?.tipo || ''}
-                                                    quantity={cart[0]?.quantity || 1}
-                                                    id={cart[0]?._id || cart[0]?.id || ''}
-                                                    size={cart[0]?.size || ''}
-                                                    products={cart}
-                                                />
-                                            </div>
-                                        )}
 
                                         {showMercadoPago && (
                                             <div className='mercadopago-div'>
-                                                <h3 className='tarjetas'>Tarjetas Nacionales</h3>
+                                                <h3 className='tarjetas'>Pagos Nacionales</h3>
                                                 <span>Total a pagar: ${finalPriceARS.toFixed(2)}</span>
-                                                <p>Pagar con cuenta en Mercado Pago</p>
                                                 <MercadoPagoButton
                                                     nombreDestinatario={watch('nombreDestinatario')}
                                                     apellidoDestinatario={watch('apellidoDestinatario')}
@@ -685,7 +1242,7 @@ const Form = ({ itemSelected }) => {
                                     </div>
 
                                     <div className='paypal-div'>
-                                        <h3 className='tarjetas'>Tarjetas Internacionales</h3>
+                                        <h3 className='tarjetas'>Pagos Internacionales</h3>
                                         <span>Total a pagar: USD${finalPriceUSD.toFixed(2)}</span>
 
                                         <PayPalButton

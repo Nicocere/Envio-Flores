@@ -159,7 +159,7 @@
 }
 
 .banner-title {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   color: white;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
@@ -196,7 +196,7 @@
 }
 
 .banner-description {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   color: rgba(255, 255, 255, 0.95);
   font-size: clamp(1rem, 2vw, 1.3rem);
   font-weight: 400;
@@ -225,7 +225,7 @@
   padding: 0.8rem 2rem;
   background-color: var(--carousel-primary);
   color: white;
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 500;
   font-size: 1rem;
   border-radius: 30px;
@@ -411,7 +411,7 @@
 .error-message,
 .empty-message {
   margin-top: 1.5rem !important;
-  font-family: 'Jost', sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
   font-weight: 500 !important;
 }
 
@@ -443,7 +443,7 @@
   color: white;
   border: none;
   border-radius: 30px;
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 500;
   cursor: pointer;
   transition: var(--carousel-transition);

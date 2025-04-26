@@ -16,6 +16,7 @@ import Convertidor from '../Convertidor/Convertidor';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import { useTheme } from '../../context/ThemeSwitchContext';
+import Image from 'next/image';
 
 
 const NavBarTop = () => {
@@ -101,7 +102,7 @@ const NavBarTop = () => {
               {/* Imagen */}
               <Grid item xs={2} md={2}>
                 <Link className='linkImg' href="/" style={{ alignSelf: 'flex-start', gridArea: '1 / 1 / span 1 / span 1' , marginTop:'10px'}}>
-                  <img className='imgNavBar' src={'/assets/imagenes/logo-envio-flores.png'} alt="logo envio flores" />
+                  <Image width={100} height={100} className='imgNavBar' src={'/assets/imagenes/logo-envio-flores.png'} alt="logo envio flores" />
                 </Link>
               </Grid>
 

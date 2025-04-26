@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import ProductsComponent from '@/Client/Productos/ProductosPage';
 
 export const metadata: Metadata = {
-  title: "Productos y Regalos - Envio Flores",
+  title: "Flores y Regalos - Envio Flores",
   description: "Descubre nuestra colección de flores frescas, regalos únicos, chocolates, peluches y más. Envíos a CABA, Gran Buenos Aires y todo Argentina. Opciones para todas las ocasiones especiales.",
   keywords: ["flores frescas", "regalos", "chocolates", "peluches", "ramos de flores", "arreglos florales", "envío de flores", "regalos personalizados", "florería online", "regalos Argentina", "flores a domicilio", "envío de regalos", "envío mismo día", "envío CABA", "envío Gran Buenos Aires", "flores para cumpleaños", "flores para aniversarios", "rosas", "liliums", "gerberas", "regalos corporativos", "canastas de regalo", "bombones", "delivery flores", "flores para enamorados", "flores para eventos"],
   alternates: {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/productos',
-    title: 'Productos y Regalos - Envio Flores',
+    title: 'Flores y Regalos - Envio Flores',
     description: 'Descubre nuestra colección de flores frescas, regalos únicos, chocolates, peluches y más. Envíos a CABA, Gran Buenos Aires y todo Argentina. Opciones para todas las ocasiones especiales.',
     siteName: 'Envio Flores',
     images: [{

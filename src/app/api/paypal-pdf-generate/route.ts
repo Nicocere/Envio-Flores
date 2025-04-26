@@ -1,45 +1,53 @@
 import { NextResponse } from 'next/server';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
-import { storage } from '../../../admin/FireBaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storageServer } from '@/utils/firebaseServer';
 
-// Interfaces
+// Definir interfaces para los tipos de datos
 interface Product {
-    name: string;
-    size: string;
-    precio: string | number;
-    quantity: number;
+  name: string;
+  size: string;
+  quantity: number;
+  precio: string | number;
 }
 
 interface DatosComprador {
-    nombreComprador: string;
-    email: string;
+  nombreComprador: string;
+  apellidoComprador: string;
+  email: string;
+  tel_comprador: string;
 }
 
 interface DatosEnvio {
-    fecha?: string;
-    horario?: string;
-    nombreDestinatario?: string;
-    apellidoDestinatario?: string;
-    calle?: string;
-    altura?: string;
-    piso?: string;
-    localidad?: {
-        name: string;
-    };
-    dedicatoria?: string;
+  fecha?: string;
+  horario?: string;
+  dedicatoria?: string;
+  nombreDestinatario?: string;
+  apellidoDestinatario?: string;
+  calle?: string;
+  altura?: string;
+  piso?: string;
+  localidad?: { name: string };
+  products?: Product[];
+  servicioPremium?: boolean;
+  envioPremium?: number;
+  totalPrice?: number;
 }
 
-interface RequestBody {
-    products: Product[];
-    datosComprador: DatosComprador;
-    datosEnvio: DatosEnvio;
-    retiraEnLocal: boolean;
+interface EnvioDatos {
+  PayPal: boolean;
+  datosComprador: DatosComprador;
+  datosEnvio: DatosEnvio;
+  products: Product[];
+  retiraEnLocal: boolean;
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-    const body: RequestBody = await request.json();
-    const { products, datosComprador, datosEnvio, retiraEnLocal } = body;
+    
+    const body = await request.json();
+    // Extraer datos desde la estructura correcta
+    const envioDatos: EnvioDatos = body.envioDatos;
+    const { products, datosComprador, datosEnvio, retiraEnLocal } = envioDatos;
 
     try {
         // Crear un nuevo documento PDF
@@ -49,10 +57,13 @@ export async function POST(request: Request): Promise<NextResponse> {
         const page = pdfDoc.addPage([595, 842]);
 
         // Establecer una fuente estándar
-        const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        // const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
 
         // Definir las posiciones para agregar texto
         const fontSize = 12;
+        const fontSizeText = 10;
+        const fontSizeTitle = 18;
         const lineHeight = 15;
 
         // Escribir el encabezado del documento
@@ -62,23 +73,31 @@ export async function POST(request: Request): Promise<NextResponse> {
         page.drawText('Datos del Envío:', { x: 50, y: 720, font, size: fontSize, color: rgb(0, 0, 0) });
         if (retiraEnLocal) {
             page.drawText('Retira en local', { x: 50, y: 700, font, size: fontSize });
+            page.drawText(`Fecha de Retiro: -- ${datosEnvio?.fecha || 'No especificado'}`, { x: 50, y: 685, font, size: fontSize });
+            page.drawText(`Horario de Retiro: -- ${datosEnvio?.horario || 'No especificado'}`, { x: 50, y: 670, font, size: fontSize });
+            page.drawText(`Comprador: -- ${datosComprador?.nombreComprador} ${datosComprador?.apellidoComprador}`, { x: 50, y: 655, font, size: fontSize });
+
         } else {
-            page.drawText(`Fecha de Entrega: ${datosEnvio?.fecha || 'No especificado'}`, { x: 50, y: 685, font, size: fontSize });
-            page.drawText(`Horario: ${datosEnvio?.horario || 'No especificado'}`, { x: 50, y: 670, font, size: fontSize });
-            page.drawText(`Destinatario: ${datosEnvio?.nombreDestinatario} ${datosEnvio?.apellidoDestinatario}`, { x: 50, y: 655, font, size: fontSize });
-            page.drawText(`Dirección: ${datosEnvio?.calle} ${datosEnvio?.altura} ${datosEnvio?.piso || ''}`, { x: 50, y: 640, font, size: fontSize });
-            page.drawText(`Localidad: ${datosEnvio?.localidad?.name || 'No especificada'}`, { x: 50, y: 625, font, size: fontSize });
+            page.drawText(`Fecha de Entrega: -- ${datosEnvio?.fecha || 'No especificado'}`, { x: 50, y: 700, font, size: fontSize });
+            
+            page.drawText(`SERVICIO PREMIUM: -- ${datosEnvio?.servicioPremium ? ' SI' : ' NO'}`, { x: 50, y: 685, font, size: fontSize });
+    
+            page.drawText(`Horario de Entrega: -- ${datosEnvio?.horario || 'No especificado'}`, { x: 50, y: 670, font, size: fontSize });
+        
+            page.drawText(`Dirección: -- ${datosEnvio?.calle} ${datosEnvio?.altura} ${datosEnvio?.piso || ''}`, { x: 50, y: 655, font, size: fontSize });
+            page.drawText(`Localidad: -- ${datosEnvio?.localidad?.name || 'No especificada'}`, { x: 50, y: 640, font, size: fontSize });
+            page.drawText(`Destinatario: -- ${datosEnvio?.nombreDestinatario} ${datosEnvio?.apellidoDestinatario}`, { x: 50, y: 625, font, size: fontSize });
         }
 
         // Productos comprados
         page.drawText('Productos Comprados:', { x: 50, y: 595, font, size: fontSize, color: rgb(0, 0, 0) });
         let yOffset = 580;
-        products?.forEach((product) => {
+        products?.forEach((product: Product) => {
             page.drawText(`${product.name} (${product.size}) - Cantidad: ${product.quantity} - cod: ${product.precio}`, {
                 x: 50,
                 y: yOffset,
                 font,
-                size: fontSize,
+                size: fontSizeText,
             });
             yOffset -= lineHeight;
         });
@@ -90,15 +109,85 @@ export async function POST(request: Request): Promise<NextResponse> {
         page.drawText('Aclaración:', { x: 50, y: yOffset - 50, font, size: fontSize });
         page.drawLine({ start: { x: 50, y: yOffset - 60 }, end: { x: 200, y: yOffset - 60 }, color: rgb(0, 0, 0) });
 
-        // Dedicatoria
-        page.drawText(datosEnvio?.dedicatoria || '', { x: 350, y: 250, font, size: 18, color: rgb(0, 0, 0) });
+
+            // Dedicatoria con ajuste de texto
+        if (datosEnvio?.dedicatoria && datosEnvio.dedicatoria.trim() !== '') {
+            const dedicatoriaFontSize = 12;
+            const dedicatoriaLineHeight = 18;
+            const pageWidth = 595;
+            const startX = 50 + (pageWidth / 2); // Comenzar en la mitad derecha
+            const maxWidth = (pageWidth / 2) - 70; // Ancho disponible para texto en la mitad derecha
+            let startY = 300; // Posición vertical inicial
+            
+
+            // Normalizar la dedicatoria: reemplazar saltos de línea con espacios y eliminar caracteres no compatibles
+            let dedicatoria = datosEnvio.dedicatoria
+                .replace(/\r\n|\r|\n/g, ' ') // Reemplazar todos los saltos de línea con espacios
+                // .replace(/[^\x20-\x7E]/g, '') // Eliminar caracteres no ASCII imprimibles
+                .trim();
+            
+            // Dividir la dedicatoria en palabras
+            const palabras = dedicatoria.split(' ').filter(p => p.length > 0); // Eliminar espacios vacíos
+            let lineaActual = '';
+            let posY = startY;
+            
+            // Construir línea por línea respetando el ancho máximo
+            for (let i = 0; i < palabras.length; i++) {
+                const palabra = palabras[i];
+                const posibleLinea = lineaActual ? `${lineaActual} ${palabra}` : palabra;
+                
+                // Verificar si la línea posible se ajusta al ancho máximo
+                try {
+                    const textWidth = font.widthOfTextAtSize(posibleLinea, dedicatoriaFontSize);
+                    
+                    if (textWidth <= maxWidth) {
+                        lineaActual = posibleLinea;
+                    } else {
+                        // Dibujar la línea actual y comenzar una nueva
+                        page.drawText(lineaActual, { 
+                            x: startX, 
+                            y: posY, 
+                            font, 
+                            size: dedicatoriaFontSize, 
+                            color: rgb(0, 0, 0) 
+                        });
+                        posY -= dedicatoriaLineHeight;
+                        lineaActual = palabra;
+                        
+                        // Verificar si hemos llegado al límite inferior de la página
+                        if (posY < 100) {
+                            break; // Detener el proceso si nos acercamos demasiado al borde inferior
+                        }
+                    }
+                } catch (error) {
+                    // Si ocurre un error con alguna palabra, la omitimos y continuamos
+                    console.warn('Error al procesar palabra en dedicatoria:', error);
+                    continue;
+                }
+            }
+            
+            // Dibujar la última línea
+            if (lineaActual) {
+                try {
+                    page.drawText(lineaActual, { 
+                        x: startX, 
+                        y: posY, 
+                        font, 
+                        size: dedicatoriaFontSize, 
+                        color: rgb(0, 0, 0) 
+                    });
+                } catch (error) {
+                    console.warn('Error al dibujar última línea de dedicatoria:', error);
+                }
+            }
+        }
 
         // Generar el PDF en formato bytes
         const pdfBytes = await pdfDoc.save();
 
         // Subir el PDF generado a Firebase Storage
-        const fileName = `pdfs-floreriasargentinas/paypal_compra_${datosComprador?.nombreComprador}_${new Date().toISOString()}.pdf`;
-        const storageRef = ref(storage, fileName);
+        const fileName = `pdfs-envio-flores/paypal_compra_${datosComprador?.nombreComprador}_${new Date().toISOString()}.pdf`;
+        const storageRef = ref(storageServer, fileName);
         await uploadBytes(storageRef, pdfBytes, { contentType: 'application/pdf' });
 
         // Obtener la URL de descarga del PDF

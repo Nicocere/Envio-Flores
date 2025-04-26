@@ -13,6 +13,9 @@ export const CookieProvider = ({ children }) => {
     
     // Cookie Prompt
     const [showCookiePrompt, setShowCookiePrompt] = useState(false);
+    
+    // Estado de carga para controlar la inicialización
+    const [isLoading, setIsLoading] = useState(true);
 
     // CARTID & USERID
     const [CartID, setCartID] = useState('');
@@ -37,62 +40,89 @@ export const CookieProvider = ({ children }) => {
         return code.split('_')[0]; // Return only the code without the timestamp
     };
 
+    // Inicialización: cargar todos los datos almacenados
     useEffect(() => {
-        const fetchCodes = async () => {
-            const storedCartID = await getOrCreateUniqueCode('CartID', 24 * 60 * 60 * 1000); // 24 hours expiration
-            const storedUserID = await getOrCreateUniqueCode('UserID', 24 * 60 * 60 * 1000); // 24 hours expiration
-            setCartID(storedCartID);
-            setUserID(storedUserID);
-        };
-        fetchCodes();
-    }, []);
-
-    // Verifica si el valor de "accepted Cookies" está en el localforage al cargar la página
-    useEffect(() => {
-        const fetchAcceptedCookies = async () => {
-            const storedAcceptedCookies = await localforage.getItem('acceptedCookies');
-            if (storedAcceptedCookies) {
-                setAcceptedCookies(true);
+        const initializeContext = async () => {
+            try {
+                // Verificar estado de cookies primero
+                const storedAcceptedCookies = await localforage.getItem('acceptedCookies');
+                
+                if (storedAcceptedCookies === true) {
+                    setAcceptedCookies(true);
+                    setShowCookiePrompt(false);
+                    
+                    // Si las cookies están aceptadas, cargar IDs
+                    const storedCartID = await localforage.getItem('CartID');
+                    const storedUserID = await localforage.getItem('UserID');
+                    
+                    if (storedCartID) {
+                        setCartID(storedCartID.split('_')[0]);
+                    }
+                    
+                    if (storedUserID) {
+                        setUserID(storedUserID.split('_')[0]);
+                    }
+                } else {
+                    // Si no hay cookies aceptadas, generar IDs pero mostrar prompt
+                    const newCartID = await getOrCreateUniqueCode('CartID', 24 * 60 * 60 * 1000);
+                    const newUserID = await getOrCreateUniqueCode('UserID', 24 * 60 * 60 * 1000);
+                    
+                    setCartID(newCartID);
+                    setUserID(newUserID);
+                    setShowCookiePrompt(true);
+                }
+            } catch (error) {
+                console.error("Error initializing cookie context:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
-        fetchAcceptedCookies();
+        
+        initializeContext();
     }, []);
+    
+    // Reaccionar a cambios en acceptedCookies
+    useEffect(() => {
+        if (!isLoading) {
+            setShowCookiePrompt(!acceptedCookies);
+        }
+    }, [acceptedCookies, isLoading]);
 
     // Función para aceptar las cookies y guardar el valor en el localforage
     const acceptCookies = async () => {
-        await localforage.setItem('acceptedCookies', 'true');
-        await localforage.setItem("CartID", CartID);
-        await localforage.setItem("UserID", UserID);
-        setAcceptedCookies(true);
-        setShowCookiePrompt(false);
+        try {
+            // Primero actualizar el estado local
+            setAcceptedCookies(true);
+            setShowCookiePrompt(false);
+            
+            // Luego guardar en localforage
+            await localforage.setItem('acceptedCookies', true);
+            
+            // Asegurarse de que CartID y UserID estén guardados
+            const cartIDWithTimestamp = CartID + '_' + Date.now();
+            const userIDWithTimestamp = UserID + '_' + Date.now();
+            
+            await localforage.setItem("CartID", cartIDWithTimestamp);
+            await localforage.setItem("UserID", userIDWithTimestamp);
+        } catch (error) {
+            console.error("Error al aceptar cookies:", error);
+        }
     };
 
-    // Verifica si las cookies existen al montar un componente
-    useEffect(() => {
-        const fetchCookies = async () => {
-            const storedCartID = await localforage.getItem('CartID');
-            const storedUserID = await localforage.getItem('UserID');
-            const storedAcceptedCookies = await localforage.getItem('acceptedCookies');
-
-            if (!storedCartID || !storedUserID || !storedAcceptedCookies) {
-                // Crea una alerta o aviso de que debe aceptar las cookies y setea como false acceptedCookies
-                setShowCookiePrompt(true);
-                setAcceptedCookies(false);
-            }
-        };
-        fetchCookies();
-    }, []);
+    // Valor del contexto a proporcionar
+    const contextValue = {
+        acceptedCookies,
+        acceptCookies,
+        setAcceptedCookies,
+        CartID,
+        UserID,
+        showCookiePrompt, 
+        setShowCookiePrompt,
+        isLoading
+    };
 
     return (
-        <CookieContext.Provider value={{
-            acceptedCookies,
-            acceptCookies,
-            setAcceptedCookies,
-            CartID,
-            UserID,
-            showCookiePrompt, 
-            setShowCookiePrompt
-        }}>
+        <CookieContext.Provider value={contextValue}>
             {children}
         </CookieContext.Provider>
     );
@@ -101,8 +131,5 @@ export const CookieProvider = ({ children }) => {
 // Creamos un hook personalizado para usar el contexto
 export const useCookies = () => {
     const context = useContext(CookieContext);
-    if (context === undefined) {
-        throw new Error('useCookies debe ser utilizado dentro de un CookieProvider');
-    }
     return context;
 };

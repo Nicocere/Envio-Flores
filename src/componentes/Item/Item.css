@@ -132,7 +132,7 @@ body.dark-mode .item-card.mobile:active {
 
 .view-details-text {
   color: white;
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
   padding: 8px 16px;
@@ -164,7 +164,7 @@ body.dark-mode .item-card.mobile:active {
 }
 
 .item-badge {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 600;
   font-size: 0.75rem;
   padding: 4px 8px;
@@ -216,7 +216,7 @@ body.dark-mode .item-card.mobile:active {
 }
 
 .item-title {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   margin: 0 0 var(--item-spacing-xs);
@@ -261,14 +261,14 @@ body.dark-mode .item-title {
 }
 
 .item-price {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 700;
   color: var(--item-primary);
   font-size: 1.1rem;
 }
 
 .item-price-original {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   color: var(--item-text-secondary-light);
   text-decoration: line-through;
   font-size: 0.85rem;
@@ -335,7 +335,7 @@ body.dark-mode .flower-icon {
 }
 
 .detail-text {
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   color: var(--item-text-secondary-light);
   font-size: 0.85rem;
 }
@@ -410,7 +410,7 @@ body.dark-mode .item-divider {
   display: inline-block;
   width: 100%;
   padding: 8px 16px;
-  font-family: 'Jost', sans-serif;
+  font-family: "Nexa", sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--item-secondary);
@@ -425,6 +425,7 @@ body.dark-mode .item-divider {
 .view-more-button:hover {
   background-color: rgba(76, 175, 80, 0.08);
   transform: translateY(-2px);
+  border: 1px solid var(--primary-light);
 }
 
 .item-card.mobile .view-more-button {

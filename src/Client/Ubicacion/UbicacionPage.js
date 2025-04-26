@@ -44,7 +44,9 @@ function UbicacionPage() {
                                 <FaEnvelope className={style.icon} />
                                 <div>
                                     <h3>Email</h3>
-                                    <p className={style.contactDetail}>ventas@aflorar.com.ar</p>
+                                    <a className={style.linkEmail} href="mailto:ventas@aflorar.com.ar">
+                                    ventas@aflorar.com.ar
+                                    </a>
                                 </div>
                             </div>
                             

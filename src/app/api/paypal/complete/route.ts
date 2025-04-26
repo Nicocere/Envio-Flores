@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { addDoc, collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { baseDeDatos } from "@/admin/FireBaseConfig";
+import { baseDeDatosServer } from "@/utils/firebaseServer";
 
 // Configurar nodemailer
 const transporter = nodemailer.createTransport({
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     try {
         // Generar nuevo código de orden
         let lastCode = 21000;
-        const ordersCollection = collection(baseDeDatos, 'ordenes-envio-flores');
+        const ordersCollection = collection(baseDeDatosServer, 'ordenes-envio-flores');
         const ordersQuery = query(
             ordersCollection,
             orderBy('order_number', 'desc'),
@@ -58,6 +58,8 @@ export async function POST(request: Request) {
         }
 
         const newCode = lastCode + 1;
+
+        
         const formattedDate = format(new Date(), "PPPP 'a las' p", { locale: es });
 
         const pdfPayload = {
@@ -104,23 +106,25 @@ export async function POST(request: Request) {
             piso = "",
             localidad = { name: "No especificada" },
             precio_envio = 0,
-            totalPrice = 0
+            totalPrice = 0,
+            servicioPremium = false,
+            envioPremium = 0
         } = datosEnvio;
 
         // Crear el contenido del correo para el comprador
         const compradorHtml = `
-    <div style="font-family: 'Jost', Arial, sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
+    <div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
     <div style="text-align: center;">
         <img src="${imgLogo}" alt="Logo Envío Flores" style="width: 300px; margin-bottom: 20px;">
     </div>
-    <h2 style="color: #A70000; text-align: center; font-family: 'Jost', sans-serif;">¡Felicidades ${nombreComprador || 'estimado cliente'}!</h2>
+    <h2 style="color: #A70000; text-align: center; font-family: "Nexa", sans-serif;">¡Felicidades ${nombreComprador || 'estimado cliente'}!</h2>
     <p style="color: #333333; text-align: center;">Tu compra a través de PayPal ha sido procesada exitosamente.</p>
     <p style="color: #333333; text-align: center; font-weight: 600;">Tu pedido está en preparación, número de orden: <span style="color: #A70000; font-weight: 700;">${newCode}</span></p>
     <p style="color: #333333; text-align: center;">A continuación encontrarás todos los detalles de tu compra:</p>
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Detalles de la Transacción PayPal:</h3>
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Detalles de la Transacción PayPal:</h3>
     <ul style="list-style: none; padding: 0; background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
         <li style="margin-bottom: 10px;"><strong style="color: #A70000;">ID de Orden PayPal:</strong> ${orderID}</li>
         <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Estado:</strong> ${status}</li>
@@ -130,7 +134,7 @@ export async function POST(request: Request) {
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Tus datos:</h3>
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Tus datos:</h3>
     <ul style="list-style: none; padding: 0; background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
         <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Nombre completo:</strong> ${nombreComprador} ${apellidoComprador || ''}</li>
         <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Teléfono:</strong> ${tel_comprador}</li>
@@ -139,7 +143,7 @@ export async function POST(request: Request) {
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Productos adquiridos:</h3>
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Productos adquiridos:</h3>
     <div style="background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
         ${products.length === 0 ? 
             '<p style="text-align: center; color: #333333;">No hay productos registrados</p>' : 
@@ -185,7 +189,7 @@ export async function POST(request: Request) {
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif; text-align: center;">
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif; text-align: center;">
         ${retiraEnLocal ? 'Información para retiro en tienda' : 'Detalles del envío'}
     </h3>
 
@@ -221,8 +225,11 @@ export async function POST(request: Request) {
             
             <div style="padding: 15px; background-color: white; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #A70000;">
                 <p><strong style="color: #A70000;">Fecha de entrega:</strong> ${fecha}</p>
+                <p><strong style="color: #A70000;">SERVICIO PREMIUM:</strong> ${servicioPremium ? 'SI' : 'NO'}</p>
+                ${servicioPremium ? `<p><strong style="color: #A70000;">Costo adicional:</strong> U$D ${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium}</p>` : ''}
+                
                 <p><strong style="color: #A70000;">Horario:</strong> ${horario}</p>
-                <p><strong style="color: #A70000;">Costo de envío:</strong> U$D ${typeof precio_envio === 'number' ? precio_envio.toFixed(2) : precio_envio}</p>
+                <p><strong style="color: #A70000;">Costo de envío:</strong> U$D ${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}</p>
             </div>
             
             <div style="margin-top: 20px; padding: 20px; border-radius: 8px; background-color: #F8F8F8;">
@@ -260,18 +267,18 @@ export async function POST(request: Request) {
 
         // Crear el contenido del correo para el vendedor
         const vendedorHtml = `
-<div style="font-family: 'Jost', Arial, sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
+<div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
     <div style="text-align: center;">
         <img src="${imgLogo}" alt="Logo Envío Flores" style="width: 250px; margin-bottom: 20px;">
     </div>
     
     <div style="background-color: #A70000; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; color: white;">
-        <h2 style="color: white; font-family: 'Jost', sans-serif; margin: 0; font-size: 24px;">¡Nueva venta por PayPal!</h2>
+        <h2 style="color: white; font-family: "Nexa", sans-serif; margin: 0; font-size: 24px;">¡Nueva venta por PayPal!</h2>
         <p style="margin: 10px 0 0 0;">Orden #${newCode} - ${formattedDate}</p>
     </div>
 
     <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #A70000; font-family: 'Jost', sans-serif; margin-top: 0;">Detalles de PayPal:</h3>
+        <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">Detalles de PayPal:</h3>
         <ul style="list-style: none; padding: 0; margin: 0;">
             <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>ID de Orden PayPal:</strong> ${orderID}</li>
             <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>Email PayPal:</strong> ${payerEmail}</li>
@@ -283,7 +290,7 @@ export async function POST(request: Request) {
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Información del Comprador:</h3>
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Información del Comprador:</h3>
     <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
         <ul style="list-style: none; padding: 0; margin: 0;">
             <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Nombre:</strong> ${nombreComprador} ${apellidoComprador || ''}</li>
@@ -296,7 +303,7 @@ export async function POST(request: Request) {
 
     <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
 
-    <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Productos:</h3>
+    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Productos:</h3>
     <div style="background-color: #FFF5F5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
         ${products.length === 0 ? 
             '<p style="text-align: center;">No hay productos registrados</p>' : 
@@ -327,27 +334,30 @@ export async function POST(request: Request) {
 
     ${retiraEnLocal ? `
         <div style="text-align: center; background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h3 style="color: #A70000; font-family: 'Jost', sans-serif; margin-top: 0;">RETIRA EN LOCAL</h3>
+            <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">RETIRA EN LOCAL</h3>
             <p><strong>Fecha:</strong> ${fecha}</p>
             <p><strong>Horario:</strong> ${horario}</p>
+
         </div>
     ` : `
-        <h3 style="color: #A70000; font-family: 'Jost', sans-serif;">Datos de Envío:</h3>
+        <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Datos de Envío:</h3>
         <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Destinatario:</strong> ${nombreDestinatario} ${apellidoDestinatario}</li>
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Teléfono:</strong> ${phoneDestinatario}</li>
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Fecha de entrega:</strong> ${fecha}</li>
+                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">SERVICIO PREMIUM:</strong> ${servicioPremium ? 'SI' : 'NO'}</li>
+                ${servicioPremium ? `<li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Costo adicional:</strong> $${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium}</li>` : ''}
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Horario:</strong> ${horario}</li>
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Dirección:</strong> ${calle} ${altura} ${piso ? `- ${piso}` : ''}</li>
                 <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Localidad:</strong> ${localidad.name}</li>
-                <li style="padding: 8px 0;"><strong style="color: #A70000;">Costo de envío:</strong> $${typeof precio_envio === 'number' ? precio_envio.toFixed(2) : precio_envio}</li>
+                <li style="padding: 8px 0;"><strong style="color: #A70000;">Costo de envío:</strong> $${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}</li>
             </ul>
         </div>
     `}
 
     <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #A70000; font-family: 'Jost', sans-serif; margin-top: 0;">Dedicatoria:</h3>
+        <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">Dedicatoria:</h3>
         <p style="font-style: italic; background-color: white; padding: 15px; border-radius: 8px; border-left: 3px solid #A70000;">${dedicatoria}</p>
     </div>
 
@@ -376,7 +386,7 @@ export async function POST(request: Request) {
         // Enviar correo al comprador
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${emailComprador || ''}, ${payerEmail || ''}`.replace(/(^,|,$)/g, ''), // Eliminar comas al inicio o final
+            to: `${emailComprador}, ${process.env.GMAIL_USER}`,
             subject: `✅ Confirmación de compra - Orden #${newCode} - Envío Flores`,
             html: compradorHtml
         });
@@ -384,7 +394,7 @@ export async function POST(request: Request) {
         // Enviar correo al vendedor
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${process.env.GMAIL_USER || ''}, ${process.env.ADMIN_EMAIL || ''}`.replace(/(^,|,$)/g, ''),
+            to: process.env.GMAIL_USER ,
             subject: `🔔 Nueva venta por PayPal - Orden #${newCode} - Envío Flores`,
             html: vendedorHtml
         });
@@ -403,7 +413,7 @@ export async function POST(request: Request) {
             dolar,
         };
         
-        await addDoc(collection(baseDeDatos, 'ordenes-envio-flores'), newOrderData);
+        await addDoc(collection(baseDeDatosServer, 'ordenes-envio-flores'), newOrderData);
 
         return NextResponse.json({ 
             success: true, 

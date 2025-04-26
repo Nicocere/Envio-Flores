@@ -4,6 +4,8 @@ import { es } from "date-fns/locale";
 
 // Importación regular de nodemailer
 import nodemailer from 'nodemailer';
+import { addDoc, collection } from "firebase/firestore";
+import { baseDeDatosServer } from "@/utils/firebaseServer";
 
 // Configurar nodemailer
 const createTransporter = async () => {
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
 
         // Crear el contenido del correo para el comprador
         const compradorHtml = `
-    <div style="font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FCFCFC;">
+    <div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FCFCFC;">
         <div style="text-align: center;">
             <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 300px; margin-bottom: 20px;">
         </div>
@@ -151,7 +153,7 @@ export async function POST(request: Request) {
 
         // Crear el contenido del correo para el vendedor
         const vendedorHtml = `
-    <div style="font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FCFCFC;">
+    <div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FCFCFC;">
         <div style="text-align: center;">
             <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 300px; margin-bottom: 20px;">
         </div>
@@ -266,8 +268,9 @@ export async function POST(request: Request) {
         // Enviar correo al comprador
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${datosComprador.email}`,
-            subject: `✅ Pedido #${newCode} confirmado - Envio Flores`,
+            // to: `${datosComprador.email}`,
+            to: `${process.env.GMAIL_USER}`,
+            subject: `✅ Confirmación de compra  - Orden #${newCode} - Envio Flores`,
             html: compradorHtml
         });
 
@@ -275,13 +278,13 @@ export async function POST(request: Request) {
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
             to: `${process.env.GMAIL_USER}`,
-            subject: `🔔 Nueva venta #${newCode} - Envio Flores`,
+            subject: `🔔 Nueva venta por MercadoPago #${newCode} - Envio Flores`,
             html: vendedorHtml
         });
 
         // Objeto para almacenar los datos de la orden pero que no se utiliza directamente
         // Lo declaramos como variable para evitar el warning del compilador
-        const orderData = {
+        const newOrderData = {
             payment: 'Mercado Pago Cuenta',
             order_number: newCode,
             MercadoPago,
@@ -292,7 +295,7 @@ export async function POST(request: Request) {
             datosEnvio
         };
         
-        // Si en el futuro necesitas guardar en base de datos, puedes usar orderData
+        await addDoc(collection(baseDeDatosServer, 'ordenes-envio-flores'), newOrderData);
 
         return NextResponse.json({ message: 'Correos enviados correctamente', success: true });
 

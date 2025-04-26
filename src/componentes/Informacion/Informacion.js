@@ -4,12 +4,13 @@ import { motion, useInView } from "framer-motion";
 import { BsFlower1, BsCalendarCheck, BsCreditCard2Front } from "react-icons/bs";
 import { FaLeaf, FaMapMarkerAlt } from "react-icons/fa";
 import style from './informacion.module.css';
+import Image from "next/image";
 
 // Componente animado para elementos que entran en el viewport
 const AnimatedSection = ({ children, delay = 0, direction = "up" }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
-  
+
   // Configuración de animaciones según dirección
   const variants = {
     up: {
@@ -85,7 +86,7 @@ const Informacion = () => {
     {
       name: "Envio Flores",
       image: "/assets/imagenes/empresas-asociadas/FloreriasArgentinas.png",
-      url: "https://floreriasargentinas.vercel.app/"
+      url: "https://floreriasargentinas.com/"
     },
     {
       name: "Flores Express",
@@ -101,8 +102,8 @@ const Informacion = () => {
 
   return (
     <Container maxWidth="xl" className={style.containerMain}>
-      <Paper 
-        elevation={0} 
+      <Paper
+        elevation={0}
         className={style.infoPaper}
         sx={{
           backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('/assets/imagenes/fondosHome/fondo-info.jpg')",
@@ -116,18 +117,18 @@ const Informacion = () => {
           <section className={style.heroSection}>
             <AnimatedSection>
               <Typography variant="h1" component="h1" className={style.mainTitle}>
-                ¿Por qué elegir <span>Envio Flores</span>?
+                ¿Por qué elegir <span>ENVIO FLORES</span>?
               </Typography>
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.2}>
               <div className={style.titleDecoration}>
                 <div className={style.line}></div>
-                <FaLeaf className={style.leafIcon} />
+                <Image width={65} height={65} src={'/assets/imagenes/logo/Logo-rose.png'} className={style.leafIcon} alt="logo-envio-flores" />
                 <div className={style.line}></div>
               </div>
             </AnimatedSection>
-            
+
             <AnimatedSection delay={0.4}>
               <Typography variant="h5" component="h2" className={style.mainDescription}>
                 Somos la florería online número uno en Argentina, con expertos floristas que crean arreglos únicos para cada ocasión especial.
@@ -143,12 +144,12 @@ const Informacion = () => {
                   Contamos con un equipo de floristas profesionales con amplia experiencia en el rubro, que se esforzarán al
                   máximo para cumplir con tus expectativas y sorprender a esa persona tan especial para ti.
                 </Typography>
-                
+
                 <Typography variant="body1" className={style.aboutText}>
                   Realiza tu pedido de flores online en tres simples pasos, y entregaremos tus flores a domicilio
                   en donde nos indiques. Puedes elegir la fecha y el horario de entrega luego de agregar un producto a tu carrito.
                 </Typography>
-                
+
                 <Box className={style.contactPrompt}>
                   <FaMapMarkerAlt className={style.mapMarker} />
                   <h6 className={style.contactText}>
@@ -167,19 +168,19 @@ const Informacion = () => {
               </Typography>
               <div className={style.titleUnderline}></div>
             </AnimatedSection>
-            
-            <Grid 
-              container 
-              spacing={isMediumScreen ? 2 : 4} 
+
+            <Grid
+              container
+              spacing={isMediumScreen ? 2 : 4}
               className={style.stepsContainer}
               alignItems="stretch"
             >
               {steps.map((step, index) => (
-                <Grid 
-                  item 
-                  xs={12} 
-                  md={4} 
-                  key={index} 
+                <Grid
+                  item
+                  xs={12}
+                  md={4}
+                  key={index}
                   className={style.gridItem}
                 >
                   <AnimatedSection delay={0.2 * index}>
@@ -207,11 +208,9 @@ const Informacion = () => {
           <div className={style.separator}>
             <AnimatedSection>
               <div className={style.separatorInner}>
-                <div className={style.separatorLine}></div>
-                <div className={style.separatorIcon}>
-                  <BsFlower1 />
-                </div>
-                <div className={style.separatorLine}></div>
+                <div className={style.line}></div>
+                <Image width={65} height={65} src={'/assets/imagenes/logo/Logo-rose.png'} className={style.leafIcon} alt="logo-envio-flores" />
+                <div className={style.line}></div>
               </div>
             </AnimatedSection>
           </div>
@@ -224,7 +223,7 @@ const Informacion = () => {
               </Typography>
               <div className={style.titleUnderline}></div>
             </AnimatedSection>
-            
+
             <Grid container spacing={isSmallScreen ? 2 : 3} className={style.partnersGrid}>
               {empresas.map((empresa, index) => (
                 <Grid item xs={12} sm={6} md={3} key={index}>
@@ -233,16 +232,16 @@ const Informacion = () => {
                       <Typography variant="h6" className={style.partnerName}>
                         {empresa.name}
                       </Typography>
-                      <a 
-                        href={empresa.url} 
-                        target="_blank" 
+                      <a
+                        href={empresa.url}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className={style.partnerLink}
                       >
                         <div className={style.imageContainer}>
-                          <img 
-                            src={empresa.image} 
-                            alt={`Logo de ${empresa.name}`} 
+                          <img
+                            src={empresa.image}
+                            alt={`Logo de ${empresa.name}`}
                             className={style.partnerImage}
                           />
                           <div className={style.imageOverlay}>
@@ -256,7 +255,7 @@ const Informacion = () => {
               ))}
             </Grid>
           </section>
-          
+
           {/* Final CTA section */}
           <section className={style.ctaSection}>
             <AnimatedSection>
@@ -273,7 +272,7 @@ const Informacion = () => {
               </div>
             </AnimatedSection>
           </section>
-          
+
         </div>
       </Paper>
     </Container>

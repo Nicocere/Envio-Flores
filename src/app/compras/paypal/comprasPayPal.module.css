@@ -43,7 +43,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: var(--spacing-8) var(--spacing-4);
+  padding: 120px var(--spacing-4);
   font-family: var(--font-primary);
 }
 
@@ -96,6 +96,22 @@
   margin-bottom: var(--spacing-8);
 }
 
+/* Añadir estos estilos nuevos al final del archivo */
+
+/* Mejoras visuales al contenedor del ticket */
+.ticketContainer {
+  background-color: var(--compra-card-bg);
+  max-width: 650px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--compra-shadow);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: var(--spacing-8);
+  transition: box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .ticketContainer::before {
   content: '';
   position: absolute;
@@ -104,66 +120,216 @@
   right: 0;
   height: 5px;
   background: var(--compra-accent);
+  z-index: 2;
 }
 
-.title {
-  font-size: var(--font-size-2xl);
+/* Banner de éxito mejorado */
+.successBanner {
+  background: var(--compra-accent);
+  background-image: linear-gradient(135deg, var(--compra-accent), var(--compra-accent-light));
+  height: 110px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 60px;
+  overflow: hidden;
+}
+
+/* Elementos decorativos */
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: twinkle 4s infinite alternate;
+}
+
+.sparkle:nth-of-type(1) {
+  animation-delay: 0s;
+}
+
+.sparkle:nth-of-type(2) {
+  animation-delay: 1s;
+}
+
+.sparkle:nth-of-type(3) {
+  animation-delay: 2s;
+}
+
+@keyframes twinkle {
+  0%, 30%, 60%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  15%, 45%, 75% {
+    opacity: 0.3;
+    transform: scale(0.7);
+  }
+}
+
+.decorCircle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Mejora del ícono de éxito */
+.successIcon {
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  /* bottom: -35px; */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  color: var(--compra-accent);
+  z-index: 5;
+}
+
+.checkmarkWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Contenedor de contenido principal */
+.contentContainer {
+  padding: 0 var(--spacing-6) var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Badge de PayPal */
+.paypalBadgeContainer {
   margin-bottom: var(--spacing-4);
+  display: flex;
+  justify-content: center;
+}
+
+.paypalBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: #0070ba;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 112, 186, 0.3);
+}
+
+.verifiedIcon {
+  font-size: 1rem;
+  margin-left: 5px;
+  color: #ffffff;
+}
+
+/* Título mejorado */
+.title {
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-3);
   color: var(--compra-accent);
   text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
   position: relative;
   padding-bottom: var(--spacing-3);
+  letter-spacing: -0.5px;
 }
 
 .title::after {
   content: '';
   position: absolute;
-  width: 60px;
+  width: 40%;
   height: 3px;
-  background-color: var(--compra-accent);
+  background: linear-gradient(90deg, transparent, var(--compra-accent), transparent);
   bottom: 0;
-  border-radius: 2px;
+  left: 30%;
 }
 
-.subtitle {
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--spacing-2);
-  text-align: center;
-  color: var(--compra-text-primary);
-  font-weight: 600;
+/* Mejoras al número de orden */
+.orderNumber {
+  background-color: var(--compra-highlight-bg);
+  padding: 14px 24px;
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-4) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: center;
+  width: 80%;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(167, 0, 0, 0.1);
 }
 
-.subtitleSmall {
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-4);
-  text-align: center;
+.orderNumberContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderNumberLabel {
+  font-size: var(--font-size-sm);
   color: var(--compra-text-secondary);
+  margin-bottom: 4px;
 }
 
+.orderNumberValue {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--compra-accent);
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+}
+
+.receiptIcon {
+  color: var(--compra-accent);
+  opacity: 0.8;
+  font-size: 1.8rem;
+}
+
+/* Mejoras en iconos de navegación */
 .iconContainer {
   display: flex;
-  justify-content: center;
-  gap: var(--spacing-2);
-  margin: var(--spacing-6) 0;
-  padding: var(--spacing-3);
+  justify-content: space-evenly;
+  margin: var(--spacing-6) 0 var(--spacing-4);
+  gap: var(--spacing-4);
   position: relative;
+  z-index: 2;
 }
 
 .iconContainer::after {
   content: '';
   position: absolute;
-  bottom: -10px;
-  left: 10%;
-  right: 10%;
+  bottom: -15px;
+  left: 15%;
+  right: 15%;
   height: 1px;
-  background: var(--compra-section-border);
-}
-
-.icon {
-  font-size: 1.5rem !important;
-  transition: all var(--transition-time) ease !important;
+  background: linear-gradient(90deg, transparent, var(--compra-section-border), transparent);
 }
 
 .iconButton {
@@ -171,15 +337,190 @@
   color: var(--compra-text-primary) !important;
   padding: var(--spacing-3) !important;
   transition: all var(--transition-time) ease !important;
-  border: 1px solid transparent !important;
+  width: 50px !important;
+  height: 50px !important;
+  position: relative;
 }
 
-.iconButton:hover, 
-.iconButton.active {
-  background-color: var(--compra-accent) !important;
-  color: var(--compra-icon-color) !important;
+.iconButtonInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconButton:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.1) !important;
   transform: translateY(-3px);
   box-shadow: var(--compra-shadow-hover);
+}
+
+.iconButton.active {
+  background-color: var(--compra-accent) !important;
+  color: white !important;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(167, 0, 0, 0.25);
+}
+
+.iconButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: var(--compra-accent);
+  border-radius: 50%;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  font-size: 1.5rem !important;
+}
+
+/* Contenedor de secciones */
+.sectionContent {
+  padding: var(--spacing-6) var(--spacing-6) var(--spacing-4);
+  min-height: 250px;
+}
+
+/* Footer mejorado */
+.footerContainer {
+  padding: var(--spacing-5) var(--spacing-6);
+  background: linear-gradient(to bottom, transparent, rgba(var(--primary-color-rgb), 0.05));
+  border-top: 1px solid rgba(var(--primary-color-rgb), 0.1);
+  margin-top: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+
+.footerTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  padding: 12px 24px;
+  border-radius: 40px;
+}
+
+.footerIcon {
+  color: var(--compra-accent);
+  font-size: 1.3rem;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.footerText {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--compra-text-primary);
+  font-weight: 500;
+}
+
+.logoContainer {
+  margin-top: var(--spacing-2);
+  position: relative;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoCaption {
+  font-size: var(--font-size-sm);
+  color: var(--compra-accent);
+  margin-top: var(--spacing-2);
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.logoLink:hover .logoCaption {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.logoImage {
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.1));
+  transition: filter 0.3s ease;
+}
+
+.logoLink:hover .logoImage {
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contentContainer {
+    padding: 0 var(--spacing-4) var(--spacing-3);
+  }
+  
+  .title {
+    font-size: 1.7rem;
+  }
+  
+  .successBanner {
+    height: 100px;
+  }
+  
+  .successIcon {
+    width: 60px;
+    height: 60px;
+    /* bottom: -30px; */
+  }
+  
+  .orderNumber {
+    width: 90%;
+    padding: 10px 16px;
+  }
+  
+  .sectionContent {
+    padding: var(--spacing-4) var(--spacing-4) var(--spacing-3);
+    min-height: 200px;
+  }
+  
+  .footerContainer {
+    padding: var(--spacing-4) var(--spacing-4);
+  }
+  
+  .footerTextContainer {
+    flex-direction: column;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .iconButton {
+    width: 45px !important;
+    height: 45px !important;
+  }
+  
+  .orderNumberValue {
+    font-size: var(--font-size-lg);
+  }
+  
+  .iconContainer {
+    gap: var(--spacing-3);
+  }
 }
 
 /* Añadir estos estilos al final del archivo existente */
@@ -537,6 +878,7 @@
   letter-spacing: 1px;
 }
 
+
 /* Animaciones */
 @keyframes fadeIn {
   from {
@@ -558,10 +900,11 @@
   }
 }
 
+
 /* Media queries para responsividad */
 @media (max-width: 768px) {
   .mainContainer {
-    padding: var(--spacing-6) var(--spacing-3);
+    padding: 120px var(--spacing-3);
   }
 
   .ticketContainer {
@@ -592,7 +935,7 @@
 
 @media (max-width: 480px) {
   .mainContainer {
-    padding: var(--spacing-4) var(--spacing-2);
+    padding: 100px var(--spacing-2);
   }
 
   .ticketContainer {
@@ -601,7 +944,7 @@
   }
 
   .title {
-    font-size: var(--font-size-lg);
+    font-size: 25px;
   }
 
   .subtitle {

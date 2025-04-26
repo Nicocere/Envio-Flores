@@ -3,7 +3,7 @@
 
 /* Estilos del Footer */
 .footer-container {
-  font-family: 'Jost', 'Roboto', sans-serif;
+  font-family: "Nexa", sans-serif;
   color: var(--text-dark);
   background: var(--background-gradient);
   border-top: 1px solid var(--border-color);

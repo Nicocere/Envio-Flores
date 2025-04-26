@@ -1,16 +1,17 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
+"use client";
+
+import { useState } from 'react';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { FadeLoader } from "react-spinners";
 import React from 'react';
 import { useCookies } from '../../context/CookieContext';
 import { useTheme } from '@/context/ThemeSwitchContext';
 import localforage from 'localforage';
+// Eliminamos la importación no utilizada de useRouter
 
 // Inicializar MercadoPago
-// initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY, {
-  initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY_TEST, {
-locale: 'es-AR',
+initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY_LIVE_TEST, {
+  locale: 'es-AR',
 });
 
 const MercadoPagoButton = ({
@@ -36,16 +37,16 @@ const MercadoPagoButton = ({
   products,
   retiraEnLocal
 }) => {
+
   // Estados
   const [preferenceId, setPreferenceId] = useState(null);
-  const [isProcessingBackend, setIsProcessingBackend] = useState(false);
   const [processingMessage, setProcessingMessage] = useState('Preparando tu pago...');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const { CartID, UserID } = useCookies();
   const { isDarkMode } = useTheme();
-
+  
   // Mapeo de productos
   const items = products.map((prod) => ({
     id: prod.id,
@@ -53,7 +54,6 @@ const MercadoPagoButton = ({
     quantity: quantity,
     unit_price: Number(prod.precio),
   }));
-
 
   // Mantener estructura original de bodyMP
   let bodyMP = {
@@ -78,6 +78,8 @@ const MercadoPagoButton = ({
       products: products,
       dedicatoria: dedicatoria ? dedicatoria : 'Sin dedicatoria',
       totalPrice: Number(total),
+      fecha: fechaEnvio,
+      horario: horarioEnvio,
     };
   } else {
     bodyMP.retiraEnLocal = false;
@@ -103,7 +105,6 @@ const MercadoPagoButton = ({
   // Crear preferenceId
   const createPreference = async () => {
     setIsLoading(true);
-    setIsProcessingBackend(true);
     setProcessingMessage('Conectando con MercadoPago...');
     setError(null);
 
@@ -112,26 +113,29 @@ const MercadoPagoButton = ({
       await localforage.setItem('shoppingCart', bodyMP);
       // Determinar URL según entorno
       const baseUrl = process.env.NODE_ENV === 'production'
-        ? 'https://www.floreriasargentinas.com'
+        ? 'https://www.envioflores.com'
         : 'http://localhost:3000';
 
-      const response = await axios.post(`${baseUrl}/api/mercadopago/payment`,
-        bodyMP,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/mercadopago/payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodyMP),
+      });
 
-      setProcessingMessage('Preferencia creada, preparando formulario de pago...');
-      setPreferenceId(response.data.preferenceId);
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      setProcessingMessage('Preferencia creada, preparando opciones de pago...');
+      setPreferenceId(data.preferenceId);
       setShowPaymentForm(true);
     } catch (error) {
-      console.error('Error al crear preferencia:', error);
       setError('No pudimos conectar con MercadoPago. Por favor, inténtalo nuevamente.');
     } finally {
-      setIsProcessingBackend(false);
       setIsLoading(false);
     }
   };
@@ -140,64 +144,6 @@ const MercadoPagoButton = ({
   const handleStartPayment = () => {
     setShowPaymentForm(false);
     createPreference();
-  };
-
-  // Callbacks para Payment Brick
-  const onSubmit = async (formData) => {
-    setProcessingMessage('Procesando tu pago. Por favor espera...');
-    setIsProcessingBackend(true);
-  };
-
-  const onReady = () => {
-    setIsLoading(false);
-
-  };
-
-  const onError = (error) => {
-    console.error('Error en Payment Brick:', error);
-    setError(`Ocurrió un problema: ${error.message || 'Error desconocido'}`);
-    setIsLoading(false);
-  };
-
-  
-  // Configuración de Payment Brick
-  const paymentSettings = {
-    initialization: {
-      amount: Number(total),
-      preferenceId: preferenceId,
-      redirectMode: "self",
-    },
-    callbacks: {
-      onReady,
-      onError,
-      onSubmit
-    },
-    customization: {
-      paymentMethods: {
-        wallet_purchase: "all",
-        mercadoPago: "all",
-        creditCard: "all",
-                debitCard: "all",
-                ticket: "all",
-                bankTransfer: "all",
-
-                atm: "all",
-                onboarding_credits: "all",
-        maxInstallments: 1
-      },
-      visual: {
-        hideFormTitle: false,
-        hidePaymentButton: false,
-        style: {
-          theme: isDarkMode ? 'dark' : 'default',
-          customVariables: {
-            formBackgroundColor: isDarkMode ? '#222222' : '#ffffff',
-            baseColor: isDarkMode ? '#ff4d4d' : '#a70000',
-            baseTextColor: isDarkMode ? '#ffffff' : '#333333',
-          }
-        }
-      }
-    }
   };
 
   return (
@@ -210,7 +156,11 @@ const MercadoPagoButton = ({
             className="mp-retry-button"
             onClick={() => {
               setError(null);
-              createPreference();
+              setShowPaymentForm(false);
+              setPreferenceId(null);
+              setIsLoading(false);
+              setProcessingMessage('Preparando tu pago...');
+              // createPreference();
             }}
           >
             Reintentar
@@ -223,6 +173,19 @@ const MercadoPagoButton = ({
         <div className="mp-spinner-container">
           <FadeLoader color={isDarkMode ? "#ff4d4d" : "#a70000"} loading={isLoading} />
           <p className="mp-loading-message">{processingMessage}</p>
+          <p className="mp-loading-submessage">Esto puede tardar unos segundos...</p>
+          <button
+            className="mp-retry-button"
+            onClick={() => {
+              setError(null);
+              setShowPaymentForm(false);
+              setPreferenceId(null);
+              setIsLoading(false);
+              setProcessingMessage('Preparando tu pago...');
+            }}
+          >
+            Cancelar pago
+          </button>
         </div>
       )}
 
@@ -232,7 +195,7 @@ const MercadoPagoButton = ({
           <div className="mp-payment-info">
             <div className="mp-payment-header">
               <h3 className="mp-payment-title">Pagar con MercadoPago</h3>
-              <p className="mp-payment-subtitle">Paga de forma segura con tarjetas, transferencia o efectivo</p>
+              <p className="mp-payment-subtitle">Paga de forma segura con o sin cuenta de MercadoPago</p>
             </div>
 
             <div className="mp-payment-details">
@@ -244,15 +207,19 @@ const MercadoPagoButton = ({
               <div className="mp-payment-methods-info">
                 <div className="mp-method-item">
                   <span className="mp-method-icon">💳</span>
-                  <span className="mp-method-text">Tarjetas de crédito/débito</span>
+                  <span className="mp-method-text">Tarjetas de crédito/débito - No necesitas cuenta</span>
                 </div>
                 <div className="mp-method-item">
                   <span className="mp-method-icon">🏦</span>
-                  <span className="mp-method-text">Transferencia bancaria</span>
+                  <span className="mp-method-text">Transferencia bancaria - No necesitas cuenta</span>
                 </div>
                 <div className="mp-method-item">
                   <span className="mp-method-icon">💰</span>
-                  <span className="mp-method-text">Pago en efectivo</span>
+                  <span className="mp-method-text">Pago en efectivo - No necesitas cuenta</span>
+                </div>
+                <div className="mp-method-item">
+                  <span className="mp-method-icon">👤</span>
+                  <span className="mp-method-text">Cuenta de MercadoPago - Si ya tienes una</span>
                 </div>
               </div>
             </div>
@@ -262,30 +229,68 @@ const MercadoPagoButton = ({
             className="mp-start-button"
             onClick={handleStartPayment}
           >
-            Continuar con el pago
+            Iniciar pago
           </button>
         </div>
       )}
 
-      {/* Formulario de pago de MercadoPago cuando showPaymentForm es true */}
+      {/* Wallet de MercadoPago cuando showPaymentForm es true */}
       {showPaymentForm && preferenceId && !isLoading && !error && (
         <div className="mp-form-container">
           <div className="mp-form-header">
-            <h3 className="mp-form-title">Completa tus datos para pagar</h3>
-            <p className="mp-form-subtitle">Todas las transacciones son procesadas de forma segura por MercadoPago</p>
+            <h3 className="mp-form-title">Selecciona tu método de pago</h3>
+            <p className="mp-form-subtitle">Puedes pagar con o sin cuenta de MercadoPago</p>
           </div>
 
-          <Payment {...paymentSettings} />
+          <Wallet 
+            initialization={{ 
+              preferenceId: preferenceId,
+              redirectMode: "modal" 
+            }} 
+            customization={{
+              texts: {
+                action: 'Pagar',
+                valueProp: 'Pago seguro con o sin cuenta de MercadoPago'
+              },
+              visual: {
+                buttonBackground: isDarkMode ? '#ff4d4d' : '#a70000',
+                buttonHeight: '48px',
+                borderRadius: '8px',
+              }
+            }}
+            onError={(error) => {
+              setError('Ocurrió un error al procesar el pago. Por favor, inténtalo nuevamente. Error: ' + error.message);
+              setIsLoading(false);
+            }}
+          />
+
+          {
+            error && (
+              <button
+              className="mp-retry-button"
+              onClick={() => {
+                setError(null);
+                setShowPaymentForm(false);
+                setPreferenceId(null);
+                setIsLoading(false);
+                setProcessingMessage('Preparando tu pago...');
+              }}
+            >
+              Cancelar pago
+            </button>
+            )
+          }
 
           <div className="mp-form-footer">
             <p className="mp-security-text">🔒 Tus datos están protegidos con encriptación de 256 bits</p>
+            <p className="mp-security-text">ℹ️ Puedes pagar con tarjeta, transferencia o efectivo sin tener cuenta de MercadoPago</p>
           </div>
         </div>
       )}
 
       <style jsx>{`
         .mercadopago-container {
-          font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: "Nexa", sans-serif;
           border-radius: var(--radius-md, 12px);
           padding: 1.5rem;
           background-color: ${isDarkMode ? '#1e1e1e' : '#ffffff'};
@@ -467,6 +472,9 @@ const MercadoPagoButton = ({
         .mp-form-footer {
           text-align: center;
           margin-top: 1rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
         }
 
         .mp-security-text {

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import CompraFinalizada from '@/componentes/ComprasMP/FinalizadaMP/CompraFinalizada';
 
-const CompraFinalizada = dynamic(() => import('../../../../componentes/ComprasMP/FinalizadaMP/CompraFinalizada'), { ssr: false });
 
 const ComprasMP = React.memo((props) => {
 

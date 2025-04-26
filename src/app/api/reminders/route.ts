@@ -21,14 +21,14 @@ function generateEmailHTML(recordatorio: any) {
         ? `<div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
             <p style="color: #2f1a0f; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
             <p style="color: #666;">Puedes visitar nuestra tienda y elegir el regalo perfecto.</p>
-            <a href="https://www.floreriasargentinas.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
+            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
            </div>`
         : recordatorio?.productos.map((producto: any) => `
             <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 <img src="${producto.opciones[0].img}" alt="${producto.nombre}" style="width: 200px; height: auto; border-radius: 8px;">
                 <h3 style="color: #d4af37; margin: 10px 0;">${producto.nombre}</h3>
                 <p style="color: #666;">${producto.descr}</p>
-                <a href="https://www.floreriasargentinas.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
+                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
             </div>
         `).join('');
 
@@ -64,12 +64,12 @@ function generateEmailHTML(recordatorio: any) {
             ` : ''}
 
             <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #2f1a0f; color: white; border-radius: 10px;">
-            <p style="color: #f5f5f5;">¡Gracias por confiar en Florerías Argentinas para tus momentos especiales!</p>
+            <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
             <p style="color: #d4af37;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #D4af37;"><em>Equipo Florerías Argentinas</em></p>
+                                <p style="margin: 0; color: #D4af37;"><em>Equipo Envio Flores</em></p>
                             </div>
         </div>
     `;
@@ -81,14 +81,14 @@ function generateLastEmailHTML(recordatorio: any) {
         ? `<div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
             <p style="color: #2f1a0f; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
             <p style="color: #666;">Puedes visitar nuestra tienda y elegir el regalo perfecto.</p>
-            <a href="https://www.floreriasargentinas.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
+            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
            </div>`
         : recordatorio?.productos.map((producto: any) => `
             <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 <img src="${producto.opciones[0].img}" alt="${producto.nombre}" style="width: 200px; height: auto; border-radius: 8px;">
                 <h3 style="color: #d4af37; margin: 10px 0;">${producto.nombre}</h3>
                 <p style="color: #666;">${producto.descr}</p>
-                <a href="https://www.floreriasargentinas.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
+                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
             </div>
         `).join('');
 
@@ -124,12 +124,12 @@ function generateLastEmailHTML(recordatorio: any) {
             ` : ''}
 
             <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #2f1a0f; color: white; border-radius: 10px;">
-            <p style="color: #f5f5f5;">¡Gracias por confiar en Florerías Argentinas para tus momentos especiales!</p>
+            <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
             <p style="color: #d4af37;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #D4af37;"><em>Equipo Florerías Argentinas</em></p>
+                                <p style="margin: 0; color: #D4af37;"><em>Equipo Envio Flores</em></p>
                             </div>
         </div>
     `;

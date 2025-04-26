@@ -2,13 +2,19 @@
 import { useCart } from '../../context/CartContext';
 import React, { useEffect, useState } from 'react';
 
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Form from '../Form/Form';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 //Material UI
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, IconButton, List, ListItem, ListItemText, Paper, TextField, Typography, useMediaQuery, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+// Añade estos imports si no los tienes ya
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
+import Grid from '@mui/material/Grid';
 
 import PropTypes from 'prop-types';
 import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded';
@@ -21,16 +27,14 @@ import CheckoutStepper from '../ProgressBar/CheckoutStepper';
 import MercadoPagoButton from '../MercadoPago/MercadoPago'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
-import CardPaymentMP from '../MercadoPago/PasarelaDePago/CardPayment';
 import PayPalButton from '../PaypalCheckoutButton/PayPalButton';
 import { useForm } from 'react-hook-form';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { baseDeDatos } from '../../admin/FireBaseConfig';
-import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { useCookies } from '../../context/CookieContext';
 import localforage from 'localforage';
 import { useTheme } from '@/context/ThemeSwitchContext';
+import { DateRangeIcon } from '@mui/x-date-pickers';
+import { CardGiftcard, Timelapse } from '@mui/icons-material';
 
 
 const MySwal = withReactContent(Swal);
@@ -93,8 +97,22 @@ const CartComponents = () => {
     const [saveDedicatoria, setSaveDedicatoria] = useState('');
 
 
+    // Estados para almacenar información del storage
+    const [storedCartID, setStoredCartID] = useState('');
+    const [storedUserID, setStoredUserID] = useState('');
+    const [hasAcceptedCookies, setHasAcceptedCookies] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(''); // estado para la fecha seleccionada
+    const [selectedTime, setSelectedTime] = useState(''); // estado para el horario seleccionado
+
     //Material UI
     const [value, setValue] = React.useState(0);
+
+    const [characterCount, setCharacterCount] = useState(0);
+
+    // Añadir esta función para manejar el conteo de caracteres
+    const handleDedicatoriaChange = (e) => {
+        setCharacterCount(e.target.value.length);
+    };
 
 
     const handleMercadoPagoClick = () => {
@@ -107,6 +125,33 @@ const CartComponents = () => {
         setShowCardPayment(true);
     };
 
+
+    const handleChangeDateTime = (e) => {
+        e.preventDefault()
+        setSelectedDate(e.target.value)
+        setSelectedTime(e.target.value)
+    }
+    const getAvailableTimeSlots = () => {
+        const currentDate = new Date();
+        const currentHour = currentDate.getHours();
+        const currentMinute = currentDate.getMinutes();
+
+        const timeSlots = [
+            { value: "7hs-10hs", label: "Mañana (7hs a 10hs)", startHour: 7, endHour: 10 },
+            { value: "9hs-12hs", label: "Mañana (9hs a 12hs)", startHour: 9, endHour: 12 },
+            { value: "13hs-16hs", label: "Tarde (13hs a 16hs)", startHour: 13, endHour: 16 },
+            { value: "16hs-19hs", label: "Tarde (16hs a 19hs)", startHour: 16, endHour: 19 }
+        ];
+
+        const selectedDate = watch('fechaEnvio');
+        const isToday = selectedDate === currentDate.toISOString().split('T')[0];
+
+        if (isToday) {
+            return timeSlots.filter(slot => slot.startHour >= currentHour + 3 || (slot.startHour === currentHour + 2 && currentMinute === 0));
+        }
+
+        return timeSlots;
+    };
 
 
     const handleChangeRetirarProducto = () => {
@@ -139,7 +184,9 @@ const CartComponents = () => {
             watch('nombreComprador') &&
             watch('telefonoComprador') &&
             watch('apellidoComprador') &&
-            watch('mailComprador') === watch('validateMail')
+            watch('mailComprador') === watch('validateMail') &&
+            watch('selectHorario') &&
+            watch('fechaEnvio')
         );
         if (fieldsFilled) {
             setConfirmationDone(true);
@@ -207,7 +254,9 @@ const CartComponents = () => {
     // Modificar la función handleAcceptCookies para usar localForage
     const handleAcceptCookies = async () => {
         try {
-            await localforage.setItem('acceptedCookies', 'true');
+            await localforage.setItem('acceptedCookies', true);
+            setHasAcceptedCookies(true);
+            // setAcceptedCookies(true);
             acceptCookies();
         } catch (error) {
             console.error("Error al guardar cookies:", error);
@@ -218,12 +267,6 @@ const CartComponents = () => {
         // Handle view cookies logic here
         window.location.href = '/cookies';
     };
-
-
-    // Estados para almacenar información del storage
-    const [storedCartID, setStoredCartID] = useState('');
-    const [storedUserID, setStoredUserID] = useState('');
-    const [hasAcceptedCookies, setHasAcceptedCookies] = useState(null);
 
     // Cargar datos de localForage de forma segura en el lado del cliente
     useEffect(() => {
@@ -277,7 +320,7 @@ const CartComponents = () => {
             < div className='cart' >
                 {
                     // Si las cookies no están aceptadas
-                    !acceptedCookies ? (
+                    !hasAcceptedCookies ? (
                         <>
                             <h1 className='cartVacio'>
                                 Lo sentimos, pero no podemos continuar sin su consentimiento.
@@ -327,9 +370,9 @@ const CartComponents = () => {
                                                                 {itemSelected.map((prod, indx) => (
                                                                     <ListItem key={indx} sx={{ paddingLeft: '7px', borderBottom: '1px solid #c0c0c085' }}>
                                                                         <img className='imgInCart' src={prod.img} alt="Imagen producto en carrito" style={{ marginRight: '5px' }} />
-                                                                        <ListItemText sx={{ fontWeight: '700', flex: '2', color: '#670000', maxWidth: '13ch', fontFamily: 'Jost, sans-serif' }} primary={prod.name} secondary={`Cantidad: ${prod.quantity}, Talle: ${prod.size}`} primaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} secondaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} />
+                                                                        <ListItemText sx={{ fontWeight: '700', flex: '2', color: '#670000', maxWidth: '13ch', fontFamily: 'Nexa, sans-serif' }} primary={prod.name} secondary={`Cantidad: ${prod.quantity}, Talle: ${prod.size}`} primaryTypographyProps={{ fontFamily: 'Nexa, sans-serif' }} secondaryTypographyProps={{ fontFamily: 'Nexa, sans-serif' }} />
 
-                                                                        <ListItemText sx={{ fontWeight: '600', flex: '1', marginLeft: '10px', color: 'black', fontFamily: 'Jost, sans-serif' }} primary={priceDolar ? `USD$${(prod.precio / dolar).toFixed(2)}` : `$${prod.precio.toLocaleString('es-AR')}`} primaryTypographyProps={{ fontFamily: 'Jost, sans-serif' }} />
+                                                                        <ListItemText sx={{ fontWeight: '600', flex: '1', marginLeft: '10px', color: 'black', fontFamily: 'Nexa, sans-serif' }} primary={priceDolar ? `USD$${(prod.precio / dolar).toFixed(2)}` : `$${prod.precio.toLocaleString('es-AR')}`} primaryTypographyProps={{ fontFamily: 'Nexa, sans-serif' }} />
 
                                                                         <IconButton aria-label="delete" size="large"
 
@@ -420,9 +463,9 @@ const CartComponents = () => {
 
                                     <>
 
-                                        <Paper elevation={24} sx={{ background: isSmallScreen ? isDarkMode ? '#670000' : '#fafafa' : isDarkMode ? 'linear-gradient(to top, #a70000, #670000)' : 'linear-gradient(to top, #FCFCFC, #FFFFFF)', padding: '30px, 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Paper elevation={24} sx={{ background: isSmallScreen ? isDarkMode ? '#670000' : '#fafafa' : isDarkMode ? 'linear-gradient(to top,rgb(11, 11, 11),rgb(0, 0, 0))' : 'linear-gradient(to top, #FCFCFC, #FFFFFF)', padding: '30px, 0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: '20px 4px', borderRadius: '10px' }}>
 
-                                            <h1 style={{ color: isDarkMode ? 'white' : '#670000', padding: '20px', fontSize: isSmallScreen && '22px',fontWeight:'500' }}>
+                                            <h1 style={{ color: isDarkMode ? 'white' : '#670000', padding: '20px', fontSize: isSmallScreen && '22px', fontWeight: '500' }}>
                                                 {showPayments ? 'Retiro en local seleccionado' : `¿Cómo desea enviar ${cart.length <= 1 ? 'su producto?' : 'sus productos?'}`}
                                             </h1>
 
@@ -476,7 +519,7 @@ const CartComponents = () => {
                                                                                 color: 'darkred',
                                                                             },
                                                                             '& .MuiFilledInput-input': {
-                                                                                color: 'darkgreen'
+                                                                                color: isDarkMode ? 'white' : 'darkgreen'
                                                                             }
                                                                         }}
                                                                     />
@@ -502,7 +545,7 @@ const CartComponents = () => {
                                                                                 color: 'darkred',
                                                                             },
                                                                             '& .MuiFilledInput-input': {
-                                                                                color: 'darkgreen'
+                                                                                color: isDarkMode ? 'white' : 'darkgreen'
                                                                             }
                                                                         }}
                                                                     />
@@ -528,7 +571,7 @@ const CartComponents = () => {
                                                                                 color: 'darkred',
                                                                             },
                                                                             '& .MuiFilledInput-input': {
-                                                                                color: 'darkgreen'
+                                                                                color: isDarkMode ? 'white' : 'darkgreen'
                                                                             }
                                                                         }}
                                                                     />
@@ -554,7 +597,7 @@ const CartComponents = () => {
                                                                                 color: 'darkred',
                                                                             },
                                                                             '& .MuiFilledInput-input': {
-                                                                                color: 'darkgreen'
+                                                                                color: isDarkMode ? 'white' : 'darkgreen'
                                                                             }
                                                                         }}
                                                                     />
@@ -580,7 +623,7 @@ const CartComponents = () => {
                                                                                 color: 'darkred',
                                                                             },
                                                                             '& .MuiFilledInput-input': {
-                                                                                color: 'darkgreen'
+                                                                                color: isDarkMode ? 'white' : 'darkgreen'
                                                                             }
                                                                         }}
                                                                     />
@@ -596,7 +639,12 @@ const CartComponents = () => {
                                                                             className='dedicatoria'
                                                                             name="dedicatoria"
                                                                             placeholder="Escriba aquí su dedicatoria o mensaje personal..."
+                                                                            maxLength={300}
+                                                                            onChange={handleDedicatoriaChange}
                                                                         />
+                                                                        <div style={{ textAlign: 'right', fontSize: '0.8rem', marginTop: '5px', color: characterCount > 150 ? '#a70000' : isDarkMode ? '#e0e0e0' : '#666' }}>
+                                                                            {characterCount}/300 caracteres
+                                                                        </div>
                                                                         <div className='dedic-instructions'>
                                                                             <small className='dedic-text'>• Ejemplo: "Feliz Cumpleaños, te quiero mucho!"</small>
                                                                             <small className='dedic-text'>• El mensaje se enviará junto con su pedido</small>
@@ -620,6 +668,37 @@ const CartComponents = () => {
                                                                             ) : saveDedicatoria === ""
                                                                         }
                                                                     </div>
+
+                                                                    <div className='datos-fecha-envio'>
+                                                                        <h3 className='titulo-datos-envio'>Fecha y Horario que viene a retirar:</h3>
+
+                                                                        {/* Selector de Fecha */}
+                                                                        <label htmlFor="deliveryDate" className='lbl-fecha-envio'>Fecha:</label>
+                                                                        <input
+                                                                            type="date"
+                                                                            id="deliveryDate"
+                                                                            name="deliveryDate"
+                                                                            className='input-fecha-envio'
+                                                                            onChange={handleChangeDateTime}
+                                                                            {...register("fechaEnvio", { required: true })} />
+                                                                        {errors.fechaEnvio && <p className='message-error'>Debe seleccionar una fecha</p>}
+
+                                                                        <label htmlFor="deliveryTime" className='lbl-horario-envio'>Horario que vendría:</label>
+                                                                        <select
+                                                                            id="deliveryTime"
+                                                                            name="deliveryTime"
+                                                                            className='select-horario-envio'
+                                                                            onChange={handleChangeDateTime}
+                                                                            {...register("selectHorario", { required: true })}
+                                                                        >
+                                                                            <option value="">Seleccione un horario</option>
+                                                                            {getAvailableTimeSlots().map(slot => (
+                                                                                <option key={slot.value} value={slot.value}>{slot.label}</option>
+                                                                            ))}
+                                                                        </select>
+                                                                        {errors.selectHorario && <p className='message-error'>Debe seleccionar un horario</p>}
+                                                                    </div>
+
                                                                 </Paper>
 
                                                                 {
@@ -655,22 +734,326 @@ const CartComponents = () => {
 
                                                                 <CheckoutStepper activeStep={4} />
                                                                 {confirmationDone &&
-                                                                    <Paper elevation={12} sx={{ padding: isSmallScreen ? '10px' : '50px' }}>
-                                                                        <Typography variant='h4'>Gracias por ingresar tus datos, ahora puede proceder con finalizar la compra. </Typography>
+                                                                    <Paper
+                                                                        elevation={12}
+                                                                        sx={{
+                                                                            padding: isSmallScreen ? '20px' : '40px',
+                                                                            borderRadius: '12px',
+                                                                            background: isDarkMode ? 'rgba(25, 25, 28, 0.95)' : '#ffffff',
+                                                                            transition: 'all 0.3s ease',
+                                                                            boxShadow: isDarkMode
+                                                                                ? '0 8px 32px rgba(150, 0, 0, 0.3)'
+                                                                                : '0 8px 24px rgba(0, 0, 0, 0.1)',
+                                                                            border: isDarkMode ? '1px solid rgba(103, 0, 0, 0.3)' : 'none',
+                                                                            maxWidth: '900px',
+                                                                            margin: '0 auto'
+                                                                        }}
+                                                                    >
+                                                                        <Box sx={{ textAlign: 'center', mb: 3 }}>
+                                                                            <CheckCircleOutlineIcon
+                                                                                sx={{
+                                                                                    fontSize: 40,
+                                                                                    color: '#670000',
+                                                                                    mb: 1
+                                                                                }}
+                                                                            />
+                                                                            <Typography
+                                                                                variant='h5'
+                                                                                sx={{
+                                                                                    fontWeight: 500,
+                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                    mb: 1
+                                                                                }}
+                                                                            >
+                                                                                ¡Gracias por completar sus datos!
+                                                                            </Typography>
+                                                                            <Typography
+                                                                                variant='body1'
+                                                                                sx={{
+                                                                                    color: isDarkMode ? '#e0e0e0' : '#555555',
+                                                                                    maxWidth: '600px',
+                                                                                    margin: '0 auto'
+                                                                                }}
+                                                                            >
+                                                                                Hemos registrado correctamente su información. A continuación puede revisar sus datos y proceder a finalizar su compra.
+                                                                            </Typography>
+                                                                        </Box>
 
-                                                                        <Accordion>
-                                                                            <AccordionSummary sx={{ background: '#a70000' }} expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}>
-                                                                                <Typography sx={{ color: 'white', textTransform: 'uppercase' }}>Datos de quien retira el Producto.</Typography>
+                                                                        <Accordion
+                                                                            sx={{
+                                                                                mb: 2,
+                                                                                borderRadius: '8px',
+                                                                                overflow: 'hidden',
+                                                                                background: isDarkMode ? 'rgba(30, 30, 33, 0.9)' : '#f9f9f9',
+                                                                                border: isDarkMode ? '1px solid rgba(103, 0, 0, 0.2)' : '1px solid rgba(0, 0, 0, 0.08)',
+                                                                                '&:before': {
+                                                                                    display: 'none',
+                                                                                },
+                                                                            }}
+                                                                        >
+                                                                            <AccordionSummary
+                                                                                sx={{
+                                                                                    background: isDarkMode ? 'rgba(103, 0, 0, 0.9)' : '#a70000',
+                                                                                    transition: 'all 0.2s ease',
+                                                                                    '&:hover': {
+                                                                                        background: isDarkMode ? 'rgba(123, 0, 0, 0.9)' : '#c70000',
+                                                                                    }
+                                                                                }}
+                                                                                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+                                                                            >
+                                                                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                                                                    <PersonOutlineIcon sx={{ color: 'white', mr: 1.5 }} />
+                                                                                    <Typography
+                                                                                        sx={{
+                                                                                            color: 'white',
+                                                                                            textTransform: 'uppercase',
+                                                                                            fontWeight: 500,
+                                                                                            fontSize: '0.95rem'
+                                                                                        }}
+                                                                                    >
+                                                                                        Datos de quien retira el producto
+                                                                                    </Typography>
+                                                                                </Box>
                                                                             </AccordionSummary>
-                                                                            <AccordionDetails>
-                                                                                <Typography variant='button'>
-                                                                                    Nombre:  <strong style={{ color: 'darkred' }}> {watch('nombreComprador')} </strong> <br />
-                                                                                    Apellido: <strong style={{ color: 'darkred' }}> {watch('apellidoComprador')} </strong> <br />
-                                                                                    Teléfono: <strong style={{ color: 'darkred' }}> {watch('telefonoComprador')} </strong> <br />
-                                                                                    Email: <strong style={{ color: 'darkred' }}> {watch('mailComprador')} </strong> <br />
-                                                                                </Typography>
+                                                                            <AccordionDetails
+                                                                                sx={{
+                                                                                    padding: 3,
+                                                                                    background: isDarkMode ? 'rgba(30, 30, 33, 0.8)' : '#ffffff'
+                                                                                }}
+                                                                            >
+                                                                                <Grid container spacing={2}>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Nombre
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center'
+                                                                                                }}
+                                                                                            >
+                                                                                                <PersonIcon
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('nombreComprador')}
+                                                                                            </Typography>
+                                                                                        </Box>
+
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Apellido
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center'
+                                                                                                }}
+                                                                                            >
+                                                                                                <PersonIcon
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('apellidoComprador')}
+                                                                                            </Typography>
+                                                                                        </Box>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Teléfono
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center'
+                                                                                                }}
+                                                                                            >
+                                                                                                <PhoneIcon
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('telefonoComprador')}
+                                                                                            </Typography>
+                                                                                        </Box>
+
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Email
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center',
+                                                                                                    flexWrap: 'wrap'
+                                                                                                }}
+                                                                                            >
+                                                                                                <EmailIcon
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('mailComprador')}
+                                                                                            </Typography>
+                                                                                        </Box>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Fecha de Retiro
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center'
+                                                                                                }}
+                                                                                            >
+                                                                                                <DateRangeIcon
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('fechaEnvio')}
+                                                                                            </Typography>
+                                                                                        </Box>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} sm={6}>
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Horario de Retiro
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center',
+                                                                                                    flexWrap: 'wrap'
+                                                                                                }}
+                                                                                            >
+                                                                                                <Timelapse
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {watch('selectHorario')}
+                                                                                            </Typography>
+                                                                                        </Box>
+                                                                                    </Grid> 
+                                                                                                    
+                                                                                    <Grid item xs={24} sm={12}> 
+                                                                                        <Box sx={{ mb: 2, textAlign: 'left' }}>
+                                                                                            <Typography
+                                                                                                variant='body2'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#aaaaaa' : '#666666',
+                                                                                                    mb: 0.5,
+                                                                                                    fontSize: '0.85rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                Dedicatoria
+                                                                                            </Typography>
+                                                                                            <Typography
+                                                                                                variant='body1'
+                                                                                                sx={{
+                                                                                                    color: isDarkMode ? '#ffffff' : '#333333',
+                                                                                                    fontWeight: 600,
+                                                                                                    display: 'flex',
+                                                                                                    alignItems: 'center',
+                                                                                                    flexWrap: 'wrap'
+                                                                                                }}
+                                                                                            >
+                                                                                                <CardGiftcard
+                                                                                                    sx={{
+                                                                                                        color: isDarkMode ? '#a70000' : '#670000',
+                                                                                                        mr: 1,
+                                                                                                        fontSize: '1.2rem'
+                                                                                                    }}
+                                                                                                />
+                                                                                                {saveDedicatoria}
+                                                                                            </Typography>
+                                                                                        </Box>
+                                                                                        </Grid>              
+
+                                                                                </Grid>
                                                                             </AccordionDetails>
                                                                         </Accordion>
+
+
                                                                     </Paper>
 
                                                                 }
@@ -680,65 +1063,25 @@ const CartComponents = () => {
                                                                     <>
 
                                                                         <Paper elevation={24} sx={{
-                                                                            background: 'white', width: isSmallScreen ? '100%' : '80%', color: 'black', textAlign: '-webkit-center',
+                                                                            background: 'white', color: 'black', textAlign: '-webkit-center',
+                                                                            width: '-webkit-fill-available', padding: isSmallScreen ? '20px 5px' : '40px', margin: '0 auto', boxShadow: '0px 11px 15px -7px rgba(0,0,0,0.8),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)', border: isDarkMode ? '1px solid rgba(103, 0, 0, 0.3)' : 'none',
                                                                             marginTop: isSmallScreen ? '15px' : '20px', borderRadius: '10px'
                                                                         }}>
 
-                                                                            <h3 style={{ color: 'white', background: '#a70000', padding: '25px 0px', border: '1px solid #a70000', boxShadow: '0px 11px 15px -7px rgba(0,0,0,0.8),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)' }}>
+                                                                            <h3 style={{ color: 'white', background: isDarkMode ? '#000' : '#a70000', padding: '25px 0px', margin:'10px', border: isDarkMode ? '1px dashed rgb(255, 255, 255)' : '1px solid #a70000', borderRadius: '30px', }}>
                                                                                 Seleccione un metodo de pago</h3>
 
-                                                                            <div id='Payment' className='payments-btn-container' style={{ background: 'linear-gradient(to top, rgb(246, 246, 246), rgb(206, 206, 206))' }}>
+                                                                            <div id='Payment' className='payments-btn-container' style={{ background: isDarkMode ? 'rgba(6, 6, 6, 0.9)' : '#f5f5f5', padding: isSmallScreen ? '20px 0' : '20px', borderRadius: '10px', }}>
 
                                                                                 <div className='payments-buttons' style={{ background: 'transparent' }}>
 
 
                                                                                     <div className='mercadopago-buttons'>
 
-                                                                                        {showMercadoPago && (
-                                                                                            <Button size='small' variant='contained' color='error' endIcon={<CreditCardTwoToneIcon />}
-                                                                                                sx={{ marginTop: '15px', width: 'fit-content', alignSelf: 'center' }} onClick={handleCardPaymentClick}>Pagar con Tarjeta de Crédito / Débito</Button>
-                                                                                        )}
-
-                                                                                        {showCardPayment && (
-                                                                                            <Button size='small' variant='contained' color='error' endIcon={<AccountBoxIcon />}
-                                                                                                sx={{ marginTop: '15px', width: 'fit-content', alignSelf: 'center' }} onClick={handleMercadoPagoClick}>Pagar con cuenta en Mercado Pago</Button>
-                                                                                        )}
-
-                                                                                        {showCardPayment && (
-
-                                                                                            <div className='mercadopago-div'>
-                                                                                                <h4 className='tarjetas' style={{ color: 'white' }}>Pagar con Tarjeta Nacionales</h4>
-                                                                                                <span style={{ color: 'white', textTransform: 'uppercase' }}>Total a pagar: {
-                                                                                                    priceDolar ?
-                                                                                                        `USD$${total}`
-                                                                                                        :
-                                                                                                        ` $${total.toLocaleString('es-AR')}`
-                                                                                                }</span>
-                                                                                                <CardPaymentMP
-                                                                                                    retiraEnLocal={true}
-                                                                                                    total={total}
-                                                                                                    title={cart[0].name}
-                                                                                                    description={cart[0].descr}
-                                                                                                    picture_url={cart[0].img}
-                                                                                                    category_id={cart[0].tipo}
-                                                                                                    quantity={cart[0].quantity}
-                                                                                                    id={cart[0].id}
-                                                                                                    size={cart[0].size}
-                                                                                                    products={cart}
-                                                                                                    finalPrice={finalPrice}
-                                                                                                    mailComprador={watch('mailComprador')}
-                                                                                                    nombreComprador={watch('nombreComprador')}
-                                                                                                    phoneComprador={watch('telefonoComprador')}
-                                                                                                    apellidoComprador={watch('apellidoComprador')}
-                                                                                                    dedicatoria={saveDedicatoria}
-                                                                                                />
-                                                                                            </div>
-                                                                                        )}
-
 
                                                                                         {showMercadoPago && (
                                                                                             <div className='mercadopago-div'>
-                                                                                                <h4 className='tarjetas' style={{ color: 'white' }}>Pagar con Cuenta Mercado Pago</h4>
+                                                                                                <h4 className='tarjetas' style={{ color: 'white' }}>Pagos Nacionales</h4>
                                                                                                 <span style={{ color: 'white', textTransform: 'uppercase' }}>Total a pagar: {
                                                                                                     priceDolar ?
                                                                                                         `USD$${total}`
@@ -762,6 +1105,8 @@ const CartComponents = () => {
                                                                                                     nombreComprador={watch('nombreComprador')}
                                                                                                     phoneComprador={watch('telefonoComprador')}
                                                                                                     apellidoComprador={watch('apellidoComprador')}
+                                                                                                    fechaEnvio={watch('fechaEnvio')}
+                                                                                                    horarioEnvio={watch('selectHorario')}
                                                                                                 />
                                                                                             </div>
                                                                                         )}
@@ -769,7 +1114,7 @@ const CartComponents = () => {
                                                                                     </div>
 
                                                                                     <div className='paypal-div'>
-                                                                                        <h4 className='tarjetas' style={{ color: 'white' }}>Tarjetas Internacionales</h4> <span style={{ color: 'white', textTransform: 'uppercase', fontSize: 'larger' }}>
+                                                                                        <h4 className='tarjetas' style={{ color: 'white' }}>Pagos Internacionales</h4> <span style={{ color: 'white', textTransform: 'uppercase', marginBottom: '20px'  }}>
                                                                                             Total a pagar: USD${
                                                                                                 priceDolar ? total :
                                                                                                     (total / dolar).toFixed(1)
@@ -796,6 +1141,8 @@ const CartComponents = () => {
                                                                                             nombreComprador={watch('nombreComprador')}
                                                                                             phoneComprador={watch('telefonoComprador')}
                                                                                             apellidoComprador={watch('apellidoComprador')}
+                                                                                            fechaEnvio={watch('fechaEnvio')}
+                                                                                            horarioEnvio={watch('selectHorario')}
                                                                                         />
                                                                                     </div>
 
@@ -818,9 +1165,9 @@ const CartComponents = () => {
                                             }
 
                                             {
-                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px auto 15px', padding: '15px', background: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : '#f5f5f5', borderRadius: '8px', border: '2px solid #670000', width: '80%', color: isDarkMode ? 'white' : '#670000', fontWeight: 600, textAlign: 'center', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LocalShippingRoundedIcon sx={{ mr: 1 }}/> ¿Prefiere enviar sus productos a domicilio?</Typography>
+                                                retiraEnLocal && <Typography variant='h5' sx={{ margin: '20px auto 15px', padding: '15px', background: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : '#f5f5f5', borderRadius: '8px', border: '2px solid #670000', width: '80%', color: isDarkMode ? 'white' : '#670000', fontWeight: 600, textAlign: 'center', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LocalShippingRoundedIcon sx={{ mr: 1 }} /> ¿Prefiere enviar sus productos a domicilio?</Typography>
                                             }
-                                            <Button variant="contained"  sx={{ background:'#670000', color: 'white', margin: '10px 30px' }} onClick={() => { handleStepChange(3); handleChangeRetirarProducto(); }}>
+                                            <Button variant="contained" sx={{ background: '#670000', color: 'white', margin: '10px 30px', border: '1px solid #670000', transition: 'all .5s ease', '&:hover': { background: '#a70000', } }} onClick={() => { handleStepChange(3); handleChangeRetirarProducto(); }}>
                                                 Enviar a domicilio
                                             </Button>
                                         </Paper>
@@ -841,7 +1188,7 @@ const CartComponents = () => {
 
                                     <div className='formulario'>
                                         <h3 className='form-title'>Ingrese los datos de envío para confirmar la entrega.</h3>
-                                        <Form itemSelected={itemSelected}  />
+                                        <Form itemSelected={itemSelected} />
                                     </div>
                                 )}
 

@@ -31,12 +31,12 @@
   border-radius: var(--stepper-border-radius);
 }
 
-body.dark-mode .custom-stepper {
+.dark .custom-stepper {
   background-color: var(--stepper-bg-dark);
   box-shadow: var(--stepper-shadow-dark);
 }
 
-body.dark-mode .custom-stepper::before {
+.dark .custom-stepper::before {
   background: #121212
 }
 
@@ -67,7 +67,7 @@ body.dark-mode .custom-stepper::before {
   transition: var(--stepper-transition);
 }
 
-body.dark-mode .step-title{
+.dark .step-title{
   color: silver;
 }
 
@@ -80,7 +80,7 @@ body.dark-mode .step-title{
   color: var(--stepper-primary);
   font-weight: 600;
 }
-body.dark-mode .active-step-title {
+.dark .active-step-title {
   color: white;
 }
 .step-description {
@@ -101,7 +101,7 @@ body.dark-mode .active-step-title {
   color: var(--stepper-primary);
 }
 
-body.dark-mode .active-description {
+.dark .active-description {
   color: var(--stepper-primary-light);
 }
 
@@ -123,7 +123,7 @@ body.dark-mode .active-description {
   font-size: 12px !important;
 }
 
-body.dark-mode .check-icon-container {
+.dark .check-icon-container {
   background-color: var(--stepper-success-light);
 }
 
@@ -153,15 +153,19 @@ body.dark-mode .check-icon-container {
   margin: 0;
 }
 
-body.dark-mode .mobile-step-detail {
+.dark .mobile-step-detail {
   background-color: rgba(160, 3, 3, 0.15);
 }
 
-body.dark-mode .mobile-step-number {
+.dark .mobile-step-description {
+  color: var(--stepper-text-light);
+}
+
+.dark .mobile-step-number {
   color: var(--stepper-primary-light);
 }
 
-/* body.dark-mode .mobile-step-description {
+/* .dark .mobile-step-description {
   color: var(--stepper-text-light);
 } */
 
@@ -298,7 +302,7 @@ body.dark-mode .mobile-step-number {
     border-radius: 8px;
   }
   
-  body.dark-mode .active-step .step-content {
+  .dark .active-step .step-content {
     background-color: rgba(160, 3, 3, 0.15);
   }
 }
@@ -340,6 +344,6 @@ body.dark-mode .mobile-step-number {
   outline-offset: 2px;
 }
 
-body.dark-mode .step-item:focus-within {
+.dark .step-item:focus-within {
   outline-color: var(--stepper-primary-light);
 }

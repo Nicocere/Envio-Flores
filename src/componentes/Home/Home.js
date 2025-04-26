@@ -44,11 +44,20 @@ const Home = () => {
 
   const [refTopItems, inViewTopItems] = useInView({
     threshold: 0.15,
+    triggerOnce: true,
   });
 
   const animationTopItems = useSpring({
-    opacity: inViewTopItems ? 1 : 0,
-    transform: inViewTopItems ? 'translateY(0)' : 'translateY(50px)',
+    from: {
+      opacity: 0,
+      transform: 'translateY(50px)',
+    },
+    to: {
+      opacity: inViewTopItems ? 1 : 0,
+      transform: inViewTopItems ? 'translateY(0)' : 'translateY(50px)',
+    },
+    config: { duration: 500, },
+
   });
 
 

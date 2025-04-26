@@ -7,9 +7,9 @@ svg {
 /* Variables */
 :root {
   /* Tipografía */
-  --font-primary: "Jost", sans-serif;
-  --font-display: "Jost", sans-serif; 
-  --font-family: "Jost", sans-serif;
+  --font-primary: "Nexa", sans-serif;
+  --font-display: "Nexa", sans-serif; 
+  --font-family: "Nexa", sans-serif;
   /* Colores */
   --background-light: #FCFCFC;
   --background-dark: #0a0a0a;
@@ -18,6 +18,7 @@ svg {
   --background-primary-grandient: linear-gradient(135deg, #A70000, #ff4d4d);
   --background-primary-dark-gradient: linear-gradient(135deg, #800000, #670000);
 
+  --background-primary-dark-gradient-hover: linear-gradient(135deg, #3e1717, #9c1717);
   
   /* --textos */
   --primary-color: #A70000;
@@ -108,7 +109,7 @@ svg {
   --searcher-radius-lg: 16px;
   
   --searcher-transition: 0.3s ease;
-  --searcher-font: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --searcher-font: "Nexa", sans-serif;;
   
   --searcher-spacing-xs: 0.5rem;
   --searcher-spacing-sm: 1rem;
@@ -164,7 +165,7 @@ svg {
   --transition-medium: 0.3s ease;
   --transition-slow: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
   
-  --font-primary: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-primary: "Nexa", sans-serif;;
   
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -363,7 +364,7 @@ svg {
   --radius-full: 9999px;
 
   /* Tipografía */
-  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: "Nexa", sans-serif;
   --font-size-xs: 0.75rem;
   /* 12px */
   --font-size-sm: 0.875rem;
@@ -442,6 +443,26 @@ svg {
   margin: 0;
   scroll-behavior: smooth;
 }
+
+/* Personalizar la barra de desplazamiento para que sea más visible */
+html::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color) ; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: background-color 1s ease-in; /* Efecto de transición al pasar el ratón */
+  cursor: grab;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-color-hover) ; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+html::-webkit-scrollbar-thumb:active {
+  cursor: grabbing; /* Cambiar el cursor a grabbing cuando se hace clic */
+}
+
 
 html,
 body {
@@ -685,7 +706,7 @@ input {
   color: white;
   text-align: -webkit-center;
   margin: 45px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: larger;
   padding: 14px;
@@ -768,7 +789,7 @@ input {
 }
 
 .buscador-title {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: 20px;
   margin-top: 9px;
@@ -796,12 +817,12 @@ input {
 .my-title-class {
   font-size: 16px;
   font-weight: 600;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 }
 
 
 .cat-selected {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: #a00303;
   margin: 1px;
@@ -847,7 +868,7 @@ input {
 .btn-next {
   border-radius: 3px;
   margin-left: 5px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin-right: 5px;
   background: pink;
@@ -888,7 +909,7 @@ input {
   padding: 5px 5px;
   width: 200px;
   margin: 5px 2px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.75;
@@ -981,7 +1002,7 @@ input {
 
 
 .contador {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin-bottom: 10px;
   margin-top: 20px;
@@ -1033,7 +1054,7 @@ input {
 /* Estilo para el div de opciones cuando está seleccionado */
 .title-vista-opt {
   padding: 8px 14px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: 17px;
   font-weight: 600;
@@ -1117,7 +1138,7 @@ input {
 }
 
 .prod-details-size-principal {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin: 0;
   padding: 0 0 10px 0;
@@ -1126,7 +1147,7 @@ input {
 .prod-details-precio-principal {
   margin: 0;
   padding: 10px 0;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
   font-size: 1rem;
@@ -1137,7 +1158,7 @@ input {
 }
 
 .prod-details {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   border-bottom: 0.2px pink solid;
   margin: 1px;
@@ -1152,7 +1173,7 @@ input {
 
 
 .prod-details-index {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin: 1px;
   transition: all .3s;
@@ -1164,7 +1185,7 @@ input {
 
 
 .add-manual-rose {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: white;
   margin: 5px 0px 26px 0px;
@@ -1195,7 +1216,7 @@ input {
 .div-manual-add-prod {
   display: flex;
   flex-wrap: wrap;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   padding: 10px;
   width: 100%;
@@ -1203,7 +1224,7 @@ input {
 }
 
 .manual-add-prod {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
   color: white;
   margin: 1px;
   padding: 10px;
@@ -1218,7 +1239,7 @@ input {
 }
 
 .original-type-prod {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: white;
   margin: 1px;
@@ -1235,7 +1256,7 @@ input {
 }
 
 .same-type-prod {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: white;
   margin: 1px;
@@ -1253,7 +1274,7 @@ input {
 }
 
 .other-type-prod {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: white;
   margin: 1px;
@@ -1279,7 +1300,7 @@ input {
 
 
 .totalPrecio {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
   border-radius: 5px;
   padding: 1%;
   color: black !important;
@@ -1295,7 +1316,7 @@ input {
   color: black;
   margin: 0%;
   padding: 1.5px 7.5px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: medium
 }
@@ -1377,32 +1398,6 @@ input {
   color: #b0b0b0;
 }
 
-/* Formularios en dark mode */
-.dark-mode .form {
-  background-color: var(--background-card-dark);
-  color: var(--text-light);
-}
-
-.dark-mode .datos-recibe {
-  background-color: var(--background-card-dark);
-  border: 1px solid var(--border-color-dark);
-}
-
-.dark-mode .dedic-text,
-.dark-mode .dedic-save,
-.dark-mode .dedic-titulo {
-  color: var(--text-light);
-}
-
-.dark-mode .dedicatoria {
-  background-color: #2d2d2d;
-  color: var(--text-light);
-  border: 1px solid var(--border-color-dark);
-}
-
-.dark-mode .dedicatoria::placeholder {
-  color: #a0a0a0;
-}
 
 /* Estilos para los acordeones en dark mode */
 .dark-mode .MuiAccordion-root {
@@ -1418,6 +1413,13 @@ input {
   background-color: #2d2d2d;
 }
 
+/* SELECTOR FORMULARIO */
+.control{
+  /* background: #2d2d2d; */
+  /* color: var(--text-light); */
+  border-radius: 5px;
+  border: 1px solid var(--border-color-dark);
+}
 /* Estilos para botones en dark mode */
 .dark-mode .cart .MuiButton-outlined {
   border-color: var(--border-color-dark);
@@ -1488,7 +1490,7 @@ input {
 }
 .cartVacio {
   background: #670000;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
   margin: 20px;
   padding: 50px;
   border: 0.2px solid black;
@@ -1557,6 +1559,65 @@ input {
   box-shadow: 0 4px 12px rgba(167, 0, 0, 0.08);
   border-color: #e0c0c0;
 }
+.dark-mode .dedic-instructions{
+  background: linear-gradient(to bottom, #2d2d2d, #3a3a3a);
+  border: 1px solid #444444;
+  color: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(167, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+.dark-mode .dedic-instructions::before {
+  background: #3a3a3a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.dark-mode .dedic-instructions::after {
+  background: #3a3a3a;
+  color: #f5f5f5;
+}
+.dark-mode .dedic-instructions:hover {
+  box-shadow: 0 4px 12px rgba(167, 0, 0, 0.08);
+  border-color: #444444;
+}
+.dark-mode .dedic-instructions:hover::after {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-instructions:hover::before {
+  background: #3a3a3a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.dark-mode .dedic-instructions .dedic-text {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-instructions .dedic-text:hover {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-instructions .dedic-text::before {
+  color: #f5f5f5;
+}
+
+.dark-mode .dedic-instructions .dedic-text:nth-child(2) {
+  background-color: rgba(167, 0, 0, 0.1);
+  border-left: 2px solid #f5f5f5;
+}
+
+.dark-mode .dedic-instructions .dedic-text:last-child {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-instructions .dedic-text:first-child {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-char-count {
+  color: #f5f5f5;
+}
+.dark-mode .dedic-save {
+  background-color: #3a3a3a;
+  color: #f5f5f5;
+  border-left: 3px solid #f5f5f5;
+}
+.dark-mode .dedic-save::before,
+.dark-mode .dedic-save::after {
+  color: #f5f5f5;
+}
 
 /* Estilo para cada elemento de instrucción */
 .dedic-instructions .dedic-text {
@@ -1568,6 +1629,7 @@ input {
   position: relative;
   line-height: 1.4;
   transition: transform 0.2s ease;
+  font-family: "Nexa", sans-serif !important;
 }
 
 /* Punto decorativo para cada línea */
@@ -1650,6 +1712,7 @@ input {
   font-size: 14px;
   color: #666;
   text-align: center;
+  font-family: "Nexa", sans-serif !important;
 }
 
 .dedic-save {
@@ -1664,6 +1727,7 @@ input {
   font-style: italic;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   word-wrap: break-word;
+  font-family: "Nexa", sans-serif !important;
 }
 
 .dedic-save::before,
@@ -1680,6 +1744,7 @@ input {
   font-size: 16px;
   margin-bottom: 12px;
   font-weight: 500;
+  font-family: "Nexa", sans-serif !important;
 }
 
 /* Ajustes responsive */
@@ -1772,7 +1837,7 @@ input {
 
 
 .tituloProducto {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: #a00303;
 
@@ -1812,7 +1877,7 @@ input {
 }
 
 #selectId {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   ;
 }
@@ -1827,13 +1892,13 @@ input {
 
 .loadDetailProd {
   color: white;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: xx-large;
 }
 
 .loadProd {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: rgb(255, 255, 255);
   align-content: center;
@@ -1842,7 +1907,7 @@ input {
 
 .loadMP {
   color: black;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
 }
@@ -1918,7 +1983,7 @@ input {
 }
 
 .table-head {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   background: linear-gradient(to top, red, #a70000);
   transition: all .3s ease-in-out;
@@ -1943,25 +2008,26 @@ input {
 
 /* ADICIONALES */
 .aviso-adicional {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
 .aviso-cant-add-adic {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: smaller;
 }
 
 .titulo-adic {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
   color: #670000;
   transition: all 0.5s;
   font-size: large;
 }
 
 .aviso-adicional-agregado {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: #670000;
   font-size: medium;
@@ -2011,7 +2077,8 @@ input {
 }
 
 .label-adic {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
 }
 
 .lista-de-adicionales {
@@ -2023,7 +2090,7 @@ input {
 }
 
 .titulo-adicional {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin-top: 10px;
   padding: 20px;
@@ -2037,7 +2104,7 @@ input {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   border-left: 0.5px pink solid;
   border-right: 0.5px pink solid;
@@ -2052,7 +2119,8 @@ input {
   padding: 5px;
   width: fit-content;
   margin-top: 15px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
   color: black;
   line-height: 1.75;
   letter-spacing: 0.02857em;
@@ -2061,7 +2129,8 @@ input {
 }
 
 .opt-select-adic {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
   color: black! important;
 
   font-size: medium;
@@ -2079,7 +2148,8 @@ input {
   margin: 20px 0;
   align-items: center;
   transition: background .25s ease-out;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
   line-height: 1.75;
   letter-spacing: 0.02857em;
   text-transform: uppercase;
@@ -2109,13 +2179,13 @@ input {
 }
 
 .localidad-titulo {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin-bottom: 1px;
 }
 
 .location-name {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   color: rgb(44, 5, 61);
 }
@@ -2136,7 +2206,7 @@ input {
 }
 
 .titulo-datosEnvio {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
@@ -2147,7 +2217,7 @@ input {
 }
 
 .datos-recibe p {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
@@ -2191,14 +2261,14 @@ input {
 }
 
 .lbl-fecha-envio {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
   color: #a70000;
 }
 
 .lbl-horario-envio {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
   color: #a70000;
@@ -2206,7 +2276,7 @@ input {
 
 .div-horarioPremium-envio {
   margin-top: 20px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
   color: #a70000;
@@ -2214,7 +2284,7 @@ input {
 
 .select-horarioPremium-envio {
   margin-top: 10px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-weight: 600;
   color: #a70000;
@@ -2294,14 +2364,14 @@ input {
 }
 
 .dedic-text {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   margin-bottom: 4px;
 
 }
 
 .dedic-save {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   background-color: rgb(253, 221, 221);
   padding: 5%;
@@ -2311,7 +2381,7 @@ input {
 .dedic-titulo {
   margin-top: 5px;
   margin-bottom: 0px;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
@@ -2320,7 +2390,7 @@ input {
   margin: 0;
   color: white;
   height: max-content;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
@@ -2335,7 +2405,7 @@ input {
   width: 45%;
   flex: 1 1;
   display: flex;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   flex-direction: column;
   align-items: stretch;
@@ -2348,7 +2418,7 @@ input {
   background: linear-gradient(to bottom, rgba(33, 128, 192, 0.8), #2d3277);
   color: white;
   font-size: larger;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   cursor: pointer;
 }
@@ -2391,7 +2461,7 @@ input {
   width: 45%;
   flex: 1 1;
   display: flex;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   flex-direction: column;
   align-items: stretch;
@@ -2436,7 +2506,8 @@ input {
 
 .compraFinalizada {
   margin: 10px 0;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
+
   color: white;
   font-weight: 400;
   font-size: 1.5rem;
@@ -2446,7 +2517,7 @@ input {
 
 .compraFinalizada strong {
   color: #a70000;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: xx-large;
 }
@@ -2454,7 +2525,7 @@ input {
 .details-compra {
   color: #ffffff;
   font-size: medium;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 }
 
@@ -2466,7 +2537,7 @@ input {
 
 .idCompra {
   color: rgb(0, 0, 0);
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: x-large;
   padding-top: 20px;
@@ -2479,7 +2550,7 @@ input {
 
 .idCompra strong {
   color: #a70000;
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
   font-size: xx-large;
 }
@@ -2500,14 +2571,14 @@ input {
 /* PAYPAL Y PAGOS */
 
 .alert-finalprice {
-  font-family: "Jost", sans-serif !important;
+  font-family: "Nexa", sans-serif !important;
 
 
 }
 
 .tarjetas {
-  font-family: "Jost", sans-serif !important;
-
+  font-family: "Nexa", sans-serif !important;
+  color: var(--text-light);
   margin-top: 8px;
 }
 
@@ -2607,10 +2678,12 @@ input {
 
   .mercadopago-buttons {
     width: -webkit-fill-available;
+    margin: 20px 0;
   }
 
   .paypal-div {
     width: -webkit-fill-available;
+    margin: 20px 0;
   }
 
   .listadeproductos {
@@ -2761,7 +2834,7 @@ input {
   }
   
   .buscador-title {
-    font-family: "Jost", sans-serif !important;
+    font-family: "Nexa", sans-serif !important;
     font-size: 20px;
     margin-top: 9px;
     margin-bottom: 7px;
@@ -2799,7 +2872,7 @@ input {
   }
 
   #cardPaymentBrick_container form {
-    min-width: fit-content;
+    min-width: -webkit-fill-available;
   }
 
   #walletBrick_container div {
@@ -2884,7 +2957,7 @@ input {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-family: "Jost", sans-serif !important;
+    font-family: "Nexa", sans-serif !important;
 
     border-left: 0.5px black solid;
     border-right: 0.5px black solid;
@@ -2967,7 +3040,7 @@ input {
   .div-manual-add-prod {
     display: flex;
     flex-wrap: wrap;
-    font-family: "Jost", sans-serif !important;
+    font-family: "Nexa", sans-serif !important;
     flex-direction: column;
     padding: 10px;
     width: 100%;

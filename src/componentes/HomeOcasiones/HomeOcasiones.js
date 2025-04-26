@@ -26,7 +26,7 @@ export default function HomeOcasiones() {
     } else {
       setDevice('PC');
     }
-  }, []);
+  }, [isSmallScreen, isMediumScreen]);
 
   // Configuración para animaciones de entrada
   const controls = useAnimation();

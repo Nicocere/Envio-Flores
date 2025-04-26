@@ -3,14 +3,14 @@ import { createTheme } from '@mui/material/styles';
 const TextStyleGlobal = createTheme({
     typography: {
         fontFamily: [
-          'Jost',
+          "Nexa",
           'sans-serif',
         ].join(','),
       },
       components: {
         MuiButton: {
             fontFamily: [
-                'Jost',
+                'Nexa',
                 'sans-serif',
               ].join(','),
         },

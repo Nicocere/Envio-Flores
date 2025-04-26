@@ -94,6 +94,42 @@
   font-weight: 500;
 }
 
+
+.dark .titulo {
+  color: var(--primary-light);
+}
+.dark .infoTitle {
+  color: var(--primary-light);
+}
+.dark .contactItem h3 {
+  color: var(--text-light);
+}
+.dark .textStrong {
+  color: var(--primary-light);
+}
+.dark .deliveryInfo h2{
+  color: var(--primary-light);
+}
+
+.dark .socialButton{
+  background: var(--background-primary-dark-gradient);
+  color: var(--text-light);
+}
+
+.dark .linkWhatsapp {
+  color: var(--primary-light);
+  border-bottom: 1px solid var(--primary-light);
+}
+
+.dark .contactDetail{
+  color: var(--primary-light);
+}
+
+.dark .socialLinks h3 {
+  color: var(--primary-light);
+}
+
+
 .description {
   margin-bottom: 30px;
   line-height: 1.6;
@@ -147,6 +183,7 @@
 .linkWhatsapp {
   color: var(--primary-color);
   text-decoration: none;
+  font-size: 18px;
   font-weight: 500;
   display: inline-block;
   transition: all 0.3s ease;
@@ -157,6 +194,7 @@
   border-color: var(--primary-color);
   transform: translateY(-2px);
 }
+
 
 .socialLinks {
   background-color: var(--card-bg);
@@ -195,8 +233,8 @@
 }
 
 .socialButton:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
+  background: var(--background-primary-dark-gradient-hover);
+  color: var(--text-light);
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }

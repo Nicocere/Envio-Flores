@@ -278,7 +278,7 @@ function AddDirections() {
 
                 {/* Botón o checkbox para seleccionar todos */}
                 <div style={{
-                    background: 'transparent', fontFamily: 'Jost, sans-serif', fontSize: '25px',
+                    background: 'transparent', fontFamily: 'Nexa, sans-serif', fontSize: '25px',
                     color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center'
                 }}>
 
@@ -287,7 +287,7 @@ function AddDirections() {
 
 
                     <div style={{
-                        background: 'linear-gradient(to bottom, #404040, #585858)', fontFamily: 'Jost, sans-serif', fontSize: '25px',
+                        background: 'linear-gradient(to bottom, #404040, #585858)', fontFamily: 'Nexa, sans-serif', fontSize: '25px',
                         color: 'white', display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%'
                     }}>
 

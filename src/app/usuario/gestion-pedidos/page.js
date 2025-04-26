@@ -44,7 +44,7 @@ function UserOrders() {
     }, [navigate]);
 
     const fetchOrders = async (email) => {
-        const orderRef = collection(baseDeDatos, 'ordenes-floreriasargentinas');
+        const orderRef = collection(baseDeDatos, 'ordenes-envio-flores');
         const q = query(orderRef, where('datosComprador.email', '==', email));
         const orderSnapShot = await getDocs(q);
         const orderData = [];

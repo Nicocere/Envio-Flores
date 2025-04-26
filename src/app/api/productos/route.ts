@@ -1,4 +1,4 @@
-import { baseDeDatos } from "@/admin/FireBaseConfig";
+import { baseDeDatosServer } from "@/utils/firebaseServer";
 import { collection, getDocs } from "firebase/firestore";
 import localforage from "localforage";
 import { NextResponse } from "next/server";
@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const productsCollection = collection(baseDeDatos, 'productos');
+        const productsCollection = collection(baseDeDatosServer, 'productos');
         const productSnapshot = await getDocs(productsCollection);
         const productList = productSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         

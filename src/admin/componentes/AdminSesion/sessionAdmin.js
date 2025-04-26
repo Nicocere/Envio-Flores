@@ -92,7 +92,7 @@ function PerfilUser() {
                         <Button variant='contained' size='small'  sx={{margin:'15px', background:'white',color:'#670000', borderColor:'red', '&:hover': {color:'white', background: '#a70000' }}}  onClick={logout}>Cerrar Sesión</Button>
                         <Button variant='contained' size='small' color='success'  sx={{margin:'15px'}} onClick={handleNavigateToUpdateProfileAdmin}>Editar perfil</Button>
 
-                        <Typography variant={isSmallScreen ? 'h5' : 'h2'} sx={{color:'white', fontFamily:'Jost, sans-serif', margin:'20px 0'}}>¿ Qué deseas hacer ?</Typography>
+                        <Typography variant={isSmallScreen ? 'h5' : 'h2'} sx={{color:'white', fontFamily:'Nexa, sans-serif', margin:'20px 0'}}>¿ Qué deseas hacer ?</Typography>
 
                         <div className='div-btns'>
                             <div>

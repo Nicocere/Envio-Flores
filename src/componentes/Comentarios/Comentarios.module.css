@@ -351,6 +351,12 @@
   margin: var(--spacing-6) 0;
   color: var(--text-muted);
 }
+.dark .title {
+  color: var(--primary-light);
+}
+.dark .text {
+  color: var(--text-light);
+}
 
 .formSeparator::before,
 .formSeparator::after {

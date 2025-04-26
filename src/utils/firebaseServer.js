@@ -1,6 +1,3 @@
-"use client";
-
-
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
@@ -18,9 +15,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);  // Autenticación
-export const storage = getStorage(app); // Imagenes
-export const baseDeDatos = getFirestore(app); // Base de datos Firestore
+export const authServer = getAuth(app);  // Autenticación
+export const storageServer = getStorage(app); // Imagenes
+export const baseDeDatosServer = getFirestore(app); // Base de datos Firestore
 
 // // Verifica si el entorno es compatible con analytics y si estamos en el cliente
 // let analytics = null;

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   return {
-    title: `${categoryName} - Productos y Regalos | Envio Flores`,
+    title: `${categoryName} - Flores y Regalos | Envio Flores`,
     description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a domicilio en CABA y todo Gran Buenos Aires.`,
     keywords: [
       `${categoryName}`, 
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `${categoryName} - Productos y Regalos | Envio Flores`,
+      title: `${categoryName} - Flores y Regalos | Envio Flores`,
       description: `Encuentra los mejores ${categoryName} en nuestra tienda online. Gran variedad de flores frescas, chocolates, peluches y regalos con envío a domicilio en CABA y todo Gran Buenos Aires.`,
       siteName: 'Envio Flores',
       images: [{

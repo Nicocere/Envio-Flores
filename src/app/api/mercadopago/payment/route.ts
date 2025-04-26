@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server"
 import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { randomUUID } from 'crypto'; // en Next.js (Node.js 18+)
 
 export async function POST(request: Request) {
     const body = await request.json()
     const { retiraEnLocal, datosEnvio, products } = body;
-
 
     try {
         const envioDatos = body;
@@ -26,21 +26,22 @@ export async function POST(request: Request) {
         let title: string;
 
         if (datosEnvio.servicioPremium && retiraEnLocal === false) {
-            shippingCost = datosEnvio.precio_envio + datosEnvio.envioPremium; // Asume que tienes un campo llamado "shippingCost" en datosEnvio
+            shippingCost = datosEnvio.precio_envio + datosEnvio.envioPremium;
             title = 'Costo de Envío + Servicio Premium';
         } else if (!datosEnvio.servicioPremium && datosEnvio.precio_envio && retiraEnLocal === false) {
             title = 'Costo de Envío';
-            shippingCost = datosEnvio.precio_envio; // Asume que tienes un campo llamado "shippingCost" en datosEnvio
+            shippingCost = datosEnvio.precio_envio;
         } else if (retiraEnLocal === true) {
             title = 'Retira en el LOCAL';
-            shippingCost = 0; // Asume que tienes un campo llamado "shippingCost" en datosEnvio
+            shippingCost = 0;
         } else {
             title = 'Opción no válida';
             shippingCost = 0;
         }
+        
         // Añadir el costo de envío como un ítem adicional
         const shippingItem = {
-            id: 'ShippingCost', // ID que identifique el costo de envío
+            id: 'ShippingCost',
             title: title,
             quantity: 1,
             unit_price: Number(shippingCost),
@@ -50,14 +51,22 @@ export async function POST(request: Request) {
         const itemsForMercadoPago = [...mappedProducts, shippingItem];
 
         // Add Your credentials
-        const accessToken = process.env.MP_EF_ACC_TOK_TEST;
+        const accessToken = process.env.MP_EF_ACC_TOK_LIVE_TEST;
         if (!accessToken) {
             throw new Error('MP_EF_ACC_TOK_TEST is not configured in environment variables');
         }
         
+        // Determinamos la URL base según el entorno
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        
         // Inicializar el cliente de MercadoPago con la nueva API
         const client = new MercadoPagoConfig({ 
-            accessToken: accessToken 
+            accessToken: accessToken ,
+            options: {
+                timeout: 5000,
+                idempotencyKey: randomUUID(), // genera un UUID único por request
+                },
+              
         });
         
         // Instanciar el recurso Preference
@@ -66,29 +75,47 @@ export async function POST(request: Request) {
         // Crear la preferencia con los datos necesarios
         const preferenceData = {
             binary_mode: true,
-            purpose: 'wallet_purchase',
+            // purpose: 'wallet_purchase',
+            payment_methods:{
+                excluded_payment_types: [],
+                installments: 1,
+            },
+            statement_descriptor: 'Envio Flores',
+            // notification_url: `${baseUrl}/compras/mercadopago/webhook`,
             items: itemsForMercadoPago,
             back_urls: {
-                success: `http://localhost:3000/compras/mercadopago/exitoso`, 
-                failure: 'https://www.floreriasargentinas.com/pago-fallido',
-                pending: 'https://www.floreriasargentinas.com/pago-pendiente',
+                success: `${baseUrl}/compras/mercadopago/exitoso`,
+                failure: `${baseUrl}/compras/mercadopago/fallido`,
+                pending: `${baseUrl}/compras/mercadopago/pendiente`,
             },
-            auto_return: "approved" as "approved" | "all",
+            auto_return: "approved",
         };
 
         const response = await preference.create({ body: preferenceData });
         const preferenceId = response.id;
 
         // Verificar que la preferencia se creó correctamente
-        if (preferenceId) {
-            await preference.get({ preferenceId: preferenceId });
+        if (!preferenceId) {
+            throw new Error('No se pudo generar el ID de preferencia');
         }
 
-        // Devuelve la preferencia creada al frontend
-        return NextResponse.json({ preferenceId });
 
-    } catch (error) {
-        console.log('Hubo un error al procesar la solicitud: ', error);
-        return NextResponse.json({ error: error })
+        // Devuelve la preferencia creada al frontend
+        return NextResponse.json({ 
+            success: true,
+            preferenceId,
+            init_point: response.init_point
+        });
+
+    } catch (error: any) {
+        console.error('Error en API de MercadoPago:', error);
+        
+        // Respuesta de error más detallada
+        return NextResponse.json({ 
+            success: false,
+            error: error.message || 'Error desconocido',
+            details: error.cause || error.error || error,
+            status: error.status || 500 
+        }, { status: error.status || 500 });
     }
 }

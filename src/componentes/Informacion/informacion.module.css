@@ -75,9 +75,11 @@
 }
 
 .mainTitle span {
-  color: var(--primary-light);
+  color: #a70000;
   position: relative;
+  font-weight: 300 !important;
   display: inline-block;
+  letter-spacing: -2px;
 }
 
 .mainTitle span::after {
@@ -85,10 +87,15 @@
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 100%;
+  width: 0%;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+  background: linear-gradient(90deg, transparent, #a70000, transparent);
   border-radius: 3px;
+  transition: width .3s ease;
+}
+
+.mainTitle span:hover::after{
+  width: 100%;
 }
 
 .titleDecoration {
@@ -101,7 +108,7 @@
 }
 
 .line {
-  height: 1px;
+  height: 3px;
   flex: 1;
   background: linear-gradient(90deg, transparent, var(--text-muted), transparent);
 }

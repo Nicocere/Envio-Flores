@@ -74,9 +74,9 @@ const Footer = () => {
                         <li><Link href="/">Inicio</Link></li>
                         <li><Link href="/productos">Productos</Link></li>
                         <li><Link href="/categoria/Ramos">Ramos</Link></li>
-                        <li><Link href="/categoria/Canastas">Canastas</Link></li>
                         <li><Link href="/categoria/Desayunos">Desayunos</Link></li>
-                        <li><Link href="/ayuda">Preguntas frecuentes</Link></li>
+                        <li><Link href="/ayuda">¿Cómo comprar?</Link></li>
+                        <li><Link href="/preguntas-frecuentes">Preguntas frecuentes</Link></li>
                         <li><Link href="/ubicacion">Contacto</Link></li>
                     </ul>
                 </div>
@@ -92,9 +92,9 @@ const Footer = () => {
                         <SiMastercard className="payment-icon" title="Mastercard" />
                         <SiMercadopago className="payment-icon" title="Mercado Pago" />
                         <SiPaypal className="payment-icon" title="PayPal" />
-                        <img src="../assets/cabal@2x.png" className="payment-img" alt="Cabal" />
-                        <img src="../assets/pagofacil@2x.png" className="payment-img" alt="Pago Fácil" />
-                        <img src="../assets/banelco@2x.png" className="payment-img" alt="Banelco" />
+                        {/* <img src="../public/assets/cabal@2x.png" className="payment-img" alt="Cabal" />
+                        <img src="../public/assets/pagofacil@2x.png" className="payment-img" alt="Pago Fácil" />
+                        <img src="../public/assets/banelco@2x.png" className="payment-img" alt="Banelco" /> */}
                     </div>
                 </div>
             </div>

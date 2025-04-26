@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Item from '../Item/Item';
 
 const ItemList = ({ items, prodEncontrado }) => {
@@ -24,7 +25,7 @@ const ItemList = ({ items, prodEncontrado }) => {
             </h2>
             <h4> ¡Pero no te preocupes, estamos trabajando para tener más productos pronto!</h4>
 
-            <img src={'/assets/imagenes/logo-envio-flores.png'} width={250} height={250} alt='imagen de error' />
+            <Image src={'/assets/imagenes/logo-envio-flores.png'} width={250} height={250} alt='imagen de error' />
           </div>
 
         )

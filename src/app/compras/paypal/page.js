@@ -15,6 +15,8 @@ import LocalFloristRoundedIcon from '@mui/icons-material/LocalFloristRounded';
 import { Tooltip, IconButton, Badge, useMediaQuery } from '@mui/material';
 import Comentarios from '@/componentes/Comentarios/Comentarios';
 import style from './comprasPayPal.module.css';
+import ConfettiComponent from '@/componentes/Confetti/Confetti';
+import { CheckCircle, LocalFloristRounded, ReceiptLong } from '@mui/icons-material';
 
 const CompraPayPalFinalizada = React.memo(() => {
     const [newEvent, setNewEvent] = useState(null);
@@ -37,9 +39,9 @@ const CompraPayPalFinalizada = React.memo(() => {
 
                 setNewEvent({ ...initialNewEvent, title: 'Compra Finalizada' });
 
-                // Limpiar carrito después de procesar la compra
-                await localforage.removeItem('shoppingCart');
-                await localforage.removeItem('cart');
+                // // Limpiar carrito después de procesar la compra
+                // await localforage.removeItem('shoppingCart');
+                // localStorage.removeItem('c');
 
             } catch (error) {
                 console.error('Error al procesar la compra:', error);
@@ -73,7 +75,7 @@ const CompraPayPalFinalizada = React.memo(() => {
     const calculateTotal = () => {
         if (!newEvent?.products) return 0;
         return newEvent.products.reduce((total, product) => {
-            const price = product.precio * product.quantity;
+            const price = (product.precio / newEvent?.dolar) * product.quantity;
             if (product?.promocion?.status && product?.promocion?.descuento > 0) {
                 return total + (price * (1 - product.promocion.descuento / 100));
             }
@@ -169,7 +171,7 @@ const CompraPayPalFinalizada = React.memo(() => {
                                     Cantidad: {product?.quantity || 1}
                                     <span className={style.productQuantity}>x{product?.quantity || 1}</span>
                                 </p>
-                                <p className={style.productPrice}>Precio unitario: ${product?.precio || 0}</p>
+                                <p className={style.productPrice}>Precio unitario: USD${(product?.precio / newEvent?.dolar || 0).toFixed(2)}</p>
                                 {product?.promocion && product.promocion?.status === true && product?.promocion?.descuento > 0 && (
                                     <>
                                         <p className={style.productDiscount}>
@@ -177,13 +179,13 @@ const CompraPayPalFinalizada = React.memo(() => {
                                             Descuento aplicado: {product?.promocion?.descuento}%
                                         </p>
                                         <p className={style.productSubtotal}>
-                                            Subtotal: ${(product?.precio * product?.quantity * (1 - product?.promocion?.descuento / 100)).toFixed(2)}
+                                            Subtotal: USD${((product?.precio / newEvent?.dolar) * product?.quantity * (1 - product?.promocion?.descuento / 100)).toFixed(2)}
                                         </p>
                                     </>
                                 )}
                                 {(!product?.promocion || !product.promocion?.status || product?.promocion?.descuento <= 0) && (
                                     <p className={style.productSubtotal}>
-                                        Subtotal: ${((product?.precio || 0) * (product?.quantity || 1)).toFixed(2)}
+                                        Subtotal: USD${(((product?.precio || 0) / newEvent?.dolar) * (product?.quantity || 1)).toFixed(2)}
                                     </p>
                                 )}
                             </div>
@@ -194,7 +196,7 @@ const CompraPayPalFinalizada = React.memo(() => {
                         className={style.totalAmount}
                         variants={itemVariants}
                     >
-                        Total de la compra: ${newEvent.datosEnvio?.totalPrice || calculateTotal().toFixed(2)}
+                        Total de la compra: USD${newEvent.datosEnvio?.totalPrice || calculateTotal().toFixed(2)}
                     </motion.div>
                 </motion.div>
             );
@@ -269,13 +271,32 @@ const CompraPayPalFinalizada = React.memo(() => {
                             </motion.div>
 
                             <motion.div className={style.detailContainer} variants={itemVariants}>
+                                <p className={style.detailLabel}>Servicio Premium:</p>
+                                <p className={`${style.detailValue} ${style.highlightValue}`}>{newEvent.datosEnvio?.servicioPremium ? 'Sí' : 'No'}</p>
+                            </motion.div>
+
+                            <motion.div className={style.detailContainer} variants={itemVariants}>
                                 <p className={style.detailLabel}>Horario de entrega:</p>
                                 <p className={`${style.detailValue} ${style.highlightValue}`}>{newEvent.datosEnvio?.horario || 'No especificado'}</p>
                             </motion.div>
 
+                            {
+                                newEvent.datosEnvio?.servicioPremium && (
+
+                                    <motion.div className={style.detailContainer} variants={itemVariants}>
+
+                                        <p className={style.detailLabel}>Costo adicional:</p>
+                                        <p className={`${style.detailValue} ${style.highlightValue}`}>USD$ {((newEvent.datosEnvio?.envioPremium || 0) / newEvent?.dolar).toFixed(2)}</p>
+
+                                    </motion.div>
+                                )
+                            }
+
                             <motion.div className={style.detailContainer} variants={itemVariants}>
+
                                 <p className={style.detailLabel}>Costo de envío:</p>
-                                <p className={style.detailValue}>${newEvent.datosEnvio?.precio_envio || 0}</p>
+                                <p className={`${style.detailValue} ${style.highlightValue}`}>USD$ {((newEvent.datosEnvio?.precio_envio || 0) / newEvent?.dolar).toFixed(2)}</p>
+
                             </motion.div>
 
                             <motion.h3
@@ -380,95 +401,252 @@ const CompraPayPalFinalizada = React.memo(() => {
     }
 
     return (
-        <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className={style.ticketContainer}
-            >
-                <h1 className={style.title}>¡Compra Finalizada con Éxito!</h1>
-                <p className={style.subtitle}>¡Gracias por tu compra, {newEvent.datosComprador?.nombreComprador || 'estimado cliente'}!</p>
-                <p className={style.subtitleSmall}>Tu pago mediante PayPal ha sido confirmado y tu pedido está en proceso</p>
-
-                <div className={style.orderNumber}>
-                    <p className={style.orderNumberLabel}>Número de Pedido</p>
-                    <p className={style.orderNumberValue}>#{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}-{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
-                </div>
-
-                <div className={style.iconContainer}>
-                    <Tooltip title="Datos del comprador" arrow placement="top">
-                        <IconButton
-                            className={`${style.iconButton} ${activeSection === 'comprador' ? style.active : ''}`}
-                            onClick={() => setActiveSection('comprador')}
-                            aria-label="Datos del comprador"
+                <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
+                {/* Mantenemos el componente Confetti como solicitado */}
+                <ConfettiComponent
+                    width={typeof window !== 'undefined' ? window.innerWidth : 300}
+                    height={typeof window !== 'undefined' ? window.innerHeight : 200}
+                    recycle={false}
+                    numberOfPieces={isMobile ? 500 : 850}
+                    gravity={0.35}
+                    colors={['#FFD700', '#FF6B6B', '#4ecdc4', '#8A2BE2', '#FF1493']}
+                    tweenDuration={8500}
+                />
+                
+                <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ 
+                        duration: 0.8, 
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15
+                    }}
+                    className={style.ticketContainer}
+                    whileHover={{ boxShadow: isDarkMode ? '0 12px 35px rgba(0, 0, 0, 0.4)' : '0 12px 35px rgba(0, 0, 0, 0.15)' }}
+                >
+                    {/* Banner de éxito con destellos animados */}
+                    <div className={style.successBanner}>
+                        {/* Destellos decorativos */}
+                        <div className={style.sparkle} style={{ top: '20%', left: '15%' }}></div>
+                        <div className={style.sparkle} style={{ top: '50%', right: '10%' }}></div>
+                        <div className={style.sparkle} style={{ bottom: '25%', left: '30%' }}></div>
+                        
+                        {/* Elementos decorativos de fondo */}
+                        <div className={style.decorCircle} style={{ top: '-50px', right: '-30px', opacity: '0.1' }}></div>
+                        <div className={style.decorCircle} style={{ bottom: '-70px', left: '-40px', opacity: '0.15' }}></div>
+                        
+                        <motion.div 
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ 
+                                delay: 0.3, 
+                                duration: 0.8, 
+                                type: "spring", 
+                                stiffness: 200 
+                            }}
+                            className={style.successIcon}
                         >
-                            <FaUser className={style.icon} />
-                        </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Productos comprados" arrow placement="top">
-                        <IconButton
-                            className={`${style.iconButton} ${activeSection === 'producto' ? style.active : ''}`}
-                            onClick={() => setActiveSection('producto')}
-                            aria-label="Productos comprados"
+                            <div className={style.checkmarkWrapper}>
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <motion.path
+                                        initial={{ pathLength: 0 }}
+                                        animate={{ pathLength: 1 }}
+                                        transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}
+                                        d="M20 6L9 17L4 12"
+                                        stroke="currentColor"
+                                        strokeWidth="3"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </div>
+                        </motion.div>
+                    </div>
+                    
+                    {/* Contenido de la confirmación */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7, duration: 0.6 }}
+                        className={style.contentContainer}
+                    >
+                        <div className={style.paypalBadgeContainer}>
+                            <div className={style.paypalBadge}>
+                                <span>PayPal</span>
+                                <CheckCircle className={style.verifiedIcon} />
+                            </div>
+                        </div>
+                        
+                        <motion.h1 
+                            className={style.title}
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.9, duration: 0.5 }}
                         >
-                            <Badge badgeContent={newEvent.products?.length || 0} color="error">
-                                <LocalFloristRoundedIcon className={style.icon} />
-                            </Badge>
-                        </IconButton>
-                    </Tooltip>
-
-                    {newEvent?.retiraEnLocal ? (
-                        <Tooltip title="Retiro en tienda" arrow placement="top">
+                            ¡Gracias por tu compra, {newEvent.datosComprador?.nombreComprador || 'estimado cliente'}!
+                        </motion.h1>
+                        
+                        <motion.p 
+                            className={style.subtitleSmall}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.1, duration: 0.5 }}
+                        >
+                            Tu pago mediante <strong>PayPal</strong> ha sido confirmado y tu pedido está en proceso
+                        </motion.p>
+            
+                        <motion.div 
+                            className={style.orderNumber}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 1.3, duration: 0.5, type: "spring" }}
+                        >
+                            <div className={style.orderNumberContent}>
+                                <p className={style.orderNumberLabel}>Número de Pedido</p>
+                                <p className={style.orderNumberValue}>#{newEvent?.orderNumber}</p>
+                            </div>
+                            <ReceiptLong className={style.receiptIcon} />
+                        </motion.div>
+                    </motion.div>
+            
+                    {/* Tabs de navegación con íconos mejorados */}
+                    <motion.div 
+                        className={style.iconContainer}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.5, duration: 0.5 }}
+                    >
+                        <Tooltip title="Datos del comprador" arrow placement="top">
                             <IconButton
-                                className={`${style.iconButton} ${activeSection === 'envio' ? style.active : ''}`}
-                                onClick={() => setActiveSection('envio')}
-                                aria-label="Retiro en tienda"
+                                className={`${style.iconButton} ${activeSection === 'comprador' ? style.active : ''}`}
+                                onClick={() => setActiveSection('comprador')}
+                                aria-label="Datos del comprador"
                             >
-                                <FaShop className={style.icon} />
+                                <motion.div
+                                    whileHover={{ scale: 1.15 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className={style.iconButtonInner}
+                                >
+                                    <FaUser className={style.icon} />
+                                </motion.div>
                             </IconButton>
                         </Tooltip>
-                    ) : (
-                        <Tooltip title="Detalles del envío" arrow placement="top">
+            
+                        <Tooltip title="Productos comprados" arrow placement="top">
                             <IconButton
-                                className={`${style.iconButton} ${activeSection === 'envio' ? style.active : ''}`}
-                                onClick={() => setActiveSection('envio')}
-                                aria-label="Detalles del envío"
+                                className={`${style.iconButton} ${activeSection === 'producto' ? style.active : ''}`}
+                                onClick={() => setActiveSection('producto')}
+                                aria-label="Productos comprados"
                             >
-                                <FaTruck className={style.icon} />
+                                <motion.div
+                                    whileHover={{ scale: 1.15 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className={style.iconButtonInner}
+                                >
+                                    <Badge 
+                                        badgeContent={newEvent.products?.length || 0} 
+                                        color="error"
+                                        overlap="circular"
+                                        sx={{
+                                            '& .MuiBadge-badge': {
+                                                fontSize: '0.7rem',
+                                                minWidth: '20px',
+                                                height: '20px',
+                                                padding: '0 6px',
+                                            }
+                                        }}
+                                    >
+                                        <LocalFloristRounded className={style.icon} />
+                                    </Badge>
+                                </motion.div>
                             </IconButton>
                         </Tooltip>
-                    )}
-                </div>
-
-                <AnimatePresence mode='wait'>
-                    {renderSection()}
-                </AnimatePresence>
-
-                <p className={style.footerText}>
-                    {
-                        !isMobile && <RiFlowerFill style={{ color: 'var(--compra-accent)', marginRight: '8px' }} />
-                    }
-                    Gracias por confiar en Envío Flores. ¡Esperamos que disfrutes tu compra!
-                </p>
-
-                <Link href={'/'} className={style.logoLink}>
-                    <Image
-                        src={imgLogo}
-                        alt="Logo Envío Flores"
-                        width={150}
-                        height={40}
-                        style={{
-                            objectFit: 'contain',
-                            margin: '0 auto'
-                        }}
-                    />
-                </Link>
-            </motion.div>
-
-            <Comentarios datosComprador={newEvent.datosComprador || {}} />
-        </div>
+            
+                        {newEvent?.retiraEnLocal ? (
+                            <Tooltip title="Retiro en tienda" arrow placement="top">
+                                <IconButton
+                                    className={`${style.iconButton} ${activeSection === 'envio' ? style.active : ''}`}
+                                    onClick={() => setActiveSection('envio')}
+                                    aria-label="Retiro en tienda"
+                                >
+                                    <motion.div
+                                        whileHover={{ scale: 1.15 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={style.iconButtonInner}
+                                    >
+                                        <FaShop className={style.icon} />
+                                    </motion.div>
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip title="Detalles del envío" arrow placement="top">
+                                <IconButton
+                                    className={`${style.iconButton} ${activeSection === 'envio' ? style.active : ''}`}
+                                    onClick={() => setActiveSection('envio')}
+                                    aria-label="Detalles del envío"
+                                >
+                                    <motion.div
+                                        whileHover={{ scale: 1.15 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={style.iconButtonInner}
+                                    >
+                                        <FaTruck className={style.icon} />
+                                    </motion.div>
+                                </IconButton>
+                            </Tooltip>
+                        )}
+                    </motion.div>
+            
+                    {/* Contenido dinámico según la pestaña seleccionada */}
+                    <div className={style.sectionContent}>
+                        <AnimatePresence mode='wait'>
+                            {renderSection()}
+                        </AnimatePresence>
+                    </div>
+            
+                    {/* Footer mejorado */}
+                    <motion.div
+                        className={style.footerContainer}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.7, duration: 0.7 }}
+                    >
+                        <div className={style.footerTextContainer}>
+                            <RiFlowerFill className={style.footerIcon} />
+                            <p className={style.footerText}>
+                                Gracias por confiar en Envío Flores. ¡Esperamos que disfrutes tu compra!
+                            </p>
+                        </div>
+            
+                        <motion.div
+                            whileHover={{ scale: 1.05, rotate: 1 }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                            className={style.logoContainer}
+                        >
+                            <Link href={'/'} className={style.logoLink}>
+                                <div className={style.logoWrapper}>
+                                    <Image
+                                        src={imgLogo}
+                                        alt="Logo Envío Flores"
+                                        width={isMobile ? 100 : 150}
+                                        height={isMobile ? 100 : 150}
+                                        className={style.logoImage}
+                                        style={{
+                                            objectFit: 'contain',
+                                            margin: '0 auto'
+                                        }}
+                                    />
+                                    <span className={style.logoCaption}>Volver a la tienda</span>
+                                </div>
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+            
+                <Comentarios datosComprador={newEvent.datosComprador || {}} />
+            </div>
     );
 });
 

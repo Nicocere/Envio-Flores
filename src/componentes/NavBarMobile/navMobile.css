@@ -1,5 +1,5 @@
 .img-navbar {
-    width: 80px;
+    width: -webkit-fill-available;
     padding: 5px 0;
 }
 

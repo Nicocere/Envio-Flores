@@ -17,6 +17,7 @@ import Convertidor from '../Convertidor/Convertidor';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const NavBarMobile = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -88,7 +89,7 @@ const NavBarMobile = () => {
     height: '90px',
     padding: '0 10px',
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    gridTemplateColumns: '2fr 1fr 2fr',
     alignItems: 'center',
     minHeight: '90px',
     justifyContent: 'space-between',
@@ -142,7 +143,8 @@ const NavBarMobile = () => {
               display: 'flex', 
               justifyContent: 'flex-start', 
               alignItems: 'center',
-              padding: '0 5px'
+              padding: '0 5px',
+              flex: '4'
             }}
             className="searcher-section"
           >
@@ -154,7 +156,8 @@ const NavBarMobile = () => {
             sx={{ 
               display: 'flex', 
               justifyContent: 'center', 
-              alignItems: 'center'
+              alignItems: 'center',
+              flex:'2',
             }}
           >
             <motion.div
@@ -162,7 +165,9 @@ const NavBarMobile = () => {
               className="logo-container"
             >
               <Link href="/">
-                <img 
+                <Image
+                width={85}
+                height={85} 
                   className='img-navbar'
                   src={'/assets/imagenes/logo-envio-flores.png'}
                   alt="logo envio flores"
@@ -177,7 +182,8 @@ const NavBarMobile = () => {
               display: 'flex', 
               justifyContent: 'flex-end', 
               alignItems: 'center',
-              gap: '10px'
+              gap: '10px',
+              flex: '4'
             }}
           >
   

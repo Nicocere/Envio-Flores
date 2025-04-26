@@ -1,3 +1,4 @@
+"use client";
 import { Button, Paper, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 
