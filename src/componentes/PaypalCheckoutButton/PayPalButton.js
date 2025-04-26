@@ -9,7 +9,7 @@ import localforage from 'localforage';
 import { useTheme } from '@/context/ThemeSwitchContext';
 
 // const BACKEND_URL = "https://www.envioflores.com/api";
-const BACKEND_URL = "http://localhost:3000/api";
+const BACKEND_URL = "https://envio-flores.vercel.app/api";
 
 
 const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,

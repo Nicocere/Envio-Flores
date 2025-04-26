@@ -73,7 +73,7 @@ export async function POST(request: Request) {
         try {
             // En producción usar una URL pública
             // const pdfResponse = await fetch('https://www.envioflores.com/api/paypal-pdf-generate', {
-            const pdfResponse = await fetch('http://localhost:3000/api/paypal-pdf-generate', {
+            const pdfResponse = await fetch('https://envio-flores.vercel.app/api/paypal-pdf-generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

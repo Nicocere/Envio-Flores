@@ -112,9 +112,7 @@ const MercadoPagoButton = ({
       // Guardar el bodyMP en localforage
       await localforage.setItem('shoppingCart', bodyMP);
       // Determinar URL según entorno
-      const baseUrl = process.env.NODE_ENV === 'production'
-        ? 'https://www.envioflores.com'
-        : 'http://localhost:3000';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
       const response = await fetch(`${baseUrl}/api/mercadopago/payment`, {
         method: 'POST',
