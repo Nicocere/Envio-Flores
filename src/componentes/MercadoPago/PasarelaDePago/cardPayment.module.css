@@ -1,0 +1,586 @@
+.cardPaymentContainer {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-primary, 'Roboto, sans-serif');
+  transition: all 0.3s ease-in-out;
+}
+
+/* Modo oscuro para el contenedor principal */
+.darkMode {
+  background-color: #262626;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  color: #e0e0e0;
+}
+
+.mercadoPagoLogo{
+    color: #8b0000;
+}
+
+.darkMode .mercadoPagoLogo{
+    color: #ff5252;
+}
+
+/* Cabecera de pago */
+.paymentHeader {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.securityBadge {
+  background-color: #f0f9ff;
+  color: #0369a1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.1);
+}
+
+.darkMode .securityBadge {
+  background-color: #1e3a5f;
+  color: #90caf9;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.25);
+}
+
+.paymentTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.darkMode .paymentTitle {
+  color: #f0f0f0;
+}
+
+.paymentSummary {
+  background-color: #f9f9f9;
+  padding: 1.25rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeaea;
+}
+
+.darkMode .paymentSummary {
+  background-color: #333333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-color: #444444;
+}
+
+.orderSummaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.orderSummaryHeader h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+}
+
+.darkMode .orderSummaryHeader h3 {
+  color: #e0e0e0;
+}
+
+.infoButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.infoButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #8b0000;
+}
+
+.darkMode .infoButton {
+  color: #aaa;
+}
+
+.darkMode .infoButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff5252;
+}
+
+.orderDetails {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #e0e0e0;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.darkMode .orderDetails {
+  border-color: #444;
+}
+
+.orderGroup {
+  margin-bottom: 1rem;
+}
+
+.orderLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.darkMode .orderLine {
+  color: #bbb;
+}
+
+.deliveryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  padding-top: 0.5rem;
+}
+
+.darkMode .deliveryInfo {
+  color: #aaa;
+}
+
+.deliveryDetail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.totalAmount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-top: 0.5rem;
+  color: #333;
+}
+
+.darkMode .totalAmount {
+  color: #f0f0f0;
+}
+
+.totalPrice {
+  color: #8b0000;
+  font-size: 1.25rem;
+}
+
+.darkMode .totalPrice {
+  color: #ff5252;
+}
+
+.detailItem {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.darkMode .detailItem {
+  color: #aaa;
+}
+
+/* Contenedor de MercadoPago */
+.mercadoPagoContainer {
+  position: relative;
+  min-height: 350px;
+  margin: 1.5rem 0;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Estados de carga y procesamiento */
+.spinnerContainer,
+.processingContainer,
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fcfcfc;
+  border: 1px dashed #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.darkMode .spinnerContainer,
+.darkMode .processingContainer {
+  background-color: #333;
+  border-color: #444;
+}
+
+.darkMode .errorContainer {
+  background-color: rgba(244, 67, 54, 0.1);
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.loadingText,
+.processingMessage {
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.darkMode .loadingText,
+.darkMode .processingMessage {
+  color: #e0e0e0;
+}
+
+.loadingHint {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
+}
+
+.darkMode .loadingHint {
+  color: #aaa;
+}
+
+/* Contenedor de procesamiento con estilo mejorado */
+.processingContainer {
+  background: linear-gradient(145deg, #f8f9fc, #edf0f7);
+}
+
+.darkMode .processingContainer {
+  background: linear-gradient(145deg, #2c2c2c, #262626);
+}
+
+.processingContent {
+  width: 100%;
+  max-width: 400px;
+}
+
+.processingSteps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.processingSteps::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  right: 15px;
+  height: 2px;
+  background-color: #e0e0e0;
+  z-index: 0;
+  transition: background-color 0.3s ease;
+}
+
+.darkMode .processingSteps::before {
+  background-color: #444;
+}
+
+.processingStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+.processingStep svg {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-bottom: 8px;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+.darkMode .processingStep svg {
+  background-color: #2c2c2c;
+  border-color: #555;
+  color: #aaa;
+}
+
+.processingStep span {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.darkMode .processingStep span {
+  color: #aaa;
+}
+
+.processingStep.active svg {
+  border-color: #8b0000;
+  color: #8b0000;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.2);
+}
+
+.darkMode .processingStep.active svg {
+  border-color: #ff5252;
+  color: #ff5252;
+  box-shadow: 0 0 0 3px rgba(255, 82, 82, 0.2);
+}
+
+.processingStep.active span {
+  color: #8b0000;
+  font-weight: 600;
+}
+
+.darkMode .processingStep.active span {
+  color: #ff5252;
+}
+
+/* Contenedor de error */
+.errorContainer {
+  background-color: #fff1f0;
+  border-color: #ffccc7;
+}
+
+.errorContainer svg {
+  color: #cf1322;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.darkMode .errorContainer svg {
+  color: #ff4d4f;
+}
+
+.errorContainer p {
+  color: #cf1322;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.darkMode .errorContainer p {
+  color: #ff4d4f;
+}
+
+.retryButton {
+  background-color: #8b0000;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.retryButton:hover {
+  background-color: #6b0000;
+  transform: translateY(-2px);
+}
+
+.darkMode .retryButton {
+  background-color: #ff5252;
+}
+
+.darkMode .retryButton:hover {
+  background-color: #d32f2f;
+}
+
+/* Información de seguridad en el pie */
+.securityInfo {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  transition: border-color 0.3s ease;
+}
+
+.darkMode .securityInfo {
+  border-color: #444;
+}
+
+.securityItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.securityItem:hover {
+  color: #8b0000;
+}
+
+.darkMode .securityItem {
+  color: #aaa;
+}
+
+.darkMode .securityItem:hover {
+  color: #ff5252;
+}
+
+.securityItem svg {
+  color: #8b0000;
+  transition: color 0.3s ease;
+}
+
+.darkMode .securityItem svg {
+  color: #ff5252;
+}
+
+/* Logo de proveedor de pago */
+.paymentProviderInfo {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.paymentProviderInfo p {
+  font-size: 0.8rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.darkMode .paymentProviderInfo p {
+  color: #aaa;
+}
+
+.mpLogo {
+  /* height: 30px; */
+  object-fit: contain;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.mpLogo:hover {
+  opacity: 1;
+}
+
+.paymentAssurance {
+  font-size: 0.75rem !important;
+  font-style: italic;
+  margin-top: 0.5rem !important;
+  color: #777 !important;
+}
+
+.darkMode .paymentAssurance {
+  color: #999 !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cardPaymentContainer {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .paymentTitle {
+    font-size: 1.5rem;
+  }
+  
+  .processingSteps {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .processingSteps::before {
+    display: none;
+  }
+  
+  .securityInfo {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .orderSummaryHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(139, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 0, 0, 0);
+  }
+}
+
+.processingStep.active svg {
+  animation: pulse 2s infinite;
+}
+
+.darkMode .processingStep.active svg {
+  animation: darkPulse 2s infinite;
+}
+
+@keyframes darkPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+  }
+}
+
+/* Ajustes para redimensión de pantalla y accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .processingStep.active svg,
+  .darkMode .processingStep.active svg {
+    animation: none;
+  }
+  
+  .retryButton:hover {
+    transform: none;
+  }
+}

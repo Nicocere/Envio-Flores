@@ -113,274 +113,632 @@ export async function POST(request: Request) {
 
         // Crear el contenido del correo para el comprador
         const compradorHtml = `
-    <div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
-    <div style="text-align: center;">
-        <img src="${imgLogo}" alt="Logo Envío Flores" style="width: 300px; margin-bottom: 20px;">
-    </div>
-    <h2 style="color: #A70000; text-align: center; font-family: "Nexa", sans-serif;">¡Felicidades ${nombreComprador || 'estimado cliente'}!</h2>
-    <p style="color: #333333; text-align: center;">Tu compra a través de PayPal ha sido procesada exitosamente.</p>
-    <p style="color: #333333; text-align: center; font-weight: 600;">Tu pedido está en preparación, número de orden: <span style="color: #A70000; font-weight: 700;">${newCode}</span></p>
-    <p style="color: #333333; text-align: center;">A continuación encontrarás todos los detalles de tu compra:</p>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Confirmación de Compra - Envío Flores</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body style="font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
+        <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; margin-bottom: 20px;">
+            <!-- Cabecera -->
+            <div style="background: linear-gradient(135deg, #A70000 0%, #800000 100%); padding: 25px 20px; text-align: center;">
+                <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 220px; height: auto;">
+                <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px; font-weight: 600;">¡Tu compra ha sido confirmada!</h1>
+            </div>
 
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
+            <!-- Contenido principal -->
+            <div style="padding: 30px 25px;">
+                <div style="background-color: #f5f5f5; border-left: 4px solid #A70000; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                    <p style="margin: 0; color: #333333; font-size: 16px;">
+                        <span style="font-weight: 600;">Orden #${newCode}</span> - ${formattedDate}
+                    </p>
+                    
+                    <p style="margin: 10px 0 0; color: #666666; font-size: 14px;">
+                        ID de Pago PayPal: ${orderID}
+                    </p>
+                </div>
 
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Detalles de la Transacción PayPal:</h3>
-    <ul style="list-style: none; padding: 0; background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">ID de Orden PayPal:</strong> ${orderID}</li>
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Estado:</strong> ${status}</li>
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Email PayPal:</strong> ${payerEmail}</li>
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Fecha de compra:</strong> ${formattedDate}</li>
-    </ul>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Tus datos:</h3>
-    <ul style="list-style: none; padding: 0; background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Nombre completo:</strong> ${nombreComprador} ${apellidoComprador || ''}</li>
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Teléfono:</strong> ${tel_comprador}</li>
-        <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Email:</strong> ${emailComprador || payerEmail}</li>
-    </ul>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Productos adquiridos:</h3>
-    <div style="background-color: #FFF5F5; padding: 15px; border-radius: 8px;">
-        ${products.length === 0 ? 
-            '<p style="text-align: center; color: #333333;">No hay productos registrados</p>' : 
-            products.map((product: any) => {
-                // Validar producto
-                const {
-                    img = "https://via.placeholder.com/50",
-                    name = "Producto",
-                    quantity = 1,
-                    precio = 0,
-                    promocion = null
-                } = product || {};
+                <h2 style="color: #A70000; font-size: 20px; margin-top: 0; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">¡Hola, ${nombreComprador}!</h2>
                 
-                // Calcular precio en USD
-                const precioNumerico = Number(precio);
-                const cotizacionDolar = Number(dolar);
-                const precioUSD = (!isNaN(precioNumerico) && !isNaN(cotizacionDolar) && cotizacionDolar !== 0) 
-                    ? (precioNumerico / cotizacionDolar).toFixed(2) 
-                    : '0.00';
+                <p style="color: #333333; line-height: 1.6; margin-bottom: 20px;">
+                    Queremos agradecerte por tu compra. Tu pedido ha sido confirmado y lo estamos preparando con mucho cariño para entregarlo en la fecha solicitada.
+                </p>
                 
-                // Verificar descuento
-                const tieneDescuento = promocion && promocion.status === true && promocion.descuento > 0;
-                
-                return `
-                <div style="border-bottom: 1px solid #E0E0E0; padding: 15px 0; display: flex; align-items: center;">
-                    <img src="${img}" alt="${name}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #E0E0E0;">
-                    <div>
-                        <p style="font-weight: 600; color: #A70000; margin: 0 0 5px 0;">${name}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Cantidad:</strong> ${quantity}</p>
-                        <p style="margin: 0 0 5px 0;">
-                            <strong>Precio unitario:</strong> 
-                            U$D ${precioUSD}
-                        </p>  
-                        ${tieneDescuento ? 
-                            `<p style="margin: 0 0 5px 0; color: #00C853;"><strong>Descuento aplicado:</strong> ${promocion.descuento}%</p>` : 
-                            ''}
+                <div style="background-color: #e9f7ef; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <div style="background-color: #28a745; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                            <span style="color: white; font-weight: bold; font-size: 14px;">✓</span>
+                        </div>
+                        <h3 style="margin: 0; color: #28a745; font-size: 16px;">Pago Aprobado</h3>
+                    </div>
+                    <p style="margin: 0; color: #333333; font-size: 14px;">
+                        Tu pago con PayPal ha sido procesado y aprobado exitosamente.
+                    </p>
+                </div>
+
+                <!-- Detalles de pago con PayPal -->
+                <div style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                    <h3 style="color: #A70000; font-size: 18px; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+                        Detalles del Pago
+                    </h3>
+                    
+                    <div style="display: flex; flex-wrap: wrap; margin-bottom: 15px;">
+                        <div style="flex-basis: 50%; margin-bottom: 10px;">
+                            <p style="color: #666; font-size: 13px; margin: 0 0 3px;">Método de pago</p>
+                            <p style="color: #333; font-size: 15px; font-weight: 500; margin: 0;">
+                                PayPal
+                            </p>
+                        </div>
+                        <div style="flex-basis: 50%; margin-bottom: 10px;">
+                            <p style="color: #666; font-size: 13px; margin: 0 0 3px;">Estado</p>
+                            <p style="color: #28a745; font-size: 15px; font-weight: 600; margin: 0;">
+                                ${status}
+                            </p>
+                        </div>
+                        <div style="flex-basis: 50%; margin-bottom: 10px;">
+                            <p style="color: #666; font-size: 13px; margin: 0 0 3px;">Email PayPal</p>
+                            <p style="color: #333; font-size: 15px; font-weight: 500; margin: 0;">
+                                ${payerEmail}
+                            </p>
+                        </div>
+                        <div style="flex-basis: 50%; margin-bottom: 10px;">
+                            <p style="color: #666; font-size: 13px; margin: 0 0 3px;">Nombre</p>
+                            <p style="color: #333; font-size: 15px; font-weight: 500; margin: 0;">
+                                ${givenName} ${surname}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: #fff; border-radius: 6px; padding: 10px; border: 1px dashed #ddd;">
+                        <p style="color: #666; font-size: 13px; margin: 0 0 3px;">Fecha de aprobación</p>
+                        <p style="color: #333; font-size: 14px; margin: 0;">${formattedDate}</p>
                     </div>
                 </div>
-                `;
-            }).join('')
-        }
-    </div>
 
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
+                <!-- Resumen de la compra -->
+                <h3 style="color: #A70000; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">
+                    Resumen de tu Compra
+                </h3>
 
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif; text-align: center;">
-        ${retiraEnLocal ? 'Información para retiro en tienda' : 'Detalles del envío'}
-    </h3>
+                <!-- Productos -->
+                <div style="margin-bottom: 25px;">
+                    ${products.length === 0 ? 
+                    '<p style="text-align: center; color: #333333;">No hay productos registrados</p>' : 
+                    products.map((product: any) => {
+                        // Validar producto
+                        const {
+                            img = "https://via.placeholder.com/50",
+                            name = "Producto",
+                            quantity = 1,
+                            precio = 0,
+                            promocion = null
+                        } = product || {};
+                        
+                        // Calcular precio en USD
+                        const precioNumerico = Number(precio);
+                        const cotizacionDolar = Number(dolar);
+                        const precioUSD = (!isNaN(precioNumerico) && !isNaN(cotizacionDolar) && cotizacionDolar !== 0) 
+                            ? (precioNumerico / cotizacionDolar).toFixed(2) 
+                            : '0.00';
+                        
+                        // Verificar descuento
+                        const tieneDescuento = promocion && promocion.status === true && promocion.descuento > 0;
+                        
+                        return `
+                        <div style="display: flex; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+                            <img src="${img}" alt="${name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; margin-right: 15px;">
+                            <div style="flex-grow: 1;">
+                                <h4 style="margin: 0 0 5px; color: #333333; font-size: 16px;">${name}</h4>
+                                <p style="margin: 0 0 5px; color: #666666; font-size: 14px;">Cantidad: ${quantity}</p>
+                                <p style="margin: 0; color: #A70000; font-size: 15px; font-weight: 600;">U$D ${precioUSD}</p>
+                                ${tieneDescuento ? 
+                                    `<p style="margin: 5px 0 0; color: #28a745; font-size: 13px;">
+                                        Descuento: ${promocion.descuento}%
+                                    </p>` : ''}
+                            </div>
+                        </div>
+                        `;
+                    }).join('')}
+                </div>
 
-    ${retiraEnLocal ? `
-        <div style="background-color: #FFF5F5; color: #333333; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-            <p><strong>Has elegido retirar tu pedido personalmente en nuestra tienda</strong></p>
-            <p><strong>Fecha de retiro:</strong> ${fecha}</p>
-            <p><strong>Horario:</strong> ${horario}</p>
-            
-            <div style="margin: 20px 0; padding: 15px; border: 1px dashed #A70000; border-radius: 8px;">
-                <h4 style="color: #A70000; margin-top: 0;">Dirección de nuestra tienda</h4>
-                <p>Av. Crámer 1915, Belgrano - Ciudad Autónoma de Buenos Aires</p>
-                <p>Te esperamos con tu pedido listo en la fecha y horario seleccionados</p>
+                <!-- Detalles del envío -->
+                <h3 style="color: #A70000; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">
+                    ${retiraEnLocal ? 'Detalles del Retiro' : 'Detalles del Envío'}
+                </h3>
+
+                ${retiraEnLocal ? `
+                    <div style="background-color: #fff5f5; border-radius: 8px; padding: 20px; margin-bottom: 25px; border: 1px dashed #ffcdd2;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <span style="display: inline-block; background-color: #A70000; color: white; border-radius: 50px; padding: 8px 20px; font-size: 14px; font-weight: 600;">
+                                RETIRO EN TIENDA
+                            </span>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px; text-align: center;">
+                            <p style="margin: 0 0 5px; color: #333; font-size: 15px;">
+                                <strong>Fecha de retiro:</strong> ${fecha}
+                            </p>
+                            <p style="margin: 0; color: #333; font-size: 15px;">
+                                <strong>Horario:</strong> ${horario}
+                            </p>
+                        </div>
+
+                        <div style="background-color: #350000; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                            <h4 style="color: #ff4d4d; margin-top: 0; margin-bottom: 10px; text-align: center; font-size: 16px;">
+                                Tu Dedicatoria
+                            </h4>
+                            <p style="color: white; margin: 0; line-height: 1.5; text-align: center; font-style: italic;">
+                                ${dedicatoria !== "Sin dedicatoria" ? `"${dedicatoria}"` : 'No se incluyó dedicatoria para este pedido.'}
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <h4 style="color: #A70000; text-align: center; margin-top: 0; margin-bottom: 10px; font-size: 16px;">
+                                Nuestra Ubicación
+                            </h4>
+                            <p style="text-align: center; font-weight: 500; margin-bottom: 15px; color: #333;">
+                                Av. Crámer 1915, Belgrano, CABA
+                            </p>
+                            <iframe 
+                                width="100%" 
+                                height="200" 
+                                frameborder="0" 
+                                style="border:0; border-radius: 8px;" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.4946009088108!2d-58.46220712511634!3d-34.566349655524135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d6f32252a9%3A0xe6ccbfb70807bab0!2sAv.%20Cr%C3%A1mer%201915%2C%20C1428CTC%20CABA!5e0!3m2!1ses!2sar!4v1698074048732!5m2!1ses!2sar" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                ` : `
+                    <div style="background-color: #fff5f5; border-radius: 8px; padding: 20px; margin-bottom: 25px; border: 1px dashed #ffcdd2;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <span style="display: inline-block; background-color: #A70000; color: white; border-radius: 50px; padding: 8px 20px; font-size: 14px; font-weight: 600;">
+                                ENVÍO A DOMICILIO
+                            </span>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px; width: 40%;">Destinatario:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${nombreDestinatario} ${apellidoDestinatario}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Teléfono:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${phoneDestinatario}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Fecha de entrega:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${fecha}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Horario:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${horario}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Localidad:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${localidad.name}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Dirección:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        ${calle} ${altura}${piso ? `, ${piso}` : ''}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Costo de envío:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        U$D ${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}
+                                    </td>
+                                </tr>
+                                ${servicioPremium ? `
+                                <tr>
+                                    <td style="padding: 8px 0; color: #666; font-size: 14px;">Servicio Premium:</td>
+                                    <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                        Incluido (costo: U$D ${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium})
+                                    </td>
+                                </tr>
+                                ` : ''}
+                            </table>
+                        </div>
+
+                        <div style="background-color: #350000; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <h4 style="color: #ff4d4d; margin-top: 0; margin-bottom: 10px; text-align: center; font-size: 16px;">
+                                Tu Dedicatoria
+                            </h4>
+                            <p style="color: white; margin: 0; line-height: 1.5; text-align: center; font-style: italic;">
+                                ${dedicatoria !== "Sin dedicatoria" ? `"${dedicatoria}"` : 'No se incluyó dedicatoria para este pedido.'}
+                            </p>
+                        </div>
+                    </div>
+                `}
+
+                <!-- Total -->
+                <div style="background-color: #A70000; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 25px;">
+                    <h3 style="color: white; margin: 0; font-size: 18px;">Total pagado: U$D ${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}</h3>
+                </div>
+
+                <!-- Seguimiento del pedido -->
+                <div style="background-color: #FFF9F9; padding: 20px; border-radius: 8px; margin: 30px 0; border: 1px solid #ffcaca; text-align: center;">
+                    <h3 style="color: #A70000; margin-top: 0; font-size: 20px;">Seguimiento de tu pedido</h3>
+                    <p style="text-align: center; margin-bottom: 5px; line-height: 1.6;">Puedes consultar el estado de tu pedido respondiendo a este email o contactándonos vía WhatsApp.</p>
+                    <p style="text-align: center; margin-bottom: 15px; line-height: 1.6;">Para cualquier consulta, menciona tu número de orden: <strong style="color: #A70000;">#${newCode}</strong></p>
+                    <a href="https://envioflores.com/mi-pedido/${newCode}" style="display: inline-block; background-color: #A70000; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: bold; box-shadow: 0 3px 8px rgba(167, 0, 0, 0.2);">Ver estado de mi pedido</a>
+                </div>
+
+                <!-- Información adicional -->
+                <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                    <h3 style="color: #A70000; margin-top: 0; margin-bottom: 15px; font-size: 18px; text-align: center;">¿Necesitas ayuda?</h3>
+                    <p style="margin: 0 0 10px; color: #555; line-height: 1.6; text-align: center;">
+                        Si tienes alguna pregunta sobre tu compra, no dudes en contactarnos:
+                    </p>
+                    <ul style="padding-left: 20px; margin: 15px auto; max-width: 400px;">
+                        <li style="margin-bottom: 8px; color: #555;">WhatsApp: +54 11 3140-8060</li>
+                        <li style="margin-bottom: 8px; color: #555;">Email: info@envioflores.com</li>
+                        <li style="color: #555;">Horario de atención: Lunes a Sábado de 7:00 a 18:00 hs</li>
+                    </ul>
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+                        <a href="https://api.whatsapp.com/send?phone=+5491131408060&text=Hola,%20tengo%20una%20consulta%20sobre%20mi%20pedido%20%23${newCode}" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold;">Contactar por WhatsApp</a>
+                        <a href="mailto:info@envioflores.com" style="display: inline-block; background-color: #D44638; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold;">Enviar Email</a>
+                    </div>
+                </div>
+
+                <p style="color: #555; font-style: italic; text-align: center; margin-top: 30px; margin-bottom: 5px;">
+                    ¡Gracias por confiar en Envío Flores para tus momentos especiales!
+                </p>
+                <p style="color: #A70000; font-weight: 600; text-align: center; margin-top: 5px; margin-bottom: 20px;">
+                    Equipo Envío Flores
+                </p>
             </div>
-            
-            <div style="margin-top: 20px; padding: 20px; border-radius: 8px; background-color: #F8F8F8; text-align: left;">
-                <h4 style="color: #A70000; margin-top: 0;">Dedicatoria:</h4>
-                <p style="font-style: italic; background-color: white; padding: 10px; border-radius: 8px; border-left: 3px solid #A70000;">${dedicatoria}</p>
-            </div>
-        </div>
-    ` : `
-        <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <p style="text-align: center; margin-bottom: 15px;">Tu pedido será entregado en la siguiente dirección:</p>
-            
-            <div style="padding: 15px; background-color: white; border-radius: 8px; margin-bottom: 15px;">
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Destinatario:</strong> ${nombreDestinatario} ${apellidoDestinatario}</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Teléfono:</strong> ${phoneDestinatario}</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Dirección completa:</strong> ${calle} ${altura} ${piso ? `- ${piso}` : ''}</li>
-                    <li style="margin-bottom: 10px;"><strong style="color: #A70000;">Localidad:</strong> ${localidad.name}</li>
-                </ul>
-            </div>
-            
-            <div style="padding: 15px; background-color: white; border-radius: 8px; margin-bottom: 15px; border-left: 3px solid #A70000;">
-                <p><strong style="color: #A70000;">Fecha de entrega:</strong> ${fecha}</p>
-                <p><strong style="color: #A70000;">SERVICIO PREMIUM:</strong> ${servicioPremium ? 'SI' : 'NO'}</p>
-                ${servicioPremium ? `<p><strong style="color: #A70000;">Costo adicional:</strong> U$D ${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium}</p>` : ''}
+
+            <!-- Footer -->
+            <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
+                <a href="https://envioflores.com" style="display: inline-block; margin-bottom: 15px;">
+                    <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
+                </a>
                 
-                <p><strong style="color: #A70000;">Horario:</strong> ${horario}</p>
-                <p><strong style="color: #A70000;">Costo de envío:</strong> U$D ${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}</p>
-            </div>
-            
-            <div style="margin-top: 20px; padding: 20px; border-radius: 8px; background-color: #F8F8F8;">
-                <h4 style="color: #A70000; margin-top: 0;">Dedicatoria:</h4>
-                <p style="font-style: italic; background-color: white; padding: 10px; border-radius: 8px; border-left: 3px solid #A70000;">${dedicatoria}</p>
+                <div style="margin-bottom: 15px;">
+                    <a href="https://facebook.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Facebook</a>
+                    <a href="https://instagram.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Instagram</a>
+                    <a href="https://envioflores.com" style="text-decoration: none; color: #A70000; margin: 0 10px;">Sitio web</a>
+                </div>
+                
+                <p style="color: #777; font-size: 12px; margin: 0;">
+                    &copy; ${new Date().getFullYear()} Envío Flores. Todos los derechos reservados.
+                </p>
             </div>
         </div>
-    `}
-
-    <div style="text-align: center; background-color: #A70000; color: white; padding: 15px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0; color: white;">Total de la compra: U$D ${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}</h3>
-    </div>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    <div style="text-align: center; padding: 20px; background-color: #FFF5F5; border-radius: 8px;">
-        <h4 style="color: #A70000; margin-top: 0;">¡Gracias por confiar en Envío Flores!</h4>
-        <p>Nos esforzamos por entregar la mejor calidad y servicio en cada pedido.</p>
-        <p>Si tienes alguna duda o consulta, no dudes en contactarnos por WhatsApp o email.</p>
-        <p><strong style="color: #A70000;">¡Esperamos que disfrutes tu compra!</strong></p>
-    </div>
-
-    <div style="text-align: center; margin-top: 30px;">
-        <a href="https://envioflores.com" style="text-decoration: none;">            
-            <img src="${imgLogo}" alt="Logo Envío Flores" style="width: 150px; margin-bottom: 10px;">
-        </a>
-    </div>
-    
-    <div style="background-color: #FFF5F5; padding: 10px; text-align: center; margin: 20px 0; border-radius: 8px;">
-        <p style="margin: 0; color: #A70000;"><em>Equipo Envío Flores</em></p>
-        <p style="margin: 5px 0 0 0; font-size: 12px; color: #666666;">Av. Crámer 1915, Belgrano - CABA</p>
-    </div>
-</div>
+    </body>
+    </html>
 `;
 
         // Crear el contenido del correo para el vendedor
         const vendedorHtml = `
-<div style="font-family: "Nexa", sans-serif; color: #333333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #E0E0E0; border-radius: 12px; background-color: #FFFFFF;">
-    <div style="text-align: center;">
-        <img src="${imgLogo}" alt="Logo Envío Flores" style="width: 250px; margin-bottom: 20px;">
-    </div>
-    
-    <div style="background-color: #A70000; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: center; color: white;">
-        <h2 style="color: white; font-family: "Nexa", sans-serif; margin: 0; font-size: 24px;">¡Nueva venta por PayPal!</h2>
-        <p style="margin: 10px 0 0 0;">Orden #${newCode} - ${formattedDate}</p>
-    </div>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nueva Venta - Envío Flores</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body style="font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f9f9f9;">
+        <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; margin-bottom: 20px;">
+            <!-- Cabecera -->
+            <div style="background: linear-gradient(135deg, #A70000 0%, #800000 100%); padding: 25px 20px; text-align: center;">
+                <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 220px; height: auto;">
+                <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px; font-weight: 600;">¡NUEVA VENTA POR PAYPAL!</h1>
+                <p style="color: #ffffff; opacity: 0.9; margin: 10px 0 0;">Orden #${newCode} - ${formattedDate}</p>
+            </div>
 
-    <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">Detalles de PayPal:</h3>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>ID de Orden PayPal:</strong> ${orderID}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>Email PayPal:</strong> ${payerEmail}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>Nombre PayPal:</strong> ${givenName} ${surname}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong>Estado:</strong> ${status}</li>
-            <li style="padding: 8px 0;"><strong>Fecha de Pago:</strong> ${formattedDate}</li>
-        </ul>
-    </div>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Información del Comprador:</h3>
-    <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Nombre:</strong> ${nombreComprador} ${apellidoComprador || ''}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Email:</strong> ${emailComprador || payerEmail}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Teléfono:</strong> ${tel_comprador}</li>
-            <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Monto en USD:</strong> $${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}</li>
-            <li style="padding: 8px 0;"><strong style="color: #A70000;">Cotización ARS:</strong> $${dolar}</li>
-        </ul>
-    </div>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Productos:</h3>
-    <div style="background-color: #FFF5F5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-        ${products.length === 0 ? 
-            '<p style="text-align: center;">No hay productos registrados</p>' : 
-            products.map((product: any) => {
-                // Validar producto
-                const {
-                    img = "https://via.placeholder.com/50",
-                    name = "Producto",
-                    quantity = 1,
-                    size = "No especificado"
-                } = product || {};
-                
-                return `
-                <div style="border-bottom: 1px solid #E0E0E0; padding: 15px 0; display: flex; align-items: center;">
-                    <img src="${img}" alt="${name}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #E0E0E0;">
-                    <div>
-                        <p style="font-weight: 600; color: #A70000; margin: 0 0 5px 0;">${name}</p>
-                        <p style="margin: 0 0 5px 0;"><strong>Cantidad:</strong> ${quantity}</p>
-                        <p style="margin: 0;"><strong>Tamaño:</strong> ${size}</p>
-                    </div>
+            <!-- Contenido principal -->
+            <div style="padding: 30px 25px;">
+                <div style="background-color: #e9f7ef; border-radius: 8px; padding: 15px; margin-bottom: 25px; text-align: center;">
+                    <h2 style="color: #28a745; margin-top: 0; margin-bottom: 10px; font-size: 20px;">
+                        ¡Pago Aprobado con PayPal!
+                    </h2>
+                    <p style="margin: 0; color: #333; font-size: 15px;">
+                        El pago ha sido procesado exitosamente
+                    </p>
                 </div>
-                `;
-            }).join('')
-        }
-    </div>
 
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
+                <!-- Información del cliente -->
+                <h3 style="color: #A70000; font-size: 18px; margin-top: 0; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">
+                    Información del Cliente
+                </h3>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+                    <tr>
+                        <td style="padding: 8px 0; color: #666; font-size: 14px; width: 40%;">Nombre:</td>
+                        <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                            ${nombreComprador} ${apellidoComprador}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; color: #666; font-size: 14px;">Email:</td>
+                        <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                            ${emailComprador || payerEmail}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; color: #666; font-size: 14px;">Teléfono:</td>
+                        <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                            ${tel_comprador}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; color: #666; font-size: 14px;">Fecha de compra:</td>
+                        <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                            ${formattedDate}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; color: #666; font-size: 14px;">Método de entrega:</td>
+                        <td style="padding: 8px 0; color: #A70000; font-weight: 600; font-size: 14px;">
+                            ${retiraEnLocal ? 'RETIRO EN TIENDA' : 'ENVÍO A DOMICILIO'}
+                        </td>
+                    </tr>
+                </table>
 
-    ${retiraEnLocal ? `
-        <div style="text-align: center; background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">RETIRA EN LOCAL</h3>
-            <p><strong>Fecha:</strong> ${fecha}</p>
-            <p><strong>Horario:</strong> ${horario}</p>
+                <!-- Detalles del pago PayPal -->
+                <div style="background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                    <h3 style="color: #A70000; font-size: 18px; margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+                        Información del Pago PayPal
+                    </h3>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px; width: 40%;">ID de Orden PayPal:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                ${orderID}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Email PayPal:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                ${payerEmail}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Nombre PayPal:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                ${givenName} ${surname}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Estado:</td>
+                            <td style="padding: 8px 0; color: #28a745; font-weight: 600; font-size: 14px;">
+                                ${status}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Monto en USD:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                U$D ${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Monto en ARS:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                $${typeof totalPrice === 'number' && typeof dolar === 'number' ? (totalPrice * dolar).toLocaleString('es-AR') : 'No calculado'}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 0; color: #666; font-size: 14px;">Cotización ARS:</td>
+                            <td style="padding: 8px 0; color: #333; font-weight: 500; font-size: 14px;">
+                                $${dolar}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
+                <!-- Resumen de productos -->
+                <h3 style="color: #A70000; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">
+                    Productos Comprados
+                </h3>
+
+                <div style="margin-bottom: 25px;">
+                    ${products.length === 0 ? 
+                    '<p style="text-align: center; color: #333333;">No hay productos registrados</p>' : 
+                    products.map((product: any) => {
+                        // Validar producto
+                        const {
+                            img = "https://via.placeholder.com/50",
+                            name = "Producto",
+                            quantity = 1,
+                            precio = 0,
+                            promocion = null
+                        } = product || {};
+                        
+                        // Calcular precio en USD
+                        const precioNumerico = Number(precio);
+                        const cotizacionDolar = Number(dolar);
+                        const precioUSD = (!isNaN(precioNumerico) && !isNaN(cotizacionDolar) && cotizacionDolar !== 0) 
+                            ? (precioNumerico / cotizacionDolar).toFixed(2) 
+                            : '0.00';
+                        
+                        // Verificar descuento
+                        const tieneDescuento = promocion && promocion.status === true && promocion.descuento > 0;
+                        const descuentoUSD = tieneDescuento && !isNaN(precioNumerico) && !isNaN(promocion.descuento) && !isNaN(cotizacionDolar) && cotizacionDolar !== 0
+                            ? ((precioNumerico * promocion.descuento / 100) / cotizacionDolar).toFixed(2)
+                            : 0;
+
+                        const subtotalUSD = tieneDescuento && !isNaN(precioNumerico) && !isNaN(promocion.descuento) && !isNaN(cotizacionDolar) && cotizacionDolar !== 0
+                            ? ((precioNumerico - (precioNumerico * promocion.descuento / 100)) / cotizacionDolar).toFixed(2)
+                            : precioUSD;
+                        
+                        return `
+                        <div style="display: flex; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+                            <img src="${img}" alt="${name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; margin-right: 15px;">
+                            <div style="flex-grow: 1;">
+                                <h4 style="margin: 0 0 5px; color: #333333; font-size: 16px;">${name}</h4>
+                                <p style="margin: 0 0 5px; color: #666666; font-size: 14px;">Cantidad: ${quantity}</p>
+                                <p style="margin: 0; color: #A70000; font-size: 15px; font-weight: 600;">U$D ${precioUSD}</p>
+                                ${tieneDescuento ? 
+                                    `<div style="margin-top: 8px; background-color: #f8f4ff; padding: 8px 12px; border-radius: 5px; display: inline-block;">
+                                        <p style="margin: 0; color: #3a7e1a;"><strong>Descuento aplicado:</strong> ${promocion.descuento}% (U$D ${descuentoUSD})</p>
+                                        <p style="margin: 5px 0 0; font-weight: bold;">Subtotal: U$D ${subtotalUSD}</p>
+                                    </div>` 
+                                    : `<p style="margin: 5px 0 0; font-weight: bold;">Subtotal: U$D ${precioUSD}</p>`}
+                            </div>
+                        </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <!-- Detalles de entrega -->
+                <h3 style="color: #A70000; font-size: 18px; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eaeaea; padding-bottom: 10px;">
+                    ${retiraEnLocal ? 'Información del Retiro' : 'Información de Entrega'}
+                </h3>
+
+                ${retiraEnLocal ? `
+                    <div style="background-color: #fff5f5; border-radius: 8px; padding: 20px; margin-bottom: 25px; border: 1px dashed #ffcdd2;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <span style="display: inline-block; background-color: #A70000; color: white; border-radius: 50px; padding: 8px 20px; font-size: 14px; font-weight: 600;">
+                                RETIRO EN TIENDA
+                            </span>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px; text-align: center;">
+                            <p style="margin: 0 0 5px; color: #333; font-size: 15px;">
+                                <strong>Fecha de retiro:</strong> ${fecha}
+                            </p>
+                            <p style="margin: 0; color: #333; font-size: 15px;">
+                                <strong>Horario:</strong> ${horario}
+                            </p>
+                        </div>
+
+                        <div style="background-color: #350000; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <h4 style="color: #ff4d4d; margin-top: 0; margin-bottom: 10px; text-align: center; font-size: 16px;">
+                                Dedicatoria Solicitada
+                            </h4>
+                            <p style="color: white; margin: 0; line-height: 1.5; text-align: center; font-style: italic;">
+                                ${dedicatoria !== "Sin dedicatoria" ? `"${dedicatoria}"` : 'SIN DEDICATORIA'}
+                            </p>
+                        </div>
+
+                        <div style="background-color: #FEFEFE; padding: 15px; border-radius: 6px; border-left: 3px solid #A70000; margin-top: 15px;">
+                            <p style="margin: 0; font-size: 15px;"><strong style="color: #A70000;">Recordatorio:</strong> Asegúrate de tener el pedido listo para la fecha y hora indicadas. El cliente ha sido informado que debe presentar identificación al retirar.</p>
+                        </div>
+                    </div>
+                ` : `
+                    <div style="background-color: #fff5f5; border-radius: 8px; padding: 20px; margin-bottom: 25px; border: 1px dashed #ffcdd2;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <span style="display: inline-block; background-color: #A70000; color: white; border-radius: 50px; padding: 8px 20px; font-size: 14px; font-weight: 600;">
+                                ENVÍO A DOMICILIO
+                            </span>
+                        </div>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                            <div style="flex: 1; min-width: 250px; background-color: #FEFEFE; padding: 15px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                                <h5 style="margin: 0 0 10px; color: #A70000; font-size: 16px;">Información personal</h5>
+                                <p style="margin: 0 0 8px;"><strong style="color: #777; display: inline-block; width: 90px;">Nombre:</strong> ${nombreDestinatario} ${apellidoDestinatario}</p>
+                                <p style="margin: 0 0 8px;"><strong style="color: #777; display: inline-block; width: 90px;">Teléfono:</strong> ${phoneDestinatario}</p>
+                            </div>
+                            
+                            <div style="flex: 1; min-width: 250px; background-color: #FEFEFE; padding: 15px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                                <h5 style="margin: 0 0 10px; color: #A70000; font-size: 16px;">Información de entrega</h5>
+                                <p style="margin: 0 0 8px;"><strong style="color: #777; display: inline-block; width: 90px;">Fecha:</strong> ${fecha}</p>
+                                <p style="margin: 0;"><strong style="color: #777; display: inline-block; width: 90px;">Horario:</strong> ${horario}</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: #FEFEFE; padding: 15px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px;">
+                            <h5 style="margin: 0 0 10px; color: #A70000; font-size: 16px;">Dirección de entrega</h5>
+                            <p style="margin: 0 0 8px;"><strong style="color: #777; display: inline-block; width: 90px;">Localidad:</strong> ${localidad.name}</p>
+                            <p style="margin: 0 0 8px;"><strong style="color: #777; display: inline-block; width: 90px;">Dirección:</strong> ${calle} ${altura}${piso ? `, ${piso}` : ''}</p>
+                            <p style="margin: 0;"><strong style="color: #777; display: inline-block; width: 90px;">Referencias:</strong> ${envioDatos?.datosEnvio?.referencias || 'No especificado'}</p>
+                        </div>
+                        
+                        <div style="background-color: #FEFEFE; padding: 15px; border-radius: 6px; border-left: 3px solid #A70000; margin-bottom: 20px;">
+                            <p style="margin: 0 0 8px; font-size: 15px;"><strong style="color: #A70000;">Detalles de envío:</strong></p>
+                            <ul style="padding-left: 20px; margin: 0;">
+                                <li style="margin-bottom: 8px;">Costo de envío: <strong>U$D ${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}</strong></li>
+                                ${servicioPremium ? 
+                                    `<li style="margin-bottom: 8px;"><strong style="color: #A70000;">Servicio Premium</strong> contratado - Cargo adicional: <strong>U$D ${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium}</strong></li>` : ''}
+                                <li style="margin-bottom: 8px;">Verificar disponibilidad de repartidores para esta zona y horario.</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background-color: #350000; padding: 15px; border-radius: 8px;">
+                            <h4 style="color: #ff4d4d; margin-top: 0; margin-bottom: 10px; text-align: center; font-size: 16px;">
+                                Dedicatoria Solicitada
+                            </h4>
+                            <p style="color: white; margin: 0; line-height: 1.5; text-align: center; font-style: italic;">
+                                ${dedicatoria !== "Sin dedicatoria" ? `"${dedicatoria}"` : 'SIN DEDICATORIA'}
+                            </p>
+                            ${dedicatoria !== "Sin dedicatoria" ? `<p style="margin: 10px 0 0; font-size: 14px; color: white;">No olvides incluir esta tarjeta con el mensaje en el arreglo.</p>` : ''}
+                        </div>
+                    </div>
+                `}
+
+                <!-- Total -->
+                <div style="background-color: #A70000; padding: 15px; border-radius: 8px; text-align: center; margin: 25px 0;">
+                    <h3 style="color: white; margin: 0; font-size: 22px; font-weight: 600;">TOTAL DE LA VENTA: U$D ${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}</h3>
+                    <p style="color: white; margin: 10px 0 0;">Equivalente a: $${typeof totalPrice === 'number' && typeof dolar === 'number' ? (totalPrice * dolar).toLocaleString('es-AR') : 'No calculado'}</p>
+                </div>
+                
+                <!-- Botón para descargar PDF -->
+                ${pdfURL ? `
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${pdfURL}" style="display: inline-block; background-color: #A70000; color: white; text-decoration: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px rgba(167, 0, 0, 0.2);">
+                            Descargar PDF de la Orden
+                        </a>
+                    </div>
+                ` : `
+                    <div style="text-align: center; margin: 30px 0; padding: 15px; background-color: #ffe6e6; border-radius: 8px;">
+                        <p style="color: #A70000; margin: 0; font-weight: 500;">No se pudo generar el PDF de la orden</p>
+                    </div>
+                `}
+
+                <!-- Acciones requeridas -->
+                <div style="background-color: #FFF9F9; padding: 20px; border-radius: 8px; margin: 25px 0; border-left: 5px solid #A70000;">
+                    <h3 style="color: #A70000; margin-top: 0; font-size: 18px;">Acciones Requeridas:</h3>
+                    <ol style="padding-left: 20px; margin-bottom: 0;">
+                        <li style="margin-bottom: 10px;">Verificar la disponibilidad de todos los productos incluidos en la orden.</li>
+                        <li style="margin-bottom: 10px;">Actualizar el estado del pedido a "En preparación" en el panel de administración.</li>
+                        <li style="margin-bottom: 10px;">${retiraEnLocal ? 
+                            'Preparar el arreglo para que esté listo en la fecha y horario de retiro indicados.' : 
+                            'Coordinar con el servicio de entrega para asegurar la puntualidad.'}</li>
+                        <li style="margin-bottom: 10px;">Contactar al cliente en caso de cualquier modificación necesaria.</li>
+                        <li>Imprimir la orden para tenerla a mano durante la preparación.</li>
+                    </ol>
+                </div>
+
+                <!-- Botones de gestión -->
+                <div style="text-align: center; margin: 25px 0;">
+                    <a href="https://envioflores.com/admin/orders/edit/${newCode}" style="display: inline-block; background-color: #2E7D32; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-right: 15px;">Gestionar pedido</a>
+                    <a href="https://envioflores.com/admin" style="display: inline-block; background-color: #1976D2; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold;">Panel de administración</a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
+                <a href="https://envioflores.com/admin" style="display: inline-block; margin-bottom: 15px;">            
+                    <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
+                </a>
+                
+                <p style="color: #777; font-size: 14px; margin: 0 0 5px;">Este correo fue generado automáticamente por el sistema de ventas de Envio Flores.</p>
+                <p style="font-style: italic; color: #777; font-size: 12px; margin: 0;">Por favor no responder a este correo electrónico.</p>
+            </div>
         </div>
-    ` : `
-        <h3 style="color: #A70000; font-family: "Nexa", sans-serif;">Datos de Envío:</h3>
-        <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Destinatario:</strong> ${nombreDestinatario} ${apellidoDestinatario}</li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Teléfono:</strong> ${phoneDestinatario}</li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Fecha de entrega:</strong> ${fecha}</li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">SERVICIO PREMIUM:</strong> ${servicioPremium ? 'SI' : 'NO'}</li>
-                ${servicioPremium ? `<li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Costo adicional:</strong> $${typeof envioPremium === 'number' && typeof dolar === 'number' && dolar !== 0 ? (envioPremium / dolar).toFixed(2) : envioPremium}</li>` : ''}
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Horario:</strong> ${horario}</li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Dirección:</strong> ${calle} ${altura} ${piso ? `- ${piso}` : ''}</li>
-                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;"><strong style="color: #A70000;">Localidad:</strong> ${localidad.name}</li>
-                <li style="padding: 8px 0;"><strong style="color: #A70000;">Costo de envío:</strong> $${typeof precio_envio === 'number' && typeof dolar === 'number' && dolar !== 0 ? (precio_envio / dolar).toFixed(2) : precio_envio}</li>
-            </ul>
-        </div>
-    `}
-
-    <div style="background-color: #FFF5F5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #A70000; font-family: "Nexa", sans-serif; margin-top: 0;">Dedicatoria:</h3>
-        <p style="font-style: italic; background-color: white; padding: 15px; border-radius: 8px; border-left: 3px solid #A70000;">${dedicatoria}</p>
-    </div>
-
-    <div style="text-align: center; background-color: #A70000; color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
-        <h3 style="margin: 0; color: white;">Total Final: USD $${typeof totalPrice === 'number' ? totalPrice.toFixed(2) : totalPrice}</h3>
-        <p style="margin: 10px 0 0 0;">Monto en ARS: $${typeof totalPrice === 'number' && typeof dolar === 'number' ? (totalPrice * dolar).toFixed(2) : 'No calculado'}</p>
-    </div>
-
-    <hr style="border: 1px solid #FFF5F5; margin: 20px 0;" />
-
-    ${pdfURL ? `
-        <div style="text-align: center; margin: 20px 0;">
-            <p style="color: #333333; margin-bottom: 15px;">Puedes descargar el PDF con los detalles de la compra:</p>
-            <a href="${pdfURL}" style="display: inline-block; background-color: #A70000; color: white; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600;">Descargar PDF</a>
-        </div>
-    ` : `
-        <p style="text-align: center; color: #FF1744;">No se pudo generar el PDF de la compra</p>
-    `}
-
-    <div style="background-color: #FFF5F5; padding: 20px; text-align: center; margin: 20px 0; border-radius: 8px;">
-        <p style="margin: 0; color: #A70000;"><em>Equipo Envío Flores</em></p>
-    </div>
-</div>
+    </body>
+    </html>
 `;
 
         // Enviar correo al comprador

@@ -1,6 +1,6 @@
 "use client"
 import { useCart } from '../../context/CartContext';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Link from 'next/link';
 import Form from '../Form/Form';
@@ -79,6 +79,8 @@ const CartComponents = () => {
     //Cookie
     const { acceptedCookies, acceptCookies, showCookiePrompt, setShowCookiePrompt, setAcceptedCookies } = useCookies();
 
+    const datosRef = useRef(null);
+    const formularioEnvioRef = useRef(null);
 
     const total = totalPrecio();
     const isSmallScreen = useMediaQuery('(max-width:850px)');
@@ -133,6 +135,11 @@ const CartComponents = () => {
         setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
     };
 
+    const handleScrollToRef = (ref) => {
+        if (ref && ref.current) {
+            ref.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
 
     const handleChangeDateTime = (e) => {
@@ -326,7 +333,7 @@ const CartComponents = () => {
                 retiraEnLocal && ((retiraEnLocal && !confirmationDone && <CheckoutStepper activeStep={3} />))
             }
 
-            < div className='cart' >
+            < div className='cart' ref={formularioEnvioRef} >
                 {
                     // Si las cookies no están aceptadas
                     !hasAcceptedCookies ? (
@@ -717,9 +724,12 @@ const CartComponents = () => {
                                                                             Al confirmar sus datos, podrá proceder al pago y finalizar su pedido.
                                                                         </Typography>
                                                                         <Button variant='contained' color='success' sx={{ marginTop: '15px' }}
-                                                                            onClick={() => {
-                                                                                handleConfirmationClick();
-                                                                            }}>
+                                                                       onClick={() => {
+                                                                        handleConfirmationClick();
+                                                                        datosRef.current?.scrollIntoView({ behavior: 'smooth' });
+                                                                        handleScrollToRef(formularioEnvioRef);
+                                                                    }}
+                                                                            >
                                                                             CONFIRMAR DATOS
                                                                         </Button>
                                                                     </>
@@ -739,11 +749,13 @@ const CartComponents = () => {
                                                             </form>
                                                             )
                                                             :
-                                                            <>
+
+                                                            <div >
 
                                                                 <CheckoutStepper activeStep={4} />
                                                                 {confirmationDone &&
                                                                     <Paper
+                                                                    ref={datosRef} id="datos"
                                                                         elevation={12}
                                                                         sx={{
                                                                             padding: isSmallScreen ? '20px' : '40px',
@@ -1438,7 +1450,7 @@ const CartComponents = () => {
                                                                         </Paper>
                                                                     </>
                                                                 }
-                                                            </>
+                                                            </div>
                                                     }
                                                 </>
 

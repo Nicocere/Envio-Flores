@@ -60,31 +60,32 @@ const Form = ({ itemSelected }) => {
     const [hasSelectedLocation, setHasSelectedLocation] = useState(false);
     const [activeStep, setActiveStep] = useState(3);
     const [locationError, setLocationError] = useState(false);
+    const datosRef = useRef(null);
 
     const formularioEnvioRef = useRef(null);
     const paymentsRef = useRef(null);
     const [characterCount, setCharacterCount] = useState(0);
 
 
-        const [paymentMethodSelected, setPaymentMethodSelected] = useState('');
-        const [hasSelectedPaymentMethod, setHasSelectedPaymentMethod] = useState(false); // Nuevo estado
+    const [paymentMethodSelected, setPaymentMethodSelected] = useState('');
+    const [hasSelectedPaymentMethod, setHasSelectedPaymentMethod] = useState(false); // Nuevo estado
 
-        const handleMercadoPagoClick = () => {
-            setShowMercadoPago(true);
-            setShowCardPayment(false);
-            setPaymentMethodSelected('mercadopago');
-            setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
-        };
-    
-        const handleCardPaymentClick = () => {
-            setShowMercadoPago(false);
-            setShowCardPayment(true);
-            setPaymentMethodSelected('cardpayment');
-            setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
-        };
-    
+    const handleMercadoPagoClick = () => {
+        setShowMercadoPago(true);
+        setShowCardPayment(false);
+        setPaymentMethodSelected('mercadopago');
+        setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
+    };
 
-        
+    const handleCardPaymentClick = () => {
+        setShowMercadoPago(false);
+        setShowCardPayment(true);
+        setPaymentMethodSelected('cardpayment');
+        setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
+    };
+
+
+
     // Añadir esta función para manejar el conteo de caracteres
     const handleDedicatoriaChange = (e) => {
         setCharacterCount(e.target.value.length);
@@ -544,6 +545,7 @@ const Form = ({ itemSelected }) => {
 
 
                     {!confirmationDone && (
+
                         <Button
                             variant='contained'
                             color='success'
@@ -551,7 +553,8 @@ const Form = ({ itemSelected }) => {
                                 if (checkLocationSelected()) {
                                     handleConfirmationClick();
                                     handleScrollToRef(formularioEnvioRef);
-                                } else {
+                                    datosRef.current?.scrollIntoView({ behavior: 'smooth' });
+                                                                } else {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Localidad requerida',
@@ -599,7 +602,7 @@ const Form = ({ itemSelected }) => {
             )}
 
             {activeStep === 4 && (
-                <div>
+        <div ref={datosRef} id="datos">
                     {confirmationDone ? (
                         <>
                             <Button
@@ -1230,214 +1233,214 @@ const Form = ({ itemSelected }) => {
                             </div>
                             <div id='Payment' ref={paymentsRef} className='payments-btn-container'>
                                 <div className='payments-buttons'>
-                                <div className='mercadopago-buttons'>
-                                                                                        <Typography variant="h6" sx={{
-                                                                                            color: 'white',
-                                                                                            mb: 3,
-                                                                                            textAlign: 'center',
-                                                                                            fontWeight: 600,
-                                                                                            fontSize: { xs: '1.1rem', md: '1.25rem' }
-                                                                                        }}>
-                                                                                            {!hasSelectedPaymentMethod
-                                                                                                ? "¿Cómo desea realizar el pago?"
-                                                                                                : "Seleccione su método de pago preferido"}
-                                                                                        </Typography>
+                                    <div className='mercadopago-buttons'>
+                                        <Typography variant="h6" sx={{
+                                            color: 'white',
+                                            mb: 3,
+                                            textAlign: 'center',
+                                            fontWeight: 600,
+                                            fontSize: { xs: '1.1rem', md: '1.25rem' }
+                                        }}>
+                                            {!hasSelectedPaymentMethod
+                                                ? "¿Cómo desea realizar el pago?"
+                                                : "Seleccione su método de pago preferido"}
+                                        </Typography>
 
-                                                                                        <Grid container spacing={3} justifyContent="center" sx={{ mb: 4 }}>
-                                                                                            <Grid item xs={12} sm={6} md={5}>
-                                                                                                <Paper
-                                                                                                    elevation={6}
-                                                                                                    onClick={handleMercadoPagoClick}
-                                                                                                    sx={{
-                                                                                                        p: 3,
-                                                                                                        textAlign: 'center',
-                                                                                                        height: '100%',
-                                                                                                        borderRadius: '12px',
-                                                                                                        cursor: 'pointer',
-                                                                                                        transition: 'all 0.3s ease',
-                                                                                                        bgcolor: showMercadoPago ? 'rgba(103, 0, 0, 0.8)' : 'rgba(30, 30, 33, 0.9)',
-                                                                                                        border: showMercadoPago ? '2px solid white' : '1px solid rgba(255, 255, 255, 0.2)',
-                                                                                                        position: 'relative',
-                                                                                                        overflow: 'hidden',
-                                                                                                        '&:hover': {
-                                                                                                            transform: 'translateY(-5px)',
-                                                                                                            boxShadow: '0 12px 20px -10px rgba(103, 0, 0, 0.4)'
-                                                                                                        },
-                                                                                                        '&::before': showMercadoPago ? {
-                                                                                                            content: '""',
-                                                                                                            position: 'absolute',
-                                                                                                            top: 0,
-                                                                                                            left: 0,
-                                                                                                            width: '5px',
-                                                                                                            height: '100%',
-                                                                                                            backgroundColor: 'white'
-                                                                                                        } : {}
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                                                                        <AccountBox sx={{
-                                                                                                            fontSize: { xs: '2.5rem', md: '3rem' },
-                                                                                                            mb: 2,
-                                                                                                            color: 'white',
-                                                                                                            transition: 'transform 0.3s ease',
-                                                                                                            transform: showMercadoPago ? 'scale(1.1)' : 'scale(1)'
-                                                                                                        }} />
-                                                                                                        <Typography variant="h6" sx={{
-                                                                                                            color: 'white',
-                                                                                                            fontWeight: 600,
-                                                                                                            mb: 1,
-                                                                                                            fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }
-                                                                                                        }}>
-                                                                                                            Cuenta Mercado Pago
-                                                                                                        </Typography>
-                                                                                                        <Typography variant="body2" sx={{
-                                                                                                            color: '#e0e0e0',
-                                                                                                            fontSize: { xs: '0.8rem', md: '0.9rem' }
-                                                                                                        }}>
-                                                                                                            Pague fácilmente con su cuenta de Mercado Pago
-                                                                                                        </Typography>
-                                                                                                    </Box>
-                                                                                                    {showMercadoPago && (
-                                                                                                        <CheckCircleIcon
-                                                                                                            sx={{
-                                                                                                                position: 'absolute',
-                                                                                                                top: '10px',
-                                                                                                                right: '10px',
-                                                                                                                color: 'white',
-                                                                                                                fontSize: '1.5rem'
-                                                                                                            }}
-                                                                                                        />
-                                                                                                    )}
-                                                                                                </Paper>
-                                                                                            </Grid>
-                                                                                            <Grid item xs={12} sm={6} md={5}>
-                                                                                                <Paper
-                                                                                                    elevation={6}
-                                                                                                    onClick={handleCardPaymentClick}
-                                                                                                    sx={{
-                                                                                                        p: 3,
-                                                                                                        textAlign: 'center',
-                                                                                                        height: '100%',
-                                                                                                        borderRadius: '12px',
-                                                                                                        cursor: 'pointer',
-                                                                                                        transition: 'all 0.3s ease',
-                                                                                                        bgcolor: showCardPayment ? 'rgba(103, 0, 0, 0.8)' : 'rgba(30, 30, 33, 0.9)',
-                                                                                                        border: showCardPayment ? '2px solid white' : '1px solid rgba(255, 255, 255, 0.2)',
-                                                                                                        position: 'relative',
-                                                                                                        overflow: 'hidden',
-                                                                                                        '&:hover': {
-                                                                                                            transform: 'translateY(-5px)',
-                                                                                                            boxShadow: '0 12px 20px -10px rgba(103, 0, 0, 0.4)'
-                                                                                                        },
-                                                                                                        '&::before': showCardPayment ? {
-                                                                                                            content: '""',
-                                                                                                            position: 'absolute',
-                                                                                                            top: 0,
-                                                                                                            left: 0,
-                                                                                                            width: '5px',
-                                                                                                            height: '100%',
-                                                                                                            backgroundColor: 'white'
-                                                                                                        } : {}
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                                                                        <CreditCardTwoTone sx={{
-                                                                                                            fontSize: { xs: '2.5rem', md: '3rem' },
-                                                                                                            mb: 2,
-                                                                                                            color: 'white',
-                                                                                                            transition: 'transform 0.3s ease',
-                                                                                                            transform: showCardPayment ? 'scale(1.1)' : 'scale(1)'
-                                                                                                        }} />
-                                                                                                        <Typography variant="h6" sx={{
-                                                                                                            color: 'white',
-                                                                                                            fontWeight: 600,
-                                                                                                            mb: 1,
-                                                                                                            fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }
-                                                                                                        }}>
-                                                                                                            Tarjeta de Crédito/Débito
-                                                                                                        </Typography>
-                                                                                                        <Typography variant="body2" sx={{
-                                                                                                            color: '#e0e0e0',
-                                                                                                            fontSize: { xs: '0.8rem', md: '0.9rem' }
-                                                                                                        }}>
-                                                                                                            Pague directamente con sus tarjetas bancarias
-                                                                                                        </Typography>
-                                                                                                    </Box>
-                                                                                                    {showCardPayment && (
-                                                                                                        <CheckCircleIcon
-                                                                                                            sx={{
-                                                                                                                position: 'absolute',
-                                                                                                                top: '10px',
-                                                                                                                right: '10px',
-                                                                                                                color: 'white',
-                                                                                                                fontSize: '1.5rem'
-                                                                                                            }}
-                                                                                                        />
-                                                                                                    )}
-                                                                                                </Paper>
-                                                                                            </Grid>
-                                                                                        </Grid>
+                                        <Grid container spacing={3} justifyContent="center" sx={{ mb: 4 }}>
+                                            <Grid item xs={12} sm={6} md={5}>
+                                                <Paper
+                                                    elevation={6}
+                                                    onClick={handleMercadoPagoClick}
+                                                    sx={{
+                                                        p: 3,
+                                                        textAlign: 'center',
+                                                        height: '100%',
+                                                        borderRadius: '12px',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.3s ease',
+                                                        bgcolor: showMercadoPago ? 'rgba(103, 0, 0, 0.8)' : 'rgba(30, 30, 33, 0.9)',
+                                                        border: showMercadoPago ? '2px solid white' : '1px solid rgba(255, 255, 255, 0.2)',
+                                                        position: 'relative',
+                                                        overflow: 'hidden',
+                                                        '&:hover': {
+                                                            transform: 'translateY(-5px)',
+                                                            boxShadow: '0 12px 20px -10px rgba(103, 0, 0, 0.4)'
+                                                        },
+                                                        '&::before': showMercadoPago ? {
+                                                            content: '""',
+                                                            position: 'absolute',
+                                                            top: 0,
+                                                            left: 0,
+                                                            width: '5px',
+                                                            height: '100%',
+                                                            backgroundColor: 'white'
+                                                        } : {}
+                                                    }}
+                                                >
+                                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <AccountBox sx={{
+                                                            fontSize: { xs: '2.5rem', md: '3rem' },
+                                                            mb: 2,
+                                                            color: 'white',
+                                                            transition: 'transform 0.3s ease',
+                                                            transform: showMercadoPago ? 'scale(1.1)' : 'scale(1)'
+                                                        }} />
+                                                        <Typography variant="h6" sx={{
+                                                            color: 'white',
+                                                            fontWeight: 600,
+                                                            mb: 1,
+                                                            fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }
+                                                        }}>
+                                                            Cuenta Mercado Pago
+                                                        </Typography>
+                                                        <Typography variant="body2" sx={{
+                                                            color: '#e0e0e0',
+                                                            fontSize: { xs: '0.8rem', md: '0.9rem' }
+                                                        }}>
+                                                            Pague fácilmente con su cuenta de Mercado Pago
+                                                        </Typography>
+                                                    </Box>
+                                                    {showMercadoPago && (
+                                                        <CheckCircleIcon
+                                                            sx={{
+                                                                position: 'absolute',
+                                                                top: '10px',
+                                                                right: '10px',
+                                                                color: 'white',
+                                                                fontSize: '1.5rem'
+                                                            }}
+                                                        />
+                                                    )}
+                                                </Paper>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={5}>
+                                                <Paper
+                                                    elevation={6}
+                                                    onClick={handleCardPaymentClick}
+                                                    sx={{
+                                                        p: 3,
+                                                        textAlign: 'center',
+                                                        height: '100%',
+                                                        borderRadius: '12px',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.3s ease',
+                                                        bgcolor: showCardPayment ? 'rgba(103, 0, 0, 0.8)' : 'rgba(30, 30, 33, 0.9)',
+                                                        border: showCardPayment ? '2px solid white' : '1px solid rgba(255, 255, 255, 0.2)',
+                                                        position: 'relative',
+                                                        overflow: 'hidden',
+                                                        '&:hover': {
+                                                            transform: 'translateY(-5px)',
+                                                            boxShadow: '0 12px 20px -10px rgba(103, 0, 0, 0.4)'
+                                                        },
+                                                        '&::before': showCardPayment ? {
+                                                            content: '""',
+                                                            position: 'absolute',
+                                                            top: 0,
+                                                            left: 0,
+                                                            width: '5px',
+                                                            height: '100%',
+                                                            backgroundColor: 'white'
+                                                        } : {}
+                                                    }}
+                                                >
+                                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                                        <CreditCardTwoTone sx={{
+                                                            fontSize: { xs: '2.5rem', md: '3rem' },
+                                                            mb: 2,
+                                                            color: 'white',
+                                                            transition: 'transform 0.3s ease',
+                                                            transform: showCardPayment ? 'scale(1.1)' : 'scale(1)'
+                                                        }} />
+                                                        <Typography variant="h6" sx={{
+                                                            color: 'white',
+                                                            fontWeight: 600,
+                                                            mb: 1,
+                                                            fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }
+                                                        }}>
+                                                            Tarjeta de Crédito/Débito
+                                                        </Typography>
+                                                        <Typography variant="body2" sx={{
+                                                            color: '#e0e0e0',
+                                                            fontSize: { xs: '0.8rem', md: '0.9rem' }
+                                                        }}>
+                                                            Pague directamente con sus tarjetas bancarias
+                                                        </Typography>
+                                                    </Box>
+                                                    {showCardPayment && (
+                                                        <CheckCircleIcon
+                                                            sx={{
+                                                                position: 'absolute',
+                                                                top: '10px',
+                                                                right: '10px',
+                                                                color: 'white',
+                                                                fontSize: '1.5rem'
+                                                            }}
+                                                        />
+                                                    )}
+                                                </Paper>
+                                            </Grid>
+                                        </Grid>
 
-                                                                                        {!hasSelectedPaymentMethod ? (
-                                                                                            <Box sx={{
-                                                                                                display: 'flex',
-                                                                                                justifyContent: 'center',
-                                                                                                mb: 3,
-                                                                                                mt: 2
-                                                                                            }}>
-                                                                                                <Button
-                                                                                                    variant="contained"
-                                                                                                    color="primary"
-                                                                                                    disabled={!showMercadoPago && !showCardPayment}
-                                                                                                    onClick={() => setHasSelectedPaymentMethod(true)}
-                                                                                                    sx={{
-                                                                                                        bgcolor: 'rgba(255, 255, 255, 0.9)',
-                                                                                                        color: '#670000',
-                                                                                                        fontWeight: 600,
-                                                                                                        px: 4,
-                                                                                                        py: 1,
-                                                                                                        '&:hover': {
-                                                                                                            bgcolor: 'white',
-                                                                                                        },
-                                                                                                        '&.Mui-disabled': {
-                                                                                                            bgcolor: 'rgba(255, 255, 255, 0.3)',
-                                                                                                            color: 'rgba(255, 255, 255, 0.5)'
-                                                                                                        }
-                                                                                                    }}
-                                                                                                >
-                                                                                                    Continuar con el método seleccionado
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                        ) : (
-                                                                                            <Box sx={{
-                                                                                                display: 'flex',
-                                                                                                justifyContent: 'center',
-                                                                                                mb: 3,
-                                                                                                mt: 2
-                                                                                            }}>
-                                                                                                <Button
-                                                                                                    variant="text"
-                                                                                                    onClick={() => {
-                                                                                                        setHasSelectedPaymentMethod(false);
-                                                                                                        setShowMercadoPago(false);
-                                                                                                        setShowCardPayment(false);
-                                                                                                        setPaymentMethodSelected('');
-                                                                                                    }}
-                                                                                                    sx={{
-                                                                                                        color: 'white',
-                                                                                                        textDecoration: 'underline',
-                                                                                                        '&:hover': {
-                                                                                                            bgcolor: 'transparent',
-                                                                                                            opacity: 0.8
-                                                                                                        }
-                                                                                                    }}
-                                                                                                >
-                                                                                                    Cambiar método de pago
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                        )}
+                                        {!hasSelectedPaymentMethod ? (
+                                            <Box sx={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                mb: 3,
+                                                mt: 2
+                                            }}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    disabled={!showMercadoPago && !showCardPayment}
+                                                    onClick={() => setHasSelectedPaymentMethod(true)}
+                                                    sx={{
+                                                        bgcolor: 'rgba(255, 255, 255, 0.9)',
+                                                        color: '#670000',
+                                                        fontWeight: 600,
+                                                        px: 4,
+                                                        py: 1,
+                                                        '&:hover': {
+                                                            bgcolor: 'white',
+                                                        },
+                                                        '&.Mui-disabled': {
+                                                            bgcolor: 'rgba(255, 255, 255, 0.3)',
+                                                            color: 'rgba(255, 255, 255, 0.5)'
+                                                        }
+                                                    }}
+                                                >
+                                                    Continuar con el método seleccionado
+                                                </Button>
+                                            </Box>
+                                        ) : (
+                                            <Box sx={{
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                mb: 3,
+                                                mt: 2
+                                            }}>
+                                                <Button
+                                                    variant="text"
+                                                    onClick={() => {
+                                                        setHasSelectedPaymentMethod(false);
+                                                        setShowMercadoPago(false);
+                                                        setShowCardPayment(false);
+                                                        setPaymentMethodSelected('');
+                                                    }}
+                                                    sx={{
+                                                        color: 'white',
+                                                        textDecoration: 'underline',
+                                                        '&:hover': {
+                                                            bgcolor: 'transparent',
+                                                            opacity: 0.8
+                                                        }
+                                                    }}
+                                                >
+                                                    Cambiar método de pago
+                                                </Button>
+                                            </Box>
+                                        )}
 
-                                         { hasSelectedLocation && showCardPayment && (
+                                        {hasSelectedLocation && showCardPayment && (
                                             <div className='mercadopago-div'>
                                                 <h3 className='tarjetas'>Tarjetas Nacionales</h3>
                                                 <span>Total a pagar: ${finalPriceARS.toFixed(2)}</span>
@@ -1473,7 +1476,7 @@ const Form = ({ itemSelected }) => {
                                             </div>
                                         )}
 
-{hasSelectedPaymentMethod && showMercadoPago && (
+                                        {hasSelectedPaymentMethod && showMercadoPago && (
                                             <div className='mercadopago-div'>
                                                 <h3 className='tarjetas'>Pagos Nacionales</h3>
                                                 <span>Total a pagar: ${finalPriceARS.toFixed(2)}</span>
