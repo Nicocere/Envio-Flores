@@ -21,6 +21,7 @@ import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '@/admin/FireBaseConfig';
 import { RiFlowerFill } from 'react-icons/ri';
 import ConfettiComponent from '@/componentes/Confetti/Confetti';
+import { useWindowSize } from 'react-use';
 
 const CompraFinalizadaTarjetas = React.memo(() => {
     const [newEvent, setNewEvent] = useState(null);
@@ -30,6 +31,9 @@ const CompraFinalizadaTarjetas = React.memo(() => {
     const [cardInfo, setCardInfo] = useState(null);
     const requestSentRef = useRef(false);
     const isMobileScreen = useMediaQuery('(max-width: 768px)');
+
+    const { width, height } = useWindowSize()
+
 
     const imgLogo =
         'https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23';
@@ -382,8 +386,8 @@ const CompraFinalizadaTarjetas = React.memo(() => {
     return (
             <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
             <ConfettiComponent
-                width={window && typeof window !== 'undefined' ? window.innerWidth : 300}
-                height={window && typeof window !== 'undefined' ? window.innerHeight : 200}
+               width={width}
+               height={height}
                 recycle={false}
                 numberOfPieces={isMobileScreen ? 500 : 850}
                 gravity={0.35}

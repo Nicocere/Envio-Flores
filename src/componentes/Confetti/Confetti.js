@@ -1,28 +1,15 @@
 import React, { useEffect } from 'react';
 import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 const ConfettiComponent = () => {
-    const [dimensions, setDimensions] = React.useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
 
-    useEffect(() => {
-        const handleResize = () => {
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const { width, height } = useWindowSize()
 
     return (
         <Confetti
-            width={dimensions.width}
-            height={dimensions.height}
+        width={width}
+        height={height}
             numberOfPieces={850}
             recycle={false}
         />

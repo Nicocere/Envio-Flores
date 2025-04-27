@@ -17,6 +17,7 @@ import Comentarios from '@/componentes/Comentarios/Comentarios';
 import style from './comprasPayPal.module.css';
 import ConfettiComponent from '@/componentes/Confetti/Confetti';
 import { CheckCircle, LocalFloristRounded, ReceiptLong } from '@mui/icons-material';
+import { useWindowSize } from 'react-use';
 
 const CompraPayPalFinalizada = React.memo(() => {
     const [newEvent, setNewEvent] = useState(null);
@@ -25,6 +26,9 @@ const CompraPayPalFinalizada = React.memo(() => {
     const [activeSection, setActiveSection] = useState('comprador');
     const imgLogo = 'https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23';
     const isMobile = useMediaQuery('(max-width: 768px)');
+
+
+    const { width, height } = useWindowSize()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -404,8 +408,8 @@ const CompraPayPalFinalizada = React.memo(() => {
                 <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
                 {/* Mantenemos el componente Confetti como solicitado */}
                 <ConfettiComponent
-                    width={typeof window !== 'undefined' ? window.innerWidth : 300}
-                    height={typeof window !== 'undefined' ? window.innerHeight : 200}
+       width={width}
+       height={height}
                     recycle={false}
                     numberOfPieces={isMobile ? 500 : 850}
                     gravity={0.35}
