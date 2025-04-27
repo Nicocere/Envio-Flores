@@ -1,64 +1,102 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AdicionalList from "../AdicionalList/AdicionalList";
 import { FadeLoader } from "react-spinners";
 import { collection, getDocs } from "firebase/firestore";
 import { baseDeDatos } from "../../admin/FireBaseConfig";
+import localforage from "localforage";
 import "./AdicionalListContainer.css";
 
 const AdicionalListContainer = () => {
     const [adicionales, setAdicionales] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [usingCache, setUsingCache] = useState(false);
+    
+    const CACHE_KEY = 'adicionales_data';
+    const CACHE_DURATION_MS = 45 * 60 * 1000; // 45 minutos en milisegundos
+    
+    // Verifica si los datos en cache son válidos (menos de 45 minutos de antigüedad)
+    const isCacheValid = (cachedData) => {
+        if (!cachedData || !cachedData.timestamp) return false;
+        const now = new Date().getTime();
+        return (now - cachedData.timestamp) < CACHE_DURATION_MS;
+    };
+    
+    // Función para obtener datos de Firebase
+    const getDataFromFirebase = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            setUsingCache(false);
+            
+            const querySnapshot = await getDocs(collection(baseDeDatos, 'adicionales'));
+            
+            let adicionalesData = [];
+            if (!querySnapshot.empty) {
+                adicionalesData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+            }
+            
+            // Guardar en localforage con timestamp
+            const dataToCache = {
+                items: adicionalesData,
+                timestamp: new Date().getTime()
+            };
+            
+            await localforage.setItem(CACHE_KEY, dataToCache);
+            
+            setAdicionales(adicionalesData);
+            setError(null);
+        } catch (error) {
+            console.error("Error al obtener adicionales:", error);
+            setError("No pudimos cargar los complementos. Por favor, inténtalo de nuevo.");
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
     
     useEffect(() => {
         const fetchAdicionales = async () => {
             try {
                 setIsLoading(true);
-                const querySnapshot = await getDocs(collection(baseDeDatos, 'adicionales'));
                 
-                if (querySnapshot.empty) {
-                    setAdicionales([]);
+                // Intentar obtener datos desde localforage primero
+                const cachedData = await localforage.getItem(CACHE_KEY);
+                
+                // Si hay datos en cache y son válidos (menos de 45 minutos)
+                if (cachedData && isCacheValid(cachedData)) {
+                    console.log("Usando datos en caché de adicionales");
+                    setAdicionales(cachedData.items);
+                    setUsingCache(true);
+                    setError(null);
+                    setIsLoading(false);
                 } else {
-                    const adicionalesData = querySnapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }));
-                    setAdicionales(adicionalesData);
+                    // Si no hay datos en cache o ya expiraron, obtener de Firebase
+                    if (cachedData && !isCacheValid(cachedData)) {
+                        console.log("Datos en caché expirados, obteniendo nuevos datos");
+                        // Limpiar cache expirado
+                        await localforage.removeItem(CACHE_KEY);
+                    }
+                    await getDataFromFirebase();
                 }
-                setError(null);
             } catch (error) {
-                console.error("Error al obtener adicionales:", error);
+                console.error("Error al procesar adicionales:", error);
                 setError("No pudimos cargar los complementos. Por favor, inténtalo de nuevo.");
-            } finally {
                 setIsLoading(false);
             }
         };
         
         fetchAdicionales();
-    }, []);
+    }, [getDataFromFirebase]);
 
-    const handleRetry = () => {
-        setIsLoading(true);
-        setError(null);
-        // Re-intentar carga de datos
-        const fetchAdicionales = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(baseDeDatos, 'adicionales'));
-                const adicionalesData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                setAdicionales(adicionalesData);
-                setError(null);
-            } catch (error) {
-                console.error("Error al reintentar obtener adicionales:", error);
-                setError("No pudimos cargar los complementos. Por favor, inténtalo de nuevo.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        
-        fetchAdicionales();
+    const handleRetry = async () => {
+        await getDataFromFirebase();
+    };
+
+    const handleRefresh = async () => {
+        await localforage.removeItem(CACHE_KEY);
+        await getDataFromFirebase();
     };
 
     if (isLoading) {
@@ -93,6 +131,15 @@ const AdicionalListContainer = () => {
                 <p className="adicionales-subtitle">
                     Dale un toque especial a tu envío con estos detalles exclusivos
                 </p>
+                {usingCache && (
+                    <button 
+                        className="adicionales-refresh-button" 
+                        onClick={handleRefresh}
+                        title="Actualizar complementos"
+                    >
+                        <span>↻</span> Actualizar
+                    </button>
+                )}
             </div>
             
             {adicionales.length === 0 ? (

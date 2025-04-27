@@ -268,8 +268,8 @@ export async function POST(request: Request) {
         // Enviar correo al comprador
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            // to: `${datosComprador.email}`,
-            to: `${process.env.GMAIL_USER}`,
+            to: `${datosComprador.email}`,
+            // to: `${process.env.GMAIL_USER}`,
             subject: `✅ Confirmación de compra  - Orden #${newCode} - Envio Flores`,
             html: compradorHtml
         });

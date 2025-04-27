@@ -60,7 +60,7 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
       whiteSpace: isMobileScreen ? 'nowrap' : 'normal',
       overflow: isMobileScreen ? 'hidden' : 'visible',
       textOverflow: isMobileScreen ? 'ellipsis' : 'clip',
-      maxWidth: isMobileScreen ? '75px' : 'none',
+      maxWidth: isMobileScreen ? '95px' : 'none',
     },
     '& .MuiStepLabel-active': {
       color: isDarkMode ? '#fcfcfc' : '#a00303',
