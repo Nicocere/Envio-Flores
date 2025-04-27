@@ -382,8 +382,8 @@ const CompraFinalizadaTarjetas = React.memo(() => {
     return (
             <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
             <ConfettiComponent
-                width={typeof window !== 'undefined' ? window.innerWidth : 300}
-                height={typeof window !== 'undefined' ? window.innerHeight : 200}
+                width={window && typeof window !== 'undefined' ? window.innerWidth : 300}
+                height={window && typeof window !== 'undefined' ? window.innerHeight : 200}
                 recycle={false}
                 numberOfPieces={isMobileScreen ? 500 : 850}
                 gravity={0.35}
