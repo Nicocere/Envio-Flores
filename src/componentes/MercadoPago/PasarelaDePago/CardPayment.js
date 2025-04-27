@@ -7,7 +7,7 @@ import { useTheme } from '../../../context/ThemeSwitchContext';
 import { useRouter } from 'next/navigation';
 import localforage from 'localforage';
 import styles from './cardPayment.module.css';
-import { Lock, CreditCard, CheckCircle, AlertCircle, Shield, Info, Calendar } from 'react-feather';
+import { Lock, CreditCard, CheckCircle, AlertCircle, Shield, Info, Calendar, Clock } from 'react-feather';
 import Image from 'next/image';
 
 // Inicialización de MercadoPago con la clave pública
