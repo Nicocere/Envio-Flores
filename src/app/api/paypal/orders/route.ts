@@ -9,8 +9,8 @@ import {
 } from '@paypal/paypal-server-sdk';
 import { NextResponse } from 'next/server';
 
-const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_SANDBOX;
-const clientSecret = process.env.PAYPAL_SECRET_SANDBOX;
+const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+const clientSecret = process.env.PAYPAL_APP_SECRET;
 
 // Validación más estricta de credenciales
 if (!clientId || !clientSecret) {
@@ -28,7 +28,7 @@ const client = new Client({
     oAuthClientSecret: clientSecret
   },
   timeout: 0,
-  environment: Environment.Sandbox,
+  environment: Environment.Production,
   logging: {
     logLevel: LogLevel.Info,
     logRequest: {

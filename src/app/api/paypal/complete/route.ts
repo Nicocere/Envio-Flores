@@ -388,13 +388,13 @@ export async function POST(request: Request) {
                         Si tienes alguna pregunta sobre tu compra, no dudes en contactarnos:
                     </p>
                     <ul style="padding-left: 20px; margin: 15px auto; max-width: 400px;">
-                        <li style="margin-bottom: 8px; color: #555;">WhatsApp: +54 11 3140-8060</li>
-                        <li style="margin-bottom: 8px; color: #555;">Email: info@envioflores.com</li>
+                        <li style="margin-bottom: 8px; color: #555;">WhatsApp: +54 11 6542-1003</li>
+                        <li style="margin-bottom: 8px; color: #555;">Email: ventas@aflorar.com.ar</li>
                         <li style="color: #555;">Horario de atención: Lunes a Sábado de 7:00 a 18:00 hs</li>
                     </ul>
                     <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
                         <a href="https://api.whatsapp.com/send?phone=+5491131408060&text=Hola,%20tengo%20una%20consulta%20sobre%20mi%20pedido%20%23${newCode}" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold;">Contactar por WhatsApp</a>
-                        <a href="mailto:info@envioflores.com" style="display: inline-block; background-color: #D44638; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold;">Enviar Email</a>
+                        <a href="mailto:ventas@aflorar.com.ar" style="display: inline-block; background-color: #D44638; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold;">Enviar Email</a>
                     </div>
                 </div>
 
@@ -744,7 +744,7 @@ export async function POST(request: Request) {
         // Enviar correo al comprador
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${emailComprador}, ${process.env.GMAIL_USER}`,
+            to: `${emailComprador}, ${process.env.GMAIL_USER}, ${process.env.F_A_EMAIL}, ${process.env.AFL_EMAIL}`,
             subject: `✅ Confirmación de compra - Orden #${newCode} - Envío Flores`,
             html: compradorHtml
         });

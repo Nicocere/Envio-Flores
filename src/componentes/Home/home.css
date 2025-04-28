@@ -1,7 +1,7 @@
 
 
 /* Título principal */
-.simple-title {
+/* .simple-title {
     font-family: var(--font-family);
     font-size: 2.8rem;
     font-weight: 700;
@@ -16,7 +16,31 @@
   .dark-mode .simple-title {
     color: var(--accent-color);
     text-shadow: 0 2px 10px rgba(255, 202, 202, 0.1);
+  } */
+  
+  .simple-title {
+    font-family: var(--font-primary) !important;
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    background: linear-gradient(45deg, var(--primary-color), var(--primary-light)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-fill-color: transparent !important;
+    margin-bottom: var(--spacing-xs) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.03em !important;
   }
+  
+  .dark-mode .simple-title {
+    background: linear-gradient(45deg, var(--primary-light), var(--accent-color)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    text-fill-color: transparent !important;
+    filter: drop-shadow(0 2px 3px rgba(255, 77, 77, 0.2)) !important;
+  }
+
   
   .simple-title::after {
     content: '';

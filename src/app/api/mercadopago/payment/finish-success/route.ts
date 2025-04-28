@@ -544,20 +544,15 @@ export async function POST(request: Request) {
     </body>
     </html>
 `;
-
-        // Crear el transportador
         const transporter = await createTransporter();
 
-        // Enviar correo al comprador
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
             to: `${datosComprador.email}`,
-            // to: `${process.env.GMAIL_USER}`,
             subject: `✅ Confirmación de compra - Orden #${newCode} - Envío Flores`,
             html: compradorHtml
         });
 
-        // Enviar correo al vendedor
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
             to: `${process.env.GMAIL_USER}`,
@@ -565,8 +560,6 @@ export async function POST(request: Request) {
             html: vendedorHtml
         });
 
-        // Objeto para almacenar los datos de la orden pero que no se utiliza directamente
-        // Lo declaramos como variable para evitar el warning del compilador
         const newOrderData = {
             payment: 'Mercado Pago Cuenta',
             order_number: newCode,

@@ -501,7 +501,7 @@
 /* Responsive */
 @media (max-width: 600px) {
   .cardPaymentContainer {
-    padding: 1.5rem;
+    padding: 1.5rem 5px;
     border-radius: 8px;
   }
   

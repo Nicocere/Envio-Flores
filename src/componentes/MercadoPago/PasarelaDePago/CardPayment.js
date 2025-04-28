@@ -11,7 +11,7 @@ import { Lock, CreditCard, CheckCircle, AlertCircle, Shield, Info, Calendar, Clo
 import Image from 'next/image';
 
 // Inicialización de MercadoPago con la clave pública
-initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY_LIVE_TEST, {
+initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY, {
   locale: 'es-AR'
 });
 
@@ -222,7 +222,7 @@ const CardPaymentMP = ({
       const response = await fetch('/api/mercadopago/tarjetas/process_payment', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY_LIVE_TEST}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),

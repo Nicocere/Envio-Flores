@@ -39,7 +39,6 @@ export async function POST(request: Request) {
             shippingCost = 0;
         }
         
-        // Añadir el costo de envío como un ítem adicional
         const shippingItem = {
             id: 'ShippingCost',
             title: title,
@@ -47,32 +46,26 @@ export async function POST(request: Request) {
             unit_price: Number(shippingCost),
         };
 
-        // Unir los productos mapeados con el ítem de envío
         const itemsForMercadoPago = [...mappedProducts, shippingItem];
 
-        // Add Your credentials
-        const accessToken = process.env.MP_EF_ACC_TOK_LIVE_TEST;
+        const accessToken = process.env.MP_EF_ACC_TOK;
         if (!accessToken) {
-            throw new Error('MP_EF_ACC_TOK_TEST is not configured in environment variables');
+            throw new Error('MP_EF_ACC_TOK is not configured in environment variables');
         }
         
-        // Determinamos la URL base según el entorno
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         
-        // Inicializar el cliente de MercadoPago con la nueva API
         const client = new MercadoPagoConfig({ 
             accessToken: accessToken ,
             options: {
                 timeout: 5000,
-                idempotencyKey: randomUUID(), // genera un UUID único por request
+                idempotencyKey: randomUUID(), 
                 },
               
         });
         
-        // Instanciar el recurso Preference
         const preference = new Preference(client);
         
-        // Crear la preferencia con los datos necesarios
         const preferenceData = {
             binary_mode: true,
             // purpose: 'wallet_purchase',

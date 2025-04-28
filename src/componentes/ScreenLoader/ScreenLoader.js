@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import './screenLoader.css';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
 const ScreenLoader = ({ minDuration = 2000 }) => {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const { isDarkMode } = useTheme();
   
   useEffect(() => {
     // Garantizar un tiempo mínimo de carga para evitar parpadeos
@@ -35,7 +37,7 @@ const ScreenLoader = ({ minDuration = 2000 }) => {
   if (!loading) return null;
   
   return (
-    <div className={`screen-loader ${fadeOut ? 'fade-out' : ''}`}>
+    <div className={`screen-loader ${fadeOut ? 'fade-out' : ''} ${isDarkMode ? 'dark-mode' : ''}`}>
       <div className="loader-content">
         <div className="logo-animation">
           <img
@@ -43,7 +45,6 @@ const ScreenLoader = ({ minDuration = 2000 }) => {
             alt="Envío Flores"
             className="loader-logo"
           />
-
         </div>
         
         <div className="loader-progress">

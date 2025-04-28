@@ -81,6 +81,8 @@ const CartComponents = () => {
 
     const datosRef = useRef(null);
     const formularioEnvioRef = useRef(null);
+    const cardPaymentSectionRef = useRef(null);
+    const mercadoPagoRef = useRef(null);
 
     const total = totalPrecio();
     const isSmallScreen = useMediaQuery('(max-width:850px)');
@@ -121,11 +123,47 @@ const CartComponents = () => {
     };
 
 
+    const scrollToElement = (element) => {
+        try {
+          // Intentar primero con scrollIntoView nativo
+          if (typeof element.scrollIntoView === 'function') {
+            element.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start' 
+            });
+            return;
+          }
+          
+          // Fallback para navegadores que no soportan scrollIntoView con smooth
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - 100; // 100px de margen superior
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        } catch (error) {
+          console.error("Error al desplazar:", error);
+          
+          // Último recurso: scroll simple
+          if (element) {
+            window.scrollTo(0, element.offsetTop - 100);
+          }
+        }
+      };
+
     const handleMercadoPagoClick = () => {
         setShowMercadoPago(true);
         setShowCardPayment(false);
         setPaymentMethodSelected('mercadopago');
         setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
+            // Esperar a que el estado se actualice antes de intentar desplazar
+    setTimeout(() => {
+        if (mercadoPagoRef?.current) {
+          scrollToElement(mercadoPagoRef.current);
+        }
+      }, 300);
+    
     };
 
     const handleCardPaymentClick = () => {
@@ -133,6 +171,13 @@ const CartComponents = () => {
         setShowCardPayment(true);
         setPaymentMethodSelected('cardpayment');
         setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
+            // Esperar a que el estado se actualice antes de intentar desplazar
+    setTimeout(() => {
+        if (cardPaymentSectionRef?.current) {
+          scrollToElement(cardPaymentSectionRef.current);
+        }
+      }, 300);
+    
     };
 
     const handleScrollToRef = (ref) => {
@@ -1092,6 +1137,63 @@ const CartComponents = () => {
                                                                                 Seleccione un método de pago
                                                                             </h3>
 
+                                                                            <p style={{ color: isDarkMode ? '#000' : '#a70000', fontSize: '1.2rem', fontWeight: '300', marginBottom: '20px' }}>
+                                                                                Puede seleccionar entre Mercado Pago, tarjeta de crédito/débito o pagos con PayPal.
+                                                                                <br />
+                                                                                <span style={{ color: 'red' }}>*</span> Todos nuestros métodos de pago son seguros y rápidos.
+                                                                            </p>
+                                                                            
+                                                                            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '30px' }}>
+                                                                                <Button 
+                                                                                    variant="outlined"
+                                                                                    onClick={() => {
+                                                                                        handleMercadoPagoClick();
+                                                                                        const mercadopagoElement = document.querySelector('.mercadopago-div');
+                                                                                        if (mercadopagoElement) {
+                                                                                            mercadopagoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                                        }
+                                                                                    }}
+                                                                                    startIcon={<CreditCardTwoTone />}
+                                                                                    sx={{
+                                                                                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.5)' : '#670000',
+                                                                                        color: isDarkMode ? 'white' : '#670000',
+                                                                                        backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : 'transparent',
+                                                                                        borderRadius: '25px',
+                                                                                        px: 3,
+                                                                                        '&:hover': {
+                                                                                            backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.3)' : 'rgba(103, 0, 0, 0.1)',
+                                                                                            borderColor: '#a70000',
+                                                                                        }
+                                                                                    }}
+                                                                                >
+                                                                                    Mercado Pago
+                                                                                </Button>
+                                                                                <Button 
+                                                                                    variant="outlined"
+                                                                                    onClick={() => {
+                                                                                        const paypalElement = document.querySelector('.paypal-div');
+                                                                                        if (paypalElement) {
+                                                                                            paypalElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                                        }
+                                                                                    }}
+                                                                                    startIcon={<AccountBox />}
+                                                                                    sx={{
+                                                                                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.5)' : '#670000',
+                                                                                        color: isDarkMode ? 'white' : '#670000',
+                                                                                        backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : 'transparent',
+                                                                                        borderRadius: '25px',
+                                                                                        px: 3,
+                                                                                        '&:hover': {
+                                                                                            backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.3)' : 'rgba(103, 0, 0, 0.1)',
+                                                                                            borderColor: '#a70000',
+                                                                                        }
+                                                                                    }}
+                                                                                >
+                                                                                    PayPal
+                                                                                </Button>
+                                                                            </div>
+
+
                                                                             <div id='Payment' className='payments-btn-container' style={{ background: isDarkMode ? 'rgba(6, 6, 6, 0.9)' : '#f5f5f5', padding: isSmallScreen ? '20px 0' : '20px', borderRadius: '10px', }}>
                                                                                 <div className='payments-buttons' style={{ background: 'transparent' }}>
 
@@ -1112,7 +1214,15 @@ const CartComponents = () => {
                                                                                             <Grid item xs={12} sm={6} md={5}>
                                                                                                 <Paper
                                                                                                     elevation={6}
-                                                                                                    onClick={handleMercadoPagoClick}
+                                                                                                    onClick={() => {
+                                                                                                        handleMercadoPagoClick();
+                                                                                                        setTimeout(() => {
+                                                                                                            if (mercadoPagoRef?.current) {
+                                                                                                              scrollToElement(mercadoPagoRef.current);
+                                                                                                            }
+                                                                                                          }, 200);
+                                                                                                        }}
+
                                                                                                     sx={{
                                                                                                         p: 3,
                                                                                                         textAlign: 'center',
@@ -1178,7 +1288,14 @@ const CartComponents = () => {
                                                                                             <Grid item xs={12} sm={6} md={5}>
                                                                                                 <Paper
                                                                                                     elevation={6}
-                                                                                                    onClick={handleCardPaymentClick}
+                                                                                                    onClick={() => {
+                                                                                                        handleCardPaymentClick();
+                                                                                                        setTimeout(() => {
+                                                                                                            if (cardPaymentSectionRef?.current) {
+                                                                                                              scrollToElement(cardPaymentSectionRef.current);
+                                                                                                            }
+                                                                                                          }, 200);
+                                                                                                        }}
                                                                                                     sx={{
                                                                                                         p: 3,
                                                                                                         textAlign: 'center',
@@ -1304,7 +1421,7 @@ const CartComponents = () => {
 
                                                                                         {/* Componentes de pago según la selección (solo mostrar cuando hasSelectedPaymentMethod es true) */}
                                                                                         {hasSelectedPaymentMethod && showCardPayment && (
-                                                                                            <Box
+                                                                                            <Box ref={cardPaymentSectionRef}
                                                                                                 sx={{
                                                                                                     mt: 4,
                                                                                                     pt: 3,
@@ -1358,7 +1475,7 @@ const CartComponents = () => {
                                                                                         )}
 
                                                                                         {hasSelectedPaymentMethod && showMercadoPago && (
-                                                                                            <Box
+                                                                                            <Box ref={mercadoPagoRef}
                                                                                                 sx={{
                                                                                                     mt: 4,
                                                                                                     pt: 3,

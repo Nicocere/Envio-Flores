@@ -12,7 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 export default function Providers({ children }: { children: React.ReactNode }) {
   // "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
   const initialOptions = {
-    clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_SANDBOX || "",
+    clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
     currency: "USD",
     intent: "capture",
   };

@@ -1246,7 +1246,66 @@ const Form = ({ itemSelected }) => {
                                         <span className="security-text">Todos nuestros pagos son procesados en un entorno seguro</span>
                                     </div>
                                 </div>
+
                             </div>
+
+                <p style={{ color: isDarkMode ? '#000' : '#a70000', fontSize: '1.2rem', fontWeight: '300', marginBottom: '20px' }}>
+                                                                                Puede seleccionar entre Mercado Pago, tarjeta de crédito/débito o pagos con PayPal.
+                                                                                <br />
+                                                                                <span style={{ color: 'red' }}>*</span> Todos nuestros métodos de pago son seguros y rápidos.
+                                                                            </p>
+                                                                            
+                                                                            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '30px' }}>
+                                                                                <Button 
+                                                                                    variant="outlined"
+                                                                                    onClick={() => {
+                                                                                        handleMercadoPagoClick();
+                                                                                        const mercadopagoElement = document.querySelector('.mercadopago-div');
+                                                                                        if (mercadopagoElement) {
+                                                                                            mercadopagoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                                        }
+                                                                                    }}
+                                                                                    startIcon={<CreditCardTwoTone />}
+                                                                                    sx={{
+                                                                                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.5)' : '#670000',
+                                                                                        color: isDarkMode ? 'white' : '#670000',
+                                                                                        backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : 'transparent',
+                                                                                        borderRadius: '25px',
+                                                                                        px: 3,
+                                                                                        '&:hover': {
+                                                                                            backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.3)' : 'rgba(103, 0, 0, 0.1)',
+                                                                                            borderColor: '#a70000',
+                                                                                        }
+                                                                                    }}
+                                                                                >
+                                                                                    Mercado Pago
+                                                                                </Button>
+                                                                                <Button 
+                                                                                    variant="outlined"
+                                                                                    onClick={() => {
+                                                                                        const paypalElement = document.querySelector('.paypal-div');
+                                                                                        if (paypalElement) {
+                                                                                            paypalElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                                                        }
+                                                                                    }}
+                                                                                    startIcon={<AccountBox />}
+                                                                                    sx={{
+                                                                                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.5)' : '#670000',
+                                                                                        color: isDarkMode ? 'white' : '#670000',
+                                                                                        backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.1)' : 'transparent',
+                                                                                        borderRadius: '25px',
+                                                                                        px: 3,
+                                                                                        '&:hover': {
+                                                                                            backgroundColor: isDarkMode ? 'rgba(103, 0, 0, 0.3)' : 'rgba(103, 0, 0, 0.1)',
+                                                                                            borderColor: '#a70000',
+                                                                                        }
+                                                                                    }}
+                                                                                >
+                                                                                    PayPal
+                                                                                </Button>
+                                                                            </div>
+
+
                             <div id='Payment' ref={paymentsRef} className='payments-btn-container'>
                                 <div className='payments-buttons'>
                                     <div className='mercadopago-buttons'>

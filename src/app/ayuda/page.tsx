@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 
 
 function ComoComprar() {
-  const emailPaypal = "paypal@envioflores.com";
+  const emailPaypal = "ventas@aflorar.com.ar";
 
 
   return <ComoComprarComponent />;

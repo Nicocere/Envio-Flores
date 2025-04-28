@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     'business:contact_data:country': 'Argentina',
     'business:contact_data:postal_code': 'C1428',
     'business:contact_data:website': 'https://envioflores.com',
-    'business:contact_data:email': 'info@envioflores.com',
-    'business:contact_data:phone_number': '+5491123456789',
+    'business:contact_data:email': 'ventas@aflorar.com.ar',
+    'business:contact_data:phone_number': '+5491165421003',
   }
 };
 

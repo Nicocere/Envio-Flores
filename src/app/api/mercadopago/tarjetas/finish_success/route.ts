@@ -305,8 +305,8 @@ export async function POST(request: Request) {
                         Si tienes alguna pregunta sobre tu compra, no dudes en contactarnos:
                     </p>
                     <ul style="padding-left: 20px; margin-bottom: 0;">
-                        <li style="margin-bottom: 8px; color: #555;">WhatsApp: +54 11 3140-8060</li>
-                        <li style="margin-bottom: 8px; color: #555;">Email: info@envioflores.com</li>
+                        <li style="margin-bottom: 8px; color: #555;">WhatsApp: +54 11 6542-1003</li>
+                        <li style="margin-bottom: 8px; color: #555;">Email: ventas@aflorar.com.ar</li>
                         <li style="color: #555;">Horario de atención: Lunes a Sábado de 7:00 a 18:00 hs</li>
                     </ul>
                 </div>

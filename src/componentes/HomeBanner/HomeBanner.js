@@ -71,11 +71,12 @@ const HomeBanner = memo(() => {
                 <div className={styles.bannerContent}>
                     <h1 className={styles.bannerTitle}>
                         Envío de Flores a Domicilio
-                        <span className={styles.bannerSubtitle}>CABA y Gran Buenos Aires</span>
                     </h1>
+                        <span className={styles.bannerTagline}>Flores frescas con garantía de satisfacción | Servicio premium con entrega en horario exacto        </span>
                     
-                    <div className={styles.bannerTagline}>
-                        Flores frescas con garantía de satisfacción | Servicio premium con entrega en horario exacto
+                    <div className={styles.bannerSubtitle}>
+                            CABA y Gran Buenos Aires
+                        
                     </div>
                     
                     <div className={styles.bannerCta}>

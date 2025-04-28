@@ -52,7 +52,7 @@ export async function POST(request: Request) {
         }
 
         // Verificar token de acceso
-        const accessToken = process.env.MP_EF_ACC_TOK_LIVE_TEST;
+        const accessToken = process.env.MP_EF_ACC_TOK;
         if (!accessToken) {
             console.error('Token de acceso no configurado');
             throw new Error('MP_EF_ACC_TOK is not defined');

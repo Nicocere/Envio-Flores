@@ -10,7 +10,7 @@ import localforage from 'localforage';
 // Eliminamos la importación no utilizada de useRouter
 
 // Inicializar MercadoPago
-initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY_LIVE_TEST, {
+initMercadoPago(process.env.NEXT_PUBLIC_MP_EF_PUBLIC_KEY, {
   locale: 'es-AR',
 });
 
@@ -112,7 +112,7 @@ const MercadoPagoButton = ({
       // Guardar el bodyMP en localforage
       await localforage.setItem('shoppingCart', bodyMP);
       // Determinar URL según entorno
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+      const baseUrl = 'http://localhost:3000'//process.env.NEXT_PUBLIC_BASE_URL
 
       const response = await fetch(`${baseUrl}/api/mercadopago/payment`, {
         method: 'POST',
