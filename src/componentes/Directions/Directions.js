@@ -161,8 +161,8 @@ const Directions = ({ locationSelect, comoComprar }) => {
         <p>
           La localidad que seleccionó es:{' '}
           <strong>
-            {locationSelect.name} - Costo: {priceDolar ? 'USD$' : '$'}
-            {locationSelect.value.toLocaleString('es-AR')}
+            {locationSelect?.name} - Costo: {priceDolar ? 'USD$' : '$'}
+            {locationSelect?.value?.toLocaleString('es-AR')}
           </strong>
         </p>
       </div>
@@ -250,8 +250,8 @@ const Directions = ({ locationSelect, comoComprar }) => {
                     </svg>
                   </div>
                   <p>
-                    Localidad seleccionada: <strong>{selectedValue.name}</strong> - 
-                    Costo: <strong>{priceDolar ? 'USD$' : '$'}{selectedValue.value.toLocaleString('es-AR')}</strong>
+                    Localidad seleccionada: <strong>{selectedValue?.name}</strong> - 
+                    Costo: <strong>{priceDolar ? 'USD$' : '$'}{selectedValue?.value?.toLocaleString('es-AR')}</strong>
                   </p>
                 </div>
               )}
@@ -305,8 +305,8 @@ const Directions = ({ locationSelect, comoComprar }) => {
                   </svg>
                 </div>
                 <p>
-                  Localidad seleccionada: <strong>{selectedValue.name}</strong> - 
-                  Costo: <strong>{priceDolar ? 'USD$' : '$'}{selectedValue.value.toLocaleString('es-AR')}</strong>
+                  Localidad seleccionada: <strong>{selectedValue?.name}</strong> - 
+                  Costo: <strong>{priceDolar ? 'USD$' : '$'}{selectedValue?.value?.toLocaleString('es-AR')}</strong>
                 </p>
               </div>
             )}

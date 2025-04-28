@@ -42,10 +42,33 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode .input-fecha-envio {
-  background-color: var(--bg-dark);
-  border: 1px solid var(--border-color-dark);
+.lbl-horarioPremium-envio{
+  color: var(--text-dark);
+  font-weight: 500;
+
+}
+
+.dark-mode .lbl-horarioPremium-envio{
   color: var(--text-light);
+  font-weight: 500;
+}
+
+.premium-text{
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.dark-mode .premium-text{
+  color: var(--primary-light);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.dark-mode .input-fecha-envio {
+  /* background-color: var(--bg-dark); */
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-dark);
 }
 .dark-mode .div-horarioPremium-envio label,
 .dark-mode .select-horarioPremium-envio label {

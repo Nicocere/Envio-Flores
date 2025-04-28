@@ -169,7 +169,7 @@ const NavBarMobile = () => {
                 width={85}
                 height={85} 
                   className='img-navbar'
-                  src={'/assets/imagenes/logo-envio-flores.png'}
+                  src={'https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23'}
                   alt="logo envio flores"
                 />
               </Link>

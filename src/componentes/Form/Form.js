@@ -424,6 +424,22 @@ const Form = ({ itemSelected }) => {
                             </>
                         ) : null}
 
+                    {
+
+                        !isPremium ? (
+                            <>
+                                    <label htmlFor="premiumService" className='lbl-horarioPremium-envio'>¿Desea un servicio Premium?</label>
+                                    <span className='premium-text'> (Entrega en el horario que usted elija)</span>
+                                    </>
+                        ) : (
+                            <>
+                                <label htmlFor="premiumService" className='lbl-horarioPremium-envio'>Seleccionó el envío premium</label>
+                                <span className='premium-text'> Escriba el horario que desea que lo enviemos</span>
+                            </>
+                        )
+                        }
+
+                    
                         <div className='div-horarioPremium-envio'>
                             <input
                                 type="checkbox"

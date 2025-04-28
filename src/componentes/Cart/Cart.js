@@ -741,7 +741,7 @@ const CartComponents = () => {
                                                                 )}
 
                                                                 <Typography variant="body2" sx={{ marginTop: '15px', fontStyle: 'italic', maxWidth: '500px', margin: '0 auto' }}>
-                                                                    <span style={{ color: '#670000', fontWeight: 'bold' }}>
+                                                                    <span style={{ color: isDarkMode ? 'white':'#670000', fontWeight: 'bold', maxWidth:'50ch' }}>
                                                                         ¡Ya casi termina! Complete el formulario y continúe hacia el proceso de pago para completar su pedido.
                                                                     </span>
                                                                 </Typography>
