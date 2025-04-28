@@ -982,7 +982,9 @@ input {
     'opsz' 48
 }
 
-
+.container-payments-cart{
+  width:  -webkit-fill-available;
+}
 
 .fa-shopping-cart {
   font-size: 120%;
@@ -1812,6 +1814,11 @@ input {
 
 .dark-mode .listadeproductos {
   background: #121212;
+  color: #fff;
+  transition: all .6s ease-in-out;
+}
+
+.dark-mode .ocasionesSeccion {
   color: #fff;
   transition: all .6s ease-in-out;
 }

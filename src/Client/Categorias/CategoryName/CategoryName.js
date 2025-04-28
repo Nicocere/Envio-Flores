@@ -25,7 +25,7 @@ export default function CategoryNameComponent(props) {
                             
                             textAlign: '-webkit-center',
                         }}>
-                            Estas viendo la Categoria: <strong>
+                            Estas viendo la Categoria: <strong style={{ color: isDarkMode ? '#ff6b6b' : '#a70000' }}>
                                 {categoryName}
                             </strong>
                         </h2>

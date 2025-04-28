@@ -494,7 +494,6 @@ const CartComponents = () => {
                                                     {
                                                         !completeForm ?
                                                             (<form onSubmit={handleSubmit} className='form'>
-                                                                {/* <CheckoutStepper activeStep={3} cartEmpty={cart.length === 0} /> */}
 
                                                                 <div className='datos-recibe'>
                                                                     <Typography variant="h6" sx={{ color: '#670000', fontWeight: 600, marginBottom: '10px' }}>
@@ -750,9 +749,10 @@ const CartComponents = () => {
                                                             )
                                                             :
 
-                                                            <div >
+                                                            <div className='container-payments-cart' > 
 
                                                                 <CheckoutStepper activeStep={4} />
+
                                                                 {confirmationDone &&
                                                                     <Paper
                                                                     ref={datosRef} id="datos"

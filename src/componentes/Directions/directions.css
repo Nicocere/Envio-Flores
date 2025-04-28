@@ -1,43 +1,299 @@
-.directions-div{
-    background: white;
-    border-radius: 10px;
-    border: 1px solid grey;
-     ;
-      margin: 30px 20px;
-    padding: 0 10px;
+/* Estilos modernos para el componente Directions con soporte para modo oscuro */
 
+/* Contenedor principal */
+.directions-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.directions-div h1{
-    background: rgb(106, 0, 0);
-    padding: 20px;
-    margin-top: 0px;
-    border-radius: 10px;
-    color: rgb(255, 255, 255);
+/* Tarjeta principal */
+.directions-card {
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-normal);
+  padding: 20px;
+  margin: 15px 0;
+  transition: transform var(--transition-time), box-shadow var(--transition-time);
+  border: 1px solid var(--border-color);
+  position: relative;
+  /* overflow: hidden; */
+  z-index: 100;
 }
 
-.envio-direction-list{
-    display: flex;
+.directions-card:hover {
+  box-shadow: var(--shadow-strong);
+  transform: translateY(-2px);
+}
+
+.directions-container.dark-mode .directions-card {
+  background-color: var(--background-card-dark);
+  border-color: var(--border-color-dark);
+  box-shadow: var(--card-shadow-dark);
+}
+
+.directions-container.dark-mode .directions-card:hover {
+  box-shadow: var(--card-shadow-hover-dark);
+}
+
+/* Encabezado */
+.directions-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.directions-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.directions-container.dark-mode .directions-header::after {
+  background: linear-gradient(90deg, var(--primary-light), transparent);
+}
+
+/* Título */
+.directions-title {
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 0 12px;
+  font-family: var(--font-primary);
+}
+
+.directions-container.dark-mode .directions-title {
+  color: var(--text-light);
+}
+
+/* Iconos */
+.directions-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+}
+
+.directions-container.dark-mode .directions-icon {
+  color: var(--primary-light);
+}
+
+.truck-icon {
+  transform: scaleX(-1); /* Espeja el icono del camión para que apunte a la derecha */
+}
+
+/* Select personalizado */
+.directions-select {
+  margin-bottom: 15px;
+  font-family: var(--font-primary);
+}
+
+/* Estado de carga */
+.directions-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--text-muted);
+  flex-direction: column;
+  gap: 12px;
+}
+
+.directions-container.dark-mode .directions-loading {
+  color: var(--text-muted-dark);
+}
+
+.directions-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid transparent;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: directions-spin 1s linear infinite;
+}
+
+.directions-container.dark-mode .directions-spinner {
+  border-top-color: var(--primary-light);
+}
+
+@keyframes directions-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mensaje de localidad seleccionada */
+.location-message {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  border-left: 3px solid var(--primary-color);
+  margin-top: 15px;
+  animation: fade-in 0.5s ease;
+}
+
+.directions-container.dark-mode .location-message {
+  background-color: var(--primary-dark);
+  border-left-color: var(--primary-light);
+}
+
+.location-message-icon {
+  color: var(--primary-color);
+  margin-right: 10px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.directions-container.dark-mode .location-message-icon {
+  color: var(--primary-light);
+}
+
+.location-message p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: var(--font-primary);
+}
+
+.directions-container.dark-mode .location-message p {
+  color: var(--text-light);
+}
+
+.location-message strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.directions-container.dark-mode .location-message strong {
+  color: var(--primary-light);
+}
+
+/* Animaciones */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .directions-card {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .directions-title {
+    font-size: 16px;
+  }
+  
+  .location-message {
+    padding: 12px;
+    margin-top: 12px;
+  }
+  
+  .location-message p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .directions-container {
+    max-width: 100%;
+  }
+  
+  .directions-header {
     flex-direction: column;
     align-items: flex-start;
-}
-
-.li-directs{
-    margin: 7px 0;
-    text-align: left;
-}
-
-.li-directs a{
-    font-size: 20px;
-    font-weight: 800;
-     ;
-    color: darkred!important;
-      transition: all .5s;
-    text-decoration: none;
-}
-
-.li-directs a:hover{
-    font-size: 21px;
-    color: rgb(189, 0, 0);
+  }
   
+  .directions-icon {
+    margin-bottom: 8px;
+  }
+  
+  .directions-title {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  
+  .location-message {
+    flex-direction: column;
+  }
+  
+  .location-message-icon {
+    margin-bottom: 10px;
+  }
+}
+
+/* Compatibilidad con clases antiguas para evitar cambios abruptos */
+.select-directions {
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-normal);
+  padding: 20px;
+  margin: 15px 0;
+  transition: transform var(--transition-time), box-shadow var(--transition-time);
+  border: 1px solid var(--border-color);
+}
+
+.dark-mode .select-directions {
+  background-color: var(--background-card-dark);
+  border-color: var(--border-color-dark);
+  box-shadow: var(--card-shadow-dark);
+}
+
+.localidad-titulo {
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  font-family: var(--font-primary);
+}
+
+.dark-mode .localidad-titulo {
+  color: var(--text-light);
+}
+
+.selected-location-info {
+  margin: 15px 0 0;
+  color: var(--text-dark);
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: var(--font-primary);
+  background-color: var(--secondary-color);
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--primary-color);
+  display: block;
+}
+
+.dark-mode .selected-location-info {
+  color: var(--text-light);
+  background-color: var(--primary-dark);
+  border-left-color: var(--primary-light);
+}
+
+.selected-location-info strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.dark-mode .selected-location-info strong {
+  color: var(--primary-light);
 }

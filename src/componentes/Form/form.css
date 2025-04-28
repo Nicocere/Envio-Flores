@@ -899,6 +899,11 @@
 @media (max-width: 768px) {
   .form {
     padding: 1rem;
+    width: -webkit-fill-available;
+  }
+  .formulario {
+    padding: 1rem 2px;
+    margin: 20px 2px 20px;
   }
   
   .datos-recibe,

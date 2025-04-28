@@ -201,6 +201,7 @@
 
 /* Sección de categorías */
 .categoriesSection {
+  position: -webkit-sticky;
   position: sticky;
   top: 2rem;
   height: fit-content;
@@ -432,6 +433,7 @@
 
 /* Botones de scroll */
 .scrollButtons {
+  position: -webkit-sticky;
   position: sticky;
   bottom: 2rem;
   display: flex;
@@ -562,6 +564,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .faqsContainer{
+    max-height: 130vh;
+    min-height: 100vh;
+    padding: 0;
   }
   
   .categoryTab {
@@ -577,7 +587,36 @@
   .heroTitle {
     font-size: 2rem;
   }
+
+  .categoriesSection{
+    position: static;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contentContainer{
+    padding: 20px 10px;
+  }
   
+  .categoriesSection {
+    position: static;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .faqsContainer{
+    max-height: 130vh;
+    min-height: 100vh;
+    padding: 0;
+  }
+
   .contactOptions {
     flex-direction: column;
     align-items: center;

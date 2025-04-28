@@ -230,7 +230,7 @@ const NavBarMobile = () => {
           onKeyDown={handleToggleDrawer(false)}
           style={{
             width: '300px',
-            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'white',
+            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
             height: '100%',
           }}
         >
@@ -337,7 +337,7 @@ const NavBarMobile = () => {
         {openProductsDrawer && (
           <div style={{
             width: '300px',
-            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'white',
+            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
             display: 'flex',
             height: '100%',
             flexDirection: 'column'
@@ -394,7 +394,7 @@ const NavBarMobile = () => {
               <Link className='list-products' href="/categoria/Arreglos">Arreglos</Link>
               <Link className='list-products' href="/categoria/Especiales">Especiales</Link>
               <Link className='list-products' href="/categoria/Canastas">Canastas</Link>
-              <Link className='link-products' href="/categoria/Ramos">Ramos</Link>
+              <Link className='list-products' href="/categoria/Ramos">Ramos</Link>
               <Link className='list-products' href="/categoria/Plantas">Plantas</Link>
               <Link className='list-products' href="/categoria/Comestibles">Comestibles</Link>
               <Link className='list-products' href="/categoria/Desayunos">Desayunos</Link>
@@ -415,7 +415,7 @@ const NavBarMobile = () => {
         {openOcassionsDrawer && (
           <div style={{
             width: '300px',
-            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'white',
+            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
             display: 'flex',
             flexDirection: 'column',
             height: '100%',

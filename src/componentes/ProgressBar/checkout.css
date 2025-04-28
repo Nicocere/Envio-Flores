@@ -18,7 +18,12 @@
   position: relative;
   overflow: visible !important;
 }
-
+.checkout-stepper-container{
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill-available;
+  max-width: 100%;
+}
 .custom-stepper::before {
   content: '';
   position: absolute;

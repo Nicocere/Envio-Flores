@@ -13,21 +13,13 @@ const ProductsCategoryComponent = () => {
     const { isDarkMode } = useTheme();
 
     return (
-        <div style={{
-            background: isDarkMode ? '#fcf5f0' : '#1a0f0a',
-            backdropFilter: !isDarkMode && 'blur(5px)',
-            paddingTop: '50px'
-        }}>
+        <div >
             <CheckoutStepper activeStep={0} />
             <div className={style.products}>
                 <div className={style.productsContent} >
                     <Categories />
                     <div className={style.productsListContainer} >
-                        <h2 style={{
-                            fontSize: isSmallScreen && '1.76rem',
-                            color: '#D4AF37',
-                            textAlign: '-webkit-center',
-                        }}>
+                        <h2 >
                             Todos nuestros productos
                         </h2>
                         <ItemListContainer />
