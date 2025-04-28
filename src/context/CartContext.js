@@ -239,10 +239,7 @@ const CartProvider = ({ children }) => {
             const productIndex = cart.findIndex(prod => 
                 (prod.precio === precio) && (prod.size === size) && (prod.name === name)
             );
-            console.log("Product Index:", productIndex);
-            console.log("Cart:", cart);
-            console.log("Product to remove:", { name, size, precio });
-            
+    
             // Verificar si el producto está en el carrito
             if (productIndex !== -1) {
                 if (cart[productIndex].quantity > 1) {

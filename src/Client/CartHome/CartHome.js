@@ -82,8 +82,6 @@ export default function CartHome() {
   };
 
   const handleRemoveProduct = (product) => {
-    console.log("product", product);
-    console.log("cart", cart);
 
     eliminarProd(product.name, product.size, product.precio, product.adicional);
   };

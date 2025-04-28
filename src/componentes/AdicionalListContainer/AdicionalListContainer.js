@@ -66,7 +66,6 @@ const AdicionalListContainer = () => {
                 
                 // Si hay datos en cache y son válidos (menos de 45 minutos)
                 if (cachedData && isCacheValid(cachedData)) {
-                    console.log("Usando datos en caché de adicionales");
                     setAdicionales(cachedData.items);
                     setUsingCache(true);
                     setError(null);
@@ -74,7 +73,6 @@ const AdicionalListContainer = () => {
                 } else {
                     // Si no hay datos en cache o ya expiraron, obtener de Firebase
                     if (cachedData && !isCacheValid(cachedData)) {
-                        console.log("Datos en caché expirados, obteniendo nuevos datos");
                         // Limpiar cache expirado
                         await localforage.removeItem(CACHE_KEY);
                     }

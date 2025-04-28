@@ -8,10 +8,6 @@ export async function POST(request: Request) {
     try {
         // Extraer solo los datos necesarios
         const { datosEnvio, products, payMethod, formData } = body;
-
-        console.log('BODY:', body);
-        console.log('formData:', formData);
-        console.log('payMethod:', payMethod);
         
         // Validar que los datos necesarios estén presentes
         if (!formData || !formData.token || !payMethod) {
@@ -91,16 +87,12 @@ export async function POST(request: Request) {
             paymentData.issuer_id = formData.issuer_id;
         }
 
-        console.log('Enviando datos a MercadoPago:', JSON.stringify(paymentData, null, 2));
-
         try {
             // Procesar el pago con la nueva API - usando async/await en lugar de promesas
             const paymentResponse = await payment.create({
                 body: paymentData
             });
-            
-            console.log('Respuesta de MercadoPago:', paymentResponse);
-            
+                        
             // Manejar diferentes estados de pago
             const { status, status_detail, id } = paymentResponse;
 

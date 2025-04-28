@@ -86,7 +86,6 @@ export async function POST(request: Request) {
             } else {
                 const pdfData = await pdfResponse.json();
                 pdfURL = pdfData.pdfURL;
-                console.log('PDF generado exitosamente');
             }
         } catch (pdfError) {
             console.error('Error en la generación del PDF, continuando con el proceso:', pdfError);

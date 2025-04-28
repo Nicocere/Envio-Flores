@@ -55,8 +55,6 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                 });
             }
 
-            console.log('initialNewEvent', initialNewEvent);
-
             if (!requestSentRef.current) {
                 try {
                     requestSentRef.current = true;

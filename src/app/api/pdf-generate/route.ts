@@ -8,8 +8,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     const body = await request.json();
     const { products, datosComprador, datosEnvio, retiraEnLocal } = body;
 
-
-    console.log('envio de Datos:', body);
     try {
         // Crear un nuevo documento PDF
         const pdfDoc = await PDFDocument.create();
