@@ -22,7 +22,7 @@ export default function CategoryProdsComponents(props) {
                             
                             textAlign: '-webkit-center',
                         }}>
-                            Estas viendo la ocasión: <strong >
+                            Estas viendo la ocasión: <strong style={{ color: isDarkMode ? '#ff6b6b' : '#a70000' }}>
                                 {category}
                             </strong>
                         </h2>

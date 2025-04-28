@@ -424,22 +424,22 @@ const Form = ({ itemSelected }) => {
                             </>
                         ) : null}
 
-                    {
+                        {
 
-                        !isPremium ? (
-                            <>
+                            !isPremium ? (
+                                <>
                                     <label htmlFor="premiumService" className='lbl-horarioPremium-envio'>¿Desea un servicio Premium?</label>
                                     <span className='premium-text'> (Entrega en el horario que usted elija)</span>
-                                    </>
-                        ) : (
-                            <>
-                                <label htmlFor="premiumService" className='lbl-horarioPremium-envio'>Seleccionó el envío premium</label>
-                                <span className='premium-text'> Escriba el horario que desea que lo enviemos</span>
-                            </>
-                        )
+                                </>
+                            ) : (
+                                <>
+                                    <label htmlFor="premiumService" className='lbl-horarioPremium-envio'>Seleccionó el envío premium</label>
+                                    <span className='premium-text'> Escriba el horario que desea que lo enviemos</span>
+                                </>
+                            )
                         }
 
-                    
+
                         <div className='div-horarioPremium-envio'>
                             <input
                                 type="checkbox"
@@ -570,7 +570,7 @@ const Form = ({ itemSelected }) => {
                                     handleConfirmationClick();
                                     handleScrollToRef(formularioEnvioRef);
                                     datosRef.current?.scrollIntoView({ behavior: 'smooth' });
-                                                                } else {
+                                } else {
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Localidad requerida',
@@ -618,7 +618,7 @@ const Form = ({ itemSelected }) => {
             )}
 
             {activeStep === 4 && (
-        <div ref={datosRef} id="datos">
+                <div ref={datosRef} id="datos">
                     {confirmationDone ? (
                         <>
                             <Button
