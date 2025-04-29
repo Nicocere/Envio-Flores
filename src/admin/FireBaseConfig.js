@@ -14,7 +14,11 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);  // Autenticación
-export const storage = getStorage(app); // Imagenes
-export const baseDeDatos = getFirestore(app); // Base de datos Firestore
+let app;
+if (typeof window !== "undefined") {
+  app = initializeApp(firebaseConfig);
+}
+
+export const auth = typeof window !== "undefined" ? getAuth(app) : null;
+export const storage = typeof window !== "undefined" ? getStorage(app) : null;
+export const baseDeDatos = typeof window !== "undefined" ? getFirestore(app) : null;
