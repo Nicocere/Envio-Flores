@@ -1,0 +1,207 @@
+/* direcciones.module.css */
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}
+
+.formAddDirection input{
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--color);
+  background: var(--secondary-background);
+  color: var(--color);
+}
+
+.divDirections {
+    color: var(--color);
+    text-align: center;
+    background: var(--background);
+    border-radius: 20px;
+}
+
+.divAddDirection {
+    margin: 10px 30px;
+    padding: 60px;
+    /* background: var(--secondary-background); */
+}
+
+.formAddDirection {
+    display: flex;
+    flex-direction: column;
+}
+
+.tableDirect {
+    border: 1px solid var(--color2);
+    border-radius: 5px;
+    width: 100%;
+    color: var(--color);
+    text-align: center;
+    background: var(--secondary-background);
+}
+
+.tableDirect td {
+    border: 1px solid var(--color);
+    border-radius: 1px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.tableDirect th {
+    border: 1px solid var(--color2);
+    border-radius: 1px;
+    font-size: 20px;
+    padding: 10px 0;
+    font-weight: 800;
+    color: var(--color);
+    background: var(--color2);
+    transition: all .25s ease;
+}
+
+.tableDirect tr {
+    background: var(--secondary-background);
+}
+
+.tableDirect tr:hover {
+    background: var(--hover);
+}
+
+
+.btnsTable{
+  display: flex;
+  justify-content: space-around;
+
+}
+.btnTableEdit, .btnTableDelete {
+padding: 8px 15px;
+margin: 4px 8px;
+border-radius: 6px;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.btnTableEdit {
+background: #670000;
+color: white;
+border: none;
+}
+
+.btnTableEdit:hover{
+  background: #836c22;
+}
+.btnTableDelete:hover{
+  background: #6f0c0c;
+}
+
+.btnTableDelete {
+background: #450707;
+color: white;
+border: none;
+}
+
+.btnTableEdit:hover, .btnTableDelete:hover {
+transform: translateY(-2px);
+box-shadow: 0 5px 10px var(--shadow);
+}
+
+.divMapEditMassive {
+    border: 1px solid var(--color);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.divMapEditMassive label {
+    margin: 0 5px 0 0;
+}
+
+.divEditMassive {
+    width: 48%;
+    border: 1px solid var(--color);
+    margin: 5px;
+    border-radius: 5px;
+    background: var(--secondary-background);
+    box-shadow: 0px 7px 8px -4px var(--shadow), 0px 12px 17px 2px var(--shadow), 0px 5px 22px 4px var(--shadow);
+}
+
+.btnConfirmMassiveEdition {
+    padding: 8px;
+    background: rgb(7, 169, 7);
+    color: white;
+    border: 1px solid green;
+    font-size: large;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px 0;
+    transition: background .6s ease-out;
+}
+
+.btnConfirmMassiveEdition:hover {
+    background: rgb(0, 94, 0);
+}
+
+.waitingAllChanges {
+    color: var(--color);
+    font-weight: 500;
+    font-size: 1.75rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.textInfo {
+    text-align: left;
+    margin: 20px;
+    color: var(--color);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.selectAllContainer {
+    background: var(--secondary-background);
+    font-family: 'Jost, sans-serif';
+    font-size: 25px;
+    color: var(--color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}

@@ -247,7 +247,7 @@ const handleDialogConfirm = async () => {
                                     <TableCell 
                                         key={header}
                                         sx={{ 
-                                            background: 'linear-gradient(145deg, #d4af37 0%, #c4a032 100%)',
+                                            background: 'linear-gradient(145deg, #670000 0%, #c4a032 100%)',
                                             color: 'white',
                                             fontSize: '1rem',
                                             fontWeight: '600',
@@ -273,10 +273,10 @@ const handleDialogConfirm = async () => {
                                             borderBottom: '1px solid rgba(212, 175, 55, 0.2)'
                                         }}
                                     >
-                                        <TableCell sx={{ textAlign: 'center', color: '#2f1a0f' }}>
+                                        <TableCell sx={{ textAlign: 'center', color: '#670000' }}>
                                             {formatDate(order.createdAt)}
                                         </TableCell>
-                                        <TableCell sx={{ textAlign: 'center', color: '#2f1a0f', fontWeight: '500' }}>
+                                        <TableCell sx={{ textAlign: 'center', color: '#670000', fontWeight: '500' }}>
                                             {order.order_number}
                                         </TableCell>
                                         <TableCell sx={{ textAlign: 'center' }}>
@@ -293,7 +293,7 @@ const handleDialogConfirm = async () => {
                                         </TableCell>
                                         <TableCell sx={{ 
                                             textAlign: 'center', 
-                                            color: '#2f1a0f',
+                                            color: '#670000',
                                             fontWeight: '600',
                                             fontSize: '1.1rem'
                                         }}>
@@ -306,15 +306,15 @@ const handleDialogConfirm = async () => {
                                                     variant='contained'
                                                     sx={{
                                                         background: openOrderId === order.id ? 
-                                                            'linear-gradient(145deg, #2f1a0f 0%, #3a2116 100%)' : 
-                                                            'linear-gradient(145deg, #d4af37 0%, #c4a032 100%)',
+                                                            'linear-gradient(145deg, #670000 0%, #3a2116 100%)' : 
+                                                            'linear-gradient(145deg, #670000 0%, #c4a032 100%)',
                                                         color: 'white',
                                                         padding: '8px 16px',
                                                         borderRadius: '25px',
                                                         minWidth: '120px',
                                                         fontWeight: '500',
                                                         '&:hover': {
-                                                            background: '#2f1a0f',
+                                                            background: '#670000',
                                                             transform: 'translateY(-2px)',
                                                             boxShadow: '0 4px 12px rgba(212, 175, 55, 0.3)'
                                                         },
@@ -327,16 +327,16 @@ const handleDialogConfirm = async () => {
                                                     onClick={() => repeatOrder(order)}
                                                     variant='outlined'
                                                     sx={{
-                                                        color: '#d4af37',
-                                                        border: '2px solid #d4af37',
+                                                        color: '#670000',
+                                                        border: '2px solid #670000',
                                                         padding: '8px 16px',
                                                         borderRadius: '25px',
                                                         minWidth: '120px',
                                                         fontWeight: '500',
                                                         '&:hover': {
-                                                            background: '#d4af37',
+                                                            background: '#670000',
                                                             color: 'white',
-                                                            border: '2px solid #d4af37',
+                                                            border: '2px solid #670000',
                                                             transform: 'translateY(-2px)',
                                                             boxShadow: '0 4px 12px rgba(20, 16, 1, 0.3)'
                                                         },
@@ -384,7 +384,7 @@ const handleDialogConfirm = async () => {
                                         style={{
                                             overflow: "hidden",
                                             background: 'rgba(212, 175, 55, 0.05)',
-                                            borderBottom: '2px solid #d4af37'
+                                            borderBottom: '2px solid #670000'
                                         }}
                                     >
                                         <motion.div
@@ -395,11 +395,11 @@ const handleDialogConfirm = async () => {
                                             style={{ padding: '2rem' }}
                                         >
                                             <Typography variant="h5" sx={{ 
-                                                color: '#2f1a0f',
+                                                color: '#670000',
                                                 fontWeight: 600,
                                                 marginBottom: '1.5rem',
                                                 textAlign: 'center',
-                                                borderBottom: '2px solid #d4af37',
+                                                borderBottom: '2px solid #670000',
                                                 paddingBottom: '0.5rem'
                                             }}>
                                                 Detalles de la Orden
@@ -416,7 +416,7 @@ const handleDialogConfirm = async () => {
                                                     borderRadius: '15px',
                                                     boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
                                                 }}>
-                                                    <Typography variant="h6" sx={{ color: '#d4af37', marginBottom: '1rem' }}>
+                                                    <Typography variant="h6" sx={{ color: '#670000', marginBottom: '1rem' }}>
                                                         DATOS DE LA ORDEN
                                                     </Typography>
                                                     <p>Orden Creada el: {formatDate(order.createdAt)}</p>
@@ -429,7 +429,7 @@ const handleDialogConfirm = async () => {
                                                     )}
 
                                                     <Typography variant="h6" sx={{ 
-                                                        color: '#d4af37', 
+                                                        color: '#670000', 
                                                         marginTop: '2rem',
                                                         marginBottom: '1rem' 
                                                     }}>
@@ -440,7 +440,7 @@ const handleDialogConfirm = async () => {
                                                     <p>E-mail: <strong>{order.datosComprador?.email}</strong></p>
 
                                                     <Typography variant="h6" sx={{ 
-                                                        color: '#d4af37', 
+                                                        color: '#670000', 
                                                         marginTop: '2rem',
                                                         marginBottom: '1rem' 
                                                     }}>
@@ -473,7 +473,7 @@ const handleDialogConfirm = async () => {
                                                         transition={{ delay: 0.3 }}
                                                     >
                                                         <Typography variant="h6" sx={{ 
-                                                            color: '#d4af37',
+                                                            color: '#670000',
                                                             marginTop: '2rem',
                                                             marginBottom: '1rem'  
                                                         }}>
@@ -494,7 +494,7 @@ const handleDialogConfirm = async () => {
                                                                         padding: '1rem',
                                                                         background: 'rgba(212, 175, 55, 0.05)',
                                                                         borderRadius: '10px',
-                                                                        border: '1px solid #d4af37'
+                                                                        border: '1px solid #670000'
                                                                     }}
                                                                 >
                                                                     <Image 
@@ -576,7 +576,7 @@ const handleDialogConfirm = async () => {
                                 width: '90%',
                                 maxWidth: '500px',
                                 position: 'relative',
-                                border: '2px solid #d4af37'
+                                border: '2px solid #670000'
                             }}
                         >
                             <motion.div
@@ -586,13 +586,13 @@ const handleDialogConfirm = async () => {
                                 transition={{ delay: 0.2 }}
                             >
                                 <h2 className={style.modalTitle} style={{
-                                    color: '#2f1a0f',
+                                    color: '#670000',
                                     padding: '1rem',
                                     marginBottom: '1.5rem',
                                     textAlign: 'center',
                                     fontSize: '1.8rem',
                                     fontWeight: '600',
-                                    borderBottom: '2px solid #d4af37',
+                                    borderBottom: '2px solid #670000',
                                     background: 'rgba(212, 175, 55, 0.1)',
                                     borderRadius: '10px'
                                 }}>Selecciona el nuevo tamaño</h2>
@@ -608,18 +608,18 @@ const handleDialogConfirm = async () => {
                                     marginBottom: '1.5rem',
                                     background: 'rgba(212, 175, 55, 0.05)',
                                     borderRadius: '15px',
-                                    border: '1px solid #d4af37'
+                                    border: '1px solid #670000'
                                 }}
                             >
                                 <p style={{
-                                    color: '#2f1a0f',
+                                    color: '#670000',
                                     fontSize: '1.1rem',
                                     marginBottom: '0.5rem'
                                 }}>
                                     El tamaño seleccionado originalmente no está disponible.
                                 </p>
                                 <p style={{
-                                    color: '#2f1a0f',
+                                    color: '#670000',
                                     fontSize: '1rem'
                                 }}>
                                     Por favor, selecciona un nuevo tamaño y haz click en "Confirmar" para continuar con tu pedido.
@@ -651,11 +651,11 @@ const handleDialogConfirm = async () => {
             flexDirection: 'column',
             alignItems: 'center',
             padding: '1rem',
-            color: newSize === opcion.size ? 'white' : '#d4af37',
+            color: newSize === opcion.size ? 'white' : '#670000',
             fontWeight: newSize === opcion.size ? '600' : '400',
-            border: `2px solid ${newSize === opcion.size ? '#d4af37' : '#2f1a0f'}`,
+            border: `2px solid ${newSize === opcion.size ? '#670000' : '#670000'}`,
             borderRadius: '15px',
-            background: newSize === opcion.size ? '#d4af37' : 'transparent',
+            background: newSize === opcion.size ? '#670000' : 'transparent',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             gap: '0.5rem',
@@ -672,7 +672,7 @@ const handleDialogConfirm = async () => {
                 height: '120px',
                 objectFit: 'cover',
                 borderRadius: '12px',
-                border: '3px solid #d4af37',
+                border: '3px solid #670000',
                 boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
             }}
         />
@@ -717,10 +717,10 @@ const handleDialogConfirm = async () => {
                                     whileTap={{ scale: 0.95 }}
                                     style={{
                                         padding: '1rem 2rem',
-                                        border: '2px solid #d4af37',
+                                        border: '2px solid #670000',
                                         borderRadius: '25px',
                                         background: 'transparent',
-                                        color: '#2f1a0f',
+                                        color: '#670000',
                                         cursor: 'pointer',
                                         transition: 'all 0.3s ease',
                                         fontWeight: '500',
@@ -737,9 +737,9 @@ const handleDialogConfirm = async () => {
                                     whileTap={{ scale: 0.95 }}
                                     style={{
                                         padding: '1rem 2rem',
-                                        border: '2px solid #d4af37',
+                                        border: '2px solid #670000',
                                         borderRadius: '25px',
-                                        background: '#d4af37',
+                                        background: '#670000',
                                         color: '#fff',
                                         cursor: newSize ? 'pointer' : 'not-allowed',
                                         opacity: newSize ? 1 : 0.6,

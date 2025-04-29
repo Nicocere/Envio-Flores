@@ -23,7 +23,7 @@
 } */
 
 .title {
-    color: #2f1a0f;
+    color: #670000;
     text-align: center;
     margin-bottom: 2rem;
     font-weight: 600;
@@ -40,12 +40,12 @@
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, #d4af37, #c4a032);
+    background: linear-gradient(90deg, #670000, #c4a032);
     border-radius: 2px;
 }
 
 .subtitle {
-    color: #2f1a0f;
+    color: #670000;
     margin-bottom: 1.5rem;
     font-weight: 500;
 }
@@ -56,19 +56,19 @@
 }
 
 .tabs :global(.MuiTab-root) {
-    color: #2f1a0f;
+    color: #670000;
     text-transform: none;
     font-weight: 500;
     min-width: 120px;
 }
 
 .tabs :global(.Mui-selected) {
-    color: #d4af37;
+    color: #670000;
 }
 
 .addButton {
     margin-bottom: 2rem !important;
-    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%) !important;
+    background: linear-gradient(145deg, #670000 0%, #c4a032 100%) !important;
     color: white !important;
     padding: 12px 24px !important;
     border-radius: 30px !important;
@@ -81,7 +81,7 @@
 .addButton:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3) !important;
-    background: #2f1a0f !important;
+    background: #670000 !important;
 }
 
 .recordatorioCard {
@@ -89,25 +89,25 @@
     border-radius: 15px !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
     transition: all 0.3s ease !important;
-    border: 1px solid #d4af3759 !important;
+    border: 1px solid #67000059 !important;
     align-items: center;
     height: 100%;
 }
 
 .recordatorioCard:hover {
     transform: translateY(-5px);
-    border: 1px solid #d4af37 !important;
+    border: 1px solid #670000 !important;
 
     box-shadow: 0 8px 30px rgba(212, 175, 55, 0.15) !important;
 }
 
 .cardTitle {
-    color: #2f1a0f;
+    color: #670000;
     margin-bottom: 0.5rem;
 }
 
 .cardDate {
-    color: #d4af37;
+    color: #670000;
     font-weight: 500;
     margin-bottom: 1rem;
 }
@@ -140,7 +140,7 @@
 
     border-radius: 10px;
     object-fit: cover;
-    border: 2px solid #d4af37;
+    border: 2px solid #670000;
     transition: all 0.3s ease;
 }
 
@@ -151,7 +151,7 @@
 
 .direccion {
     margin-top: 1rem;
-    color: #2f1a0f;
+    color: #670000;
 }
 
 .cardActions {
@@ -171,7 +171,7 @@
 }
 
 .dialogTitle {
-    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%);
+    background: linear-gradient(145deg, #670000 0%, #c4a032 100%);
     color: white;
     padding: 1rem 2rem;
 }
@@ -189,11 +189,11 @@
 }
 
 .textField:hover :global(.MuiOutlinedInput-notchedOutline) {
-    border-color: #d4af37;
+    border-color: #670000;
 }
 
 .chip {
-    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%);
+    background: linear-gradient(145deg, #670000 0%, #c4a032 100%);
     color: white;
     font-weight: 500;
 }
@@ -203,11 +203,11 @@
 }
 
 .cancelButton {
-    color: #2f1a0f !important;
+    color: #670000 !important;
 }
 
 .saveButton {
-    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%) !important;
+    background: linear-gradient(145deg, #670000 0%, #c4a032 100%) !important;
     color: white !important;
     text-transform: none !important;
     padding: 8px 24px !important;
@@ -215,7 +215,7 @@
 }
 
 .saveButton:hover {
-    background: #2f1a0f !important;
+    background: #670000 !important;
 }
 
 .direccionesPanel {
@@ -255,7 +255,7 @@
 }
 
 .cardDate {
-    color: #d4af37;
+    color: #670000;
     font-weight: 500;
     margin: 0.5rem 0;
     text-transform: capitalize;
@@ -365,7 +365,7 @@
     }
 
     .productoImg {
-        border: 1px solid #d4af37;
+        border: 1px solid #670000;
     }
 
     .direccionCard {
@@ -379,6 +379,6 @@
     .recordatorioCard {
         padding: 1;
         border-radius: 10px !important;
-        border: 2px solid #d4af37 !important;
+        border: 2px solid #670000 !important;
 }
 }

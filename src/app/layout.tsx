@@ -173,7 +173,7 @@ export const metadata: Metadata = {
     images: ['https://www.envioflores.com/imagenes/productos/destacados-envio-flores.jpg'],
   },
   verification: {
-    google: 'bPFq4uTn-hfAA3MPuYC3rXA0sBZPth8vUKAlqFEKCwI',
+    google: '-DJ_c74GOWVHE0hZFrhDOgoyRixR-gy1Re1MGIBEllQ',
   },
   robots: {
     index: true,

@@ -436,6 +436,82 @@ svg {
   }
 }
 
+
+
+/* Estilos para Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary-color) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.swiper-button-disabled {
+    opacity: 0.35 !important;
+}
+
+.swiper-pagination-bullet {
+    background: var(--text-light) !important;
+    opacity: 0.6 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--primary-color) !important;
+    opacity: 1 !important;
+}
+
+.dark-mode .swiper-button-next,
+.dark-mode .swiper-button-prev {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.dark-mode .swiper-button-next,
+.dark-mode .swiper-button-prev {
+    color: var(--text-light) !important;
+}
+
+.dark-mode .swiper-pagination-bullet {
+    background: var(--text-dark) !important;
+    opacity: 0.6 !important;
+}
+
+.dark-mode .swiper-pagination-bullet-active {
+    background: var(--primary-light) !important;
+    opacity: 1 !important;
+}
+
+.dark-mode .swiper-button-disabled {
+    opacity: 0.35 !important;
+}
+
+.dark-mode .swiper-button-next:after,
+.dark-mode .swiper-button-prev:after {
+    color: var(--text-light) !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.dark-mode .swiper-button-next,
+.dark-mode .swiper-button-prev {
+    background: rgba(0, 0, 0, 0.8) !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+
+
 /* Configuración básica */
 * {
   box-sizing: border-box;
@@ -814,12 +890,158 @@ input {
 }
 
 
-.my-title-class {
-  font-size: 16px;
-  font-weight: 600;
-  font-family: "Nexa", sans-serif !important;
+/* ----------------------------------------
+   SweetAlert Personalizado
+---------------------------------------- */
+.swal-container {
+  z-index: 9999 !important;
 }
 
+.swal-popup {
+  font-family: var(--font-primary) !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+  border: 1px solid var(--border-light) !important;
+  max-width: 380px !important;
+  width: calc(100% - 2rem) !important;
+}
+
+.swal-popup.swal-dark-mode {
+  border: 1px solid var(--border-color-dark) !important;
+  box-shadow: var(--shadow-dark-md) !important;
+}
+
+.swal-title {
+  font-family: var(--font-primary) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.swal-content {
+  font-family: var(--font-primary) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0.25rem !important;
+  word-break: break-word !important;
+}
+
+.swal-cart-button {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-family: var(--font-primary) !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  margin-top: 0.5rem !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.swal-cart-button-dark {
+  background-color: var(--primary-light) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.swal-cart-button:hover {
+  background-color: var(--primary-color-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.swal-cart-button-dark:hover {
+  background-color: var(--primary-light-hover) !important;
+}
+
+/* Barra de progreso personalizada */
+.swal2-timer-progress-bar {
+  background: var(--primary-color) !important;
+  opacity: 0.5 !important;
+}
+
+.swal-dark-mode .swal2-timer-progress-bar {
+  background: var(--primary-light) !important;
+}
+
+/* Adaptar colores del icono de éxito */
+.swal2-success-circular-line-left, 
+.swal2-success-circular-line-right, 
+.swal2-success-fix {
+  background-color: transparent !important;
+}
+
+.swal2-success-ring {
+  border-color: var(--primary-color) !important;
+  opacity: 0.5 !important;
+}
+
+.swal-dark-mode .swal2-success-ring {
+  border-color: var(--primary-light) !important;
+}
+
+@media (max-width: 480px) {
+  .swal-popup {
+    max-width: 320px !important;
+    padding: 1rem !important;
+  }
+  
+  .swal-title {
+    font-size: 0.95rem !important;
+  }
+  
+  .swal-content {
+    font-size: 0.85rem !important;
+  }
+  
+  .swal-cart-button {
+    padding: 0.4rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Animaciones para SweetAlert */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+}
+
+.animate__animated {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+.animate__fadeInUp {
+  animation-name: fadeInUp;
+}
+
+.animate__fadeOutDown {
+  animation-name: fadeOutDown;
+}
+
+.animate__faster {
+  animation-duration: 300ms;
+}
 
 .cat-selected {
   font-family: "Nexa", sans-serif !important;
@@ -1337,6 +1559,62 @@ input {
   align-self: center;
   flex: 1;
 }
+
+.btn-addon {
+  background: #670000;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: "Nexa", sans-serif !important;
+  margin: 5px 0px 20px;
+  font-size: medium;
+}
+
+.btn-addon:hover {
+  background: #a70000;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-family: "Nexa", sans-serif !important;
+
+  font-size: medium;
+}
+
+.btn-addon:focus {
+  outline: none;
+  background: #a70000;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px 0px 20px;
+  font-family: "Nexa", sans-serif !important;
+
+  font-size: medium;
+}
+
+.dark-mode .btn-addon {
+  background: var(--primary-light);
+  color: white;
+  border-radius: 5px;
+  margin: 5px 0px 20px;
+
+  padding: 5px 10px;
+  font-family: "Nexa", sans-serif !important;
+
+  font-size: medium;
+}
+
+.dark-mode .btn-addon:hover {
+  background: var(--primary-light-hover);
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px 0px 20px;
+  font-family: "Nexa", sans-serif !important;
+
+  font-size: medium;
+}
+
 
 .dark-mode .cart {
   background: #222222;

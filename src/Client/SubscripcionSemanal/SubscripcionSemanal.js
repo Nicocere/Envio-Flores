@@ -159,7 +159,7 @@ const SubscripcionComponent = () => {
         showCancelButton: true,
         confirmButtonText: 'Sí, confirmar',
         cancelButtonText: 'No, cancelar',
-        confirmButtonColor: '#D4AF37',
+        confirmButtonColor: '#670000',
         cancelButtonColor: '#A6855D ',
         background: isDarkMode ? '#f5e9d7' : '#1c0a01f0',
         reverseButtons: true
@@ -193,7 +193,7 @@ const SubscripcionComponent = () => {
           title: '¡Suscripción Exitosa!',
           text: 'Te redirigiremos a WhatsApp para finalizar el proceso',
           icon: 'success',
-          confirmButtonColor: '#D4AF37'
+          confirmButtonColor: '#670000'
         });
 
         setTimeout(() => setSuccess(false), 5000);
@@ -207,7 +207,7 @@ const SubscripcionComponent = () => {
         title: 'Error',
         text: 'Hubo un problema al procesar tu suscripción. Por favor, intenta nuevamente.',
         icon: 'error',
-        confirmButtonColor: '#D4AF37'
+        confirmButtonColor: '#670000'
       });
     } finally {
       setLoading(false);

@@ -1,14 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, limit, orderBy, query } from 'firebase/firestore';
+"use client"
+
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import './ventas.css'
+import style from './ventas.module.css';
 import {
   Button,
-  Container,
   Paper,
   Typography,
   Grid,
@@ -25,530 +22,446 @@ import {
   Box,
   TableSortLabel,
 } from '@mui/material';
-import { blue } from '@mui/material/colors';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import nacl from 'tweetnacl';
-import * as naclUtil from 'tweetnacl-util';
-import { FadeLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 function VerVentas() {
-
-  const navigate = useNavigate();
+  const navigate = useRouter();
   const [ordenes, setOrdenes] = useState([]);
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [openOrderId, setOpenOrderId] = useState(null);
+  const [expandedUser, setExpandedUser] = useState(null);
+  const [order, setOrder] = useState('asc');
+  const [orderOf, setOrderOf] = useState('email');
+  const [visibleProducts, setVisibleProducts] = useState(8);
+  const [totalProducts, setTotalProducts] = useState(0);
 
-
-  const fetchOrders = useCallback(async () => {
-    const orderRef = collection(baseDeDatos, 'ordenes');
-    const orderedQuery = query(orderRef, orderBy('order_number', 'desc')); // Ordena por el campo 'order_number' en orden descendente
-
+  const fetchOrders = async () => {
+    const orderRef = collection(baseDeDatos, 'ordenes-envio-flores');
+    const orderedQuery = query(orderRef, orderBy('order_number', 'desc'));
     const orderSnapShot = await getDocs(orderedQuery);
     const orderData = [];
     orderSnapShot.forEach((doc) => {
       orderData.push({ id: doc.id, ...doc.data() });
     });
     setOrdenes(orderData);
-    
-    // // Buscar y agregar órdenes de la colección "ordenes-temporales-PayPal"
-    // const tempOrderRef = collection(baseDeDatos, 'ordenes-temporales-PayPal');
-    // const tempOrderSnapshot = await getDocs(tempOrderRef);
-    // tempOrderSnapshot.forEach((doc) => {
-    //   orderData.push({ id: doc.id, ...doc.data() });
-    // });
-    // setOrdenes(orderData);
+  };
 
-    if (orderData) {
-      setIsLoading(false)
+  const fetchProducts = async () => {
+    const productsCollection = query(collection(baseDeDatos, 'productos'));
+    const productSnapshot = await getDocs(productsCollection);
+    const productList = productSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    setProducts(productList);
+  };
+
+  useEffect(() => {
+    fetchOrders();
+    fetchProducts();
+  }, []);
+
+  const formatReadableDate = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'America/Argentina/Buenos_Aires'
+    };
+    return new Date(dateString).toLocaleString('es-AR', options);
+  };
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return '';
+
+    // Si es un Timestamp (tiene segundos y nanosegundos)
+    if (dateValue.seconds) {
+      return formatReadableDate(new Date(dateValue.seconds * 1000));
     }
-  }, []); // Añade las dependencias necesarias aquí
 
-  // Crear un objeto para realizar el seguimiento de las compras por email
+    // Si es una cadena ISO
+    try {
+      return formatReadableDate(new Date(dateValue));
+    } catch (e) {
+      return dateValue; // Devolver original si falla el parsing
+    }
+  };
+
+  const totalVendidos = products.reduce((acc, producto) => acc + Number(producto.vendidos), 0);
+  const productosMasVendidos = products.sort((a, b) => b.vendidos - a.vendidos);
+
   const comprasPorEmail = {};
-
-  // Iterar sobre las órdenes y realizar el seguimiento del total de compras por email
   ordenes.forEach((orden) => {
-    const email = orden.datosComprador.email || orden.email; // Corregir asignación de la variable email
+    const { email } = orden.datosComprador;
     comprasPorEmail[email] = (comprasPorEmail[email] || 0) + 1;
   });
 
-  useEffect(() => {
-    const storedEncryptedData = localStorage.getItem('p');
-    const parsedStoredData = JSON.parse(storedEncryptedData);
+  const totalComprasPorUsuario = {};
+  ordenes.forEach((orden) => {
+    const { email } = orden.datosComprador;
+    totalComprasPorUsuario[email] = (totalComprasPorUsuario[email] || 0) + parseFloat(orden.datosEnvio.totalPrice);
+  });
 
-    if (!parsedStoredData?.nonce || !parsedStoredData.key || !parsedStoredData.data) {
-      console.log('Datos almacenados incompletos');
-      return;
-    }
-
-    const nonce = naclUtil.decodeBase64(parsedStoredData.nonce);
-    const key = naclUtil.decodeBase64(parsedStoredData.key);
-    const encryptedData = naclUtil.decodeBase64(parsedStoredData.data);
-
-    const decryptedData = nacl.secretbox.open(encryptedData, nonce, key);
-
-    if (decryptedData) {
-      const textDecoder = new TextDecoder('utf-8');
-      const decryptedDataString = textDecoder.decode(decryptedData);
-      const parsedData = JSON.parse(decryptedDataString);
-      setProducts(parsedData); // Almacena los productos descifrados en el estado
-    } else {
-      console.log('Error al descifrar los datos');
-    }
-
-    fetchOrders();
-  }, []); // Array de dependencias vacío
-
-
-  // Función para formatear la fecha de manera legible
-  const formatReadableDate = (dateString) => {
-        // Verifica si createdAt es una instancia de Timestamp
-        if (dateString instanceof Timestamp) {
-          // Convierte Timestamp a Date y luego a string
-          return dateString.toDate().toLocaleDateString('es-ES'); // Ajusta el formato de fecha según necesites
-      } else {
-
-          const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
-          return new Date(dateString).toLocaleDateString(undefined, options);
-      }
-  };
-
-
-  // Cantidad total de productos vendidos
-  const totalVendidos = products.reduce((acc, producto) => acc + Number(producto.vendidos), 0);
-
-  // Ordenar productos por cantidad vendida de mayor a menor
-  const productosMasVendidos = products.sort((a, b) => b.vendidos - a.vendidos);
-
-  const [openOrderId, setOpenOrderId] = useState(null);
-
-  // Crear un ref para el usuario correspondiente
-  const userRef = useRef(null);
-
-  // Función para desplazarse hacia el usuario
-  const scrollToUser = () => {
-    userRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
-  // Función para mostrar/ocultar detalles de la orden
-  const toggleOrderDetails = (orderId) => {
-    setOpenOrderId(openOrderId === orderId ? null : orderId);
-    if (openOrderId === orderId) {
-      scrollToUser();
-    }
-  };
-
-
-  // Estado para manejar la expansión de filas de la tabla de usuarios
-  const [expandedUser, setExpandedUser] = useState(null);
-
-  // Estado para manejar la expansión de filas de la tabla de compras por usuario
-  const [expandedCompra, setExpandedCompra] = useState(null);
+  const totalMontoTodasOrdenes = ordenes.reduce((total, orden) => total + parseFloat(orden.datosEnvio.totalPrice), 0).toFixed(2);
 
   const handleUserRowClick = (index) => {
     setExpandedUser(expandedUser === index ? null : index);
-    setExpandedCompra(null); // Cerrar la expansión de compras al cambiar de usuario
   };
 
-  // Estados para el orden y la dirección del orden
-  const [orden, setOrder] = useState('asc');
-  const [orderOf, setOrderOf] = useState('email'); // Establecer la columna inicial para ordenar
-
-
-  // Función para manejar el cambio de orden
   const handleRequestSort = (property) => {
-    const isAsc = orderOf === property && orden === 'asc';
+    const isAsc = orderOf === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
-    setOrderOf(property); // Nueva línea para actualizar la columna actual
+    setOrderOf(property);
   };
 
-  // Función para comparar dos valores durante el ordenamiento
   const compareValues = (a, b) => {
-    if (orden === 'asc') {
+    if (order === 'asc') {
       return a[orderOf] < b[orderOf] ? -1 : a[orderOf] > b[orderOf] ? 1 : 0;
     } else {
       return b[orderOf] < a[orderOf] ? -1 : b[orderOf] > a[orderOf] ? 1 : 0;
     }
   };
 
-  // Objeto para almacenar el total de compras por usuario
-  const totalComprasPorUsuario = {};
-
-  // Iterar sobre las órdenes y realizar el seguimiento del total de compras por usuario
-  ordenes.forEach((orden) => {
-    const email = orden.datosComprador.email || orden.email; // Obtener el email del datosComprador
-    let amount = 0; // Inicializar el monto total en 0
-
-    // Verificar si la orden tiene productos
-    if (orden.products && Array.isArray(orden.products)) {
-      // Iterar sobre los productos de la orden y sumar el monto de cada producto
-      orden.products.forEach((producto) => {
-        // Calcular el monto del producto multiplicando el precio por la cantidad
-        const precioProducto = parseFloat(producto.precio);
-        const cantidadProducto = parseInt(producto.quantity);
-        const montoProducto = parseFloat(precioProducto * cantidadProducto);
-        // Sumar el monto del producto al monto total de la orden
-        amount += montoProducto;
-      });
-    }
-    // Sumar el monto total de la orden al monto total de compras del usuario
-    totalComprasPorUsuario[email] = (totalComprasPorUsuario[email] || 0) + amount;
-  });
-
-  // Productos visibles...
-  const [visibleProducts, setVisibleProducts] = useState(8);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [showMore, setShowMore] = useState(true);
-
-  // Función para mostrar más productos
   const handleShowMore = () => {
     const newVisibleProducts = Math.min(visibleProducts + 8, totalProducts);
     setVisibleProducts(newVisibleProducts);
-    if (newVisibleProducts === totalProducts) {
-      // Si se mostraron todos los productos, ocultar el botón "Ver más"
-      setShowMore(false);
-    }
   };
 
-  // Función para ocultar productos
   const handleShowLess = () => {
     setVisibleProducts(8);
-    // Mostrar el botón "Ver más" al ocultar productos
-    setShowMore(true);
   };
 
   useEffect(() => {
-    // Actualizar el estado total de productos cuando cambie la lista de productos
     setTotalProducts(productosMasVendidos.length);
   }, [productosMasVendidos]);
 
-  // Calcular el precio total de todos los productos vendidos de las órdenes
-  const totalMontoTodasOrdenes = ordenes.reduce((total, orden) => {
-    return total + orden.products.reduce((subtotal, producto) => {
-      return subtotal + ((parseFloat(producto.precio) || parseFloat(producto.price)) * parseFloat(producto.quantity));
-    }, 0);
-  }, 0).toLocaleString('es-AR');
+  const groupOrdersByMonth = (orders) => {
+    const groupedOrders = {};
 
+    orders.forEach((order) => {
+      const date = new Date(order.createdAt);
+      const month = date.toLocaleString('default', { month: 'long' });
+      const year = date.getFullYear();
+      const key = `${month} ${year}`;
 
+      if (!groupedOrders[key]) {
+        groupedOrders[key] = { count: 0, total: 0 };
+      }
 
+      groupedOrders[key].count += 1;
+      groupedOrders[key].total += parseFloat(order.datosEnvio.totalPrice);
+    });
+
+    return groupedOrders;
+  };
+
+  const groupedOrders = groupOrdersByMonth(ordenes);
+
+  const chartData = {
+    labels: Object.keys(groupedOrders),
+    datasets: [
+      {
+        label: 'Compras Realizadas',
+        data: Object.values(groupedOrders).map((order) => order.count),
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      },
+      {
+        label: 'Precio Total de las Compras',
+        data: Object.values(groupedOrders).map((order) => order.total),
+        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+      },
+    ],
+  };
 
   return (
-
-    <Paper elevation={24} sx={{ background: '#670000', padding: '20px 50px ', marginBottom: '80px', marginTop: '20px' }}>
-      <div className="perfil-usuario-btns">
-        <Typography variant='h2' sx={{ color: 'white' }}>Ventas</Typography>
-        <Button sx={{ margin: 5 }} variant="contained" color='error' size='small' onClick={() => navigate(-1)}>
-          Volver atrás
-        </Button>
+    <div className={style.divVentas}>
+      <div className={style.perfilUsuarioBtns}>
+        <Button variant='text' size='small' color='error' onClick={() => navigate.back()}>Volver atrás</Button>
       </div>
 
-      <Typography variant="h4" sx={{ color: 'white', background: '#670000', marginTop: 8, marginBottom: 3, borderRadius: '10px' }} gutterBottom>
-        ¿Cómo vamos este mes?
-      </Typography>
+      <h1> ¿Cómo vamos este mes?  </h1>
 
-      <Paper elevation={3} className="div-orders">
+      <div className={style.divTextsOrders}>
+        <p className={style.pOrders}>Bienvenido al Panel de Control de Ventas. Esta sección te proporciona un análisis detallado y completo de todas las transacciones realizadas en tu tienda.</p>
+        <p className={style.pOrders}>En el resumen principal encontrarás métricas clave como el número total de productos vendidos y el monto total generado por las ventas. La sección de usuarios te permite ver detalles específicos de cada cliente, incluyendo su historial de compras y el total gastado.</p>
+        <p className={style.pOrders}>Para acceder a los detalles de compra, utiliza los botones "Ver compras" junto a cada usuario. Allí encontrarás información completa sobre cada orden: datos del comprador, detalles del destinatario, productos adquiridos, dedicatorias y más.</p>
+        <p className={style.pOrders}>En la sección de productos más vendidos, podrás visualizar el ranking de tus productos ordenados por popularidad. Usa los botones "Ver más" y "Ver menos" para ajustar la cantidad de productos mostrados.</p>
+        <p className={style.pOrders}>Por último, el gráfico de barras muestra un resumen de las compras realizadas por mes. Cada barra representa el número de compras y el monto total de las ventas en un mes específico.</p>
+        <p className={style.pOrders}>Las tablas son interactivas: puedes ordenar la información por email y expandir/contraer los detalles según necesites. Cada orden incluye fecha, número de orden, monto y acceso a información detallada de la entrega.</p>
+      </div>
+      <br />
 
-        <Paper elevation={6} sx={{ padding: '10px', color: 'white', background: '#670000', }} >
-
-          <Typography variant="subtitle" sx={{ borderBottom: '1px solid silver' }} gutterBottom>
-            TOTAL DE VENTAS :
-            <Typography variant='subtitle1'>
-              Ordenes: <strong> {ordenes.length}
-              </strong>
-            </Typography>
-            <Typography variant='subtitle1'>
-              Productos:   <strong> {totalVendidos} vendidos.
-              </strong>
-            </Typography>
-            <Typography variant='subtitle1'>
-              Monto total de ventas: <strong> ${totalMontoTodasOrdenes}
-              </strong>
-            </Typography>
-          </Typography>
+      <div className={style.divOrders}>
+        <Paper elevation={6} sx={{ padding: '10px' }}>
+          <h1> Total de productos que vendimos:  </h1>
+          <h3>
+            <strong> {totalVendidos} </strong> productos vendidos
+          </h3>
+          <h3>  Un total de: <strong>{Number(totalMontoTodasOrdenes).toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</strong></h3>
         </Paper>
 
         <br />
 
-        <Paper elevation={12} sx={{ backgroundColor: '#424242', color: '#ffffff' }}>
-
-          {/* Mostrar la tabla de usuarios y compras agrupadas por email */}
-          <Typography variant="h6" gutterBottom>
+        <Paper elevation={12} sx={{ background: '#670000b8', color: '#fff', padding: '30px' }}>
+          <h1>
             Usuarios y sus compras:
-          </Typography>
+          </h1>
 
-          {isLoading ?
-            (<div className="spinner-container">
-              <p className="loadMP" style={{ color: 'white' }}>Cargando...</p>
-              <FadeLoader loading={isLoading} className="fadeLoader" color="#035b0e" />
-            </div>)
-            :
-            <TableContainer component={Paper} elevation={3}>
-              <Table>
-                <TableHead>
-                  <TableRow ref={userRef}>
-                    <TableCell>
-                      <TableSortLabel sx={{ color: 'black', '&:hover': { color: '#373737' } }}
-                        active={orderOf === 'email'}
-                        direction={orderOf === 'email' ? orden : 'asc'}
-                        onClick={() => handleRequestSort('email')}
-                      >
-                        Email
-                      </TableSortLabel>
-                    </TableCell>
-
-                    <TableCell>Veces que compró</TableCell>
-                    <TableCell>Total gastado</TableCell>
-                    <TableCell>Acciones</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {Object.keys(comprasPorEmail)
-                    .sort((a, b) => compareValues({ email: a }, { email: b }))
-                    .map((email, index) => (
-                      <React.Fragment key={index}>
-                        <TableRow>
-                          <TableCell>{email}</TableCell>
-                          <TableCell>{comprasPorEmail[email] > 1 ?
-                            (`${comprasPorEmail[email]} compras`) : (`${comprasPorEmail[email]} compra`)} </TableCell>
-                          <TableCell>${(totalComprasPorUsuario[email].toLocaleString('es-AR'))}</TableCell>
-
-                          <TableCell>
-                            <Button
-                              color='error'
-                              aria-label="expand row"
-                              size="small"
-                              onClick={() => handleUserRowClick(index)}
-                            >
-                              {expandedUser === index ? (
-                                <>
-                                  Ocultar
-                                  <KeyboardArrowUpIcon />
-                                </>
-                              ) : (
-                                <>
-                                  Ver compras
-                                  <KeyboardArrowDownIcon />
-                                </>
-                              )}
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell style={{ paddingBottom: 0, paddingTop: 0, background: '#97979745', marginTop: '10px' }} colSpan={4}>
-                            <Collapse in={expandedUser === index} timeout="auto" unmountOnExit>
-                              <Box margin={1}>
-                                {/* Agregar la tabla de compras por usuario */}
-                                <Typography variant='h3' sx={{ margin: '14px' }}>Compras realizadas:</Typography>
-                                <TableContainer component={Paper} elevation={12}>
-                                  <Table>
-                                    <TableHead>
-                                      <TableRow>
-                                        <TableCell>Fecha de compra</TableCell>
-                                        <TableCell>N° De Orden</TableCell>
-                                        <TableCell>Monto de la compra ($)</TableCell>
-
-                                        <TableCell>Acciones</TableCell>
-                                      </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                      {ordenes
-                                        .filter((orden) => (orden.datosComprador.email || orden.email) === email)
-                                        .map((orden, compraIndex) => (
-                                          <React.Fragment key={orden.order_number}>
-                                            <TableRow>
-                                              <TableCell>{formatReadableDate(orden.createdAt)}</TableCell>
-                                              <TableCell>{orden.order_number}</TableCell>
-
-                                              <TableCell>
-                                                ${orden.products.reduce((total, prod) => total + (Number(prod.precio) || Number(prod.price)), 0)}
-                                              </TableCell>
-                                              <TableCell>
-                                                <Button
-                                                  color='error'
-                                                  aria-label="expand row"
-                                                  size="small"
-                                                  onClick={() => toggleOrderDetails(orden.id)}
-                                                >
-                                                  {openOrderId === orden.id ? (
-                                                    <>
-                                                      Ocultar
-                                                      <KeyboardArrowUpIcon />
-                                                    </>
-                                                  ) : (
-                                                    <>
-                                                      Ver detalles
-                                                      <KeyboardArrowDownIcon />
-                                                    </>
-                                                  )}
-                                                </Button>
-                                              </TableCell>
-                                            </TableRow>
-                                    
-                                                {openOrderId === orden.id && (
-                                                  <Paper elevation={5} sx={{ border: '1px solid grey', margin: '10px' }}>
-                                            
-                                                      <div className="divOrder" key={orden.id}>
-                                                            
-                                                            <div className="orderDetails">
-                                                                <div style={{flex:'3'}} >
-                                                                    <Typography variant="h5">DATOS DE LA ORDEN</Typography>
-                                                                    <p>Orden Creada el: {formatReadableDate(orden.createdAt)}</p>
-                                                                    <p>Compra realizada a travez de:  <strong style={{padding:'0px '}}>{orden.MercadoPago && 'Mercado Pago'}{orden.PayPal && 'Pay-Pal'}</strong></p>
-                                                                    <br />
-                                                                    <Typography variant="h5">DATOS DEL COMPRADOR:</Typography>
-                                                                    <p> Nombre y Apellido: {orden.datosComprador?.nombreComprador} {orden.datosComprador?.apellidoComprador}</p>
-                                                                    <p> Telefono: {orden.datosComprador?.tel_comprador}</p>
-                                                                    <p> E-mail: {orden.datosComprador?.email}</p>
-                                                                </div>
-                                                                <hr />
-                                                                <div style={{flex:'3'}}>
-
-                                                                    {
-                                                                        orden.retiraEnLocal === false ? (
-                                                                            <>
-
-                                                                                <Typography variant="h5">DATOS DESTINATARIO:</Typography>
-                                                                                <p> Nombre y Apellido: {orden.datosEnvio?.nombreDestinatario} {orden.datosEnvio?.apellidoDestinatario}</p>
-                                                                                <p> Telefono: {orden.datosEnvio?.phoneDestinatario}</p>
-                                                                                <p> Fecha: {orden.datosEnvio?.fecha} </p>
-                                                                                <p> Horario: {orden.datosEnvio?.horario}</p>
-                                                                                <p> Dirección: {orden.datosEnvio?.calle} {orden.datosEnvio?.altura} {orden.datosEnvio?.piso}, {orden.datosEnvio?.localidad?.name}</p>
-                                                                                <br />
-                                                                                <p> Dedicatoria: <strong>{orden.datosEnvio?.dedicatoria}</strong> </p>
-                                                                            </>
-                                                                        ) : (
-                                                                            <>
-                                                                                <h4>¡Has elegido Retirarlo en el local!</h4>
-                                                                                <p> Dedicatoria: <strong>{orden.datosEnvio?.dedicatoria}</strong> </p>
-
-                                                                            </>
-                                                                        )
-                                                                    }
-                                                                </div>
-
-                                                                        </div>
-                                                                <hr />
-                                                                <div className='div-prods-orden'>
-                                                                    <Typography variant="h5" >PRODUCTOS COMPRADOS:</Typography>
-                                                                    <ul>
-                                                                        {orden.products?.map((product) => (
-                                                                            <li key={product.id}>
-                                                                                <img src={product.img} alt="Imagen del producto" width="50" />
-                                                                                {product.name} | (Tamaño: {product.size}) | (Precio: ${product.precio}) | (Cantidad: {product.quantity}) |
-                                                                            </li>
-                                                                        ))}
-                                                                    </ul>
-                                                                </div>
-                                                                <br />
-
-                                                    
-                                                            </div>
-                                                          <br />
-                                                          <Button
-                                                            aria-label="expand row"
-                                                            size="small"
-
-                                                            onClick={() => toggleOrderDetails(orden.id)}
-                                                          >
-                                                            {openOrderId === orden.id && (
-                                                              <>
-                                                                Ocultar
-                                                                <KeyboardArrowUpIcon />
-                                                              </>
-                                                            )}
-                                                          </Button>
-                                                
-                                                  </Paper>
+          <TableContainer component={Paper} elevation={3}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <TableSortLabel sx={{ color: 'black', '&:hover': { color: '#373737' } }}
+                      active={orderOf === 'email'}
+                      direction={orderOf === 'email' ? order : 'asc'}
+                      onClick={() => handleRequestSort('email')}
+                    >
+                      Email
+                    </TableSortLabel>
+                  </TableCell>
+                  <TableCell>Veces que compró</TableCell>
+                  <TableCell>Total gastado</TableCell>
+                  <TableCell>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Object.keys(comprasPorEmail)
+                  .sort((a, b) => compareValues({ email: a }, { email: b }))
+                  .map((email, index) => (
+                    <React.Fragment key={index}>
+                      <TableRow>
+                        <TableCell>{email}</TableCell>
+                        <TableCell>{comprasPorEmail[email] > 1 ? `${comprasPorEmail[email]} compras` : `${comprasPorEmail[email]} compra`}</TableCell>
+                        <TableCell>${totalComprasPorUsuario[email].toFixed(2)}</TableCell>
+                        <TableCell>
+                          <Button
+                            aria-label="expand row"
+                            variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }}
+                            onClick={() => handleUserRowClick(index)}
+                          >
+                            {expandedUser === index ? (
+                              <>
+                                Ocultar
+                                <KeyboardArrowUpIcon />
+                              </>
+                            ) : (
+                              <>
+                                Ver compras
+                                <KeyboardArrowDownIcon />
+                              </>
+                            )}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell style={{ paddingBottom: 0, paddingTop: 0, background: '#97979745', marginTop: '10px' }} colSpan={4}>
+                          <Collapse in={expandedUser === index} timeout="auto" unmountOnExit>
+                            <Box margin={1}>
+                              <h3>Compras realizadas</h3>
+                              <TableContainer component={Paper} elevation={12}>
+                                <Table>
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Fecha de compra</TableCell>
+                                      <TableCell>Número de Orden</TableCell>
+                                      <TableCell>Monto de la compra ($)</TableCell>
+                                      <TableCell>Acciones</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {ordenes
+                                      .filter((orden) => orden.datosComprador.email === email)
+                                      .map((orden, compraIndex) => (
+                                        <React.Fragment key={compraIndex}>
+                                          <TableRow>
+                                            <TableCell>{formatDate(orden.createdAt)}</TableCell>
+                                            <TableCell>{orden.order_number}</TableCell>
+                                            <TableCell>${orden.datosEnvio.totalPrice}</TableCell>
+                                            <TableCell>
+                                              <Button
+                                                variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 10px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }}
+                                                onClick={() => setOpenOrderId(openOrderId === orden.id ? null : orden.id)}
+                                              >
+                                                {openOrderId === orden.id ? (
+                                                  <>
+                                                    Ocultar
+                                                    <KeyboardArrowUpIcon />
+                                                  </>
+                                                ) : (
+                                                  <>
+                                                    Ver detalles
+                                                    <KeyboardArrowDownIcon />
+                                                  </>
                                                 )}
-                                          
-                                          </React.Fragment>
-                                        ))}
-                                    </TableBody>
-                                  </Table>
-                                </TableContainer>
-                              </Box>
-                            </Collapse>
-                          </TableCell>
-                        </TableRow>
-                      </React.Fragment>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                                              </Button>
+                                            </TableCell>
+                                          </TableRow>
+                                          <TableRow>
+                                            <TableCell
+                                              style={{ paddingBottom: 0, paddingTop: 0, background: '#494949' }}
+                                              colSpan={3}
+                                            >
+                                              {openOrderId === orden.id && (
+                                                <Paper elevation={5} sx={{ border: '1px solid grey', margin: '10px' }}>
+                                                  <TableRow key={compraIndex}>
+                                                    <TableCell colSpan={6}>
+                                                      <div className={style.orderDetails}>
+                                                        <br />
+                                                        <Typography variant="h6">DATOS DE LA ORDEN</Typography>
+                                                        <p>Orden Creada el: <strong>{formatDate(orden.createdAt)}</strong></p>
 
-          }
+                                                        {orden.payment === 'PayPal' ? (
+                                                          <p>Metodo de Pago: PayPal</p>
+                                                        ) : orden.payment === 'Mercado Pago Cuenta' ? (
+                                                          <p>Metodo de Pago: Mercado Pago Cuenta</p>
+                                                        ) : (
+                                                          <p>Metodo de Pago: Tarjeta</p>
+                                                        )}
+
+                                                        <br />
+                                                        <Typography variant="h6">DATOS COMPRADOR:</Typography>
+                                                        <p> Nombre y Apellido comprador: <strong>{orden.datosComprador.nombreComprador} {orden.datosComprador.apellidoComprador}</strong></p>
+                                                        <p> Telefono: <strong>{orden.datosComprador.tel_comprador}</strong></p>
+                                                        <p> E-mail: <strong>{orden.datosComprador.email}</strong></p>
+                                                        <br />
+                                                        <hr />
+                                                        <Typography variant="h6">{orden.retiraEnLocal ? "DATOS DE QUIEN RETIRA EL PRODUCTO" : "DATOS DE ENVIO:"}  </Typography>
+                                                        {
+                                                          orden.retiraEnLocal ? (
+                                                            <p> Retira en local: <strong>Si</strong> </p>
+                                                          ) : (
+
+                                                            <>
+                                                              <p> Nombre y Apellido destinatario: <strong>{orden.datosEnvio.nombreDestinatario} {orden.datosEnvio.apellidoDestinatario}</strong></p>
+                                                              <p> Telefono: {orden.datosEnvio.phoneDestinatario ? (
+                                                                <strong>{orden.datosEnvio.phoneDestinatario}</strong>
+                                                              ) : (
+                                                                <strong>No especificado</strong>
+                                                              )}</p>
+                                                              <p> Direccion: <strong>{orden.datosEnvio.calle} {orden.datosEnvio.altura}</strong></p>
+                                                              <p> Piso: <strong>{orden.datosEnvio.piso}</strong></p>
+                                                            </>
+                                                          )
+                                                        }
+
+                                                        <p> Fecha: <strong>{orden.datosEnvio.fecha}</strong> </p>
+                                                        <p> Horario: <strong>{orden.datosEnvio.horario}</strong></p>
+
+                                                        <br />
+                                                        <p> Dedicatoria: <strong>{orden.datosEnvio.dedicatoria}</strong> </p>
+                                                        <br />
+                                                        <hr />
+                                                        <div className={style.divProdsOrders}>
+                                                          <Typography variant="h6">Productos:</Typography>
+                                                          <ul>
+                                                            {orden.products.map((product) => (
+                                                              <li key={product.id}>
+                                                                {product.name} | (Tamaño: {product.size}) | (Precio: ${product.precio}) | (Cantidad: {product.quantity}) |
+                                                                <Image width={120} height={120} src={product.img} alt="Imagen del producto" />
+                                                              </li>
+                                                            ))}
+                                                          </ul>
+                                                        </div>
+                                                        <br />
+                                                        <Button
+                                                          aria-label="expand row"
+                                                          size="small"
+                                                          onClick={() => setOpenOrderId(openOrderId === orden.id ? null : orden.id)}
+                                                        >
+                                                          {openOrderId === orden.id && (
+                                                            <>
+                                                              Ocultar
+                                                              <KeyboardArrowUpIcon />
+                                                            </>
+                                                          )}
+                                                        </Button>
+                                                      </div>
+                                                    </TableCell>
+                                                  </TableRow>
+                                                </Paper>
+                                              )}
+                                            </TableCell>
+                                          </TableRow>
+                                        </React.Fragment>
+                                      ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                            </Box>
+                          </Collapse>
+                        </TableCell>
+                      </TableRow>
+                    </React.Fragment>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Paper>
 
         <br />
 
-
-        {/* Sección de productos más vendidos */}
-        <Paper elevation={16} sx={{ marginTop: '20px' }}>
-          <Typography sx={{ padding: '20px', backgroundColor: '#424242', color: '#ffffff' }} variant="h6">
+        <Paper elevation={16} sx={{ marginTop: '20px', background: '#670000b8', padding: '30px' }}>
+          <h1>
             Los productos más vendidos fueron:
-          </Typography>
+          </h1>
 
-          <Typography sx={{ padding: '20px' }} variant="subtitle2">
-            Cantidad de productos mostrados: {visibleProducts}
-          </Typography>
+          <h3>
+            Cantidad de productos mostrados: <strong> {visibleProducts}</strong>
+          </h3>
           <Grid container spacing={2}>
             {productosMasVendidos?.slice(0, visibleProducts).map((producto) => (
               <Grid item key={producto.id} xs={12} sm={6} md={4} lg={3}>
-
-                <Card sx={{ maxWidth: 345, maxHeight: 345 }} >
+                <Card sx={{ maxWidth: 445, maxHeight: 545 }}>
                   <CardMedia
                     component="img"
-                    height="140"
+                    height="300"
                     alt={producto.nombre}
-                    image={producto.opciones[0]?.img || producto.img}
+                    image={producto.opciones[0].img}
                   />
                   <CardContent>
-                    <Typography variant="subtitle1">{producto.nombre}</Typography>
-                    <Typography variant="body2">Vendidos: {producto.vendidos} unidades</Typography>
+                    <h5>{producto.nombre}</h5>
+                    <p>Vendidos:<strong style={{ color: '#670000' }}> {producto.vendidos} </strong>unidades</p>
                   </CardContent>
                 </Card>
-
               </Grid>
             ))}
           </Grid>
-          {
-            visibleProducts < totalProducts && (
-              <Button
-                sx={{ margin: '10px' }}
-                variant="contained"
-                color="primary"
-                onClick={handleShowMore}
-                disabled={visibleProducts === totalProducts} // Desactivar el botón "Ver más" cuando ya se mostraron todos los productos
-              >
-                Ver más <ExpandMoreIcon />
-              </Button>
-            )
-          }
-
-          {
-            visibleProducts > 8 && (
-              <Button
-                sx={{ margin: '10px' }}
-                variant="contained"
-                color="error"
-                onClick={handleShowLess}
-                disabled={visibleProducts === 8} // Desactivar el botón "Ver menos" cuando ya están visibles 8 productos
-              >
-                Ver menos <ExpandLessIcon />
-              </Button>
-
-            )}
+          {visibleProducts < totalProducts && (
+            <Button
+              sx={{ margin: '10px' }}
+              variant="contained"
+              color="primary"
+              onClick={handleShowMore}
+              disabled={visibleProducts === totalProducts}
+            >
+              Ver más <KeyboardArrowDownIcon />
+            </Button>
+          )}
+          {visibleProducts > 8 && (
+            <Button
+              sx={{ margin: '10px' }}
+              variant="contained"
+              color="error"
+              onClick={handleShowLess}
+              disabled={visibleProducts === 8}
+            >
+              Ver menos <KeyboardArrowUpIcon />
+            </Button>
+          )}
         </Paper>
 
-        {/* Puedes agregar la lógica para mostrar los productos más vistos */}
-
-      </Paper>
-
-    </Paper>
+        <Paper elevation={16} sx={{ marginTop: '20px', padding: '30px' }}>
+          <h1>Resumen de Compras por Mes</h1>
+          <Bar data={chartData} />
+        </Paper>
+      </div>
+    </div>
   );
 }
 

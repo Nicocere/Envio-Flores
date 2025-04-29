@@ -1,46 +1,68 @@
+/* Variables de tema claro y oscuro usando las variables globales */
 .dark {
-    --background: #2f1a0f;
+    --background: var(--background-dark);
     --secondary-background: rgba(255, 255, 255, 0.8);
-    --color: #fcf5f0;
-    --color2: #D4AF37;
+    --color: var(--text-light);
+    --color2: var(--primary-light);
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-border: var(--border-color-dark);
+    --button-bg: var(--primary-color);
+    --button-hover-bg: var(--primary-light);
+    --button-text: var(--text-light);
+    --button-hover-text: var(--text-dark);
+    --form-shadow: var(--shadow-dark-md);
 }
 
 .light {
-    --background: #fcf5f0;
-    --color: #2f1a0f;
-    --color2: #D4AF37;
+    --background: var(--background-light);
+    --secondary-background: rgba(0, 0, 0, 0.05);
+    --color: var(--text-dark);
+    --color2: var(--primary-color);
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-border: var(--border-color);
+    --button-bg: var(--primary-color);
+    --button-hover-bg: var(--background-light);
+    --button-text: var(--text-light);
+    --button-hover-text: var(--text-dark);
+    --form-shadow: var(--shadow-md);
 }
 
-.divLogin{
-    padding: 180px 25px ;
+.divLogin {
+    padding: 180px 25px;
+    font-family: var(--font-primary);
 }
+
 .divLoginForm {
     color: var(--color);
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(92, 92, 92, 0.5);
+    border: 1px solid var(--input-border);
     margin: 0 70px;
-    border-radius: 10px;
-    font-size: 17px;
+    border-radius: var(--radius-md);
+    font-size: 1.0625rem; /* 17px */
     text-align: center;
     max-width: 800px;
     place-self: center;
     background: var(--background);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    padding: 50px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-12) var(--spacing-5);
+    box-shadow: var(--form-shadow);
+    transition: var(--transition-normal);
 }
 
 .divLoginForm a {
     text-decoration: none;
     color: var(--color2);
     font-size: large;
-    transition: all 0.35s ease;
+    font-weight: 500;
+    transition: var(--transition-normal);
 }
 
 .divLoginForm a:hover {
-    font-size:larger ;
+    transform: scale(1.05);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--primary-color-hover);
 }
 
 .formLogin {
@@ -49,61 +71,119 @@
     justify-content: center;
     width: 100%;
     align-items: center;
+    gap: var(--spacing-4);
 }
 
 .inputGroup {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-5);
 }
 
 .inputEmail, .inputPassword {
     width: 100%;
-    padding: 10px;
-    border: 1px solid rgba(92, 92, 92, 0.5);
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.8);
+    padding: var(--spacing-2) var(--spacing-3);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
+    background: var(--input-bg);
+    transition: var(--transition-normal);
+    font-family: var(--font-primary);
+    color: var(--text-primary);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+}
+
+.inputEmail:focus, .inputPassword:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(167, 0, 0, 0.2);
 }
 
 .passwordInputContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: -webkit-fill-available;
+    width: 100%;
+    position: relative;
 }
 
 .passwordInputWrapper {
     display: flex;
     align-items: center;
+    width: 100%;
+    position: relative;
 }
 
 .togglePasswordButton {
-    margin-left: -40px;
+    position: absolute;
+    right: var(--spacing-3);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
 }
 
+.togglePasswordButton:hover {
+    color: var(--primary-color);
+}
 
 .btnRegistro {
-    margin: 25px 0;
-    background: #D4AF37;
-    font-size: 15px;
-    border: 1px solid #D4AF37;
-    color: #fcf5f0;
-    border-radius: 3px;
-    transition: all 0.3s ease;
+    margin: var(--spacing-6) 0;
+    background: var(--button-bg);
+    font-size: 0.9375rem; /* 15px */
+    border: 1px solid var(--primary-color);
+    color: var(--button-text);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-normal);
+    padding: var(--spacing-2) var(--spacing-6);
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }
+
 .btnRegistro:hover {
-    background: #fcf5f0;
-    color: #2f1a0f;
-    border: 1px solid #D4AF37;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--button-hover-bg);
+    color: var(--button-hover-text);
+    border: 1px solid var(--primary-color);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
+
+.btnRegistro:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
 @media screen and (max-width: 650px) {
     .divLoginForm {
-        margin: 20px;
-        padding: 30px 10px;
+        margin: var(--spacing-5);
+        padding: var(--spacing-6) var(--spacing-3);
+        border-radius: var(--radius-md);
     }
-    .inputEmail, .input-password {
+    
+    .inputEmail, .inputPassword {
         width: 100%;
+        font-size: 16px; /* Evita el zoom en iOS */
+    }
+    
+    .btnRegistro {
+        width: 100%;
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .divLogin {
+        padding: 120px var(--spacing-4) var(--spacing-8);
+    }
+    
+    .divLoginForm {
+        margin: var(--spacing-2);
+        padding: var(--spacing-5) var(--spacing-2);
+    }
+    
+    .btnRegistro {
+        margin: var(--spacing-4) 0;
     }
 }

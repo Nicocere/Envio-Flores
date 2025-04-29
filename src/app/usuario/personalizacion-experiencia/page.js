@@ -474,7 +474,7 @@ function PersonalizacionExperiencia() {
                                             <h5>
                                                 {producto.nombre}
                                             </h5>
-                                            <p style={{ margin: '10px 0 0', color: '#d4af37', fontWeight: '700' }}>
+                                            <p style={{ margin: '10px 0 0', color: '#670000', fontWeight: '700' }}>
                                                 ${producto.opciones[0].precio}
                                             </p>
 

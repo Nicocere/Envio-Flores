@@ -1,0 +1,201 @@
+/* costos.module.css */
+.divEditCost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    min-height: 100vh;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.addCost {
+    display: flex;
+    width: -webkit-fill-available;
+    flex-direction: column;
+
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    background: var(--secondary-background);
+    padding: 20px;
+    margin: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.formAddCost {
+    display: flex;
+    flex-direction: column;
+    background: var(--hover);
+    margin: 20px 25px;
+    padding: 30px;
+    width: 45%;
+    color: var(--color);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.formAddCost input, .formAddCost select{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color);
+    background: var(--secondary-background);
+    color: var(--color);
+}
+
+.tableCosts {
+    border: 1px solid var(--color2);
+    border-radius: 5px;
+    width: 100%;
+    color: var(--color);
+    margin-bottom: 100px;
+    background: var(--secondary-background);
+}
+
+.tableCosts td {
+    border: 1px solid var(--color);
+    border-radius: 1px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.tableCosts th {
+    border: 1px solid var(--color2);
+    border-radius: 1px;
+    font-size: 20px;
+    padding: 10px 0;
+    font-weight: 800;
+    color: var(--color);
+    background: var(--color2);
+    transition: all .25s ease;
+}
+
+.tableCosts tr {
+    background: var(--secondary-background);
+}
+
+.tableCosts tr:hover {
+    background: var(--hover);
+}
+
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+    width: -webkit-fill-available;
+  }
+  
+  .perfilUsuarioBtns button {
+    background-color: var(--color2);
+    color: var(--color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .perfilUsuarioBtns button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--color);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  
+  .perfilUsuarioBtns button:hover::before {
+    width: 100%;
+  }
+  
+  .perfilUsuarioBtns button:hover {
+    color: var(--color2);
+    transform: scale(1.05);
+  }
+  
+  
+.btnsTable{
+    display: flex;
+    justify-content: space-around;
+
+}
+.btnTableEdit, .btnTableDelete {
+  padding: 8px 15px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btnTableEdit {
+  background: #670000;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover{
+    background: #836c22;
+}
+.btnTableDelete:hover{
+    background: #6f0c0c;
+}
+
+.btnTableDelete {
+  background: #450707;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover, .btnTableDelete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px var(--shadow);
+}
+
+
+.textInfo {
+    text-align: center;
+    margin: 20px;
+    color: var(--color);
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 5px 50px;
+}
+
+
+.textInfo3 {
+    text-align: left;
+    margin: 20px;
+    color: var(--color);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.textInfo2{
+    text-align: center;
+    margin: 20px;
+    color: var(--color2);
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.textInfo3 strong {
+    color: var(--color2);
+    font-weight: bold;
+  }
+  
+.titleCost{
+    color: var(--color2)
+}

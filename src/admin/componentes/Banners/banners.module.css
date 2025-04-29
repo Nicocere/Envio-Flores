@@ -1,0 +1,256 @@
+/* banners.module.css */
+
+/* Variables del tema */
+.dark {
+  --background: #1a0f0a;
+  --secondary-background: #2d1810;
+  --color: #fcf5f0;
+  --color2: #670000;
+  --input-bg: #704630;
+  --shadow: rgba(0,0,0,0.3);
+  --hover: #3a2116;
+}
+
+.light {
+  --background: #fcf5f0;
+  --secondary-background: #fff5ec;
+  --color: #670000;
+  --color2: #670000;
+  --input-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.1);
+  --hover: #f5e6d3;
+}
+
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}
+
+.divAddEditProds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  min-height: 100vh;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.divAddEditProds h1 {
+  /* background: var(--color2); */
+  border-radius: 3px;
+  padding: 8px;
+  text-transform: uppercase;
+  color: var(--color);
+}
+
+.bannerTitle {
+  font-weight: 700;
+  margin-top: 15px;
+  color: var(--color2);
+  text-transform: uppercase;
+}
+
+/* banners.module.css */
+.routeInputContainer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.routeInputContainer input {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #670000;
+    border-radius: 5px;
+    background: var(--secondary-background);
+    color: var(--color);
+}
+
+.routeInputContainer span {
+    color: var(--color);
+}
+/* Contenedor del formulario */
+.divAddBanner {
+  width: 100%;
+  max-width: 1200px;
+  background: var(--secondary-background);
+  padding: 50px;
+  border-radius: 20px;
+  color: var(--color);
+  box-shadow: 0 10px 30px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.divAddBanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--color2) 0%, transparent 100%);
+}
+
+.divAddBanner:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+
+.formAddBanner {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+  text-align: justify;
+  background: linear-gradient(to bottom, var(--input-bg), var(--secondary-background));
+  color: var(--color);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.formAddBanner label {
+  font-size: larger;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.formAddBanner input,
+.formAddBanner textarea {
+  border-radius: 8px;
+  padding: 8px;
+  width: 60%;
+  margin: 0 0 15px;
+  background: var(--input-bg);
+  color: var(--color);
+}
+
+.btnsTable {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.submitBtn {
+  color: var(--color);
+  background-color: var(--color2);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  background: var(--hover);
+  color: var(--color2);
+}
+
+.divTableBanners{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: var(--background);
+  color: var(--color);
+  max-width: 1500px;
+
+}
+
+.divBannerActual{
+  overflow: hidden;
+  box-sizing: content-box;
+  width: -webkit-fill-available;
+  padding: 20px;
+  background: var(--secondary-background);
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+
+.btnTableEdit, .btnTableDelete {
+  padding: 8px 15px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btnsTable{
+    display: flex;
+    justify-content: space-around;
+
+}
+.btnTableEdit {
+  background: #670000;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover{
+    background: #836c22;
+}
+.btnTableDelete:hover{
+    background: #6f0c0c;
+}
+
+.btnTableDelete {
+  background: #450707;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover, .btnTableDelete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px var(--shadow);
+}
+
+.bannerDetails{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+  border-radius: 20px;
+  margin: 40px 20px;
+  box-shadow: 0 5px 10px var(--shadow);
+  background: var(--background);
+  color: var(--color);
+  max-width: 1500px;
+}

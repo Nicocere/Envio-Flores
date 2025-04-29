@@ -1,24 +1,26 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import './categories.css'
+import style from './categories.module.css'
+import { useTheme } from '@/context/ThemeSwitchContext';
 
-function Categories() {
+function CategoriesAdmin() {
     const { formState: { errors } } = useForm();
-
-    const navigate = useNavigate();
+    const {isDarkMode} = useTheme();
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useRouter();
 
     const [categorias, setCategorias] = useState([]);
     const [expanded, setExpanded] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
-
 
     const fetchCategory = async () => {
         const categoriasRef = collection(baseDeDatos, 'categorias');
@@ -93,6 +95,7 @@ function Categories() {
         value: '',
         listType: 'categoryList', // Valor por defecto para la lista de categorías
     });
+
     //Editar una categoria / ocasion / fecha Especial
     const [editedItem, setEditedItem] = useState({
         name: '',
@@ -111,8 +114,10 @@ function Categories() {
 
     const handleAddNewItem = async () => {
         try {
+            setIsLoading(true);
             // Verificar que los campos no estén vacíos
             if (!newItem.name.trim() || !newItem.value.trim()) {
+                setIsLoading(false);
                 Swal.fire({
                     icon: 'error',
                     title: 'Campos vacíos',
@@ -128,6 +133,7 @@ function Categories() {
             const exists = selectedList.some((item) => item.name.toLowerCase() === newItem.name.toLowerCase());
 
             if (exists) {
+                setIsLoading(false);
                 Swal.fire({
                     icon: 'error',
                     title: 'Elemento Duplicado',
@@ -152,6 +158,7 @@ function Categories() {
             // Actualizar la lista en el estado
             await updateCategoryList(newItem.listType, updatedList);
 
+            setIsLoading(false);
             Swal.fire({
                 icon: 'success',
                 title: 'Elemento Agregado',
@@ -161,6 +168,7 @@ function Categories() {
             // Limpiar el formulario
             setNewItem({ name: '', listType: 'categoryList' });
         } catch (error) {
+            setIsLoading(false);
             console.error('Error al agregar el elemento: ', error);
             Swal.fire({
                 icon: 'error',
@@ -241,19 +249,19 @@ function Categories() {
 
     const addAllCategories = async () => {
         try {
-            
+            setIsLoading(true);
             const categoryCollection = collection(baseDeDatos, 'categorias');
 
             await addDoc(categoryCollection, allCategories);
 
-            
+            setIsLoading(false);
             Swal.fire({
                 icon: 'success',
                 title: 'Categorías Añadidas',
                 text: 'Todas las categorías se han añadido correctamente.',
             });
         } catch (error) {
-            
+            setIsLoading(false);
             console.error('Error al añadir categorías: ', error);
             Swal.fire({
                 icon: 'error',
@@ -343,31 +351,28 @@ function Categories() {
 
 
     return (
-        <div className='div-editCategory'>
-            <Typography variant='h2' sx={{ color: 'white' }}>Categorias</Typography>
+        <div className={`${style.divEditCategory} ${isDarkMode ? style.dark : style.light}`}>
+            <div className={style.divAddCategory}>
 
-            <div className='perfil-usuario-btns'>
-                <Button sx={{ margin: 5 }} color='error' variant='contained' size='small' onClick={() => navigate(-1)}>
+                
+            <div className={style.perfilUsuarioBtns}>
+                <Button color='error' variant='text' size='small' onClick={() => navigate.back()}>
                     Volver atrás
                 </Button>
             </div>
-            <Typography variant='h4' sx={{ color: 'white', margin: '20px' }}>Lista de las Categorias</Typography>
+            <h1 >Lista de las Categorias</h1>
             {categorias.length === 0 && (
                 <div>
-                    <Button variant='contained' color='success' size='small' sx={{ margin: '40px' }} onClick={addAllCategories}>
+                    <Button variant='contained' color='info' size='small' sx={{ margin: '40px', background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }} onClick={addAllCategories}>
                         Añadir todas los categorias
                     </Button>
                 </div>
             )}
-
-
-            <div className='div-addCost'>
-
-                <div className='div-new-category'>
-
-                    <Typography variant='subtitle1'>Agregar Nuevas Categorías</Typography>
-                    <FormControl color='error' sx={{ width: '50%', margin: '20px', color: 'white', textDecorationColor: 'white' }}>
-                        <InputLabel sx={{ color: 'white', }} htmlFor="listType">SELECCIONE UNA LISTA</InputLabel>
+    
+                <div className={style.divNewCategory}>
+                <h5>Agregar Nuevas Categorías</h5>
+                    <FormControl sx={{ width: '50%', margin: '20px' }}>
+                        <InputLabel color='secondary' sx={{ color: isDarkMode ? '#670000' : '#670000', '&.Mui-focused': { color: isDarkMode ? '#670000' : '#670000' } }} htmlFor="listType">SELECCIONE UNA LISTA</InputLabel>
                         <Select
                             variant='filled'
                             id="listType"
@@ -375,272 +380,265 @@ function Categories() {
                             value={newItem.listType}
                             onChange={handleNewItemChange}
                             label="Seleccionar Lista"
+                            sx={{ background: isDarkMode ? '#be9b6069 ' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
                         >
                             <MenuItem value="categoryList">Lista de Categorías</MenuItem>
                             <MenuItem value="ocassionList">Lista de Ocasiones</MenuItem>
                             <MenuItem value="especialDates">Fechas Especiales</MenuItem>
                         </Select>
                     </FormControl>
-
-                    <Typography variant='caption' sx={{ marginTop: '20px' }}>No debe agregar espacios y las palabras deben ir diferenciadas por su primera letra en Mayusculas
+    
+                    {newItem.listType && (
+                    <p>Selecciono para cambiar la <strong className={style.strongText}>
+                            {getLabel(newItem.listType)}
+                        </strong> de los Productos
+                    </p>
+                    )}
+    
+                    <p style={{ marginTop: '20px' }}>No debe agregar espacios y las palabras deben ir diferenciadas por su primera letra en Mayusculas
                         Ejemplo: RegalosHombres / DiaDeLosEnamorados / SanValentin
-                    </Typography>
+                    </p>
                     <TextField
                         label={`Clave de la ${getLabel(newItem.listType)}`}
-                        variant='standard'
-                        sx={{ width: '50%' }}
-                        color='error'
+                        variant='filled'
+                        sx={{ width: '50%', background: isDarkMode ? '#be9b6069 ' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
                         margin="normal"
                         name="name"
                         value={newItem.name}
                         onChange={handleNewItemChange}
                     />
-                    {errors.name && <p className='message-error'>La clave es requerida</p>}
-
-
-                    <Typography variant='caption' sx={{ marginTop: '20px' }}>Aqui debe agregar el nombre correctamente, Ejemplo: Si colocó "SanValentin" o "DiaDeLosEnamorados"
-                        debe ahora escribirlo como "San Valentin" o "Dia de los Enamorados"
-                    </Typography>
+                    {errors.name && <p style={{ color: 'red', fontWeight: '800' }}>La clave es requerida</p>}
+    
+                <p className={style.infoText}>Aqui debe agregar el nombre correctamente, Ejemplo: Si colocó : SanValentin o DiaDeLosEnamorados
+                        debe ahora escribirlo como San Valentin o Dia de los Enamorados
+                        </p>
                     <TextField
                         label={`Nombre de la ${getLabel(newItem.listType)}`}
-                        variant='standard'
-                        color='error'
-                        sx={{ width: '50%', marginTop: '10px' }}
+                        variant='filled'
+                        sx={{ width: '50%', marginTop: '10px', background: isDarkMode ? '#be9b6069 ' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
                         margin="normal"
                         name="value"
                         value={newItem.value}
                         onChange={handleNewItemChange}
                     />
-                    {errors.value && <p className='message-error'>El nombre es requerido</p>}
-
+                    {errors.value && <p style={{ color: 'red', fontWeight: '800' }}>El nombre es requerido</p>}
+    
                     <Button
-                        variant="contained"
-                        color="success"
-                        sx={{ margin: '25px' }}
+                        variant="text"
+                        color="secondary"
+                        sx={{ margin: '25px', background: isDarkMode ? '#670000' : '#670000', color: isDarkMode ? '#fff' : '#670000' }}
                         onClick={handleAddNewItem}
                     >
-
                         {`Agregar ${getLabel(newItem.listType)}`}
-
-
                     </Button>
-
                 </div>
-
-
-                <Accordion expanded={expanded === 'categoryList'} onChange={handleAccordionChange('categoryList')}
-                    sx={{ width: '80%', textTransform: 'uppercase', margin: '40px 0', }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-                            <Typography>Lista de Categorias </Typography>
-                            <Stack direction="row" alignItems="center">
-                                <Typography>{expanded === 'categoryList' ? 'Cerrar lista' : 'Ver lista'}</Typography>
+    
+                <Paper elevation={24} sx={{ padding: '50px', margin: '40px 20px 100px', background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}>
+                    <Accordion expanded={expanded === 'categoryList'} onChange={handleAccordionChange('categoryList')}
+                        sx={{ margin: '40px 0', background: 'linear-gradient(to bottom, #670000, #670000)', fontWeight: '700', color: 'white' }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+                            <h5>Lista de Categorias</h5>
+                                <Stack direction="row" alignItems="center">
+                                    <Typography>{expanded === 'categoryList' ? 'Cerrar lista' : 'Ver lista'}</Typography>
+                                </Stack>
                             </Stack>
-                        </Stack>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead sx={{ background: 'linear-gradient(to bottom, #161616, #363636)' }}>
-                                    <TableRow>
-                                        <TableCell sx={{ color: 'white' }}>Nombre</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {categorias.length > 0 &&
-                                        categorias[0].categoryList.sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
-                                            <TableRow key={category.name}>
-                                                <TableCell>{category.name}</TableCell>
-                                                <TableCell>{category.value}</TableCell>
-                                                <TableCell>
-                                                    <IconButton color='success' onClick={() => openDialog(category)}>
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                    {/* Diálogo de edición */}
-                                                    <Dialog open={dialogOpen} onClose={closeDialog}>
-                                                        <DialogTitle>Editar Categoría</DialogTitle>
-                                                        <DialogContent>
-                                                            <TextField
-                                                                label="name"
-                                                                variant="outlined"
-                                                                margin="normal"
-                                                                fullWidth
-                                                                value={editedItem.name}
-                                                                onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })}
-                                                            />
-                                                            {/* ... (otros campos de edición) */}
-                                                        </DialogContent>
-                                                        <DialogActions>
-                                                            <Button onClick={closeDialog} color="primary">
-                                                                Cancelar
-                                                            </Button>
-                                                            <Button variant="contained" color="primary" onClick={() => updateCategory(categorias[0].categoryList, newItem)}>
-                                                                Guardar Cambios
-                                                            </Button>
-                                                        </DialogActions>
-                                                    </Dialog>
-
-                                                    {/* Eliminar Categoria */}
-                                                    <IconButton color='error' onClick={() => deleteCategory(category.id)}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </AccordionDetails>
-                </Accordion>
-
-                <Accordion expanded={expanded === 'ocassionList'} onChange={handleAccordionChange('ocassionList')}
-                    sx={{ width: '80%', textTransform: 'uppercase', margin: '40px 0' }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-                            <Typography>Lista de Ocasiones </Typography>
-                            <Stack direction="row" alignItems="center">
-                                <Typography>{expanded === 'ocassionList' ? 'Cerrar lista' : 'Ver lista'} </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <TableContainer component={Paper}>
+                                <Table>
+                                    <TableHead sx={{ background: 'linear-gradient(to bottom, #3a2116, #704630)' }}>
+                                        <TableRow>
+                                            <TableCell sx={{ color: 'white' }}>Nombre</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {categorias.length > 0 &&
+                                            categorias[0].categoryList.sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
+                                                <TableRow key={category.name}>
+                                                    <TableCell>{category.name}</TableCell>
+                                                    <TableCell>{category.value}</TableCell>
+                                                    <TableCell>
+                                                        <IconButton sx={{background:'#670000'}} onClick={() => openDialog(category)}>
+                                                            <EditIcon />
+                                                        </IconButton>
+                                                        <Dialog open={dialogOpen} onClose={closeDialog}>
+                                                            <DialogTitle>Editar Categoría</DialogTitle>
+                                                            <DialogContent>
+                                                                <TextField
+                                                                    label="name"
+                                                                    variant="outlined"
+                                                                    margin="normal"
+                                                                    fullWidth
+                                                                    value={editedItem.name}
+                                                                    onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })}
+                                                                    sx={{ background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
+                                                                />
+                                                            </DialogContent>
+                                                            {isLoading ? 'Cargando...'
+                                                                :
+                                                                <DialogActions>
+                                                                    <Button onClick={closeDialog} color="error">
+                                                                        Cancelar
+                                                                    </Button>
+                                                                    <Button variant="text" color="primary" onClick={() => updateCategory(categorias[0].categoryList, newItem)}>
+                                                                        Guardar Cambios
+                                                                    </Button>
+                                                                </DialogActions>
+                                                            }
+                                                        </Dialog>
+                                                        <IconButton color='error' onClick={() => deleteCategory(category.id)}>
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </AccordionDetails>
+                    </Accordion>
+    
+                    <Accordion expanded={expanded === 'ocassionList'} onChange={handleAccordionChange('ocassionList')} sx={{ margin: '40px 0', background: 'linear-gradient(to bottom, #670000, #670000)', fontWeight: '700', color: 'white' }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+                            <h5>Lista de Ocasiones</h5>
+                                <Stack direction="row" alignItems="center">
+                                    <Typography>{expanded === 'ocassionList' ? 'Cerrar lista' : 'Ver lista'}</Typography>
+                                </Stack>
                             </Stack>
-                        </Stack>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead sx={{ background: 'linear-gradient(to bottom, #161616, #363636)' }}>
-                                    <TableRow>
-                                        <TableCell sx={{ color: 'white' }}>Nombre</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {categorias.length > 0 &&
-                                        categorias[0].ocassionList.sort((a, b) => a.name.localeCompare(b.name)).map((ocasion) => (
-                                            <TableRow key={ocasion.name}>
-                                                <TableCell>{ocasion.value}</TableCell>
-                                                <TableCell>{ocasion.name}</TableCell>
-                                                <TableCell>
-                                                    <IconButton color='success' onClick={() => openDialog(ocasion)}>
-                                                        <EditIcon />
-                                                    </IconButton>
-
-                                                    {/* Diálogo de edición */}
-                                                    <Dialog open={dialogOpen} onClose={closeDialog}>
-                                                        <DialogTitle>Editar Ocasión</DialogTitle>
-                                                        <DialogContent>
-                                                            <TextField
-                                                                label="name"
-                                                                variant="outlined"
-                                                                margin="normal"
-                                                                fullWidth
-                                                                value={newItem.name}
-                                                                onChange={(e) => setEditedItem({ ...newItem, name: e.target.value })}
-                                                            />
-                                                            {/* ... (otros campos de edición) */}
-                                                        </DialogContent>
-                                                        <DialogActions>
-                                                            <Button onClick={closeDialog} color="primary">
-                                                                Cancelar
-                                                            </Button>
-                                                            <Button variant="contained" color="primary" onClick={() => updateCategory(categorias[0].ocassionList, newItem)}>
-                                                                Guardar Cambios
-                                                            </Button>
-                                                        </DialogActions>
-                                                    </Dialog>
-
-                                                    <IconButton color='error' onClick={() => deleteCategory(ocasion.id)}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </AccordionDetails>
-                </Accordion>
-
-                <Accordion expanded={expanded === 'especialDates'} onChange={handleAccordionChange('especialDates')}
-                    sx={{ width: '80%', textTransform: 'uppercase', margin: '40px 0' }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
-                            <Typography>Fechas Especiales </Typography>
-                            <Stack direction="row" alignItems="center">
-                                <Typography>{expanded === 'especialDates' ? 'Cerrar lista' : 'Ver lista'}</Typography>
-
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <TableContainer component={Paper}>
+                                <Table>
+                                    <TableHead sx={{ background: 'linear-gradient(to bottom, #3a2116, #704630)' }}>
+                                        <TableRow>
+                                            <TableCell sx={{ color: 'white' }}>Nombre</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {categorias.length > 0 &&
+                                            categorias[0].ocassionList.sort((a, b) => a.name.localeCompare(b.name)).map((ocasion) => (
+                                                <TableRow key={ocasion.name}>
+                                                    <TableCell>{ocasion.value}</TableCell>
+                                                    <TableCell>{ocasion.name}</TableCell>
+                                                    <TableCell>
+                                                        <IconButton sx={{background:'#670000'}} onClick={() => openDialog(ocasion)}>
+                                                            <EditIcon />
+                                                        </IconButton>
+                                                        <Dialog open={dialogOpen} onClose={closeDialog}>
+                                                            <DialogTitle>Editar Ocasión</DialogTitle>
+                                                            <DialogContent>
+                                                                <TextField
+                                                                    label="name"
+                                                                    variant="outlined"
+                                                                    margin="normal"
+                                                                    fullWidth
+                                                                    value={newItem.name}
+                                                                    onChange={(e) => setEditedItem({ ...newItem, name: e.target.value })}
+                                                                    sx={{ background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
+                                                                />
+                                                            </DialogContent>
+                                                            <DialogActions>
+                                                                <Button onClick={closeDialog} color="error">
+                                                                    Cancelar
+                                                                </Button>
+                                                                <Button variant="text" color="primary" onClick={() => updateCategory(categorias[0].ocassionList, newItem)}>
+                                                                    Guardar Cambios
+                                                                </Button>
+                                                            </DialogActions>
+                                                        </Dialog>
+                                                        <IconButton color='error' onClick={() => deleteCategory(ocasion.id)}>
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </AccordionDetails>
+                    </Accordion>
+    
+                    <Accordion expanded={expanded === 'especialDates'} onChange={handleAccordionChange('especialDates')} sx={{ margin: '40px 0', background: 'linear-gradient(to bottom, #670000, #670000)', fontWeight: '700', color: 'white' }}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+                            <h5>Fechas Especiales</h5>
+                                <Stack direction="row" alignItems="center">
+                                    <Typography>{expanded === 'especialDates' ? 'Cerrar lista' : 'Ver lista'}</Typography>
+                                </Stack>
                             </Stack>
-                        </Stack>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead sx={{ background: 'linear-gradient(to bottom, #161616, #363636)' }}>
-                                    <TableRow>
-                                        <TableCell sx={{ color: 'white' }}>Categoria</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
-                                        <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {categorias.length > 0 &&
-                                        categorias[0].especialDates.sort((a, b) => a.name.localeCompare(b.name)).map((fechas) => (
-                                            <TableRow key={fechas.id}>
-                                                <TableCell>{fechas.name}</TableCell>
-                                                <TableCell>{fechas.value}</TableCell>
-
-                                                <TableCell>
-                                                    <IconButton color='success' onClick={() => openDialog(fechas)}>
-                                                        <EditIcon />
-                                                    </IconButton>
-
-                                                    {/* Diálogo de edición */}
-                                                    <Dialog open={dialogOpen} onClose={closeDialog}>
-                                                        <DialogTitle>Editar Fecha Especial</DialogTitle>
-                                                        <DialogContent>
-                                                            <TextField
-                                                                label="name"
-                                                                variant="outlined"
-                                                                margin="normal"
-                                                                fullWidth
-                                                                value={editedItem.name}
-                                                                onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value, id: e.target.value })}
-                                                            />
-                                                            <TextField
-                                                                label="value"
-                                                                variant="outlined"
-                                                                margin="normal"
-                                                                fullWidth
-                                                                value={editedItem.value}
-                                                                onChange={(e) => setEditedItem({ ...editedItem, value: e.target.value })}
-                                                            />
-                                                            {/* ... (otros campos de edición) */}
-                                                        </DialogContent>
-                                                        <DialogActions>
-                                                            <Button onClick={closeDialog} color="primary">
-                                                                Cancelar
-                                                            </Button>
-                                                            <Button variant="contained" color="primary" onClick={() => updateCategory(categorias[0].especialDates, editedItem, 'especialDates')}>
-                                                                Guardar Cambios
-                                                            </Button>
-                                                        </DialogActions>
-                                                    </Dialog>
-
-                                                    <IconButton color='error' onClick={() => deleteCategory(fechas.name)}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </AccordionDetails>
-                </Accordion>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <TableContainer component={Paper}>
+                                <Table>
+                                    <TableHead sx={{ background: 'linear-gradient(to bottom, #3a2116, #704630)' }}>
+                                        <TableRow>
+                                            <TableCell sx={{ color: 'white' }}>Categoria</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Como se muestra</TableCell>
+                                            <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {categorias.length > 0 &&
+                                            categorias[0].especialDates.sort((a, b) => a.name.localeCompare(b.name)).map((fechas) => (
+                                                <TableRow key={fechas.id}>
+                                                    <TableCell>{fechas.name}</TableCell>
+                                                    <TableCell>{fechas.value}</TableCell>
+                                                    <TableCell>
+                                                        <IconButton sx={{background:'#670000'}} onClick={() => openDialog(fechas)}>
+                                                            <EditIcon />
+                                                        </IconButton>
+                                                        <Dialog open={dialogOpen} onClose={closeDialog}>
+                                                            <DialogTitle>Editar Fecha Especial</DialogTitle>
+                                                            <DialogContent>
+                                                                <TextField
+                                                                    label="name"
+                                                                    variant="outlined"
+                                                                    margin="normal"
+                                                                    fullWidth
+                                                                    value={editedItem.name}
+                                                                    onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value, id: e.target.value })}
+                                                                    sx={{ background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
+                                                                />
+                                                                <TextField
+                                                                    label="value"
+                                                                    variant="outlined"
+                                                                    margin="normal"
+                                                                    fullWidth
+                                                                    value={editedItem.value}
+                                                                    onChange={(e) => setEditedItem({ ...editedItem, value: e.target.value })}
+                                                                    sx={{ background: isDarkMode ? '#be9b6069' : '#fff5ec', color: isDarkMode ? '#fcf5f0' : '#670000' }}
+                                                                />
+                                                            </DialogContent>
+                                                            <DialogActions>
+                                                                <Button onClick={closeDialog} color="error">
+                                                                    Cancelar
+                                                                </Button>
+                                                                <Button variant="text" sx={{background:'#670000'}} onClick={() => updateCategory(categorias[0].especialDates, editedItem, 'especialDates')}>
+                                                                    Guardar Cambios
+                                                                </Button>
+                                                            </DialogActions>
+                                                        </Dialog>
+                                                        <IconButton color='error' onClick={() => deleteCategory(fechas.name)}>
+                                                            <DeleteIcon />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </AccordionDetails>
+                    </Accordion>
+                </Paper>
             </div>
         </div>
     );
 }
 
-export default Categories;
+export default CategoriesAdmin;

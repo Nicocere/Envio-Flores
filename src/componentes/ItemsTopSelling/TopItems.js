@@ -34,13 +34,34 @@ export default function TopItems() {
                 ...doc.data(), 
                 id: doc.id 
             }));
-
-            // Ordenar los productos por ventas en el lado del cliente
-            const sortedProducts = productList.sort((a, b) => b.vendidos - a.vendidos);
-
+    
+            // Filtrar productos que NO contengan ciertas ocasiones o categorías
+            const filteredProducts = productList.filter(product => {
+                // Verificar el campo de ocasiones
+                const ocasiones = product.ocasiones || [];
+                const categorias = product.categorias || [];
+                
+                // Excluir productos con ocasiones o categorías específicas
+                const tieneOcasionRestringida = ocasiones.some(ocasion => 
+                    ocasion.toLowerCase().includes('condolencias') || 
+                    ocasion.toLowerCase().includes('funerales')
+                );
+                
+                const tieneCategoriaRestringida = categorias.some(categoria => 
+                    categoria.toLowerCase().includes('coronas') || 
+                    categoria.toLowerCase().includes('palmas')
+                );
+                
+                // Devolver true solo si el producto NO tiene ninguna restricción
+                return !tieneOcasionRestringida && !tieneCategoriaRestringida;
+            });
+    
+            // Ordenar los productos filtrados por ventas en el lado del cliente
+            const sortedProducts = filteredProducts.sort((a, b) => b.vendidos - a.vendidos);
+    
             // Tomar solo los primeros 6 productos
             const top6Products = sortedProducts.slice(0, 6);
-
+    
             setTopItems(top6Products);
         } catch (error) {
             console.error("Error al cargar los productos destacados:", error);

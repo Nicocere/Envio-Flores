@@ -5,35 +5,35 @@
     backdrop-filter: blur(1px);
 }
 .swalHtmlContainer{
-    border: 1px solid #D4AF37;
+    border: 1px solid #670000;
 }
 
 
 .lightMode {
-    --primary-color: #D4AF37;
+    --primary-color: #670000;
     --background-color: #fcf5f0;
     --secondary-background-color: #F5E9D7;
     --card-background-color: #FFF8F0;
-    --text-color: #2f1a0f;
+    --text-color: #670000;
     --accent-color: #A6855D;
     --success-color: #5CB85C;
     --navbar-light: rgba(245, 233, 215, 0.9);
-    --icon-container: #d4af37;
-    --select-color: #2f1a0f;
-    --icon-color: #2f1a0f;
+    --icon-container: #670000;
+    --select-color: #670000;
+    --icon-color: #670000;
     --icon-hover: #fff8f0;
   }
   
   /* Dark Mode */
   .darkMode {
-    --primary-color: #D4AF37;
-    --background-color: #2f1a0f;
-    --secondary-background-color: #2f1a0f;
+    --primary-color: #670000;
+    --background-color: #670000;
+    --secondary-background-color: #670000;
     --text-color: #ffffff;
     --accent-color: #8E7346;
-    --navbar-dark: #2f1a0fb8;
-    --select-color: #2f1a0f;
-    --icon-container: #2f1a0f;
+    --navbar-dark: #670000b8;
+    --select-color: #670000;
+    --icon-container: #670000;
     --icon-color: #ffffff;
     --icon-hover: #D4af32;
   }
@@ -50,7 +50,7 @@
 }
 
 .listItemText {
-    color: #D4AF37;
+    color: #670000;
     font-size: 18px;
 }
 
@@ -73,12 +73,12 @@
 /* Light Mode */
 .tableCart {
     background: #FAF3EB;
-    color: #2f1a0f;
+    color: #670000;
 }
 
 /* Dark Mode */
 .tableCartDark {
-    background: #2f1a0f;
+    background: #670000;
     color: #FAF3EB;
 }
 
@@ -95,18 +95,18 @@
     padding: 16px;
     text-align: left;
     text-align: center;
-    border-bottom: 2px solid #D4AF37;
+    border-bottom: 2px solid #670000;
     transition: all 0.3s ease;
 }
 
 .tableCart .tableHeadTr th {
-    color: #2f1a0f;
+    color: #670000;
     background: #FAF3EB;
 }
 
 .tableCartDark .tableHeadTr th {
     color: #FAF3EB;
-    background: #2f1a0f;
+    background: #670000;
 }
 
 .tableInfo {
@@ -171,7 +171,7 @@
     /* color: #ff4d4d; */
   }
   .discountedPrice {
-    color: #D4AF37;
+    color: #670000;
     font-weight: bold;
   }
 /* Animaciones con Framer Motion */
@@ -248,7 +248,7 @@
 
 .productPrice {
     font-weight: 600;
-    color: #D4AF37;
+    color: #670000;
     font-size: 1.1rem;
 }
 
@@ -283,7 +283,7 @@
 /* Estilos para el acordeón */
 .accordionContainer {
     padding: 20px;
-    background: #2f1a0f;
+    background: #670000;
     color: #FAF3EB;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -300,7 +300,7 @@
 
 .accordionDetails {
     padding: 20px;
-    background: #2f1a0f;
+    background: #670000;
     color: #FAF3EB;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -313,14 +313,14 @@
 }
 
 .accordionDetails strong {
-    color: #D4AF37;
+    color: #670000;
 }
 
 
 /* Estilos para los textos */
 .textContainer {
     padding: 20px;
-    background: #2f1a0f;
+    background: #670000;
     color: #FAF3EB;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -334,7 +334,7 @@
 }
 
 .textContainer .highlight {
-    color: #D4AF37;
+    color: #670000;
 }
 
 .datosFechaEnvio,
@@ -422,7 +422,7 @@
 /* Scroll personalizado */
 .divTableCart {
     scrollbar-width: thin;
-    scrollbar-color: #D4AF37 transparent;
+    scrollbar-color: #670000 transparent;
 }
 
 .divTableCart::-webkit-scrollbar {
@@ -434,7 +434,7 @@
 }
 
 .divTableCart::-webkit-scrollbar-thumb {
-    background-color: #D4AF37;
+    background-color: #670000;
     border-radius: 3px;
 }
 
@@ -477,7 +477,7 @@
     justify-content: center;
 }
 .dedicSave{
-    color: #2f1a0f;
+    color: #670000;
 }
 
 .dedicSaveContainer{
@@ -559,7 +559,7 @@ transition: border-color 0.3s;
     flex: 2;
     width: -webkit-fill-available;
     margin: 13px;
-    border: 2px solid #D4AF37;
+    border: 2px solid #670000;
     border-radius: 15px;
     box-shadow: 1px 5px 4px 0px rgb(44, 44, 44);
     background: rgba(162, 162, 162, 0.222);
@@ -572,7 +572,7 @@ transition: border-color 0.3s;
     flex: 2;
     width: -webkit-fill-available;
     margin: 13px;
-    border: 2px solid #D4AF37;
+    border: 2px solid #670000;
     border-radius: 15px;
     box-shadow: 1px 5px 4px 0px rgb(44, 44, 44);
     background: rgba(162, 162, 162, 0.222);
@@ -616,7 +616,7 @@ transition: border-color 0.3s;
     border: none;
     font-size: 35px;
     cursor: pointer;
-    color: #2f1a0f;
+    color: #670000;
     width: 40px;
     height: 40px;
     border-radius: 50%;

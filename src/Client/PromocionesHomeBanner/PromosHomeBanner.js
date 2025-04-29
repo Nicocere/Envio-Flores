@@ -51,10 +51,10 @@ const PromosHomeBanner = () => {
                 icon: 'info',
                 title: '¡Promoción activada!',
                 text: 'Ya tienes esta promoción disponible',
-                confirmButtonColor: '#D4AF37',
-                background: isDarkMode ? '#2f1a0f' : '#FAF3EB',
-                color: isDarkMode ? '#FAF3EB' : '#2f1a0f',
-                iconColor: '#D4AF37'
+                confirmButtonColor: '#670000',
+                background: isDarkMode ? '#670000' : '#FAF3EB',
+                color: isDarkMode ? '#FAF3EB' : '#670000',
+                iconColor: '#670000'
             });
             return;
         } else {
@@ -72,9 +72,9 @@ const PromosHomeBanner = () => {
                 showCancelButton: true,
                 confirmButtonText: 'Obtener promoción',
                 cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#D4AF37',
-                background: isDarkMode ? '#2f1a0f' : '#FAF3EB',
-                color: isDarkMode ? '#FAF3EB' : '#2f1a0f',
+                confirmButtonColor: '#670000',
+                background: isDarkMode ? '#670000' : '#FAF3EB',
+                color: isDarkMode ? '#FAF3EB' : '#670000',
                 customClass: {
                     popup: 'swal-custom-popup',
                     confirmButton: 'swal-custom-confirm',
@@ -103,9 +103,9 @@ const PromosHomeBanner = () => {
                         icon: 'success',
                         title: '¡Promoción guardada!',
                         text: 'La promoción ahora está disponible para ti',
-                        confirmButtonColor: '#D4AF37',
-                        background: isDarkMode ? '#2f1a0f' : '#FAF3EB',
-                        color: isDarkMode ? '#FAF3EB' : '#2f1a0f'
+                        confirmButtonColor: '#670000',
+                        background: isDarkMode ? '#670000' : '#FAF3EB',
+                        color: isDarkMode ? '#FAF3EB' : '#670000'
                     });
                 } catch (error) {
                     console.error('Error saving email:', error);
@@ -113,9 +113,9 @@ const PromosHomeBanner = () => {
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Hubo un error al guardar tu email',
-                        confirmButtonColor: '#D4AF37',
-                        background: isDarkMode ? '#2f1a0f' : '#FAF3EB',
-                        color: isDarkMode ? '#FAF3EB' : '#2f1a0f'
+                        confirmButtonColor: '#670000',
+                        background: isDarkMode ? '#670000' : '#FAF3EB',
+                        color: isDarkMode ? '#FAF3EB' : '#670000'
                     });
                 }
             }
@@ -126,16 +126,16 @@ const PromosHomeBanner = () => {
 
     return (
         <motion.div
-            className={style.promotionsSection} style={{ color: isDarkMode ? '#FAF3EB' : '#D4af37', }}
+            className={style.promotionsSection} style={{ color: isDarkMode ? '#FAF3EB' : '#670000', }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
         >
             <motion.h1
                 style={{
-                    color: '#D4AF37',
+                    color: '#670000',
                     marginTop: '3rem',
-                    background: 'linear-gradient(90deg, #D4AF37 0%, #FFF 50%, #D4AF37 100%)',
+                    background: 'linear-gradient(90deg, #670000 0%, #FFF 50%, #670000 100%)',
                     backgroundSize: '200% 100%',
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
@@ -168,7 +168,7 @@ const PromosHomeBanner = () => {
             {loading ? (
                 <div>Cargando promociones...</div>
             ) : promociones.length > 0 ? (
-                <div className={style.promotionsGrid} style={{ background: !isDarkMode ? '#0c0402' : '#d4af37' }} >
+                <div className={style.promotionsGrid} style={{ background: !isDarkMode ? '#0c0402' : '#670000' }} >
                     {promociones.map((promo) => (
                         <motion.div
                             key={promo.id}
@@ -182,10 +182,10 @@ const PromosHomeBanner = () => {
                             <div className={style.promoContent}>
 
                                 <h1 className={style.promoTag}>{promo.nombre}</h1>
-                                <h3 style={{ color: isDarkMode ? '#FAF3EB' : '#D4af37' }}>
+                                <h3 style={{ color: isDarkMode ? '#FAF3EB' : '#670000' }}>
                                     {promo.descripcion}
                                 </h3>
-                                <p style={{ color: isDarkMode ? '#FAF3EB' : '#2f1a0f' }}>
+                                <p style={{ color: isDarkMode ? '#FAF3EB' : '#670000' }}>
                                     La promoción termina en:
                                 </p>
                                 <PantallaContador validoHasta={promo.validoHasta} />
@@ -231,7 +231,7 @@ const PromosHomeBanner = () => {
                 }}
             >
                 <motion.h3
-                    style={{ color: '#D4AF37' }}
+                    style={{ color: '#670000' }}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.5 }}

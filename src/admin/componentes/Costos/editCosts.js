@@ -1,20 +1,20 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-// import { dataCosts } from '../../ecommerce.costos';
-import './costos.css'
-import { FadeLoader } from 'react-spinners';
-import { Button, Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import style from './costos.module.css'
+import { PulseLoader } from 'react-spinners';
+import { Button } from '@mui/material';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
 function EditCosts() {
     const { watch, register, handleSubmit, setValue, formState: { errors } } = useForm();
-
+    const { isDarkMode } = useTheme();
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
-
+    const navigate = useRouter();
     const [costos, setCostos] = useState([]);
 
     const fetchCosts = async () => {
@@ -27,11 +27,9 @@ function EditCosts() {
         setCostos(costosData);
     };
 
-
     useEffect(() => {
         fetchCosts();
     }, []);
-
 
     const [editCosts, setEditCosts] = useState({
         nombre: '', categoria: '', precio: ''
@@ -51,41 +49,12 @@ function EditCosts() {
             });
             Swal.fire({
                 icon: 'success',
-                title: 'Costo actualizada',
+                title: 'Costo actualizado',
             });
             setEditCosts({ nombre: '', categoria: '', precio: '' });
             fetchCosts();
         }
     };
-
-    const addAllCosts = async () => {
-        // try {
-        //     setIsLoading(true);
-        //     const costosCollectionRef = collection(baseDeDatos, 'costos');
-
-        //     // Recorre las direcciones y añádelas a Firebase Database
-        //     for (const cost of dataCosts) {
-        //         await addDoc(costosCollectionRef, cost);
-        //     }
-
-        //     setIsLoading(false);
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Costos Añadidas',
-        //         text: 'Todas los costos se han añadido correctamente.',
-        //     });
-        // } catch (error) {
-        //     setIsLoading(false);
-        //     console.error('Error al añadir costos: ', error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Error',
-        //         text: `Hubo un problema añadiendo costos: ${error.message}`,
-        //     });
-        // }
-    };
-
-
 
     const onSubmit = async (data) => {
         setIsLoading(true);
@@ -140,7 +109,6 @@ function EditCosts() {
         }
     };
 
-
     const deleteCost = async (costId) => {
         try {
             const result = await Swal.fire({
@@ -155,161 +123,162 @@ function EditCosts() {
             });
 
             if (result.isConfirmed) {
-                await deleteDoc(doc(baseDeDatos, 'cost', costId));
+                await deleteDoc(doc(baseDeDatos, 'costos', costId));
                 Swal.fire({
                     icon: 'success',
-                    title: 'Producto Eliminado',
-                    text: 'Has eliminado un producto',
+                    title: 'Costo Eliminado',
+                    text: 'Has eliminado un costo',
                 });
                 fetchCosts();
             }
         } catch (e) {
-            console.error('Error al eliminar el producto: ', e);
+            console.error('Error al eliminar el costo: ', e);
             Swal.fire(
                 'Error',
-                `Hubo un problema eliminando el producto. Error:${e}`,
+                `Hubo un problema eliminando el costo. Error:${e}`,
                 'error'
             );
         }
     };
 
+
     return (
-        <div className='div-editCosts'>
-            <Paper elevation={24} sx={{ background: '#670000', padding: '20px 50px ', marginBottom: '80px' }}>
-                <Typography variant='h2' sx={{ color: 'white' }}>Costos</Typography>
-            
-                <div className='perfil-usuario-btns'>
-                    <Button sx={{ margin: 5 }} color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
-
-                </div>
-                {costos.length === 0 &&
-                    <div>
-                        <button onClick={addAllCosts}>Añadir todas los costos adicionales</button>
-                    </div>
-
-                }
-                <div className='div-addCost' >
-                    <Typography variant='h4' sx={{ color: 'white' }}>Agregar Nuevos Costos</Typography>
-
-                    <form className='form-addCost' onSubmit={handleSubmit(onSubmit)}>
-                        <label> Nombre del Costo </label>
-                        <input
-                            {...register('nombre', { required: true })}
-                            placeholder="Nombre del costo"
-                            value={editCosts.nombre}
-                            onChange={e => setEditCosts({ ...editCosts, nombre: e.target.value })}
-
-                        />
-                        {errors.nombre && <p className='message-error'>El nombre del costo es requerido</p>}
-
-                        <label>Categoria</label>
-                        <input
-                            {...register('categoria', { required: true })}
-                            value={editCosts.categoria}
-                            name="categoria"
-                            onChange={e => setEditCosts({ ...editCosts, categoria: e.target.value })}
-                            placeholder="Categoria del costo"
-                        />
-                        {errors.categoria && <p className='message-error'>La categoría del costo es requerida</p>}
-
-                        <label>Precio del Costo</label>
-
-
-                        <input
-                            {...register('precio', { required: true })}
-                            value={editCosts.precio}
-                            name="precio"
-                            onChange={e => setEditCosts({ ...editCosts, precio: e.target.value })}
-                            placeholder="Precio del costo"
-                        />
-                        {errors.rutaProd && <p className='message-error'>El valor del costo es requerida</p>}
-
-                        {
-                            isLoading ? (
-                                <div className="">
-                                    Agregando Nuevo Costo, aguarde....
-                                    <FadeLoader color="pink" />
-                                </div>
-                            ) : <Button color='success' variant='outlined' sx={{ margin: 2, width: 'fit-content', alignSelf: 'center' }} type="submit">Agregar Costo</Button>
-                        }
-                    </form>
+        <div className={`${style.divEditCost} ${isDarkMode ? style.dark : style.light}`}>
+            <div className={style.addCost}>
+                <div className={style.perfilUsuarioBtns}>
+                    <Button variant='text' size='small' color='error' onClick={() => navigate.back()}>Volver atrás</Button>
                 </div>
 
-            </Paper>
+                <h1>Costos</h1>
+    
+                <p className={style.textInfo}>
+                    <strong>¿Qué es un costo?</strong><br />
+                    Un costo puede referirse a varios tipos de gastos o precios asociados con productos o servicios. Por ejemplo, puede ser el precio por unidad de un producto, el costo de un servicio premium, o incluso el costo del dólar en el mercado. Es importante definir claramente el tipo de costo que estás agregando para mantener una gestión financiera precisa y organizada.
+                </p>
+                <p className={style.textInfo3}>
+                    <strong>Instrucciones para agregar un nuevo costo:</strong><br />
+                    1. <strong>Nombre del Costo:</strong> Ingrese un nombre descriptivo para el costo. Esto ayudará a identificar fácilmente el costo en la lista.<br />
+                    2. <strong>Categoria:</strong> Seleccione una categoría adecuada para el costo. Las opciones disponibles son: Flores, Rosas, Cambio de Producto, Envíos, Moneda.<br />
+                    3. <strong>Precio del Costo:</strong> Ingrese el precio asociado con el costo. Asegúrese de que el valor sea numérico y represente el costo de manera precisa.
+                </p>
 
-            <Paper elevation={24} sx={{ background: '#670000', padding: '20px 50px ', marginBottom: '80px' }}>
+                <h3>Agregar Nuevos Costos</h3>
 
-                <Typography variant='h4' sx={{ color: 'white', textTransform: 'uppercase' }}>Todos los costos</Typography>
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead sx={{ background: 'linear-gradient(to bottom, #161616, #363636)', boxShadow: '0 0 12px 3px black' }}>
-                            <TableRow>
-                                <TableCell style={{ minWidth: 75, fontWeight: '700', textTransform: 'uppercase', color: 'white' }}>Nombre</TableCell>
-                                <TableCell style={{ minWidth: 75, fontWeight: '700', textTransform: 'uppercase', color: 'white' }}>Costo</TableCell>
-                                <TableCell style={{ minWidth: 75, fontWeight: '700', textTransform: 'uppercase', color: 'white' }}>Categoria</TableCell>
-                                <TableCell style={{ minWidth: 75, fontWeight: '700', textTransform: 'uppercase', color: 'white' }}>Acciones</TableCell>
+                <form className={style.formAddCost} onSubmit={handleSubmit(onSubmit)}>
+                    <label> Nombre del Costo </label>
+                    <input
+                        {...register('nombre', { required: true })}
+                        placeholder="Nombre del costo"
+                        value={editCosts.nombre}
+                        onChange={e => setEditCosts({ ...editCosts, nombre: e.target.value })}
+                    />
+                    {errors.nombre && <p style={{ color: 'red', fontWeight: '800' }}>El nombre del costo es requerido</p>}
 
-                            </TableRow>
-                        </TableHead>
+                    <label>Categoria</label>
+                    <select
+                        {...register('categoria', { required: true })}
+                        value={editCosts.categoria}
+                        onChange={e => setEditCosts({ ...editCosts, categoria: e.target.value })}
+                    >
+                        <option value="">Seleccione una categoría</option>
+                        <option value="Flores">Flores</option>
+                        <option value="Rosas">Rosas</option>
+                        <option value="cambioProducto">Cambio de Producto</option>
+                        <option value="envios">Envíos</option>
+                        <option value="moneda">Moneda</option>
+                    </select>
+                    {errors.categoria && <p style={{ color: 'red', fontWeight: '800' }}>La categoría del costo es requerida</p>}
 
-                        <TableBody>
-                            {costos.map((cost) => (
-                                <TableRow key={cost.id}>
-                                    <TableCell>
-                                        {editCosts && editCosts.id === cost.id ? (
-                                            <TextField
-                                                type='text'
-                                                value={editCosts.nombre}
-                                                onChange={(e) =>
-                                                    setEditCosts({ ...editCosts, nombre: e.target.value })
-                                                }
-                                            />
-                                        ) : (
-                                            cost.nombre
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {editCosts && editCosts.id === cost.id ? (
-                                            <TextField
-                                                type='number'
-                                                value={editCosts.precio}
-                                                onChange={(e) =>
-                                                    setEditCosts({ ...editCosts, precio: e.target.value })
-                                                }
-                                            />
-                                        ) : (
-                                            `$ ${cost.precio}`
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {editCosts && editCosts.id === cost.id ? (
-                                            <TextField
-                                                type='text'
-                                                value={editCosts.categoria}
-                                                onChange={(e) =>
-                                                    setEditCosts({ ...editCosts, categoria: e.target.value })
-                                                }
-                                            />
-                                        ) : (
-                                            `${cost.categoria}`
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {editCosts && editCosts.id === cost.id ? (
-                                            <Button sx={{margin:'5px'}} variant="contained" color="success" onClick={saveCost}>Guardar</Button>
-                                        ) : (
-                                            <Button sx={{margin:'5px'}} variant="contained" color="success" onClick={() => editCost(cost)}>Editar</Button>
-                                        )}
+                    <label>Precio del Costo</label>
+                    <input
+                        {...register('precio', { required: true })}
+                        value={editCosts.precio}
+                        name="precio"
+                        type='number'
+                        onChange={e => setEditCosts({ ...editCosts, precio: e.target.value })}
+                        placeholder="Precio del costo"
+                    />
+                    {errors.precio && <p style={{ color: 'red', fontWeight: '800' }}>El valor del costo es requerido</p>}
 
-                                        <Button sx={{margin:'5px'}} variant="contained" color="error" onClick={() => deleteCost(cost.id)}>Eliminar</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                    {isLoading ? (
+                        <div className="">
+                            Agregando Nuevo Costo, aguarde....
+                            <PulseLoader color={isDarkMode ? '#670000' : '#670000'} />
+                        </div>
+                    ) : <Button sx={{ color: isDarkMode ? 'white' : '#670000', border: '3px solid #670000', margin: '20px', borderRadius: '10px', padding: '10px 30px', background: 'transparent', '&:hover': { background: '#ffffff', color: '#670000' } }} type="submit">Agregar Costo</Button>}
+                </form>
+            </div>
 
-            </Paper>
+            <h2 className={style.titleCost}>Todas los Costos</h2>
+            <p className={style.textInfo2}>A continuación se muestra una lista de todos los costos actuales. Puede editar o eliminar cualquier costo utilizando los botones correspondientes en la columna de acciones.</p>
+            <table className={style.tableCosts}>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Costo</th>
+                        <th>Categoria</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {costos.map((cost) => (
+                        <tr key={cost.id}>
+                            <td>
+                                {editCosts && editCosts.id === cost.id ? (
+                                    <input
+                                        type='text'
+                                        value={editCosts.nombre}
+                                        onChange={(e) =>
+                                            setEditCosts({ ...editCosts, nombre: e.target.value })
+                                        }
+                                    />
+                                ) : (
+                                    cost.nombre
+                                )}
+                            </td>
+                            <td>
+                                {editCosts && editCosts.id === cost.id ? (
+                                    <input
+                                        type='number'
+                                        value={editCosts.precio}
+                                        onChange={(e) =>
+                                            setEditCosts({ ...editCosts, precio: e.target.value })
+                                        }
+                                    />
+                                ) : (
+                                    `$ ${cost.precio}`
+                                )}
+                            </td>
+                            <td>
+                                {editCosts && editCosts.id === cost.id ? (
+                                    <select
+                                        value={editCosts.categoria}
+                                        onChange={(e) =>
+                                            setEditCosts({ ...editCosts, categoria: e.target.value })
+                                        }
+                                    >
+                                        <option value="Flores">Flores</option>
+                                        <option value="Rosas">Rosas</option>
+                                        <option value="Cambio de Producto">Cambio de Producto</option>
+                                        <option value="Envíos">Envíos</option>
+                                        <option value="Moneda">Moneda</option>
+                                    </select>
+                                ) : (
+                                    `${cost.categoria}`
+                                )}
+                            </td>
+                            <td>
+                                {editCosts && editCosts.id === cost.id ? (
+                                    <Button className={style.btnTableEdit} onClick={saveCost}>Guardar</Button>
+                                ) : (
+                                    <Button className={style.btnTableEdit} color='secondary' onClick={() => editCost(cost)}>Editar</Button>
+                                )}
+                                <Button className={style.btnTableDelete} onClick={() => deleteCost(cost.id)}>Eliminar</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

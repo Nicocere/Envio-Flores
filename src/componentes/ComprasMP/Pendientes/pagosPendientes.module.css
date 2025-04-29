@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #2f1a0f, #1a0f07);
+    background: linear-gradient(to bottom, #670000, #1a0f07);
     padding: 1rem;
 }
 
@@ -21,7 +21,7 @@
 .title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #D4AF37;
+    color: #670000;
     text-align: center;
     margin-bottom: 1.5rem;
 }
@@ -41,7 +41,7 @@
 }
 
 .sectionTitle {
-    color: #D4AF37;
+    color: #670000;
     font-size: 1.125rem;
     margin-bottom: 0.5rem;
 }
@@ -52,7 +52,7 @@
 }
 
 .highlight {
-    color: #D4AF37;
+    color: #670000;
     font-size: 1.125rem;
     margin-bottom: 0.5rem;
 }
@@ -60,8 +60,8 @@
 .button {
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background-color: #D4AF37;
-    color: #2f1a0f;
+    background-color: #670000;
+    color: #670000;
     border-radius: 0.5rem;
     transition: background-color 0.3s;
 }
@@ -82,10 +82,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #2f1a0f, #1a0f07);
+    background: linear-gradient(to bottom, #670000, #1a0f07);
 }
 
 .loadingText {
-    color: #D4AF37;
+    color: #670000;
     margin-top: 1rem;
 }

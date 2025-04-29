@@ -126,7 +126,7 @@ const CartMoreProducts = () => {
                 timer: 1500,
                 position: 'bottom-end',
                 background: 'linear-gradient(180deg,#dbdbdb,#fcf5f0)',
-                iconColor: '#D4AF37',
+                iconColor: '#670000',
                 customClass: {
                     title: 'my-title-class',
                     popup: 'my-popup-class',
@@ -170,7 +170,7 @@ const CartMoreProducts = () => {
             >
                 <motion.h2
                     className={style.title}
-                    style={{ color: isDarkMode ? '#2f1a0f' : '#FAF3EB' }}
+                    style={{ color: isDarkMode ? '#670000' : '#FAF3EB' }}
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -194,7 +194,7 @@ const CartMoreProducts = () => {
                 <motion.h4
                     ref={subtitleRef}
                     className={style.subtitle}
-                    style={{ color: isDarkMode ? '#2f1a0f' : '#FAF3EB' }}
+                    style={{ color: isDarkMode ? '#670000' : '#FAF3EB' }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={isSubtitleInView ? 
                         { opacity: 1, x: 0 } : 

@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Tooltip } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import { iconos } from '@/admin/componentes/PantallasPromocionales/PantallasPromocionales'; // Asegúrate de exportar iconos desde PantallasPromocionales
 import style from './pantallasPromocionales.module.css';
 import { collection, addDoc } from 'firebase/firestore';
-import { baseDeDatos } from '../../admin/FireBaseConfig';
 import localforage from 'localforage';
 import Swal from 'sweetalert2';
 import PantallaPromocionContador from './PantallaContador';
-import { FaGift } from 'react-icons/fa';
 import IconoPromocion from './IconoPromocion';
+import { baseDeDatosServer } from '@/utils/firebaseServer';
 
 interface PantallaPromocionProps {
   nombre: string;
@@ -94,7 +92,7 @@ const PantallaPromocion: React.FC<PantallaPromocionProps> = ({
   
     if (email) {
       try {
-        await addDoc(collection(baseDeDatos, 'email-promociones'), { email });
+        await addDoc(collection(baseDeDatosServer, 'email-promociones'), { email });
         await localforage.setItem('emailPromocion', email);
         setTimeout(() => {
           localforage.removeItem('emailPromocion');
@@ -106,7 +104,7 @@ const PantallaPromocion: React.FC<PantallaPromocionProps> = ({
           position: 'center',
           showConfirmButton: false,
           timer: 2000,
-          iconColor: '#d4af37',
+          iconColor: '#670000',
           customClass: {
             htmlContainer: style.swalContainer,
             popup: style.swalPopup,

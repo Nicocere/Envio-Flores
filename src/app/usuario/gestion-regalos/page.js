@@ -134,7 +134,7 @@ export default function GestionRegalos() {
                 title: '¡Éxito!',
                 text: 'Recordatorio guardado correctamente',
                 icon: 'success',
-                confirmButtonColor: '#d4af37'
+                confirmButtonColor: '#670000'
             });
 
         } catch (error) {
@@ -150,8 +150,8 @@ export default function GestionRegalos() {
                 text: "No podrás revertir esta acción",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d4af37',
-                cancelButtonColor: '#2f1a0f',
+                confirmButtonColor: '#670000',
+                cancelButtonColor: '#670000',
                 confirmButtonText: 'Sí, eliminar',
                 cancelButtonText: 'Cancelar'
             }).then(async (result) => {
@@ -202,7 +202,7 @@ export default function GestionRegalos() {
             title: 'Error',
             text: mensaje,
             icon: 'error',
-            confirmButtonColor: '#d4af37'
+            confirmButtonColor: '#670000'
         });
     };
 
@@ -211,7 +211,7 @@ export default function GestionRegalos() {
             title: '¡Éxito!',
             text: mensaje,
             icon: 'success',
-            confirmButtonColor: '#d4af37'
+            confirmButtonColor: '#670000'
         });
     };
 
@@ -301,12 +301,12 @@ export default function GestionRegalos() {
                                     className={style.textField}
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            '& fieldset': { borderColor: '#d4af37' },
-                                            '&:hover fieldset': { borderColor: '#d4af37' },
-                                            '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                            '& fieldset': { borderColor: '#670000' },
+                                            '&:hover fieldset': { borderColor: '#670000' },
+                                            '&.Mui-focused fieldset': { borderColor: '#670000' },
                                         },
-                                        '& .MuiInputLabel-root': { color: '#d4af37' },
-                                        '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                        '& .MuiInputLabel-root': { color: '#670000' },
+                                        '& .MuiOutlinedInput-input': { color: '#670000' },
                                     }}
                                 />
                             </Grid>
@@ -323,9 +323,9 @@ export default function GestionRegalos() {
                                         sx={{
                                             width: '100%',
                                             '& .MuiPickersDay-root': {
-                                                color: '#2f1a0f',
+                                                color: '#670000',
                                                 '&.Mui-selected': {
-                                                    backgroundColor: '#d4af37',
+                                                    backgroundColor: '#670000',
                                                     color: 'white',
                                                     '&:hover': {
                                                         backgroundColor: '#c4a032',
@@ -333,17 +333,17 @@ export default function GestionRegalos() {
                                                 },
                                             },
                                             '& .MuiPickersDay-today': {
-                                                border: '1px solid #d4af37',
+                                                border: '1px solid #670000',
                                             },
                                             '& .MuiTypography-root': {
-                                                color: '#2f1a0f',
+                                                color: '#670000',
                                             },
                                             '& .MuiPickersCalendarHeader-label': {
-                                                color: '#d4af37',
+                                                color: '#670000',
                                                 textTransform: 'capitalize',
                                             },
                                             '& .MuiPickersArrowSwitcher-button': {
-                                                color: '#d4af37',
+                                                color: '#670000',
                                             },
                                         }}
                                     />
@@ -361,12 +361,12 @@ export default function GestionRegalos() {
                                     renderInput={(params) => (
                                         <TextField sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                             {...params}
                                             label="Seleccionar productos"
@@ -401,12 +401,12 @@ export default function GestionRegalos() {
                                     onChange={(e) => setFormData({ ...formData, tipo: e.target.value })}
                                     sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            '& fieldset': { borderColor: '#d4af37' },
-                                            '&:hover fieldset': { borderColor: '#d4af37' },
-                                            '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                            '& fieldset': { borderColor: '#670000' },
+                                            '&:hover fieldset': { borderColor: '#670000' },
+                                            '&.Mui-focused fieldset': { borderColor: '#670000' },
                                         },
-                                        '& .MuiInputLabel-root': { color: '#d4af37' },
-                                        '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                        '& .MuiInputLabel-root': { color: '#670000' },
+                                        '& .MuiOutlinedInput-input': { color: '#670000' },
                                     }}
                                 >
                                     {[
@@ -453,12 +453,12 @@ export default function GestionRegalos() {
                                     renderInput={(params) => (
                                         <TextField sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                             {...params}
                                             label="Seleccionar dirección de envío"
@@ -478,12 +478,12 @@ export default function GestionRegalos() {
                                     onChange={(e) => setFormData({ ...formData, notas: e.target.value })}
                                     className={style.textField} sx={{
                                         '& .MuiOutlinedInput-root': {
-                                            '& fieldset': { borderColor: '#d4af37' },
-                                            '&:hover fieldset': { borderColor: '#d4af37' },
-                                            '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                            '& fieldset': { borderColor: '#670000' },
+                                            '&:hover fieldset': { borderColor: '#670000' },
+                                            '&.Mui-focused fieldset': { borderColor: '#670000' },
                                         },
-                                        '& .MuiInputLabel-root': { color: '#d4af37' },
-                                        '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                        '& .MuiInputLabel-root': { color: '#670000' },
+                                        '& .MuiOutlinedInput-input': { color: '#670000' },
                                     }}
                                 />
                             </Grid>
@@ -602,12 +602,12 @@ function DireccionesPanel({ direcciones, newDirection, setNewDirection, onSave }
                                         })}
                                         className={style.textField} sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                     />
                                 </Grid>
@@ -622,12 +622,12 @@ function DireccionesPanel({ direcciones, newDirection, setNewDirection, onSave }
                                         })}
                                         className={style.textField} sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                     />
                                 </Grid>
@@ -642,12 +642,12 @@ function DireccionesPanel({ direcciones, newDirection, setNewDirection, onSave }
                                         })}
                                         className={style.textField} sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                     />
                                 </Grid>
@@ -664,12 +664,12 @@ function DireccionesPanel({ direcciones, newDirection, setNewDirection, onSave }
                                         })}
                                         className={style.textField} sx={{
                                             '& .MuiOutlinedInput-root': {
-                                                '& fieldset': { borderColor: '#d4af37' },
-                                                '&:hover fieldset': { borderColor: '#d4af37' },
-                                                '&.Mui-focused fieldset': { borderColor: '#d4af37' },
+                                                '& fieldset': { borderColor: '#670000' },
+                                                '&:hover fieldset': { borderColor: '#670000' },
+                                                '&.Mui-focused fieldset': { borderColor: '#670000' },
                                             },
-                                            '& .MuiInputLabel-root': { color: '#d4af37' },
-                                            '& .MuiOutlinedInput-input': { color: '#d4af37' },
+                                            '& .MuiInputLabel-root': { color: '#670000' },
+                                            '& .MuiOutlinedInput-input': { color: '#670000' },
                                         }}
                                     />
                                 </Grid>

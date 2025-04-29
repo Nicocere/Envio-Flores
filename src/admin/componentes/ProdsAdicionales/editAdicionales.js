@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { FadeLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { baseDeDatos, storage } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import './Adicional.css'
-import { Button, Paper, Typography } from '@mui/material';
+import style from './Adicional.module.css'
+import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
-const EditAdicionales = () => {
+const EditAdicionales = ({ productId }) => {
     const { control, register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const navigate = useNavigate();
-    const { productId } = useParams();
+    const navigate = useRouter();
+const { isDarkMode } = useTheme();
     const [isLoading, setIsLoading] = useState(false);
     const [previousOptionImages, setPreviousOptionImages] = useState([]);
 
@@ -34,33 +36,44 @@ const EditAdicionales = () => {
         img: previousOptionImages,
 
     });
+    useEffect(() => {
+        const fetchProduct = async (e, index) => {
+            try {
+                const productDoc = await getDoc(productDocRef);
+                if (productDoc.exists()) {
+                    const product = productDoc.data();
+                    setProductData(product);
 
-    const fetchProduct = async () => {
-        try {
-            const productDoc = await getDoc(productDocRef);
-            if (productDoc.exists()) {
-                const product = productDoc.data();
-                setProductData(product);
+                    setValue("nombre", product.nombre);
+                    setValue("categoria", product.categoria);
+                    setValue("descr", product.descr);
+                    setValue("stock", product.stock);
+                    setValue("img", product.img);
 
-                setValue("nombre", product.nombre);
-                setValue("categoria", product.categoria);
-                setValue("descr", product.descr);
-                setValue("stock", product.stock);
-                setValue("img", product.img);
+                    product.opciones.forEach((opcion, index) => {
+                        setValue(`opciones.${index}`, opcion.opciones);
+                    });
+                    if (product.opciones) {
+                        product.opciones.forEach((opcion) => {
+                            append(opcion);
+                        });
+                    }
+                    
 
-                product.opciones.forEach((opcion) => {
-                    append(opcion);
-                });
 
-
-                setPreviousOptionImages(product.img);
-            } else {
-                console.error("El adicional no existe");
+                    setPreviousOptionImages(product.img);
+                } else {
+                    console.error("El adicional no existe");
+                }
+            } catch (error) {
+                console.error("Error al obtener el adicional:", error);
             }
-        } catch (error) {
-            console.error("Error al obtener el adicional:", error);
-        }
-    };
+        };
+
+        fetchProduct();
+    }, [productId, append, setValue
+    ]);
+
 
     const handleImageChange = (e) => {
         const newImage = e.target.files[0];
@@ -123,7 +136,7 @@ const EditAdicionales = () => {
                 text: 'Has actualizado correctamente el Producto',
             });
 
-            navigate('/administrador/adicionales');
+            navigate.replace('/administrador/adicionales');
         } catch (e) {
             console.error('Error al actualizar el adicional: ', e);
         } finally {
@@ -131,120 +144,106 @@ const EditAdicionales = () => {
         }
     };
 
-    useEffect(() => {
-        fetchProduct();
-    }, []);
+return (
+    <div className={`${style.divAddEditProds} ${isDarkMode ? style.dark : style.light}`}>
+        <div className={`${style.divAddProds} ${isDarkMode ? style.dark : style.light}`}>
+            <div className={style.perfilUsuarioBtns}>
+                <Button sx={{ margin: 5 }}  variant='text' size='small' onClick={() => navigate.back()}>Volver atrás</Button>
+            </div>
+            <h1>Editar Adicional</h1>
+            <p>En esta sección puedes editar los detalles del adicional. Puedes cambiar el nombre, la categoría, la descripción, el stock y la imagen del adicional.</p>
+            <form className={style.formAddProd} onSubmit={handleSubmit(onSubmit)}>
+                <div className={style.divAddProd}>
+                    <label> Nombre del adicional </label>
+                    <input
+                        {...register("nombre", { required: true })}
+                        placeholder="Nombre del adicional"
+                    />
+                    <p className={style.infoText}>Este es el nombre que se mostrará para el adicional.</p>
+                    {errors.nombre && <p className={style.messageError}> El nombre del adicional es requerido</p>}
 
+                    <label> Categoria </label>
+                    <input
+                        {...register("categoria", { required: true })}
+                        placeholder="Categoría del adicional"
+                    />
+                    <p className={style.infoText}>Especifica la categoría a la que pertenece el adicional.</p>
+                    {errors.categoria && <p className={style.messageError}> La categoría del adicional es requerida</p>}
 
-    return (
-        <div className='div-add-edit-prods'>
-            <Paper elevation={24} sx={{ background: '#670000', padding: '20px 50px ', marginBottom: '80px' }}>
-                <div className='div-addProd'>
+                    <label> Descripción del adicional </label>
+                    <textarea
+                        {...register("descr", { required: true })}
+                        placeholder="Descripción del adicional"
+                    />
+                    <p className={style.infoText}>Proporciona una descripción detallada del adicional.</p>
+                    {errors.descr && <p className={style.messageError}> Agregue una descripción del adicional</p>}
 
-                    <div className='perfil-usuario-btns'>
-                        <Button sx={{ margin: 5 }} color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
+                    <label> Stock </label>
+                    <input
+                        {...register("stock", { required: true })}
+                        type='number'
+                        placeholder="Stock del adicional"
+                    />
+                    <p className={style.infoText}>Indica la cantidad de stock disponible para el adicional.</p>
+                    {errors.stock && <p className={style.messageError}> Agregue un stock al adicional</p>}
+
+                    <div className={style.imgAnterior}>
+                        <p>Imagen anterior</p>
+                        <Image src={previousOptionImages} alt={`Imagen Previa `} style={{objectFit:'cover'}} width={300} height={300} />
                     </div>
 
-
-                    <Typography variant='h4' sx={{color:'white', textTransform:'uppercase'}}>Editar Adicional Seleccionado:</Typography>
-                    <form className='form-addProd' onSubmit={handleSubmit(onSubmit)}>
-                        <label> Nombre del adicional </label>
-                        <input
-                            {...register("nombre", { required: true })}
-                            placeholder="Nombre del adicional"
-                        />
-                        {errors.nombre && <p className='message-error'> El nombre del adicional es requerido</p>}
-
-                        <label> Categoria </label>
-                        <input
-                            {...register("categoria", { required: true })}
-                            placeholder="Categoría del adicional"
-                        />
-                        {errors.categoria && <p className='message-error'> La categoría del adicional es requerida</p>}
-
-                        <label> Descripción del adicional </label>
-                        <textarea
-                            {...register("descr", { required: true })}
-                            placeholder="Descripción del adicional"
-                        />
-                        {errors.descr && <p className='message-error'> Agregue una descripción del adicional</p>}
-
-                        <label> Stock </label>
-                        <input
-                            {...register("stock", { required: true })}
-                            type='number'
-                            placeholder="Stock del adicional"
-                        />
-                        {errors.stock && <p className='message-error'> Agregue un stock al adicional</p>}
-
-                        <div className='img-anterior'>
-                            <p>Imagen anterior</p>
-                            <img src={previousOptionImages} alt={`Imagen Previa `} width="100px" />
-                        </div>
-
-                        <label> Imagen del adicional </label>
-                        <input
-                            {...register("img")}
-                            type="file"
-                            onChange={(e) => handleImageChange(e)}
-                        />
-
-
-                        {/* OPCIONES */}
-                        <hr />
-                        <p> Opciones del adicional </p>
-                        <div className='div-opt-adic'>
-                            {fields.map((option, index) => (
-                                <div className='div-opt-edit' key={option.id}>
-                                    <h3>Opcion:{index === 0 ? '1' : index + 1}</h3>
-                                    Tamaño: <input
-                                        {...register(`opciones.${index}.size`)}
-                                        placeholder="Tamaño del adicional"
-                                    />
-                                    Precio
-
-
-                                    <input
-                                        {...register(`opciones.${index}.precio`)}
-                                        placeholder="Precio del adicional"
-                                        type='number'
-                                    />
-
-
-                                    <Button color='error' variant='text'  onClick={() => remove(index)}>
-                                        Eliminar Opción
-                                    </Button>
-                                    <br />
-                                </div>
-                            ))}
-                    
-
-
-<div className='btn-add-opt'>
-
-                        <Button color='error' variant='contained' sx={{margin:'20px', width:'fit-content' }} onClick={() => append({ size: '', precio: '', img: '' })}>
-                            Agregar Opción
-                        </Button>
-</div>
-                        {/* FIN OPCIONES */}
-                        </div>
-
-
-
-                        {isLoading ? (
-                            <div className="">
-                                Actualizando...
-                                <FadeLoader color="pink" />
-                            </div>
-                        ) : (
-                            <Button color='success' variant='contained' sx={{margin:'20px', width:'50%' }} type="submit">Editar Producto</Button>
-                        )}
-                    </form>
-
+                    <label> Imagen del adicional </label>
+                    <input
+                        {...register("img")}
+                        type="file"
+                        onChange={(e) => handleImageChange(e)}
+                    />
+                    <p className={style.infoText}>Selecciona una nueva imagen para el adicional. Si no seleccionas una nueva imagen, se mantendrá la actual.</p>
                 </div>
-            </Paper>
+
+                {/* OPCIONES */}
+                <hr />
+                <p> Opciones del adicional </p>
+                <p className={style.infoText}>Aquí puedes agregar, editar o eliminar las opciones del adicional. Cada opción puede tener un tamaño y un precio diferente.</p>
+                <div className={style.divOptAdic}>
+                    {fields.map((option, index) => (
+                        <div className={style.divOptEdit} key={option.id}>
+                            <h3>Opción: {index + 1}</h3>
+                            <label>Tamaño:</label>
+                            <input
+                                {...register(`opciones.${index}.size`)}
+                                placeholder="Tamaño del adicional"
+                            />
+                            <label>Precio:</label>
+                            <input
+                                {...register(`opciones.${index}.precio`)}
+                                placeholder="Precio del adicional"
+                                type='number'
+                            />
+                            <button type="button" className={style.deleteOpt} onClick={() => remove(index)}>
+                                Eliminar Opción
+                            </button>
+                            <br />
+                        </div>
+                    ))}
+                    <button type="button" className={style.deleteOpt} style={{minHeight:'300px'}} onClick={() => append({ size: '', precio: '', img: '' })}>
+                        Agregar Opción
+                    </button>
+                </div>
+                {/* FIN OPCIONES */}
+
+                {isLoading ? (
+                    <div className="">
+                        Actualizando...
+                    <PulseLoader  color={isDarkMode ? '#670000': '#670000'} />
+                    </div>
+                ) : (
+                    <button className={style.addProdBtn} style={{margin:'50px 0 40px'}} type="submit">Editar Producto</button>
+                )}
+            </form>
         </div>
-    );
+    </div>
+);
 };
 
 export default EditAdicionales;

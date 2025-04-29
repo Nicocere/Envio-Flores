@@ -9,7 +9,7 @@ const ClientComponent = ({ children }) => {
   const isSmallScreen = useMediaQuery('(max-width: 650px)');
 
   return (
-    <div style={{ color: isDarkMode ? '#2f1a0f' : '#fcf5f0', transition: 'all 0.8s ease' }}>
+    <div style={{ color: isDarkMode ? '#670000' : '#fcf5f0', transition: 'all 0.8s ease' }}>
       {children}
     </div>
   );

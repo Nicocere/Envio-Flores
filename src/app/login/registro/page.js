@@ -1,275 +1,127 @@
 "use client"
 
-import React from 'react';
-import Swal from 'sweetalert2';
-import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { auth, baseDeDatos } from '../../../admin/FireBaseConfig'
-import { doc, setDoc } from 'firebase/firestore';
-import style from './registro.module.css'
-import { 
-    Button, 
-    TextField, 
-    Container, 
-    Typography, 
-    Box, 
-    FormControl, 
-    InputLabel, 
-    Select, 
-    MenuItem, 
-    FormHelperText 
-} from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography, Box, Paper, useMediaQuery } from '@mui/material';
+import style from './registro.module.css';
+import Image from 'next/image';
+import { EmojiNature, LocalFlorist, Spa, CalendarToday, Notifications, StarBorder } from '@mui/icons-material';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
 function RegistroUser() {
-    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({
-        defaultValues: {
-            username: '',
-            email: '',
-            password: '',
-            validatePassword: '',
-            nombreUser: '',
-            apellidoUser: '',
-            telUser: '',
-            tiposFloresPreferidas: []
-        }
-    });
-    
-    const navigate = useRouter();
-    let userRole;
 
-    const tiposFlores = [
-        'Rosas',
-        'Liliums',
-        'Gerberas',
-        'Claveles',
-        'Orquídeas',
-        'Girasoles',
-        'Margaritas',
-        'Tulipanes',
-        'Astromelias',
-        'Calas',
-        'Fresias'
-    ];
+    const {isDarkMode} = useTheme();
 
-    const handleSelectChange = (event, fieldName) => {
-        setValue(fieldName, event.target.value);
-    };
 
-    const onSubmit = async (data) => {
-        const requiredFields = [
-            'username',
-            'email',
-            'password',
-            'validatePassword',
-            'nombreUser',
-            'apellidoUser',
-        ];
-
-        const missingFields = requiredFields.filter(field => !data[field] || 
-            (Array.isArray(data[field]) && data[field].length === 0));
-
-        if (missingFields.length > 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Campos incompletos',
-                text: 'Por favor, completa todos los campos obligatorios antes de confirmar.',
-            });
-            return;
-        }
-
-        if (data.password !== data.validatePassword) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error en las contraseñas',
-                text: 'Las contraseñas no coinciden',
-            });
-            return;
-        }
-
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-            const user = userCredential.user;
-            
-            userRole = data.email === "nico.aflorar@gmail.com" || data.email === "floreriasargentinas@gmail.com" || data.email === 'envioflores.arg@gmail.com' ?  "administrador"  : "usuario";
-
-            const userDocRef = doc(baseDeDatos, "users", user.uid);
-            await setDoc(userDocRef, {
-                username: data.username,
-                email: data.email,
-                nombre: data.nombreUser,
-                apellido: data.apellidoUser,
-                tel: data.telUser,
-                rol: userRole,
-                website: 'Envio Flores',
-                preferencias: {
-                    tiposFlores: data.tiposFloresPreferidas
-                },
-                createdAt: new Date().toISOString()
-            });
-
-            await Swal.fire({
-                icon: 'success',
-                title: 'Usuario registrado',
-                text: `El usuario ha sido registrado con éxito con el email: ${user.email}`,
-            });
-
-            navigate.push(userRole === "administrador" ? '/administrador' : '/usuario/mi-perfil');
-        } catch (error) {
-            console.error("Error al registrar usuario:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al registrar',
-                text: error.message,
-            });
-        }
-    };
 
     return (
         <div className={style.registro}>
-            <Container className={style.loginForm}>
-                <Typography variant="h4" className={style.title}>
-                    Crea una cuenta
-                </Typography>
-                
-                <form onSubmit={handleSubmit(onSubmit)} className={style.formRegistro}>
-                    {/* Campos básicos */}
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("username", { 
-                                required: "El nombre de usuario es requerido",
-                                minLength: {
-                                    value: 4,
-                                    message: "El nombre de usuario debe tener al menos 4 caracteres"
-                                }
-                            })}
-                            label="Nombre de Usuario *"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.username}
-                            helperText={errors.username?.message}
-                        />
+            <Container maxWidth="md">
+                <Paper 
+                    elevation={3} 
+                    sx={{ 
+                        padding: 4, 
+                        textAlign: 'center', 
+                        marginTop: 4, 
+                        marginBottom: 4,
+                        backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff',
+                        color: isDarkMode ? '#f0f0f0' : '#333333'
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
+                        <Box sx={{ position: 'relative', width: 200, height: 120, marginBottom: 2 }}>
+                            <Image 
+                                src="https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23" 
+                                alt="Envío Flores Logo" 
+                                layout="fill"
+                                objectFit="contain"
+                                priority
+                                onError={(e) => {
+                                    e.target.src = '/default-logo.png';
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginBottom: 3 }}>
+                        <LocalFlorist sx={{ color: '#a70000', fontSize: 40 }} />
+                        <Spa sx={{ color: '#a70000', fontSize: 40 }} />
+                        <EmojiNature sx={{ color: '#a70000', fontSize: 40 }} />
+                    </Box>
+                    
+                    <h1 style={{ color: '#a70000' }} gutterBottom>
+                        Registro Temporalmente No Disponible
+                    </h1>
+                    
+                    <p stlye={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                        Estimado cliente, en este momento no es posible realizar nuevos registros en nuestra plataforma.
+                    </p>
+                    
+                    <p stlye={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                        Estamos realizando mejoras significativas en nuestro sistema para ofrecerle una experiencia de compra personalizada y segura.
+                    </p>
+                    
+                    <Box sx={{ 
+                        margin: '20px 0', 
+                        padding: '20px', 
+                        backgroundColor: isDarkMode ? '#2a2a2a' : '#fcf5f0',
+                        borderRadius: '8px',
+                        border: `1px solid ${isDarkMode ? '#3a3a3a' : '#e6d7cf'}`
+                    }}>
+                        <h2 style={{ color: '#a70000' }} gutterBottom>
+                            ¡Gracias por su paciencia!
+                        </h2>
+                        <p style={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                            En Envío Flores nos comprometemos a ofrecerle los arreglos florales más hermosos y frescos para todas sus ocasiones especiales.
+                            Pronto podrá registrarse y disfrutar de nuestros servicios personalizados.
+                        </p>
                     </Box>
 
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("email", {
-                                required: "El email es requerido",
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Email inválido"
-                                }
-                            })}
-                            label="Email *"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.email}
-                            helperText={errors.email?.message}
-                        />
+                    <Box sx={{ 
+                        margin: '20px 0', 
+                        padding: '20px', 
+                        backgroundColor: isDarkMode ? '#2a2a2a' : '#fcf5f0',
+                        borderRadius: '8px',
+                        border: `1px solid ${isDarkMode ? '#3a3a3a' : '#e6d7cf'}`
+                    }}>
+                        <h2 style={{ color: '#a70000' }} gutterBottom>
+                            Lo que podrá disfrutar muy pronto
+                        </h2>
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-around', mt: 2 }}>
+                            <Box sx={{ flex: 1 ,mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <CalendarToday sx={{ color: '#a70000', fontSize: 30, mb: 1 }} />
+                                <p style={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                                    Recordatorios de fechas importantes
+                                </p>
+                            </Box>
+                            <Box sx={{ flex: 1 ,mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <Notifications sx={{ color: '#a70000', fontSize: 30, mb: 1 }} />
+                                <p style={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                                    Notificaciones de ofertas exclusivas
+                                </p>
+                            </Box>
+                            <Box sx={{ flex: 1 ,mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <StarBorder sx={{ color: '#a70000', fontSize: 30, mb: 1 }} />
+                                <p style={{ color: isDarkMode ? '#f0f0f0' : '#333333' }}>
+                                    Programa de fidelidad
+                                </p>
+                            </Box>
+                        </Box>
+                    </Box>
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, marginTop: 3 }}>
+                        <LocalFlorist sx={{ color: '#a70000', fontSize: 30 }} />
+                        <Spa sx={{ color: '#a70000', fontSize: 30 }} />
+                        <EmojiNature sx={{ color: '#a70000', fontSize: 30 }} />
                     </Box>
 
-                
+                    <button className={style.registroButton} onClick={() => window.location.href = '/'}>
+                        Volver a la Página Principal
+                    </button>
+                    <p style={{ color: isDarkMode ? '#f0f0f0' : '#333333', marginTop: 2 }}>
+                        © 2023 Envío Flores. Todos los derechos reservados.
+                    </p>
 
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("nombreUser", { required: "El nombre es requerido" })}
-                            label="Nombre *"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.nombreUser}
-                            helperText={errors.nombreUser?.message}
-                        />
-                    </Box>
-
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("apellidoUser", { required: "El apellido es requerido" })}
-                            label="Apellido *"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.apellidoUser}
-                            helperText={errors.apellidoUser?.message}
-                        />
-                    </Box>
-
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("telUser", { 
-                                // required: "El teléfono es requerido",
-                                pattern: {
-                                    value: /^[0-9]{10}$/,
-                                    message: "Ingrese un número de teléfono válido (10 dígitos)"
-                                }
-                            })}
-                            label="Teléfono (opcional)"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.telUser}
-                            helperText={errors.telUser?.message}
-                        />
-                    </Box>
-
-                    <Box className={style.inputGroup}>
-                        <FormControl fullWidth error={!!errors.tiposFloresPreferidas}>
-                            <InputLabel>Tipos de Flores Preferidas (opcional)</InputLabel>
-                            <Select
-                                multiple
-                                value={watch('tiposFloresPreferidas') || []}
-                                onChange={(e) => handleSelectChange(e, 'tiposFloresPreferidas')}
-                                label="Tipos de Flores Preferidas (opcional)"
-                                {...register("tiposFloresPreferidas")}
-                            >
-                                {tiposFlores.map((tipo) => (
-                                    <MenuItem key={tipo} value={tipo}>
-                                        {tipo}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                            <FormHelperText>{errors.tiposFloresPreferidas?.message}</FormHelperText>
-                        </FormControl>
-                    </Box>
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("password", {
-                                required: "La contraseña es requerida",
-                                minLength: {
-                                    value: 6,
-                                    message: "La contraseña debe tener al menos 6 caracteres"
-                                }
-                            })}
-                            label="Contraseña *"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.password}
-                            helperText={errors.password?.message}
-                        />
-                    </Box>
-
-                    <Box className={style.inputGroup}>
-                        <TextField
-                            {...register("validatePassword", {
-                                required: "Debe confirmar la contraseña",
-                                validate: value => value === watch('password') || "Las contraseñas no coinciden"
-                            })}
-                            label="Confirmar Contraseña *"
-                            type="password"
-                            variant="outlined"
-                            fullWidth
-                            error={!!errors.validatePassword}
-                            helperText={errors.validatePassword?.message}
-                        />
-                    </Box>
-                    <Button 
-                        variant='contained'
-                        size='large'
-                        className={style.btnRegistro}
-                        type="submit"
-                        color="primary"
-                    >
-                        Registrarse
-                    </Button>
-                </form>
+                </Paper>
             </Container>
         </div>
     );

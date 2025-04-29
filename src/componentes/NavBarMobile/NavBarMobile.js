@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SwipeableDrawer, IconButton, Typography, Button, useMediaQuery, AppBar, Toolbar, Paper, Box, Badge } from '@mui/material';
+import { SwipeableDrawer, IconButton, Typography, Button, AppBar, Toolbar, Paper, Box } from '@mui/material';
 import Link from 'next/link';
-import CartWidget from '../CartWidget/CartWidget';
 import styled from '@emotion/styled';
 import './navMobile.css';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // Menus
 import { HiMenuAlt2 } from "react-icons/hi";
-import { ShoppingCart as ShoppingCartIcon } from '@mui/icons-material';
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth, baseDeDatos } from '../../admin/FireBaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -16,22 +14,30 @@ import SearcherMobile from '../SearcherMobile/SearcherMobile';
 import Convertidor from '../Convertidor/Convertidor';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import { useTheme } from '../../context/ThemeSwitchContext';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { SubMenuUsers } from '../SubMenuUsers/SubMenuUsers';
+import { ArrowBackIosNew } from '@mui/icons-material';
 
 const NavBarMobile = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [showSubMenu, setShowSubMenu] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [showMenu, setShowMenu] = useState(false);
   const [openProfileDrawer, setOpenProfileDrawer] = useState(false);
   const [openProductsDrawer, setOpenProductsDrawer] = useState(false);
   const [openOcassionsDrawer, setOpenOcassionsDrawer] = useState(false);
 
   const { isDarkMode } = useTheme();
 
-  const navigate = useRouter();
+  const handleToggleProfileDrawer = (open) => (event) => {
+    event.stopPropagation();
+
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift' || event.key === 'Esc') || (event.type === 'click' && event.target.tagName === 'A' )) {
+      return;
+    }
+    setOpenProfileDrawer(open);
+    
+  };
+
 
   // Manejadores de eventos para los drawers
   const handleToggleDrawer = (open) => (event) => {
@@ -267,6 +273,34 @@ const NavBarMobile = () => {
               </Paper>
 
               <div className='divSeccionMobile'>
+                {
+                  currentUser && (
+                    <div className='user-data'>
+                      <div className='user-data-container'>
+                    
+                        <span className='user-name'>{userData?.name}</span>
+                      </div>
+                      <Button
+                        variant='text'
+                        size='small'
+                        color='error'
+                        sx={{
+                          color: isDarkMode ? 'white' : 'darkred',
+                          margin: '0 14px',
+                          fontWeight: '500',
+                          fontSize: '10px',
+                          flex: '0',
+                          borderColor: isDarkMode ? 'white' : 'darkred',
+                          width: 'fit-content',
+                          zIndex: 1300
+                        }}
+                        onClick={handleToggleProfileDrawer(true)}
+                      >
+                        Mi cuenta
+                      </Button>
+                    </div>
+                  )
+                }
                 <Link 
                   className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
                   href='/' 
@@ -473,6 +507,40 @@ const NavBarMobile = () => {
           </div>
         )}
       </SwipeableDrawer>
+
+            {/* Drawer */}
+                <SwipeableDrawer
+                  anchor="right"
+                  open={openProfileDrawer}
+                  onClick={handleToggleProfileDrawer(false)}
+                  onClose={handleToggleProfileDrawer(false)}
+                  onOpen={handleToggleProfileDrawer(true)}
+                  disableBackdropTransition={true}
+                  disableDiscovery={true}
+                >
+                  {openProfileDrawer && (
+                    <div style={{
+                      width: '280px', display: 'flex', flexDirection: 'column',
+                      background: 'linear-gradient(to right, red , darkred)',
+                      height: '100%', padding: '0 14px 0',
+                    }}>
+                
+                      {openProfileDrawer &&
+                        <>
+                          <Button endIcon={<ArrowBackIosNew sx={{transform:'rotateY(180deg)'}}/>} sx={{
+                            margin: 0, fontWeight: '600', color:'white', cursor:'pointer',marginBottom:'150px', 
+                            position: 'relative', marginTop:'70px', borderBottom: '1px solid silver'
+                          }}>
+      
+                            Menu de Usuario
+      
+                          </Button>
+                          <SubMenuUsers userData={userData} />
+                        </>
+                      }
+                    </div>
+                  )}
+                </SwipeableDrawer>
     </div>
   );
 };

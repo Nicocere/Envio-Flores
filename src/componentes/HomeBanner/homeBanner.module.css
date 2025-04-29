@@ -172,7 +172,7 @@
 /* Indicador de Scroll */
 .scrollIndicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: 8rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -229,7 +229,7 @@
 /* Decoración de ondas florales */
 .floralWaveDecoration {
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
   overflow: hidden;

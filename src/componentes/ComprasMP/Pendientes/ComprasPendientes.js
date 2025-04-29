@@ -30,7 +30,7 @@ const PagoPendientePage = () => {
     if (loading) {
         return (
             <div className={styles.loadingContainer}>
-                <PulseLoader color="#D4AF37" />
+                <PulseLoader color="#670000" />
                 <p className={styles.loadingText}>Cargando estado del pago...</p>
             </div>
         );

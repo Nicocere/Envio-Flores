@@ -96,7 +96,7 @@ const IconoPromocion = () => {
           >
             <Tooltip title="Promoción activa" placement='top'>
               <IconButton size="large" sx={{ zIndex: 2000 }}>
-                <FaGift size={isMobileScreen ? 20 : 30} color='#2f1a0f' />
+                <FaGift size={isMobileScreen ? 20 : 30} color='#670000' />
               </IconButton>
             </Tooltip>
           </motion.div>

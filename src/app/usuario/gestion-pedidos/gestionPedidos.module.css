@@ -53,7 +53,7 @@
     border-radius: 3px;
     padding: 8px;
     color: white;
-    background: #d4af37;
+    background: #670000;
     text-transform: uppercase;
 }
 
@@ -69,7 +69,7 @@
 }
 
 .pOrders {
-    color: #D4AF37;
+    color: #670000;
     max-width: 95ch;
     display: flex;
     justify-content: center;
@@ -134,7 +134,7 @@
 .ordersTable th {
     border: 1px solid white;
     border-radius: 3px;
-    background: #d4af37;
+    background: #670000;
 }
 
 .ordersTable td {
@@ -211,7 +211,7 @@
 }
 
 .modalContent::-webkit-scrollbar-thumb {
-    background-color: #2f1a0f;
+    background-color: #670000;
     /* Color de la barra de desplazamiento */
     border-radius: 10px;
     /* Bordes redondeados */
@@ -221,7 +221,7 @@
 }
 
 .modalContent::-webkit-scrollbar-thumb:hover {
-    background-color: #D4AF37;
+    background-color: #670000;
     /* Color de la barra de desplazamiento al pasar el ratón */
 }
 
@@ -235,7 +235,7 @@
 }
 
 .modalTitle {
-    color: #2f1a0f;
+    color: #670000;
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0;
@@ -263,7 +263,7 @@
 }
 
 .productName {
-    color: #2f1a0f;
+    color: #670000;
     font-size: 1.2rem;
     font-weight: 600;
     margin: 0 0 10px 0;
@@ -278,13 +278,13 @@
 
 .sizeOption {
     padding: 10px;
-    border: 2px solid #d4af37;
+    border: 2px solid #670000;
     border-radius: 25px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
     background: transparent;
-    color: #2f1a0f;
+    color: #670000;
 }
 
 .sizeOption:hover {
@@ -292,7 +292,7 @@
 }
 
 .sizeOption.selected {
-    background: #d4af37;
+    background: #670000;
     color: #fff;
 }
 
@@ -315,8 +315,8 @@
 
 .buttonCancel {
     background: transparent;
-    border: 1px solid #d4af37;
-    color: #2f1a0f;
+    border: 1px solid #670000;
+    color: #670000;
 }
 
 .buttonCancel:hover {
@@ -324,12 +324,12 @@
 }
 
 .buttonConfirm {
-    background: #d4af37;
+    background: #670000;
     color: #fff;
 }
 
 .buttonConfirm:hover {
-    background: #2f1a0f;
+    background: #670000;
 }
 
 

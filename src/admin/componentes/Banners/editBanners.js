@@ -1,39 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { FadeLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 import { updateDoc, doc, getDoc } from 'firebase/firestore';
 import { baseDeDatos, storage } from '../../FireBaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import Swal from 'sweetalert2';
 import { Button } from '@mui/material';
+import style from './banners.module.css';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useTheme } from '@/context/ThemeSwitchContext';
 
-function EditBanner() {
+function EditBanner({ bannerId }) {
     const { register, handleSubmit, setValue } = useForm();
-    const navigate = useNavigate();
-    const { bannerId } = useParams();
+    const navigate = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [bannerDetails, setBannerDetails] = useState({});
-
-    const fetchBannerDetails = async () => {
-        try {
-            const bannerDoc = await getDoc(doc(baseDeDatos, 'banners', bannerId));
-            if (bannerDoc.exists()) {
-                const bannerData = bannerDoc.data();
-                setBannerDetails(bannerData);
-                // Setea los valores iniciales del formulario con los detalles actuales del banner
-                setValue('nombreProd', bannerData.nombre);
-                setValue('rutaProd', bannerData.ruta);
-            } else {
-                console.error('El banner no existe');
-            }
-        } catch (error) {
-            console.error('Error al obtener detalles del banner:', error);
-        }
-    };
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
+        const fetchBannerDetails = async () => {
+            if (!bannerId) return;
+
+            try {
+                const bannerDoc = await getDoc(doc(baseDeDatos, 'banners', bannerId));
+                if (bannerDoc.exists()) {
+                    const bannerData = bannerDoc.data();
+                    setBannerDetails(bannerData);
+                    // Setea los valores iniciales del formulario con los detalles actuales del banner
+                    setValue('nombreProd', bannerData.nombre);
+                    setValue('rutaProd', bannerData.ruta);
+                } else {
+                    console.error('El banner no existe');
+                }
+            } catch (error) {
+                console.error('Error al obtener detalles del banner:', error);
+            }
+        };
+
         fetchBannerDetails();
     }, [bannerId, setValue]);
 
@@ -53,9 +58,7 @@ function EditBanner() {
 
                 uploadTask.on(
                     'state_changed',
-                    (snapshot) => {
-                        // Progreso del upload
-                    },
+                    null,
                     (error) => {
                         console.error('Error en el upload:', error);
                     },
@@ -77,7 +80,7 @@ function EditBanner() {
                         });
 
                         setImageFile(null); // Restablece imageFile a null para mantener la imagen actual
-                        navigate('/administrador/banners'); // Cambia la ruta según tu estructura de rutas
+                        navigate.push('/administrador/banners'); // Cambia la ruta según tu estructura de rutas
                     }
                 );
             } else {
@@ -97,7 +100,7 @@ function EditBanner() {
                 });
 
                 setImageFile(null); // Restablece imageFile a null para mantener la imagen actual
-                navigate('/administrador/banners'); // Cambia la ruta según tu estructura de rutas
+                navigate.push('/administrador/banners'); // Cambia la ruta según tu estructura de rutas
             }
         } catch (error) {
             setIsLoading(false);
@@ -106,25 +109,26 @@ function EditBanner() {
     };
 
     return (
-        <div className='div-add-edit-prods'>
-            <h2 className='banner-title'>Editar Banner</h2>
-            <div className='perfil-usuario-btns'>
-                    <Button color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
-
+        <div className={`${style.divAddEditProds} ${isDarkMode ? style.dark : style.light}`}>
+            <div className={style.divAddBanner}>
+                <div className={style.perfilUsuarioBtns}>
+                    <Button color='error' variant='text' size='small' onClick={() => navigate.back()}>Volver atrás</Button>
                 </div>
 
+                <h2 className={style.bannerTitle}>Edicion del Banner "{bannerDetails.nombre}" </h2>
 
-                <div>
+                <div className={style.bannerDetails}>
                     <h4>Datos Actuales del Banner</h4>
-                    <p>Nombre: {bannerDetails.nombre}</p>
-                    <p>Ruta: {bannerDetails.ruta}</p>
-                    <img src={bannerDetails.imagen} alt='Banner actual' style={{ maxWidth: '300px' }} />
+                    <p>Nombre: <strong style={{ color: '#670000' }}>{bannerDetails.nombre}</strong></p>
+                    <p>Ruta a la que redirige:  <strong style={{ color: '#670000' }}>*{bannerDetails.ruta}* </strong></p>
+                    {bannerDetails.imagen && (
+                        <Image src={bannerDetails.imagen} alt='Banner actual' style={{ objectFit: 'cover', borderRadius: '10px' }} width={800} height={400} />
+                    )}
                 </div>
 
-            <div className='div-addProd'>
                 <h3>Editar Banner</h3>
 
-                <form className='form-addProd' onSubmit={handleSubmit(onSubmit)}>
+                <form className={style.formAddBanner} onSubmit={handleSubmit(onSubmit)}>
                     <label> Nombre del Banner </label>
                     <input {...register('nombreProd', { required: true })} />
 
@@ -137,10 +141,10 @@ function EditBanner() {
                     {isLoading ? (
                         <div className=''>
                             Actualizando Banner, aguarde....
-                            <FadeLoader color='pink' />
+                            <PulseLoader color={isDarkMode ? '#670000' : '#670000'} />
                         </div>
                     ) : (
-                        <button className='add-prod-btn black-btn' type='submit'>
+                        <button className={style.submitBtn} type='submit'>
                             Actualizar Banner
                         </button>
                     )}

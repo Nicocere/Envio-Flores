@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
 
     Swal.fire({
       title: isDarkMode ? 'Modo Claro Activado' : 'Modo Oscuro Activado',
-      icon: 'success',
+      // icon: 'success',
       showCloseButton: false,
       showCancelButton: false,
       showConfirmButton: false,
@@ -26,14 +26,14 @@ export const ThemeProvider = ({ children }) => {
       
       toast: true,
       position: 'bottom-end',
-      timer: 1000,
+      timer: 2200,
       timerProgressBar: true,
       customClass: {
-        popup: isDarkMode ? 'dark-mode-swal' : 'light-mode-swal'
+        popup: !isDarkMode ? 'dark-mode-swal' : 'light-mode-swal'
       },
       background: !isDarkMode ? '#670000' : '#fff',
       color: !isDarkMode ? '#fff' : '#670000',
-      iconColor: !isDarkMode ? '#fff' : '#670000',
+      // iconColor: !isDarkMode ? '#fff' : '#670000',
 
     });
   };

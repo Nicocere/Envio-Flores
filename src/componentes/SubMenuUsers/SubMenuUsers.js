@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import {  useNavigate } from "react-router-dom";
-import useLogout from '../../admin/componentes/Login/LogOut/LogOut';
 import { Button } from '@mui/material';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import useLogout from '@/app/login/logout/page';
+import { useRouter } from 'next/navigation';
 
 
 export const SubMenuUsers = ({userData, }) => {
 
     const logout = useLogout()
 
-    const navigate = useNavigate()
+    const navigate = useRouter()
 
     const handleProfileNavigation = () => {
       if (userData.rol === 'administrador') {
-        navigate('/administrador');
+        navigate.push('/administrador');
       } else {
-        navigate('/perfil');
+        navigate.push('/perfil');
       }
     };
   

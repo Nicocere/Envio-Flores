@@ -51,7 +51,7 @@
 }
 
 .titulo {
-    color: #d4af37;
+    color: #670000;
     text-align: center;
     margin-bottom: 2rem;
     font-weight: 600;
@@ -69,12 +69,12 @@
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, #d4af37, #c4a032);
+    background: linear-gradient(90deg, #670000, #c4a032);
     border-radius: 2px;
 }
 
 .subtitulo {
-    color: #d4af37;
+    color: #670000;
     margin-bottom: 1.5rem;
     font-weight: 500;
     font-size: 1.8rem;
@@ -129,7 +129,7 @@
 
 .productoCard:hover {
     transform: translateY(-8px) scale(1.02);
-    border-color: #d4af37;
+    border-color: #670000;
     box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2);
 }
 
@@ -189,7 +189,7 @@
     width: 200px;
     align-self: center;
     max-width: 200px;
-    color: #d4af37;
+    color: #670000;
     font-weight: 900;
     transition: all .3s;
     align-content: center;
@@ -216,8 +216,8 @@
 .linkProducto:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-    border: 2px solid #d4af37;
-    background: #2f1a0f;
+    border: 2px solid #670000;
+    background: #670000;
     color: white;
 }
 
@@ -287,7 +287,7 @@
 
 .recordatorioCard:hover {
     transform: translateY(-5px);
-    border-color: #d4af37;
+    border-color: #670000;
     box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
 }
 
@@ -309,7 +309,7 @@
 
 .btnAgregarRecordatorio {
     margin-top: 2rem;
-    background: linear-gradient(145deg, #d4af37 0%, #c4a032 100%);
+    background: linear-gradient(145deg, #670000 0%, #c4a032 100%);
     color: white;
     padding: 1.2rem 2.5rem;
     border-radius: 30px;
@@ -323,10 +323,10 @@
 }
 
 .btnAgregarRecordatorio:hover {
-    background: #2f1a0f;
+    background: #670000;
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
-    border-color: #d4af37;
+    border-color: #670000;
 }
 
 .btnAgregarRecordatorio::before {

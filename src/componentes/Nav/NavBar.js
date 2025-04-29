@@ -21,8 +21,6 @@ import Image from 'next/image';
 
 const NavBarTop = () => {
 
-  const [prevScrollY, setPrevScrollY] = useState(0);
-  const [scrollable, setScrollable] = useState(true);
   const [userData, setUserData] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
@@ -30,11 +28,11 @@ const NavBarTop = () => {
   const isMobileScreen = useMediaQuery('(max-width:800px)');
 
   const [openProfileDrawer, setOpenProfileDrawer] = useState(false);
-  const { isDarkMode,handleThemeChange, setIsDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
 
   const className = isDarkMode ? 'dark-mode' : '';
 
-  const CustomizedToolbar = styled(Toolbar)(({ theme }) => ({
+  const CustomizedToolbar = styled(Toolbar)(() => ({
     width: '100%',
     paddingLeft: 0,
     paddingRight: 0,
@@ -115,6 +113,21 @@ const NavBarTop = () => {
               <Grid item xs={isMobileScreen ? 4 : 3} md={5} style={{ textAlign: 'right', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
                <ThemeSwitch mobile={isMobileScreen} responsive={isSmallScreen}/> 
 
+                {
+                  userData && currentUser && (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Avatar
+                        alt={userData.name}
+                        src={userData.photoURL}
+                        sx={{ width: 30, height: 30, marginRight: '5px', cursor: 'pointer' }}
+                        onClick={handleToggleProfileDrawer(true)}
+                      />
+                      <Typography variant="body2" sx={{ color: 'white', fontSize: '12px', cursor: 'pointer' }} onClick={handleToggleProfileDrawer(true)}>
+                        {userData.name}
+                      </Typography>
+                    </div>
+                  )
+                }
                 <Convertidor />
                 <Link href="/cart" style={{ marginLeft: '10px' }}>
                   <CartWidget />

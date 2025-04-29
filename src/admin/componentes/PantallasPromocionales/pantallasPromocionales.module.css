@@ -75,7 +75,7 @@
 }
 
 .divTextsOrders::-webkit-scrollbar-thumb:hover {
-  background-color: #D4AF37;
+  background-color: #670000;
   /* Color de la barra de desplazamiento al pasar el ratón */
 }
 
@@ -280,14 +280,14 @@
 .pantallaItem {
   padding: 50px;
   background: var(--hover);
-  border: 2px solid #d4af37;
+  border: 2px solid #670000;
   border-radius: 15px;
   max-width: 500px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: border 0.3s ease;
 }
 .pantallaItem:hover{
-  border: 5px solid #d4af37;
+  border: 5px solid #670000;
 }
 
 .pantallaItem h3 {
@@ -361,7 +361,7 @@
 
 }
 .btnTableEdit {
-  background: #D4AF37;
+  background: #670000;
   color: white;
   border: none;
 }

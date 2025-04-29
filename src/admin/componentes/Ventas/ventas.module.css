@@ -1,0 +1,84 @@
+/* Botones de navegación */
+.perfilUsuarioBtns {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+    background-color: var(--color2);
+    color: var(--color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--color);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+    width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+    color: var(--color2);
+    transform: scale(1.05);
+}
+
+.divVentas {
+    
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 50px 20px;
+    min-height: 100vh;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    transition: all 0.3s ease;
+}
+
+.divVentas h1 {
+    /* background: var(--color2); */
+    border-radius: 3px;
+    padding: 8px;
+    color: var(--color2);
+    /* background: var(--color2); */
+    text-transform: uppercase;
+}
+
+.divVentas h3{
+    color: var(--color2);
+    width: 100%;
+}
+
+.divTextsOrders{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 20px;
+    background-color: var(--secondary-background);
+}
+
+.pOrders{
+color: var(--color);
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}

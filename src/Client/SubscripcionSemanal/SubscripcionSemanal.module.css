@@ -1,6 +1,6 @@
 .swalTitle {
   font-size: 2rem !important;
-  color: #D4AF37 !important;
+  color: #670000 !important;
   font-weight: 600 !important;
   margin-bottom: 1.5rem !important;
   text-transform: none !important;
@@ -31,7 +31,7 @@
 }
 
 .swalHtmlContainer h3 {
-  color: #D4AF37 !important;
+  color: #670000 !important;
   font-size: 1.5rem !important;
   margin: 1.5rem 0 1rem !important;
   border-bottom: 2px solid rgba(212, 175, 55, 0.2) !important;
@@ -44,14 +44,14 @@
 }
 
 .swalHtmlContainer strong {
-  color: #D4AF37 !important;
+  color: #670000 !important;
   font-weight: 600 !important;
   margin-right: 0.5rem !important;
 }
 
 .swalConfirmButton {
-  background: linear-gradient(135deg, #D4AF37, #FFD700) !important;
-  color: #2f1a0f !important;
+  background: linear-gradient(135deg, #670000, #FFD700) !important;
+  color: #670000 !important;
   padding: 1rem 2rem !important;
   font-size: 1.1rem !important;
   font-weight: 600 !important;
@@ -117,13 +117,13 @@
 }
 
 .dark {
-  background-color: #2f1a0f;
+  background-color: #670000;
   color: #FAF3EB;
 }
 
 .light {
   background-color: #FAF3EB;
-  color: #2f1a0f;
+  color: #670000;
 }
 
 .infoSection {
@@ -135,7 +135,7 @@
 
 .infoSection h2 {
   font-size: 2.5rem;
-  color: #D4AF37;
+  color: #670000;
   margin-bottom: 2rem;
   position: relative;
   display: inline-block;
@@ -149,7 +149,7 @@
   transform: translateX(-50%);
   width: 50%;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  background: linear-gradient(90deg, transparent, #670000, transparent);
 }
 
 /* Sección de Planes */
@@ -162,7 +162,7 @@
 
 .sectionTitle {
   font-size: 3rem;
-  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  background: linear-gradient(135deg, #670000, #FFD700);
   -webkit-background-clip: text;
   color: transparent;
   margin-bottom: 3rem;
@@ -188,7 +188,7 @@
   left: 0;
   right: 0;
   height: 5px;
-  background: linear-gradient(90deg, #D4AF37, #FFD700);
+  background: linear-gradient(90deg, #670000, #FFD700);
 }
 
 .planHeader {
@@ -198,13 +198,13 @@
 
 .planIcon {
   font-size: 3rem !important;
-  color: #D4AF37;
+  color: #670000;
   margin-bottom: 1rem;
 }
 
 .planHeader h3 {
   font-size: 2.2rem;
-  color: #D4AF37;
+  color: #670000;
   margin: 1rem 0;
 }
 
@@ -242,7 +242,7 @@
 }
 
 .checkIcon {
-  color: #D4AF37 !important;
+  color: #670000 !important;
   font-size: 1.5rem !important;
 }
 
@@ -251,7 +251,7 @@
   padding: 1.2rem;
   border: none;
   border-radius: 10px;
-  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  background: linear-gradient(135deg, #670000, #FFD700);
   color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
@@ -294,7 +294,7 @@
 
 .benefitCard svg {
   font-size: 2.5rem;
-  color: #D4AF37;
+  color: #670000;
   margin-bottom: 1rem;
 }
 
@@ -348,7 +348,7 @@
 }
 
 .inputGroup svg {
-  color: #D4AF37;
+  color: #670000;
   font-size: 1.5rem;
 }
 
@@ -380,15 +380,15 @@
 }
 
 .policyCard h3 {
-  color: #D4AF37;
+  color: #670000;
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
 
 .submitButton {
   position: relative;
-  background: linear-gradient(135deg, #D4AF37, #FFD700);
-  color: #2f1a0f;
+  background: linear-gradient(135deg, #670000, #FFD700);
+  color: #670000;
   padding: 1rem 3rem;
   border: none;
   border-radius: 12px;
@@ -406,7 +406,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #FFD700, #D4AF37);
+  background: linear-gradient(135deg, #FFD700, #670000);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: -1;
@@ -442,7 +442,7 @@
 
 .error {
   background: rgba(244, 67, 54, 0.1);
-  border-left: 4px solid #D4AF37;
+  border-left: 4px solid #670000;
 }
 
 .success::before,

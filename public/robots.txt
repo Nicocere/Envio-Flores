@@ -1,3 +1,17 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /administrador
+Disallow: /administrador/*
+Disallow: /usuario
+Disallow: /api
+Disallow: /api/*
+Disallow: /app/api/*
+Disallow: /compras
+
+# Host
+Host: https://envioflores.com
+
+# Sitemaps
+Sitemap: https://envioflores.com/sitemap.xml
+Sitemap: https://www.envioflores.com/blog-sitemap.xml

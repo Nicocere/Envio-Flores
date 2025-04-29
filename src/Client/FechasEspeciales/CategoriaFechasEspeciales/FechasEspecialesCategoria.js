@@ -22,10 +22,10 @@ export default function FechasEspecialesComponent(props) {
                     <Categories categoryName={category} />
                     <div className={style.productsListContainer}>
                         <h2 style={{
-                            color: '#D4AF37',
+                            color: '#670000',
                             textAlign: '-webkit-center',
                         }}>
-                            Estas viendo la ocasión: <strong style={{ color: '#D4AF37' }}>
+                            Estas viendo la ocasión: <strong style={{ color: '#670000' }}>
                                 {category}
                             </strong>
                         </h2>

@@ -4,11 +4,14 @@ import withReactContent from 'sweetalert2-react-content';
 import { useCart } from '../../context/CartContext';
 import { Button } from '@mui/material';
 import { useCookies } from '../../context/CookieContext';
+import { useTheme } from '@/context/ThemeSwitchContext';
+
 const MySwal = withReactContent(Swal);
 
 const AdicionalCount = ({ optionsSelected, img, adicional }) => {
     const { setCart, priceDolar, dolar } = useCart();
     const { CartID, UserID } = useCookies();
+    const { isDarkMode } = useTheme();
 
     const agregarAlCarrito = async () => {
         try {
@@ -69,7 +72,22 @@ const AdicionalCount = ({ optionsSelected, img, adicional }) => {
                 icon: "error",
                 position: "bottom-end",
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
+                background: isDarkMode ? 'var(--background-dark)' : 'var(--background-light)',
+                iconColor: '#f27474',
+                color: isDarkMode ? 'var(--text-light)' : 'var(--text-dark)',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown animate__faster'
+                },
+                customClass: {
+                    title: 'swal-title',
+                    popup: `swal-popup ${isDarkMode ? 'swal-dark-mode' : ''}`,
+                    content: 'swal-content',
+                    container: 'swal-container'
+                }
             });
         }
     };
@@ -99,13 +117,30 @@ const AdicionalCount = ({ optionsSelected, img, adicional }) => {
             icon: 'success',
             showConfirmButton: false,
             timer: 2500,
+            timerProgressBar: true,
             position: 'bottom-end',
-            background: '#f9fafb',
-            iconColor: '#34c38f',
+            background: isDarkMode ? 'var(--background-dark)' : 'var(--background-light)',
+            iconColor: isDarkMode ? 'var(--primary-light)' : 'var(--primary-color)',
+            confirmButtonColor: isDarkMode ? 'var(--primary-light)' : 'var(--primary-color)',
+            color: isDarkMode ? 'var(--text-light)' : 'var(--text-dark)',
+            showClass: {
+                popup: 'animate__animated animate__fadeInUp animate__faster'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutDown animate__faster'
+            },
             customClass: {
-                title: 'my-title-class',
-                content: 'my-content-class'
-            }
+                title: 'swal-title',
+                popup: `swal-popup ${isDarkMode ? 'swal-dark-mode' : ''}`,
+                content: 'swal-content',
+                container: 'swal-container'
+            },
+            footer: `<button id="redirectButton" class="swal-cart-button ${isDarkMode ? 'swal-cart-button-dark' : ''}">VER CARRITO</button>`
+        });
+
+        // Escucha el clic en el botón y redirige al carrito
+        document.getElementById('redirectButton').addEventListener('click', function () {
+            window.location.href = '/cart';
         });
     };
 
@@ -132,7 +167,16 @@ const AdicionalCount = ({ optionsSelected, img, adicional }) => {
             <Button 
                 variant='contained' 
                 size='small' 
-                color='success' 
+                sx={{
+                    color: 'white',
+                    background: '#670000',
+                    fontFamily: '"Nexa", sans-serif !important',
+                    transition: 'all 0.4s ease-in-out !important',
+                    '&:hover': {
+                        background: '#8a0000',
+                        color: 'white',
+                    }
+                }}
                 onClick={agregarAlCarrito}
                 disabled={optionsSelected.length === 0}
             >

@@ -1,14 +1,14 @@
 .dark {
-    --background: #2f1a0f;
+    --background: #670000;
     --secondary-background: #ffffff;
     --color: #fcf5f0;
-    --color2: #D4AF37;
+    --color2: #670000;
 }
 .light {
     --background: #fcf5f0;
-    --secondary-background: #2f1a0f;
-    --color: #2f1a0f;
-    --color2: #D4AF37;
+    --secondary-background: #670000;
+    --color: #670000;
+    --color2: #670000;
 }
 
 
@@ -106,7 +106,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    color: #D4AF37;
+    color: #670000;
     transition: all 0.3s ease;
 }
 
@@ -214,13 +214,13 @@
 }
 
 .price {
-    color: #D4AF37;
+    color: #670000;
     font-weight: 600;
     font-size: 1.1rem;
 }
 
 .addButton {
-    background: #D4AF37;
+    background: #670000;
     color: white;
     border: none;
     padding: 0.5rem 1rem;

@@ -1,34 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+"use client"
+
+import React, { useState, useEffect, useMemo } from 'react';
 import { updateDoc, doc } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
-import { Button, IconButton, TextField } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import Swal from 'sweetalert2';
-import { FadeLoader } from 'react-spinners';
+import { PulseLoader  } from 'react-spinners';
+import { useRouter } from 'next/navigation';
+import style from './addProds.module.css';
+import localforage from 'localforage';
 
-function MassiveEdition() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const initialSelectedProducts = location.state?.selectedProducts || [];
-    const [selectedProducts, setSelectedProducts] = useState(initialSelectedProducts);
+ function MassiveEdition() {
+    const navigate = useRouter();    
+    
+    // const initialSelectedProducts = useMemo(() => selectedProducts || [], [selectedProducts]);
+    const [products, setSelectedProducts] = useState([]);
     const [percentageAdjustment, setPercentageAdjustment] = useState(0);
     const [originalValues, setOriginalValues] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-
     useEffect(() => {
-        // Almacenar los valores originales cuando se carga la página
-        const originalValues = initialSelectedProducts.map((product) => ({
+        // Asegúrate de que esta lógica solo se ejecute una vez o bajo ciertas condiciones
+        const fetchData = async () => {
+            const selectedProducts = await localforage.getItem('massiveProds');
+            setSelectedProducts(selectedProducts || []);
+    
+                    // Almacenar los valores originales cuando se carga la página
+        const valores = selectedProducts.map((product) => ({
             ...product
         }));
-        setOriginalValues(originalValues);
-    }, [initialSelectedProducts]);
+
+        setOriginalValues(valores);
+        };
+
+
+        fetchData();
+    }, []);
+
+
 
     const handlePriceChange = (productId, optionIndex, newPrice) => {
-        const updatedProducts = selectedProducts.map((product) => {
+        const updatedProducts = products.map((product) => {
             if (product.id === productId) {
                 const updatedOptions = product.opciones.map((option, index) => {
                     if (index === optionIndex) {
@@ -46,7 +61,7 @@ function MassiveEdition() {
     };
 
     const handleOptionDelete = (productId, optionIndex) => {
-        const updatedProducts = selectedProducts.map((product) => {
+        const updatedProducts = products.map((product) => {
             if (product.id === productId) {
                 const updatedOptions = product.opciones.filter((option, index) => index !== optionIndex);
                 return { ...product, opciones: updatedOptions };
@@ -58,7 +73,7 @@ function MassiveEdition() {
     };
 
     const handleOptionAdd = (productId) => {
-        const updatedProducts = selectedProducts.map((product) => {
+        const updatedProducts = products.map((product) => {
             if (product.id === productId) {
                 const newOption = {
                     img: '', // Puedes proporcionar valores predeterminados o requeridos aquí
@@ -75,7 +90,7 @@ function MassiveEdition() {
     };
 
     const handlePercentageAdjustment = () => {
-        const adjustedProducts = selectedProducts.map((product) => {
+        const adjustedProducts = products.map((product) => {
             const adjustedOptions = product.opciones.map((option) => {
                 const adjustedPrice = Math.round(option.precio * (1 + percentageAdjustment / 100));
                 return { ...option, precio: adjustedPrice };
@@ -88,7 +103,7 @@ function MassiveEdition() {
     };
 
     const handleClearAdjustment = () => {
-        const clearedProducts = selectedProducts.map((product) => {
+        const clearedProducts = products.map((product) => {
             const clearedOptions = product.opciones.map((option) => {
                 return { ...option, precio: Math.round(option.precio / (1 + percentageAdjustment / 100)) };
             });
@@ -97,20 +112,20 @@ function MassiveEdition() {
         });
 
         setSelectedProducts(clearedProducts);
-        setPercentageAdjustment(0);
     };
-
+    
     const handleRestoreDefaults = () => {
         // Restaurar los valores originales almacenados
         if (originalValues) {
             setSelectedProducts(originalValues.map((product) => ({ ...product })));
         }
+        setPercentageAdjustment(0);
     };
 
     const handleSubmit = async () => {
         setIsLoading(true)
         try {
-            for (const updatedProduct of selectedProducts) {
+            for (const updatedProduct of products) {
                 const productDocRef = doc(baseDeDatos, 'productos', updatedProduct.id);
                 await updateDoc(productDocRef, { opciones: updatedProduct.opciones });
             }
@@ -126,35 +141,42 @@ function MassiveEdition() {
     };
 
     return (
-        <div className='div-massiveEdit'>
-            <div className='div-porcentaje'>
-                <label>Porcentaje de ajuste:</label>
+        <div className={style.divMassiveEdit}>
+                            <div className='perfil-usuario-btns'>
+                    <Button color='error' variant='contained' size='small' sx={{ margin: '0 0 20px' }} onClick={() => navigate.back()}>Volver atrás</Button>
+
+                </div>
+            <div className={style.divPorcentaje}>
+                <label>Porcentaje de ajuste:  {''}</label>
+                <span> % </span>
                 <input
                     type="number"
                     value={isNaN(percentageAdjustment) ? '' : percentageAdjustment}
                     onChange={(e) => setPercentageAdjustment(Math.max(0, e.target.value === '' ? 0 : parseInt(e.target.value, 10)))}
                 />
-                <span>%</span>
-                <Button color='success' variant='contained' sx={{ fontSize: '10px', fontWeight: '700', margin: '0 10px' }}
+
+                <Button color='success' variant='contained' sx={{ backgroundColor: '#ca0043', fontSize: '10px', fontWeight: '700', margin: '0 10px', '&:hover': { backgroundColor: '#ff0054' } }}
                     onClick={handlePercentageAdjustment} disabled={percentageAdjustment === 0} >
                     Aplicar ajuste
                 </Button>
-                <IconButton sx={{ marginRight: '25px', marginLeft: '0', '&:hover': { backgroundColor: '#ff22223d' } }} onClick={handleClearAdjustment} disabled={percentageAdjustment === 0}>
-                    <ClearRoundedIcon color='error' size='small' />
-                </IconButton>
+                
+                <Button disabled={percentageAdjustment === 0} variant='outlined' color='error' sx={{ fontSize: '10px', fontWeight: '700', marginRight: '25px', marginLeft: '0', '&:hover': { backgroundColor: '#ff223d', color:'white' }  }} onClick={handleClearAdjustment} endIcon={<ClearRoundedIcon color='error' size='small' sx={{'&:hover':{color:'white'}}} />}>
+                        Restar Ajuste
+                    
+                </Button>
 
-                <Button color='warning' variant='contained' sx={{ fontSize: '10px', fontWeight: '700' }}
-                    onClick={handleRestoreDefaults} disabled={!originalValues} >
+                <Button color='error' variant='contained' sx={{ fontSize: '10px', fontWeight: '700' }}
+                    onClick={handleRestoreDefaults} disabled={percentageAdjustment === 0} >
                     Restaurar Valores Predeterminados
                 </Button>
             </div>
 
             <form>
-                {selectedProducts.map((product, productIndex) => (
-                    <div key={product.id} className='div-edit-massive'>
-                        <h2>{product.nombre}</h2>
+                {products.map((product, productIndex) => (
+                    <div key={product.id} className={style.divEditMassive}>
+                        <h2 className={style.titleProducts}>{product.nombre}</h2>
                         {product.opciones.map((option, optionIndex) => (
-                            <div key={optionIndex} className='div-mapedit-massive'>
+                            <div key={optionIndex} className={style.divMapeditMassive}>
                                 <label>Precio para {option.size} <strong>$</strong> </label>
                                 <input
                                     type="number"
@@ -162,7 +184,7 @@ function MassiveEdition() {
                                     onChange={(e) => handlePriceChange(product.id, optionIndex, e.target.value)}
                                 />
                                 <IconButton onClick={() => handleOptionDelete(product.id, optionIndex)}>
-                                    <DeleteIcon />
+                                    <DeleteIcon sx={{color:'#de2865'}} />
                                 </IconButton>
                             </div>
                         ))}
@@ -172,14 +194,14 @@ function MassiveEdition() {
                     </div>
                 ))}
             </form>
-            <button className='btn-confirm-massiveEdition' type="button" onClick={handleSubmit}>
+            <button className={style.btnConfirmMassiveEdition} type="button" onClick={handleSubmit}>
                 Guardar cambios
             </button>
 
             {isLoading ? (
-                <div className="waiting-all-changes">
+                <div className={style.WaitingAllChanges}>
                     Cambiando todos los precios, espere...
-                    <FadeLoader color="darkgreen" />
+                    <PulseLoader  color="#670000" />
                 </div>
             ) : (
                 null

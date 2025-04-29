@@ -1,14 +1,14 @@
 .dark{
-    --background: #2f1a0f;
+    --background: #670000;
     --secondary-background: #ffffff;
     --color: #fcf5f0;
-    --color2: #D4AF37;
+    --color2: #670000;
 
 }
 .light{
     --background: #fcf5f0;
-    --color: #2f1a0f;
-    --color2: #D4AF37;
+    --color: #670000;
+    --color2: #670000;
 }
 
 .divAyudaCompras{
@@ -24,7 +24,7 @@
 
 .divPago{
     background: #fcf5f0;
-    color: #2f1a0f ;
+    color: #670000 ;
     border-radius: 10px;
     padding: 10px 30px;
     margin: 20px 20px;
@@ -43,25 +43,25 @@
 .linkAyuda{
     margin: 10px;
     font-weight: 300;
-    color: #D4AF37 ;
+    color: #670000 ;
     transition: color .5s ;
     flex: 1;
     
 }
 .linkAyuda:hover{
-    color:   #D4AF37;
+    color:   #670000;
 }
 
 
 .divProceso{
     background: #fcf5f0;
-    color: #2f1a0f ;
+    color: #670000 ;
     border-radius: 10px;
     padding: 10px 30px;
     margin:0px 20px;
 }
 .proceso{
-    background: #2f1a0f  ;
+    background: #670000  ;
     padding: 20px;
     color:white;
     margin-top: 0px;

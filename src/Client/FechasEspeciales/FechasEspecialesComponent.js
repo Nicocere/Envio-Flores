@@ -27,7 +27,7 @@ const FechasEspecialesComponent = () => {
                         <h2
                             style={{
                                 fontSize: isSmallScreen && '1.76rem',
-                                color: isDarkMode ? '#2f1a0f' : '#A6855D',
+                                color: isDarkMode ? '#670000' : '#A6855D',
                                 textAlign: '-webkit-center'
                             }}
                         >

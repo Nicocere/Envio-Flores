@@ -4,7 +4,7 @@
 }
 
 .swal-custom-confirm {
-  background: linear-gradient(135deg, #D4AF37, #FFD700) !important;
+  background: linear-gradient(135deg, #670000, #FFD700) !important;
   border-radius: 30px !important;
   padding: 1rem 2rem !important;
   font-weight: bold !important;
@@ -25,8 +25,8 @@
 
 .promotionsSection {
   --light-bg: #faf3eb;
-  --dark-bg: #2f1a0f;
-  --gold: #d4af37;
+  --dark-bg: #670000;
+  --gold: #670000;
   --card-radius: 1rem;
   --transition: all .3s ease-in-out;
   --ultra-dark-bg: #0c0402;
@@ -79,7 +79,7 @@
   justify-content: center;
   gap: 1rem;
   height: 100%;
-  background: #2f1a0f51;
+  background: #67000051;
   -webkit-backdrop-filter: blur(10px);
 
   backdrop-filter: blur(5px);
@@ -177,7 +177,7 @@
   padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
   border: none;
   border-radius: 3rem;
-  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  background: linear-gradient(135deg, #670000, #FFD700);
   color: var(--dark-bg);
   font-weight: 600;
   text-decoration: none;
@@ -196,7 +196,7 @@
   left: 0;
   width: -webkit-fill-available;
   height: 100%;
-  background: linear-gradient(135deg, #FFD700, #D4AF37);
+  background: linear-gradient(135deg, #FFD700, #670000);
   opacity: 0;
   z-index: -1;
   transition: opacity 0.3s ease;

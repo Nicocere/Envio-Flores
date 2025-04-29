@@ -119,7 +119,7 @@ const Promociones = () => {
       <div className={style.divPantallasCreadas}>
         <h1 className={style.h1}>CREAR PANTALLAS DE PROMOCIONES</h1>
         <p className={style.pOrders}>Si deseas crear pantallas de promociones para mostrar ofertas especiales y descuentos a tus clientes, haz clic en el siguiente botón:</p>
-        <Button onClick={() => navigate.push('/administrador/pantallas-promocionales')} variant='contained' size='large' sx={{ color: '#2f1a0f', border: '1px solid #d4af37', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#d4af37', '&:hover': { background: '#ffffff', color: '#2f1a0f' } }}>
+        <Button onClick={() => navigate.push('/administrador/pantallas-promocionales')} variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }}>
           Ir a las pantallas de promoción
         </Button>
       </div>
@@ -134,7 +134,7 @@ const Promociones = () => {
             onChange={(e) => setDescuento(e.target.value)}
             required
           />
-          <Button variant='contained' size='large' sx={{ color: '#2f1a0f', border: '1px solid #d4af37', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#d4af37', '&:hover': { background: '#ffffff', color: '#2f1a0f' } }} type="submit">Aplicar Promoción</Button>
+          <Button variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }} type="submit">Aplicar Promoción</Button>
         </form>
 
         <div className={style.productosList}>
@@ -182,7 +182,7 @@ const Promociones = () => {
                 <td>{producto.promocion.descuento}%</td>
                 <td>{producto.promocion.status ? 'Activada' : 'Desactivada'}</td>
                 <td>
-                  <Button variant='contained' size='large' sx={{ color: '#2f1a0f', border: '1px solid #d4af37', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#d4af37', '&:hover': { background: '#ffffff', color: '#2f1a0f' } }} onClick={() => handleStatusToggle(producto.id, producto.promocion.status)}>
+                  <Button variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }} onClick={() => handleStatusToggle(producto.id, producto.promocion.status)}>
                     {producto.promocion.status ? 'Desactivar' : 'Activar'}
                   </Button>
                 </td>

@@ -36,6 +36,7 @@ import { useTheme } from '@/context/ThemeSwitchContext';
 import { DateRangeIcon } from '@mui/x-date-pickers';
 import { AccountBox, CardGiftcard, CreditCardTwoTone, Timelapse } from '@mui/icons-material';
 import CardPaymentMP from '../MercadoPago/PasarelaDePago/CardPayment';
+import CartPopUpProducts from '../CartPopUpProducts/CartPopUpProducts';
 
 
 const MySwal = withReactContent(Swal);
@@ -116,6 +117,9 @@ const CartComponents = () => {
     const [value, setValue] = React.useState(0);
 
     const [characterCount, setCharacterCount] = useState(0);
+    const [showAddonPopup, setShowAddonPopup] = useState(false);
+
+
 
     // Añadir esta función para manejar el conteo de caracteres
     const handleDedicatoriaChange = (e) => {
@@ -125,45 +129,45 @@ const CartComponents = () => {
 
     const scrollToElement = (element) => {
         try {
-          // Intentar primero con scrollIntoView nativo
-          if (typeof element.scrollIntoView === 'function') {
-            element.scrollIntoView({ 
-              behavior: 'smooth', 
-              block: 'start' 
+            // Intentar primero con scrollIntoView nativo
+            if (typeof element.scrollIntoView === 'function') {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                return;
+            }
+
+            // Fallback para navegadores que no soportan scrollIntoView con smooth
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - 100; // 100px de margen superior
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
             });
-            return;
-          }
-          
-          // Fallback para navegadores que no soportan scrollIntoView con smooth
-          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - 100; // 100px de margen superior
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
         } catch (error) {
-          console.error("Error al desplazar:", error);
-          
-          // Último recurso: scroll simple
-          if (element) {
-            window.scrollTo(0, element.offsetTop - 100);
-          }
+            console.error("Error al desplazar:", error);
+
+            // Último recurso: scroll simple
+            if (element) {
+                window.scrollTo(0, element.offsetTop - 100);
+            }
         }
-      };
+    };
 
     const handleMercadoPagoClick = () => {
         setShowMercadoPago(true);
         setShowCardPayment(false);
         setPaymentMethodSelected('mercadopago');
         setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
-            // Esperar a que el estado se actualice antes de intentar desplazar
-    setTimeout(() => {
-        if (mercadoPagoRef?.current) {
-          scrollToElement(mercadoPagoRef.current);
-        }
-      }, 300);
-    
+        // Esperar a que el estado se actualice antes de intentar desplazar
+        setTimeout(() => {
+            if (mercadoPagoRef?.current) {
+                scrollToElement(mercadoPagoRef.current);
+            }
+        }, 300);
+
     };
 
     const handleCardPaymentClick = () => {
@@ -171,13 +175,13 @@ const CartComponents = () => {
         setShowCardPayment(true);
         setPaymentMethodSelected('cardpayment');
         setHasSelectedPaymentMethod(true); // Marcar que ya se seleccionó método
-            // Esperar a que el estado se actualice antes de intentar desplazar
-    setTimeout(() => {
-        if (cardPaymentSectionRef?.current) {
-          scrollToElement(cardPaymentSectionRef.current);
-        }
-      }, 300);
-    
+        // Esperar a que el estado se actualice antes de intentar desplazar
+        setTimeout(() => {
+            if (cardPaymentSectionRef?.current) {
+                scrollToElement(cardPaymentSectionRef.current);
+            }
+        }, 300);
+
     };
 
     const handleScrollToRef = (ref) => {
@@ -379,6 +383,7 @@ const CartComponents = () => {
             }
 
             < div className='cart' ref={formularioEnvioRef} >
+
                 {
                     // Si las cookies no están aceptadas
                     !hasAcceptedCookies ? (
@@ -408,6 +413,14 @@ const CartComponents = () => {
                         ) : (
                             // Si las cookies están aceptadas y el carrito no está vacío
                             <>
+
+                                <button onClick={() => setShowAddonPopup(true)} className='btn-addon'>
+                                    Ver productos complementarios
+                                </button>
+                                <CartPopUpProducts
+                                    isOpen={showAddonPopup}
+                                    onClose={() => setShowAddonPopup(false)}
+                                />
                                 {
                                     retiraEnLocal ?
 
@@ -768,12 +781,12 @@ const CartComponents = () => {
                                                                             Al confirmar sus datos, podrá proceder al pago y finalizar su pedido.
                                                                         </Typography>
                                                                         <Button variant='contained' color='success' sx={{ marginTop: '15px' }}
-                                                                       onClick={() => {
-                                                                        handleConfirmationClick();
-                                                                        datosRef.current?.scrollIntoView({ behavior: 'smooth' });
-                                                                        handleScrollToRef(formularioEnvioRef);
-                                                                    }}
-                                                                            >
+                                                                            onClick={() => {
+                                                                                handleConfirmationClick();
+                                                                                datosRef.current?.scrollIntoView({ behavior: 'smooth' });
+                                                                                handleScrollToRef(formularioEnvioRef);
+                                                                            }}
+                                                                        >
                                                                             CONFIRMAR DATOS
                                                                         </Button>
                                                                     </>
@@ -786,7 +799,7 @@ const CartComponents = () => {
                                                                 )}
 
                                                                 <Typography variant="body2" sx={{ marginTop: '15px', fontStyle: 'italic', maxWidth: '500px', margin: '0 auto' }}>
-                                                                    <span style={{ color: isDarkMode ? 'white':'#670000', fontWeight: 'bold', maxWidth:'50ch' }}>
+                                                                    <span style={{ color: isDarkMode ? 'white' : '#670000', fontWeight: 'bold', maxWidth: '50ch' }}>
                                                                         ¡Ya casi termina! Complete el formulario y continúe hacia el proceso de pago para completar su pedido.
                                                                     </span>
                                                                 </Typography>
@@ -794,13 +807,13 @@ const CartComponents = () => {
                                                             )
                                                             :
 
-                                                            <div className='container-payments-cart' > 
+                                                            <div className='container-payments-cart' >
 
                                                                 <CheckoutStepper activeStep={4} />
 
                                                                 {confirmationDone &&
                                                                     <Paper
-                                                                    ref={datosRef} id="datos"
+                                                                        ref={datosRef} id="datos"
                                                                         elevation={12}
                                                                         sx={{
                                                                             padding: isSmallScreen ? '20px' : '40px',
@@ -1142,9 +1155,9 @@ const CartComponents = () => {
                                                                                 <br />
                                                                                 <span style={{ color: 'red' }}>*</span> Todos nuestros métodos de pago son seguros y rápidos.
                                                                             </p>
-                                                                            
+
                                                                             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '30px' }}>
-                                                                                <Button 
+                                                                                <Button
                                                                                     variant="outlined"
                                                                                     onClick={() => {
                                                                                         handleMercadoPagoClick();
@@ -1168,7 +1181,7 @@ const CartComponents = () => {
                                                                                 >
                                                                                     Mercado Pago
                                                                                 </Button>
-                                                                                <Button 
+                                                                                <Button
                                                                                     variant="outlined"
                                                                                     onClick={() => {
                                                                                         const paypalElement = document.querySelector('.paypal-div');
@@ -1218,10 +1231,10 @@ const CartComponents = () => {
                                                                                                         handleMercadoPagoClick();
                                                                                                         setTimeout(() => {
                                                                                                             if (mercadoPagoRef?.current) {
-                                                                                                              scrollToElement(mercadoPagoRef.current);
+                                                                                                                scrollToElement(mercadoPagoRef.current);
                                                                                                             }
-                                                                                                          }, 200);
-                                                                                                        }}
+                                                                                                        }, 200);
+                                                                                                    }}
 
                                                                                                     sx={{
                                                                                                         p: 3,
@@ -1292,10 +1305,10 @@ const CartComponents = () => {
                                                                                                         handleCardPaymentClick();
                                                                                                         setTimeout(() => {
                                                                                                             if (cardPaymentSectionRef?.current) {
-                                                                                                              scrollToElement(cardPaymentSectionRef.current);
+                                                                                                                scrollToElement(cardPaymentSectionRef.current);
                                                                                                             }
-                                                                                                          }, 200);
-                                                                                                        }}
+                                                                                                        }, 200);
+                                                                                                    }}
                                                                                                     sx={{
                                                                                                         p: 3,
                                                                                                         textAlign: 'center',

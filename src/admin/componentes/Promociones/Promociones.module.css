@@ -42,7 +42,7 @@
   cursor: grab;
 }
 .containerProdsFilter::-webkit-scrollbar-thumb:hover {
-  background-color: #D4AF37 ; /* Color de la barra de desplazamiento al pasar el ratón */
+  background-color: #670000 ; /* Color de la barra de desplazamiento al pasar el ratón */
 }
 
 .containerProdsFilter::-webkit-scrollbar-thumb:active {

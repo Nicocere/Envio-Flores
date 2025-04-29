@@ -79,7 +79,7 @@ const PantallasPromocionales = () => {
     }
     e.preventDefault();
 
-    // const data = { nombre, descripcion, validoDesde, validoHasta, background, icono, efecto };
+    const data = { nombre, descripcion, validoDesde, validoHasta, background, icono, efecto };
     const status = validoDesde < validoHasta;
     const habilitado = status ? 'Habilitado' : 'Deshabilitado';
 
@@ -299,7 +299,7 @@ const PantallasPromocionales = () => {
               <Button variant='text' size='small' color='error' type="button" onClick={handlePreview}>{preview ? 'Ocultar' : 'Previsualizar'}</Button>
             </div>
 
-            <Button variant='contained' size='large' sx={{ color: '#2f1a0f', border: '1px solid #d4af37', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#d4af37', '&:hover': { background: '#ffffff', color: '#2f1a0f' } }} type="submit">{editId ? 'Actualizar' : 'Crear'} Pantalla</Button>
+            <Button variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '5px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }} type="submit">{editId ? 'Actualizar' : 'Crear'} Pantalla</Button>
 
             {/* <button className={style.perfilUsuarioBtns} type="button" onClick={handlePreview}>{preview ? 'Ocultar' : 'Previsualizar'}</button> */}
           </form>

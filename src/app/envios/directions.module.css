@@ -1,16 +1,16 @@
 .dark{
-    --background: #2f1a0f;
+    --background: #670000;
     --secondary-background: #ffffff;
     --color: #fcf5f0;
-    --color2: #D4AF37;
-    --color3: #2f1a0f;
+    --color2: #670000;
+    --color3: #670000;
 
 }
 .light{
-    --secondary-background: #2f1a0f;
+    --secondary-background: #670000;
     --background: #fcf5f0;
-    --color: #2f1a0f;
-    --color2: #D4AF37;
+    --color: #670000;
+    --color2: #670000;
     --color3: #fcf5f0;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .letterHeader {
-    background: #D4AF37; 
+    background: #670000; 
     text-align: center;
     color: #F1E4D3; 
     font-weight: 800;

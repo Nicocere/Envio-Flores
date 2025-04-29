@@ -1,0 +1,149 @@
+/* Variables del tema */
+.dark {
+  --background: #1a0f0a;
+  --secondary-background: #2d1810;
+  --color: #fcf5f0;
+  --color2: #670000;
+  --input-bg: #704630;
+  --shadow: rgba(0,0,0,0.3);
+  --hover: #3a2116;
+}
+
+.light {
+  --background: #fcf5f0;
+  --secondary-background: #fff5ec;
+  --color: #670000;
+  --color2: #670000;
+  --input-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.1);
+  --hover: #f5e6d3;
+}
+
+
+.divNewCategory {
+  background: var(--secondary-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.divEditCategory {
+  text-align: center;
+  color: var(--color);
+  background: var(--background);
+  padding: 50px 30px 50px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+
+.divEditCategory h1 {
+  /* background: var(--color2); */
+  border-radius: 3px;
+  padding: 8px;
+  text-transform: uppercase;
+  color: var(--color);
+}
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}
+
+.accordion {
+  margin: 40px 0;
+  background: linear-gradient(to bottom, var(--color2), var(--hover));
+  font-weight: 700;
+  color: var(--color);
+}
+
+.accordionSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.accordionDetails {
+  background: var(--secondary-background);
+  color: var(--color);
+}
+
+.tableHead {
+  background: linear-gradient(to bottom, var(--hover), var(--shadow));
+}
+
+.tableCell {
+  color: var(--color);
+}
+
+.dialogTitle {
+  color: var(--color2);
+}
+
+.dialogContent {
+  background: var(--secondary-background);
+  color: var(--color);
+}
+
+.dialogActions button {
+  background-color: var(--color2);
+  color: var(--color) !important;
+  transition: all 0.3s ease;
+}
+
+.dialogActions button:hover {
+  background-color: var(--hover);
+  color: var(--color2);
+}
+
+@media screen and (max-width: 768px) {
+  .divNewCategory, .divEditCategory {
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .divNewCategory, .divEditCategory {
+    padding: 10px;
+  }
+}

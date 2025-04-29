@@ -76,7 +76,7 @@ function Login() {
                 {isLoading ? (
                     <div style={{ textAlign: 'center', fontSize: 'xx-large' }}>
                         <p>Iniciando sesión, aguarde....</p>
-                        <PulseLoader color="#d4af37" />
+                        <PulseLoader color={isDarkMode ? 'white' : '#670000'} />
                     </div>
                 ) : user ? (
                     <>
@@ -88,7 +88,6 @@ function Login() {
                 ) : (
                     <>
                         <h3>Inicia Sesión</h3>
-                        <p>Si deseas ver y tener organizados tus pedidos, inicia sesión aquí.</p>
                         <form className={style.formLogin} onSubmit={handleSubmit(onSubmit)}>
                             <div className={style.inputGroup}>
                                 <label>Email</label>
@@ -125,7 +124,6 @@ function Login() {
                                 Iniciar Sesión
                             </Button>
                         </form>
-                        <p style={{ marginTop: '40px' }}>No estás registrado? <Link href={'/login/registro'}>Regístrate aquí</Link></p>
                     </>
                 )}
             </div>

@@ -1,13 +1,13 @@
 // Autenticacion.js
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, baseDeDatos } from '../../FireBaseConfig';
+import { useRouter } from 'next/navigation';
 
 const Autenticacion = ({ children }) => {
-  const navigate = useNavigate();
+  const navigate = useRouter();
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {

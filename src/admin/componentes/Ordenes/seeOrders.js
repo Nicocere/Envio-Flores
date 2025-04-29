@@ -1,29 +1,57 @@
+"use client"
+
 import React, { useEffect, useState } from 'react';
-import {  collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '../../FireBaseConfig';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Accordion, AccordionSummary, AccordionDetails, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-import './orders.css'
-// import { dataOrders } from '../../ecommerce.datos-del-envios';
+import style from './orders.module.css'
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 function SeeOrders() {
 
-    const navigate = useNavigate();
+    const navigate = useRouter();
     const [ordenes, setOrdenes] = useState([]);
+    const [filteredOrders, setFilteredOrders] = useState([]);
+    const [searchMethod, setSearchMethod] = useState('');
+    const [searchValue, setSearchValue] = useState('');
 
     // Función para formatear la fecha de manera legible
     const formatReadableDate = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            timeZone: 'America/Argentina/Buenos_Aires'
+        };
+        return new Date(dateString).toLocaleString('es-AR', options);
+    };
+
+    const formatDate = (dateValue) => {
+        if (!dateValue) return '';
+
+        // Si es un Timestamp (tiene segundos y nanosegundos)
+        if (dateValue.seconds) {
+            return formatReadableDate(new Date(dateValue.seconds * 1000));
+        }
+
+        // Si es una cadena ISO
+        try {
+            return formatReadableDate(new Date(dateValue));
+        } catch (e) {
+            return dateValue; // Devolver original si falla el parsing
+        }
     };
 
 
     const fetchOrders = async () => {
-        const orderRef = collection(baseDeDatos, 'ordenes');
-        const orderedQuery = query(orderRef, orderBy('order_number', 'desc')); // Ordena por el campo 'order_number' en orden descendente
+        const orderRef = collection(baseDeDatos, 'ordenes-envio-flores');
+        const orderedQuery = query(orderRef, orderBy('order_number', 'desc'));
 
         const orderSnapShot = await getDocs(orderedQuery);
         const orderData = [];
@@ -31,44 +59,44 @@ function SeeOrders() {
             orderData.push({ id: doc.id, ...doc.data() });
         });
         setOrdenes(orderData);
-
-        // Buscar y agregar órdenes de la colección "ordenes-temporales-PayPal"
-        const tempOrderRef = collection(baseDeDatos, 'ordenes-temporales-PayPal');
-        const tempOrderSnapshot = await getDocs(tempOrderRef);
-        tempOrderSnapshot.forEach((doc) => {
-            orderData.push({ id: doc.id, ...doc.data() });
-        });
-        setOrdenes(orderData);
-
+        setFilteredOrders(orderData);
     };
 
     useEffect(() => {
         fetchOrders();
     }, []);
 
-    const addOrders = async () => {
-        // try {
+    const handleSearchMethodChange = (event) => {
+        setSearchMethod(event.target.value);
+        setSearchValue('');
+        setFilteredOrders(ordenes);
+    };
 
-        //     const orderCollectionRef = collection(baseDeDatos, 'ordenes');
+    const handleSearchValueChange = (event) => {
+        const value = event.target.value;
+        setSearchValue(value);
 
-        //     // Recorre las direcciones y añádelas a Firebase Database
-        //     for (const order of dataOrders) {
-        //         await addDoc(orderCollectionRef, order);
-        //     }
+        if (value === '') {
+            setFilteredOrders(ordenes);
+            return;
+        }
 
-        //     Swal.fire({
-        //         icon: 'success',
-        //         title: 'Direcciones Añadidas',
-        //         text: 'Todas las direcciones se han añadido correctamente.',
-        //     });
-        // } catch (error) {
-        //     console.error('Error al añadir direcciones: ', error);
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Error',
-        //         text: `Hubo un problema añadiendo direcciones: ${error.message}`,
-        //     });
-        // }
+        const filtered = ordenes.filter((order) => {
+            switch (searchMethod) {
+                case 'nombreApellido':
+                    return `${order.datosComprador?.nombreComprador} ${order.datosComprador?.apellidoComprador}`.toLowerCase().includes(value.toLowerCase());
+                case 'telefono':
+                    return order.datosComprador?.tel_comprador.includes(value);
+                case 'numeroOrden':
+                    return order.order_number.toString().includes(value);
+                case 'fecha':
+                    return formatDate(order.createdAt).toLowerCase().includes(value.toLowerCase());
+                default:
+                    return true;
+            }
+        });
+
+        setFilteredOrders(filtered);
     };
 
     const [openOrderId, setOpenOrderId] = useState(null);
@@ -81,8 +109,7 @@ function SeeOrders() {
         }
     };
 
-    const deleteOrder = async (orderId, comprador) => {
-
+    const deleteOrder = async (orderId, datosComprador) => {
         try {
             const result = await Swal.fire({
                 title: '¿Estás seguro?',
@@ -100,12 +127,12 @@ function SeeOrders() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Orden Eliminada',
-                    text: `Has eliminado la orden de ${comprador}`,
-                    toast: true,             // Esto hace que la alerta se muestre como un toast
-                    position: 'top-left',     // Posición en la esquina superior derecha
-                    showConfirmButton: false, // No mostrar botón de confirmación
-                    timer: 1500,             // Duración de la alerta (en milisegundos)
-                    timerProgressBar: true,   // Muestra una barra de progreso mientras la alerta se desvanece
+                    text: `Has eliminado la order de ${datosComprador}`,
+                    toast: true,
+                    position: 'top-left',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
                 });
                 fetchOrders();
             }
@@ -120,248 +147,180 @@ function SeeOrders() {
     };
 
     return (
-        <div className='div-orders'>
-            <Paper elevation={24} sx={{ background: 'linear-gradient(to top, #a70000, #670000)', padding: '20px 60px' }}>
-                <Typography variant='h2' style={{ color: 'white', margin: '15px 60px' }}> Ordenes de Compras:</Typography>
+        <div className={style.divOrders}>
+            <div className={style.perfilUsuarioBtns}>
+                <Button variant='text' size='small' color='error' onClick={() => navigate.back()}>Volver atrás</Button>
+            </div>
 
-                <div className='perfil-usuario-btns'>
-                    <Button sx={{ margin: 5 }} color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
-                </div>
+            <h1>Compras:</h1>
+            <div className={style.divTextsOrders}>
+                <p className={style.pOrders}>Bienvenido al panel de gestión de órdenes. Aquí encontrarás un registro detallado de todas las compras realizadas por los usuarios.</p>
+                <p className={style.pOrders}>Para acceder a la información completa de cada order, incluyendo datos del comprador y productos, utiliza el botón "Ver Orden".</p>
+                <p className={style.pOrders}>Si prefiere, puede ver la informacion completa de cada order, haciendo click sobre "Datos de la Orden" debajo de la informacion del comprador.</p>
+                <p className={style.pOrders}>Si necesitas eliminar una order del sistema, utiliza el botón "Eliminar Orden" disponible en los detalles de cada compra.</p>
+                <p className={style.pOrders}>Importante: La eliminación de órdenes es una acción permanente y no podrás recuperar la información una vez eliminada.</p>
+            </div>
+            <br />
 
-                <div>
 
-                    <TableContainer component={Paper}>
-                        <Table>
-                            <TableHead sx={{ background: 'linear-gradient(to bottom, #161616, #363636)', boxShadow: '0 0 12px 3px black' }}>
+            <div className={style.searchContainer}>
+                <label htmlFor="searchMethod">Filtrar Ordenes por:</label>
+                <select id="searchMethod" value={searchMethod} onChange={handleSearchMethodChange} className={style.searchSelect} >
+                    <option value="nombreApellido">Nombre y Apellido</option>
+                    <option value="telefono">Teléfono</option>
+                    <option value="numeroOrden">Número de Orden</option>
+                    <option value="fecha">Fecha de Compra</option>
+                </select>
+
+                {searchMethod && (
+                    <div className={style.searchInputContainer}>
+                        <label htmlFor="searchValue">Buscar por {searchMethod === 'nombreApellido' ? 'Nombre y Apellido' : searchMethod === 'telefono' ? 'Teléfono' : searchMethod === 'numeroOrden' ? 'Número de Orden' : searchMethod === 'fecha' ? 'Fecha de la compra' : searchMethod}:</label>
+                        <input
+                            type="text"
+                            placeholder={`Buscar por ${searchMethod}`}
+                            value={searchValue}
+                            onChange={handleSearchValueChange}
+                            className={style.searchInput}
+                        />
+                    </div>
+                )}
+
+            </div>
+
+
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>Nombre y Apellido</TableCell>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>Fecha de Compra</TableCell>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>N° Orden</TableCell>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>Email</TableCell>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>Teléfono</TableCell>
+                            <TableCell sx={{ background: '#670000', color: 'white', fontSize: 'larger' }}>Acción</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {filteredOrders?.map((order) => (
+                            <React.Fragment key={order.id}>
                                 <TableRow>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>Nombre y Apellido</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>Fecha de Compra</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>N° Orden</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>Email</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>Teléfono</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', color: 'white' }}>Acción</TableCell>
+                                    <TableCell>{order.datosComprador?.nombreComprador} {order.datosComprador?.apellidoComprador}</TableCell>
+                                    <TableCell>{formatDate(order.createdAt)}</TableCell>
+                                    <TableCell>{order.order_number}</TableCell>
+                                    <TableCell>{order.datosComprador?.email}</TableCell>
+                                    <TableCell>{order.datosComprador?.tel_comprador}</TableCell>
+                                    <TableCell>
+                                        <Button onClick={() => toggleOrderDetails(order.id)} variant='contained' size='large' sx={{ color: '#670000', border: '1px solid #670000', margin: '20px', borderRadius: '10px', padding: '10px 20px', background: '#670000', '&:hover': { background: '#ffffff', color: '#670000' } }}>
+                                            {openOrderId === order.id ? 'Cerrar Orden' : "Ver Orden"}
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {ordenes?.map((order) => (
-                                    <React.Fragment key={order.id}>
-                                        <TableRow>
-                                            <TableCell >{order.comprador?.nombreComprador || order.comprador?.datosComprador.nombreComprador} {order.comprador?.apellidoComprador || order.comprador?.datosComprador.apellidoComprador}</TableCell>
-                                            <TableCell >{formatReadableDate(order.createdAt)}</TableCell>
-                                            <TableCell >{order.order_number}</TableCell>
-                                            <TableCell >{order.comprador?.email || order.comprador?.datosComprador?.email}</TableCell>
-                                            <TableCell >{order.comprador?.tel_comprador || order.comprador?.datosComprador?.tel_comprador}</TableCell>
-                                            <TableCell >
-                                                <Button onClick={() => toggleOrderDetails(order.id)} color='error'> {openOrderId === order.id ? 'Cerrar Orden' : "Ver Orden"}
-                                                </Button>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell colSpan={6}>
-                                                <Accordion expanded={openOrderId === order.id}>
-                                                    <AccordionSummary onClick={() => toggleOrderDetails(order.id)} sx={{ background: '#670000', color: 'white' }} expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />} aria-controls="panel1a-content" id="panel1a-header">
-                                                        <Typography sx={{ textTransform: 'uppercase' }}>Datos de la Orden</Typography>
-                                                    </AccordionSummary>
-                                                    <AccordionDetails>
-                                                        {openOrderId === order.id && (
-                                                            <TableRow key={`details-${order.id}`}>
-                                                                <TableCell colSpan={6}>
-                                                                    <Accordion expanded={openOrderId === order.id}>
-                                                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" onClick={() => toggleOrderDetails(order.id)}>
-                                                                            <Typography>Datos de la Orden</Typography>
-                                                                        </AccordionSummary>
-                                                                        <AccordionDetails sx={{background:'linear-gradient(181deg, rgb(246, 246, 246), rgb(206, 206, 206))', display:'flex', flexDirection:'row',  }}>
-                                                                            <div style={{ flex: '1', margin: '5px', padding: '5px', border: '1px solid silver' }} className="orderDetails">
-                                                                                <br />
-                                                                                <Typography variant="h6">DATOS DE LA ORDEN</Typography>
-                                                                                <p>Orden Creada el: {formatReadableDate(order.createdAt)}</p>
-                                                                                <p>Codigo alternativo (MercadoPago): <strong>{order.code_mercadopago}</strong></p>
-                                                                                <br />
-                                                                                <Typography variant="h6">DATOS COMPRADOR:</Typography>
-                                                                                <p> Nombre y Apellido comprador: {order.comprador?.nombreComprador} {order.comprador?.apellidoComprador}</p>
-                                                                                <p> Telefono: {order.comprador?.tel_comprador}</p>
-                                                                                <p> E-mail: {order.comprador?.email}</p>
-                                                                                <br />
-                                                                            </div>
-                                                                            <div className="orderDetails" style={{ flex: '1', margin: '5px', padding: '5px', border: '1px solid silver' }}>
 
-                                                                                <Typography variant="h6">DATOS DESTINATARIO:</Typography>
-                                                                                <p> Nombre y Apellido destinatario: {order.envio?.nombreDestinatario} {order.envio?.apellidoDestinatario}</p>
-                                                                                <p> Telefono: {order.envio?.phoneDestinatario}</p>
-                                                                                <p> Fecha: {order.envio?.fecha} </p>
-                                                                                <p> Horario: {order.envio?.horario}</p>
-                                                                                <p> Dirección: {order.envio?.calle} {order.envio?.altura} {order.envio?.piso}, {order.envio?.localidad?.name}</p>
-                                                                                <br />
-                                                                                <p> Dedicatoria: <strong>{order.envio?.dedicatoria}</strong> </p>
-                                                                                <br />
-                                                                            </div>
-                                                                            <div className="orderDetails" style={{ flex: '1', margin: '5px', padding: '5px', border: '1px solid silver' }}>
+                                <TableRow sx={{ borderBottom: '2px solid #670000' }}>
+                                    <TableCell colSpan={6}>
+                                        <Accordion expanded={openOrderId === order.id}>
+                                            <AccordionSummary onClick={() => toggleOrderDetails(order.id)} sx={{ background: '#e7e7e7' }} expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                                                <Typography>Datos de la Orden</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                {openOrderId === order.id && (
+                                                    <TableRow key={`details-${order.id}`}>
+                                                        <TableCell colSpan={6}>
+                                                            <Accordion expanded={openOrderId === order.id}>
+                                                                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" onClick={() => toggleOrderDetails(order.id)}>
+                                                                    <Typography>Datos de la Orden</Typography>
+                                                                </AccordionSummary>
+                                                                <AccordionDetails>
+                                                                    <div className="orderDetails">
+                                                                        <br />
+                                                                        <Typography variant="h6">DATOS DE LA ORDEN</Typography>
+                                                                        <p>Orden Creada el: {formatDate(order.createdAt)}</p>
+                                                                        {order.payment === 'PayPal' ? (
+                                                                            <p>Metodo de Pago: PayPal</p>
+                                                                        ) : order.payment === 'Mercado Pago Cuenta' ? (
+                                                                            <p>Metodo de Pago: Mercado Pago Cuenta</p>
+                                                                        ) : (
+                                                                            <p>Metodo de Pago: Tarjeta</p>
+                                                                        )}
+                                                                        <br />
+                                                                        <Typography variant="h6">DATOS COMPRADOR:</Typography>
+                                                                        <p> Nombre y Apellido: <strong>{order.datosComprador?.nombreComprador} {order.datosComprador?.apellidoComprador}</strong></p>
+                                                                        <p> Telefono: <strong>{order.datosComprador?.tel_comprador}</strong></p>
+                                                                        <p> E-mail: <strong>{order.datosComprador?.email}</strong></p>
+                                                                        <br />
+                                                                        <hr />
+                                                                        <Typography variant="h6">{order.retiraEnLocal ? "DATOS DE QUIEN RETIRA EL PRODUCTO" : "DATOS DE ENVIO:"}  </Typography>
+                                                                        {
+                                                                            order.retiraEnLocal ? (
+                                                                                <p> Retira en local: <strong>Si</strong> </p>
+                                                                            ) : (
 
-                                                                                <Typography variant="h6">Productos:</Typography>
-                                                                                <ul>
-                                                                                    {order.products.map((product) => (
-                                                                                        <li key={product.id}>
-                                                                                            {product.name} | (Tamaño: {product.size}) | (Precio: ${product.precio}) | (Cantidad: {product.quantity}) |
-                                                                                            <img src={product.img} alt="Imagen del producto" width="50" />
-                                                                                        </li>
-                                                                                    ))}
-                                                                                </ul>
+                                                                                <>
+                                                                                    <p> Nombre y Apellido destinatario: <strong>{order.datosEnvio.nombreDestinatario} {order.datosEnvio.apellidoDestinatario}</strong></p>
+                                                                                    <p> Telefono: {order.datosEnvio.phoneDestinatario ? (
+                                                                                        <strong>{order.datosEnvio.phoneDestinatario}</strong>
+                                                                                    ) : (
+                                                                                        <strong>No especificado</strong>
+                                                                                    )}</p>
+                                                                                    <p> Direccion: <strong>{order.datosEnvio.calle} {order.datosEnvio.altura}</strong></p>
+                                                                                    <p> Piso: <strong>{order.datosEnvio.piso}</strong></p>
+                                                                                </>
+                                                                            )
+                                                                        }
 
-                                                                                <br />
-                                                                            </div>
-                                                                        </AccordionDetails>
-                                                                                <Button
-                                                                                    size='small'
-                                                                                    color='error'
-                                                                                    variant='outlined'
-                                                                                    sx={{
-                                                                                        margin: '10px',
-                                                                                        '&:hover': {
-                                                                                            backgroundColor: 'red',
-                                                                                            color: 'white',
-                                                                                            fontWeight: 500
-                                                                                        }
-                                                                                    }}
-                                                                                    onClick={() => deleteOrder(order.id, order.comprador?.nombreComprador)}
-                                                                                >
-                                                                                    Eliminar Orden
-                                                                                </Button>
-                                                                    </Accordion>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        )}
+                                                                        <p> Fecha: <strong>{order.datosEnvio?.fecha}</strong> </p>
+                                                                        <p> Horario: <strong>{order.datosEnvio?.horario}</strong></p>
+                                                                        <br />
+                                                                        <p> Dedicatoria: <strong>{order.datosEnvio?.dedicatoria}</strong> </p>
+                                                                        <br />
+                                                                        <hr />
+                                                                        <div className='div-prods-order'>
+                                                                            <Typography variant="h6">Productos:</Typography>
+                                                                            <ul>
+                                                                                {order.products.map((product) => (
+                                                                                    <li key={product.id}>
+                                                                                        {product.name} | (Tamaño: {product.size}) | (Precio: ${product.precio}) | (Cantidad: {product.quantity}) |
+                                                                                        <Image src={product.img} alt="Imagen del producto" width={100} height={100} style={{ borderRadius: '10px' }} />
+                                                                                    </li>
+                                                                                ))}
+                                                                            </ul>
+                                                                        </div>
+                                                                        <br />
+                                                                        <Button
+                                                                            size='small'
+                                                                            color='error'
+                                                                            variant='outlined'
+                                                                            sx={{
+                                                                                margin: '10px',
+                                                                                '&:hover': {
+                                                                                    backgroundColor: 'red',
+                                                                                    color: 'white',
+                                                                                    fontWeight: 500
+                                                                                }
+                                                                            }}
+                                                                            onClick={() => deleteOrder(order.id, order.datosComprador?.nombreComprador)}
+                                                                        >
+                                                                            Eliminar Orden
+                                                                        </Button>
+                                                                    </div>
+                                                                </AccordionDetails>
+                                                            </Accordion>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                )}
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </TableCell>
+                                </TableRow>
+                            </React.Fragment>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-                                                    </AccordionDetails>
-                                                </Accordion>
-                                            </TableCell>
-                                        </TableRow>
-                                    </React.Fragment>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-
-                    <hr />
-                </div>
-            </Paper>
+            <hr />
+            <br />
         </div>
-
-        //     <div className='div-orders'>
-        //                    <div className='perfil-usuario-btns'>
-        //                 <Button color='error' variant='contained' size='small' onClick={() => navigate(-1)}>Volver atrás</Button>
-
-        //             </div>
-        //         <h1>Ordenes</h1>
-        //         {ordenes.length === 0 ?
-
-        //             <div>
-        //                 <button onClick={addOrders}>Añadir todas las Ordenes</button>
-        //             </div>
-        //             : null
-        //         }
-        //         <div>
-        //             <h1>TODAS LAS ORDENES</h1>
-
-        //             <table className="ordersTable">
-        //                 <thead>
-        //                     <tr>
-        //                         <th>Nombre y Apellido</th>
-        //                         <th>Fecha de Compra</th>
-        //                         <th>N° Orden</th>
-        //                         <th>Email</th>
-        //                         <th>Teléfono</th>
-        //                         <th>Acción</th>
-        //                     </tr>
-        //                 </thead>
-        //                 <tbody>
-        //                     {ordenes?.map((order, index) => (
-        //                         <React.Fragment>
-
-        //                             <tr key={order.index}>
-        //                                 <td>{order.comprador?.nombreComprador} {order.comprador?.apellidoComprador}</td>
-        //                                 <td>{order.createdAt}</td>
-        //                                 <td>{order.order_number}</td>
-        //                                 <td>{order.comprador?.email}</td>
-        //                                 <td>{order.comprador?.tel_comprador}</td>
-        //                                 <td>
-        //                                     <button onClick={() => toggleOrderDetails(order.id)}>
-        //                                         Ver Orden
-        //                                     </button>
-        //                                 </td>
-        //                             </tr>
-        //                             {openOrderId === order.id && (
-        //                                 <tr>
-        //                                     <td colSpan="5">
-        //                                         <div className="orderDetails">
-        //                                             <br />
-        //                                             <h3>DATOS DE LA ORDEN <strong>
-        //                                                 {order.order_number}:</strong></h3>
-        //                                             <p>Orden Creada el: {order.createdAt}</p>
-        //                                             <p>Codigo alternativo (MercadoPago):<strong> {order.code_mercadopago} </strong></p>
-        //                                             <br />
-        //                                             <br />
-        //                                             <strong>DATOS COMPRADOR:</strong>
-        //                                             <br />
-        //                                             <p> Nombre y Apellido comprador: {order.comprador?.nombreComprador}{' '}
-        //                                                 {order.comprador?.apellidoComprador} </p>
-
-        //                                             <p> Telefono: {order.comprador?.tel_comprador} </p>
-
-        //                                             <p> E-mail: {order.comprador?.email}</p>
-        //                                             <br />
-        //                                             <hr />
-        //                                             <strong>DATOS DESTINATARIO:</strong>
-        //                                             <br />
-        //                                             <p> Nombre y Apellido destinatario: {order.envio?.nombreDestinatario}{' '}
-        //                                                 {order.envio?.apellidoDestinatario}</p>
-
-        //                                             <p> Telefono: {order.envio?.phoneDestinatario}</p>
-
-        //                                             <p> Fecha: {order.envio?.fecha} </p>
-
-        //                                             <p> Horario: {order.envio?.horario}</p>
-
-        //                                             <p> Dirección: {order.envio?.calle} {order.envio?.altura} {order.envio?.piso},{' '}
-        //                                                 {order.envio?.localidad?.name}</p>
-        //                                             <br />
-        //                                             <p> Dedicatoria:<strong>{order.envio?.dedicatoria} </strong> </p>
-        //                                             <br />
-        //                                             <hr />
-
-        //                                             <div className='div-prods-order'>
-
-        //                                                 <strong>Productos:</strong>
-        //                                                 <ul >
-        //                                                     {order.products.map((product, index) => (
-        //                                                         <li key={product.id}>
-        //                                                             {product.name} |
-        //                                                             (Tamaño: {product.size}) |
-        //                                                             (Precio: ${product.precio}) |
-        //                                                             (Cantidad: {product.quantity}) |
-        //                                                             <img
-        //                                                                 src={product.img}
-        //                                                                 alt="Imagen del producto"
-        //                                                                 width="50"
-        //                                                             />
-        //                                                         </li>
-        //                                                     ))}
-        //                                                 </ul>
-        //                                             </div>
-        //                                             <br />
-        //                                             <button className="btn-table-delete" onClick={() => deleteOrder(order.id, order.comprador?.nombreComprador)}>Eliminar Orden</button>
-        //                                         </div>
-        //                                     </td>
-
-        //                                 </tr>
-        //                             )}
-        //                         </React.Fragment>
-        //                     ))}
-        //                 </tbody>
-        //             </table>
-
-        //             <hr />
-        //         </div>
-        //     </div>
     );
 }
 

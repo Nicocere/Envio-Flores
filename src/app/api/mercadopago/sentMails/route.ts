@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     to: emailUser,
     subject: 'Has realizado una compra con Éxito!',
     html: `
-        <h1>¡ Hola <strong style=" color: #D4AF37; font-weight:600">
+        <h1>¡ Hola <strong style=" color: #670000; font-weight:600">
          ${datosComprador[0].nombreComprador} ${datosComprador[0].apellidoComprador} </strong>!</h1>
     
         <div style="margin: 5px;border: 1px solid #e6e6e6;box-shadow: 2px 2px 6px #9c9898;background: #fcf5f0fffba;color: black;">
@@ -137,7 +137,7 @@ export async function POST(request: Request) {
             <div style="background:none">
             <h1 style="background:#80808033;"> Gracias por confiar en nosotros! </h1>
               <div style="background:transparent; padding: 5px;  ">
-                <img src='https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-FloreriasArgentinas-dk.png?alt=media&token=9b0d09ac-8b4d-43f6-a18e-394a748354f7' width='180px' height='150px'  alt='Logo envio flores'>
+                <img src='https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23' width='180px' height='150px'  alt='Logo envio flores'>
               </div>
           </div>
   </div> `,

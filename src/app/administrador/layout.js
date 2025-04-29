@@ -9,7 +9,7 @@ import { useAsync } from 'react-use';
 import { doc, getDoc } from 'firebase/firestore';
 import { baseDeDatos } from '@/admin/FireBaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/admin/FireBaseConfig'; // Asegúrate de importar auth correctamente
+import { auth } from '@/admin/FireBaseConfig'; 
 import useLogout from '../login/logout/page';
 import { useTheme} from '@/context/ThemeSwitchContext';
 
@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const fetchData = async () => {
-                    if (auth.currentUser) {
-                        const uid = auth.currentUser.uid;
+                    if (auth?.currentUser) {
+                        const uid = auth?.currentUser?.uid;
                         const userDocRef = doc(baseDeDatos, "users", uid);
                         const userDoc = await getDoc(userDocRef);
                         if (userDoc.exists()) {
@@ -50,13 +50,13 @@ export default function RootLayout({ children }) {
     const { value: authUser, loading: authLoading } = useAsync(async () => {
         return new Promise((resolve) => {
             const interval = setInterval(() => {
-                if (auth.currentUser !== undefined) {
+                if (auth?.currentUser !== undefined) {
                     clearInterval(interval);
-                    resolve(auth.currentUser);
+                    resolve(auth?.currentUser);
                 }
             }, 100);
         });
-    }, [auth.currentUser]);
+    }, [auth?.currentUser]);
 
     useEffect(() => {
         if (!authLoading && !authUser) {
@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
     if (loading || authLoading) {
         return (
             <div className={style.loaderContainer}>
-                <ClipLoader size={50} color={"#d4af37"} loading={loading || authLoading} />
+                <ClipLoader size={50} color={isDarkMode ? "var(--primary-light)" : "var(--primary-color)"} loading={loading || authLoading} />
                 <p>Cargando sus datos, aguarde...</p>
             </div>
         );

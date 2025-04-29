@@ -1,0 +1,492 @@
+.dark {
+  --background: #1a0f0a;
+  --secondary-background: #2d1810;
+  --color: #fcf5f0;
+  --color2: #670000;
+  --input-bg: #704630;
+  --shadow: rgba(0,0,0,0.3);
+  --hover: #3a2116;
+}
+
+.light {
+  --background: #fcf5f0;
+  --secondary-background: #fff5ec;
+  --color: #670000;
+  --color2: #670000;
+  --input-bg: #ffffff;
+  --shadow: rgba(0,0,0,0.1);
+  --hover: #f5e6d3;
+}
+
+.divPrice {
+  display: flex;
+  font-weight: 700;
+  flex-direction: row;
+  color: var(--color2);
+}
+
+
+/* Botones de navegación */
+.perfilUsuarioBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.perfilUsuarioBtns button {
+  background-color: var(--color2);
+  color: var(--color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.perfilUsuarioBtns button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.perfilUsuarioBtns button:hover::before {
+  width: 100%;
+}
+
+.perfilUsuarioBtns button:hover {
+  color: var(--color2);
+  transform: scale(1.05);
+}
+
+
+/* Contenedor principal */
+.divAddEditProds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  min-height: 100vh;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.divAddEditProds h1 {
+  /* background: var(--color2); */
+  border-radius: 3px;
+  padding: 8px;
+  text-transform: uppercase;
+  color: var(--color);
+}
+
+
+
+/* Contenedor del formulario */
+.divAddProds {
+  width: 100%;
+  max-width: 1200px;
+  background: var(--secondary-background);
+  padding: 50px;
+  border-radius: 20px;
+  color: var(--color);
+  box-shadow: 0 10px 30px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.divAddProds::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--color2) 0%, transparent 100%);
+}
+
+.divAddProds:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px var(--shadow);
+}
+
+.titleEditProds {
+  background: var(--color2);
+  border-radius: 3px;
+  padding: 8px;
+  color: var(--color);
+}
+
+.formAddProd {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+  text-align: justify;
+  background: linear-gradient(290deg,#fafafa,#f5f5f5);
+  color: var(--color2);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.divOpt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  background: var(--color2);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.divOpt div {
+  flex: 1 1;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #717171;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--color);
+  transition: all .25s ease-in;
+}
+
+.divOpt div:hover {
+  background: var(--color2);
+}
+
+.formAddProd label {
+  font-size: larger;
+  font-weight: 600;
+  margin: 8px 0;
+  color: #670000;
+}
+
+.formAddProd input, .formAddProd textarea {
+  border-radius: 8px;
+  padding: 8px;
+  width: 60%;
+  margin: 0 0 15px;
+  background: linear-gradient(145deg ,#fafafa,#f5f5f5);
+  color: #670000;
+}
+
+.divColorEdit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  background: #fcf5f0;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.btnSubmit {
+  padding: 10px 20px;
+  border: 1px solid var(--color2);
+  border-radius: 5px;
+  background-color: var(--color2);
+  color: var(--color);
+  text-decoration: none;
+  border-radius: 5px;
+  width: 50%;
+  text-align: center;
+  align-self: center;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, color 0.5s ease, padding 0.5s ease;
+}
+
+.btnSubmit:hover {
+  background-color: var(--color);
+  color: var(--color2);
+  padding: 12px 23px;
+}
+
+.containerActualizacion {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  top: 0;
+  left: 0;
+}
+
+.actualizandoProd {
+  background-color: var(--color2);
+  color: var(--color2);
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  padding: 100px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 2px 6px 11px 0px var(--color) f0;
+}
+
+.divOptEdit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 20px;
+  border: 1px solid var(--color);
+  background: var(--color2);
+}
+
+.divNewImgOpt {
+  margin: 10px 0;
+}
+
+.divOpt {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addProdBtn {
+  margin: 20px;
+  transition: all .5s;
+  background-color: var(--color);
+  color: var(--color);
+}
+
+.addProdBtn:hover {
+  background: var(--color2);
+  color: var(--color);
+}
+
+.divTable {
+  padding: 15px;
+  background-color: var(--background);
+}
+
+.theadTable {
+  background: var(--color2);
+  color: var(--color);
+}
+
+.tdTbody {
+  border: .8px solid var(--color);
+  color: var(--color);
+}
+
+.trTbody:hover {
+  transition: background .20s ease-in;
+  background: var(--color2);
+}
+
+.tdTbodyPrice {
+  font-weight: 700;
+  border: .8px solid var(--color);
+  padding: 3px 10px;
+}
+
+.tdTbodyDescr {
+  font-size: small;
+  border: .8px solid var(--color);
+  width: 25%;
+}
+
+.tdTbodyCats {
+  font-size: medium;
+  border: .8px solid var(--color);
+  width: 15%;
+}
+
+.tdTbodyBtns {
+  width: 30%;
+  border: .8px solid var(--color);
+}
+
+.btnsTable {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.productsTable {
+  width: 100%;
+  background: var(--color);
+  color: var(--color);
+}
+
+.waitingAllChanges {
+  color: var(--color);
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.btnsTable{
+    display: flex;
+    justify-content: space-around;
+
+}
+.btnTableEdit, .btnTableDelete {
+  padding: 8px 15px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btnTableEdit {
+  background: #670000;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover{
+    background: #836c22;
+}
+.btnTableDelete:hover{
+    background: #6f0c0c;
+}
+
+.btnTableDelete {
+  background: #450707;
+  color: white;
+  border: none;
+}
+
+.btnTableEdit:hover, .btnTableDelete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px var(--shadow);
+}
+
+
+.divProductsTable {
+  width: 100%;
+  border: 1px solid var(--color2);
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.divNewOpt {
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+  background: linear-gradient(to bottom, var(--color), var(--secondary-background));
+  color: var(--color);
+  border-radius: 5px;
+  margin: 20px 5px;
+  box-shadow: 0 0 11px 0px #797979;
+}
+
+.divNewOpt div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.divNewOpt p {
+  margin: 0 15px 9px 0px;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color);
+}
+
+.divNewOpt input {
+  margin: 9px 10px 20px 0px;
+  padding: 8px;
+  border-radius: 6px;
+  width: 40%;
+  background-color: var(--color);
+  color: var(--color);
+}
+
+.titleProducts {
+  background: linear-gradient(to top, var(--color2), var(--color2));
+  padding: 10px;
+  color: var(--color);
+}
+
+.divMassiveEdit {
+  padding: 15px;
+  background: linear-gradient(to bottom, var(--color), rgba(255, 236, 236, 0.94));
+}
+
+.divMassiveEdit form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 10px;
+}
+
+.divMapeditMassive {
+  border: 1px solid var(--color);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.divMapeditMassive label {
+  margin: 0 5px 0 0;
+  color: var(--color);
+}
+
+.divEditMassive {
+  width: 48%;
+  border: 1px solid var(--color);
+  margin: 5px;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, var(--color), #b9b9b952);
+  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+}
+
+.divEditMassive h2 {
+  color: var(--color);
+}
+
+.btnConfirmMassiveEdition {
+  padding: 10px 20px;
+  background: #de2865;
+  color: var(--color);
+  border: 1px solid rgb(128, 0, 60);
+  font-size: large;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: all .26s ease-in;
+}
+
+.btnConfirmMassiveEdition:hover {
+  background: #b6003d;
+  padding: 12px 25px;
+}
+.btnBack{
+  border: 1px solid #670000;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 0px 30px;
+  background: transparent;
+}
+.divPorcentaje {
+  padding: 20px;
+}
+
+.divPorcentaje label {
+  margin: 0 10px;
+  color: var(--color);
+}

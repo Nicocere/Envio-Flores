@@ -1,10 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { deleteDoc, doc as docRef } from 'firebase/firestore';
-import { baseDeDatos } from '@/admin/FireBaseConfig';
 import nodemailer from 'nodemailer';
 import { format, parseISO, differenceInDays } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { baseDeDatosServer } from "@/utils/firebaseServer";
 
 // Configurar nodemailer
 const transporter = nodemailer.createTransport({
@@ -19,30 +19,30 @@ const transporter = nodemailer.createTransport({
 function generateEmailHTML(recordatorio: any) {
     const productosHTML = !recordatorio?.productos?.length 
         ? `<div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
-            <p style="color: #2f1a0f; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
+            <p style="color: #670000; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
             <p style="color: #666;">Puedes visitar nuestra tienda y elegir el regalo perfecto.</p>
-            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
+            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #670000; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
            </div>`
         : recordatorio?.productos.map((producto: any) => `
             <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 <img src="${producto.opciones[0].img}" alt="${producto.nombre}" style="width: 200px; height: auto; border-radius: 8px;">
-                <h3 style="color: #d4af37; margin: 10px 0;">${producto.nombre}</h3>
+                <h3 style="color: #670000; margin: 10px 0;">${producto.nombre}</h3>
                 <p style="color: #666;">${producto.descr}</p>
-                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
+                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #670000; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
             </div>
         `).join('');
 
     return `
-    <div style="font-family: Arial, sans-serif; color: #2f1a0f; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #fcf5f0;">
-        <h1 style="color: #d4af37; text-align: center; margin-bottom: 30px;">¡Hola ${recordatorio?.nombreUser}!</h1>
+    <div style="font-family: Arial, sans-serif; color: #670000; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #fcf5f0;">
+        <h1 style="color: #670000; text-align: center; margin-bottom: 30px;">¡Hola ${recordatorio?.nombreUser}!</h1>
 
-    <h2 style="color: #d4af37; max-width: 35ch; text-align: center; margin-bottom:30px; padding:10px;border:1px solid #d4af37;border-radius:20px;justify-self: center;">¡En dos días es el momento de sorprender con tu regalo especial!</h2>
+    <h2 style="color: #670000; max-width: 35ch; text-align: center; margin-bottom:30px; padding:10px;border:1px solid #670000;border-radius:20px;justify-self: center;">¡En dos días es el momento de sorprender con tu regalo especial!</h2>
 
-        <p style="color: #2f1a0f;">Este es un recordatorio de que en dos días es el evento <strong>${recordatorio?.nombre}</strong> que programaste con nosotros.</p>
+        <p style="color: #670000;">Este es un recordatorio de que en dos días es el evento <strong>${recordatorio?.nombre}</strong> que programaste con nosotros.</p>
         
-        <p style="color: #2f1a0f;">A continuación, te recordamos los detalles de tu evento:</p>
-            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: #2f1a0f;">
-                <h3 style="color: #2f1a0f;">Detalles del Recordatorio:</h3>
+        <p style="color: #670000;">A continuación, te recordamos los detalles de tu evento:</p>
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: #670000;">
+                <h3 style="color: #670000;">Detalles del Recordatorio:</h3>
                 <p><strong>Evento:</strong> ${recordatorio?.nombre}</p>
                 <p><strong>Fecha:</strong> ${format(recordatorio?.fecha.toDate(), "dd 'de' MMMM 'de' yyyy", { locale: es })}</p>
                 <p><strong>Tipo:</strong> ${recordatorio?.tipo}</p>
@@ -50,26 +50,26 @@ function generateEmailHTML(recordatorio: any) {
             </div>
 
             <div style="margin-top: 30px;">
-                <h2 style="color: #2f1a0f;">Productos Seleccionados:</h2>
+                <h2 style="color: #670000;">Productos Seleccionados:</h2>
                 ${productosHTML}
             </div>
 
             ${recordatorio?.direccion ? `
                 <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                    <h3 style="color: #2f1a0f;">Dirección de Entrega:</h3>
+                    <h3 style="color: #670000;">Dirección de Entrega:</h3>
                     <p>${recordatorio?.direccion.nombre}</p>
                     <p>${recordatorio?.direccion.direccion}</p>
                     ${recordatorio?.direccion.telefono ? `<p>Teléfono: ${recordatorio?.direccion.telefono}</p>` : ''}
                 </div>
             ` : ''}
 
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #2f1a0f; color: white; border-radius: 10px;">
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #670000; color: white; border-radius: 10px;">
             <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
-            <p style="color: #d4af37;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
+            <p style="color: #670000;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #D4af37;"><em>Equipo Envio Flores</em></p>
+                                <p style="margin: 0; color: #670000;"><em>Equipo Envio Flores</em></p>
                             </div>
         </div>
     `;
@@ -79,30 +79,30 @@ function generateEmailHTML(recordatorio: any) {
 function generateLastEmailHTML(recordatorio: any) {
     const productosHTML = !recordatorio?.productos?.length 
         ? `<div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
-            <p style="color: #2f1a0f; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
+            <p style="color: #670000; font-size: 16px;">¡Ops... no tenemos ningún producto guardado por ti, pero no te preocupes!</p>
             <p style="color: #666;">Puedes visitar nuestra tienda y elegir el regalo perfecto.</p>
-            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
+            <a href="https://www.envioflores.com" style="display: inline-block; padding: 10px 20px; background-color: #670000; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">Visitar tienda</a>
            </div>`
         : recordatorio?.productos.map((producto: any) => `
             <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 <img src="${producto.opciones[0].img}" alt="${producto.nombre}" style="width: 200px; height: auto; border-radius: 8px;">
-                <h3 style="color: #d4af37; margin: 10px 0;">${producto.nombre}</h3>
+                <h3 style="color: #670000; margin: 10px 0;">${producto.nombre}</h3>
                 <p style="color: #666;">${producto.descr}</p>
-                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #d4af37; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
+                <a href="https://www.envioflores.com/detail/${producto.id}" style="display: inline-block; padding: 10px 20px; background-color: #670000; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">¡Comprar!</a>
             </div>
         `).join('');
 
     return `
-    <div style="font-family: Arial, sans-serif; color: #2f1a0f; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #fcf5f0;">
-        <h1 style="color: #d4af37; text-align: center; margin-bottom: 30px;">¡Hola ${recordatorio?.nombreUser}!</h1>
+    <div style="font-family: Arial, sans-serif; color: #670000; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #fcf5f0;">
+        <h1 style="color: #670000; text-align: center; margin-bottom: 30px;">¡Hola ${recordatorio?.nombreUser}!</h1>
 
-    <h2 style="color: #d4af37; max-width: 35ch; text-align: center; margin-bottom:30px; padding:10px;border:1px solid #d4af37;border-radius:20px;justify-self: center;">¡Mañana es el momento de sorprender con tu regalo especial!</h2>
+    <h2 style="color: #670000; max-width: 35ch; text-align: center; margin-bottom:30px; padding:10px;border:1px solid #670000;border-radius:20px;justify-self: center;">¡Mañana es el momento de sorprender con tu regalo especial!</h2>
 
-        <p style="color: #2f1a0f;">Este es un recordatorio de que en 1 día es el evento <strong>${recordatorio?.nombre}</strong> que programaste con nosotros.</p>
+        <p style="color: #670000;">Este es un recordatorio de que en 1 día es el evento <strong>${recordatorio?.nombre}</strong> que programaste con nosotros.</p>
         
-        <p style="color: #2f1a0f;">A continuación, te recordamos los detalles de tu evento:</p>
-            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: #2f1a0f;">
-                <h3 style="color: #2f1a0f;">Detalles del Recordatorio:</h3>
+        <p style="color: #670000;">A continuación, te recordamos los detalles de tu evento:</p>
+            <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; color: #670000;">
+                <h3 style="color: #670000;">Detalles del Recordatorio:</h3>
                 <p><strong>Evento:</strong> ${recordatorio?.nombre}</p>
                 <p><strong>Fecha:</strong> ${format(recordatorio?.fecha.toDate(), "dd 'de' MMMM 'de' yyyy", { locale: es })}</p>
                 <p><strong>Tipo:</strong> ${recordatorio?.tipo}</p>
@@ -110,26 +110,26 @@ function generateLastEmailHTML(recordatorio: any) {
             </div>
 
             <div style="margin-top: 30px;">
-                <h2 style="color: #2f1a0f;">Productos Seleccionados:</h2>
+                <h2 style="color: #670000;">Productos Seleccionados:</h2>
                 ${productosHTML}
             </div>
 
             ${recordatorio?.direccion ? `
                 <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; margin-top: 20px;">
-                    <h3 style="color: #2f1a0f;">Dirección de Entrega:</h3>
+                    <h3 style="color: #670000;">Dirección de Entrega:</h3>
                     <p>${recordatorio?.direccion.nombre}</p>
                     <p>${recordatorio?.direccion.direccion}</p>
                     ${recordatorio?.direccion.telefono ? `<p>Teléfono: ${recordatorio?.direccion.telefono}</p>` : ''}
                 </div>
             ` : ''}
 
-            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #2f1a0f; color: white; border-radius: 10px;">
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #670000; color: white; border-radius: 10px;">
             <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
-            <p style="color: #d4af37;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
+            <p style="color: #670000;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #D4af37;"><em>Equipo Envio Flores</em></p>
+                                <p style="margin: 0; color: #670000;"><em>Equipo Envio Flores</em></p>
                             </div>
         </div>
     `;
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        const recordatoriosRef = collection(baseDeDatos, 'recordatorios');
+        const recordatoriosRef = collection(baseDeDatosServer, 'recordatorios');
         const recordatoriosSnap = await getDocs(query(recordatoriosRef, where('status', '==', 'activo')));
         
         const notificacionesEnviadas = [];
@@ -163,7 +163,7 @@ export async function GET(request: NextRequest) {
 
             if (diferenciaDias <= 0) {
                 try {
-                    await deleteDoc(docRef(baseDeDatos, 'recordatorios', doc.id));
+                    await deleteDoc(docRef(baseDeDatosServer, 'recordatorios', doc.id));
                     recordatoriosEliminados.push({
                         id: doc.id,
                         nombre: recordatorio?.nombre,

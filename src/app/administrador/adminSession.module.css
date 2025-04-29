@@ -2,37 +2,56 @@
 
 /* Variables del tema */
 .dark {
-  --background: #1a0f0a;
-  --secondary-background: #2d1810;
-  --color: #fcf5f0;
-  --color2: #D4AF37;
-  --input-bg: #704630;
-  --shadow: rgba(0,0,0,0.3);
-  --hover: #3a2116;
+  --background: var(--background-dark);
+  --secondary-background: var(--background-card-dark, #2d1810);
+  --color: var(--text-light);
+  --color2: var(--primary-color);
+  --input-bg: var(--input-bg-dark, #704630);
+  --shadow: var(--overlay-dark);
+  --hover: var(--hover-dark, #3a2116);
+  --button-text: var(--text-light);
+  --card-bg: #3a2116;
 }
 
 .light {
-  --background: #fcf5f0;
-  --secondary-background: #fff5ec;
-  --color: #2f1a0f;
-  --color2: #D4AF37;
-  --input-bg: #ffffff;
-  --shadow: rgba(0,0,0,0.1);
-  --hover: #f5e6d3;
+  --background: var(--background-light);
+  --secondary-background: var(--secondary-background-light, #fff5ec);
+  --color: var(--text-dark);
+  --color2: var(--primary-color);
+  --input-bg: var(--input-bg-light, var(--text-light));
+  --shadow: var(--overlay-light);
+  --hover: var(--hover-light, #f5e6d3);
+  --button-text: var(--text-light);
+  --card-bg: #F1E4D3;
 }
 
-/* adminSession.module.css */
+.userAvatar h1{
+  color: var(--primary-color)
+}
 
+.dark .userAvatar h1{
+  color: var(--text-light)
+}
+
+/* Estilos base */
 .infoText {
   text-align: left;
   margin: 20px auto;
   padding: 20px;
-  background: var(--secondary-background);
-  border-radius: 8px;
+  border-radius: var(--border-radius, 8px);
   box-shadow: 0 4px 8px var(--shadow);
-  color: var(--color);
   font-size: 1rem;
   max-width: 800px;
+}
+
+.light .infoText {
+  background: var(--secondary-background);
+  color: var(--color);
+}
+
+.dark .infoText {
+  background: var(--secondary-background);
+  color: var(--color);
 }
 
 .infoText ul {
@@ -55,18 +74,35 @@
   top: 0;
 }
 
+
+.welcome{
+
+  color: var(--color2)!important;
+}
+.dark .welcome{
+  color: var(--text-light)!important;
+}
+
 .infoText strong {
   color: var(--color2);
   font-weight: bold;
 }
+
 .mainAdmin {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background: var(--background); */
-  color: var(--color);
   min-height: 100vh;
-  padding: 235px 0px 50px;
+  padding: 135px 0px 50px;
+  background: var(--background);
+}
+
+.light .mainAdmin {
+  color: var(--color);
+}
+
+.dark .mainAdmin {
+  color: var(--color);
 }
 
 .loaderContainer {
@@ -75,17 +111,41 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+.light .loaderContainer {
+  color: var(--color);
+}
+
+.dark .loaderContainer {
   color: var(--color);
 }
 
 .userInfoContainer {
-  background: var(--secondary-background);
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px var(--shadow);
+  border-radius: var(--border-radius, 10px);
   width: 100%;
   max-width: 800px;
   margin-bottom: 20px;
+}
+
+.light .userInfoContainer {
+  background: var(--secondary-background);
+  box-shadow: var(--shadow-normal, 0 5px 15px var(--shadow));
+}
+
+.dark .userInfoContainer {
+  background: var(--secondary-background);
+  box-shadow: var(--shadow-normal, 0 5px 15px var(--shadow));
+}
+
+.nameUser { 
+  font-weight: bold !important;
+  color: var(--primary-color) !important;
+}
+
+.dark .nameUser {
+  color: var(--primary-light) !important;
 }
 
 .userHeader {
@@ -100,24 +160,36 @@
   align-items: center;
 }
 
+.perfilUsuario strong{
+  font-weight: 700;
+  color: var(--primary-color);
+}
 .userIcon {
   font-size: 2rem;
   margin-right: 10px;
 }
 
 .signOutButton {
-  background: var(--color2);
-  color: var(--color);
+  background: var(--primary-color);
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius, 8px);
   cursor: pointer;
   transition: all 0.3s ease;
+  color: var(--button-text);
 }
 
 .signOutButton:hover {
-  background: var(--hover);
-  color: var(--color2);
+  background: var(--primary-color-hover);
+  color: var(--button-text);
+}
+
+.dark .signOutButton{
+  background: var(--primary-light);
+}
+
+.dark .value{
+  color: var(--primary-light);
 }
 
 .userDetails {
@@ -142,82 +214,134 @@
 }
 
 .value {
-  color: var(--color2);
+  color: var(--primary-color);
 }
 
-.containerPerfil{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 50px;
-    background: var(--background); /* Purpura del home BASE DE LA PAGINA a Gris antracita */
-    /* color: #fcf5f0; Marfil claro */
+.containerPerfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 50px;
+}
+
+.light .containerPerfil {
+  background: var(--background);
+}
+
+.dark .containerPerfil {
+  background: var(--background);
 }
 
 .perfilUsuario {
-    color: #fcf5f0; /* Marfil claro */
-    background: linear-gradient(to bottom, #2f1a0f, #2f1a0f); /* Purpura del home BASE DE LA PAGINA a Gris antracita */
-    border-radius: 20px;
-    padding-bottom: 100px;
-    text-align: center;
-    
+  border-radius: 20px;
+  padding-bottom: 100px;
+  text-align: center;
 }
 
-.perfilUsuario p {
-    color: #fcf5f0 ; /* Rosa vino suave */
-    font-weight: 700;
+.light .perfilUsuario {
+  color: var(--text-light);
+  background: linear-gradient(to bottom, var(--text-light), var(--text-light));
+}
+
+.dark .perfilUsuario {
+  color: var(--text-light);
+  background: linear-gradient(to bottom, var(--text-dark), var(--text-dark));
+}
+
+.light .perfilUsuario p {
+  color: var(--text-light);
+  font-weight: 700;
+}
+
+.dark .perfilUsuario p {
+  color: var(--text-light);
+  font-weight: 700;
 }
 
 .perfilUsuario h1 {
-    font-weight: 700;
-    margin-top: 15px;
-    color: #D4AF37 ; /* Violeta oscuro profundo */
+  font-weight: 700;
+  margin-top: 15px;
+  color: var(--primary-color);
 }
 
-.perfilUsuario strong {
-    font-weight: 700;
-    color: #fcf5f0 ; /* Rosa vino suave */
+.light .perfilUsuario strong {
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.dark .perfilUsuario strong {
+  font-weight: 700;
+  color: var(--text-light);
 }
 
 .divBtns {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 11px 200px 50px;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 11px 200px 50px;
+  border-radius: 10px;
 }
 
-.divBtns h4{
-    color: #2f1a0f;
+.light .divBtns h4 {
+  color: var(--text-dark);
+}
+
+.dark .divBtns h4 {
+  color: var(--text-light);
 }
 
 .divBtns div {
-    margin: 5px;
-    color: #D4AF37 ; /* Violeta oscuro profundo */
-    border: 2px solid #D4AF37; /* Dorado metálico */
-    padding: 2%;
-    border-radius: 5px;
-    flex: 1;
-    background:  #F1E4D3; /* Transparente a Crema suave */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 400px;
-    justify-content: space-between;
-    text-align: center;
-    transition: all 0.25s ease-out;
+  margin: 5px;
+  border: 2px solid var(--primary-color);
+  padding: 2%;
+  border-radius: 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+  justify-content: space-between;
+  text-align: center;
+  transition: all 0.25s ease-out;
 }
 
-.divBtns div:hover {
-    border: 2px solid #D4AF37; /* Azul oscuro profundo */
-    background: #fcf5f0; /* Marfil claro */
-    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+.light .divBtns div {
+  color: var(--primary-color);
+  background: var(--text-light);
+}
+
+.dark .divBtns div {
+  color: var(--background-card-dark);
+  background: var(--secondary-background);
+  border: 1px solid var(--text-dark);
+}
+
+.light .divBtns div:hover {
+  border: 2px solid var(--primary-color);
+  background: var(--background-light);
+  box-shadow: var(--shadow-normal);
+}
+
+.dark .divBtns div:hover {
+  border: 2px solid var(--primary-light);
+  background: var(--background-card-dark);
+  box-shadow: var(--shadow-normal);
+}
+
+.dark .email{
+  color: var(--text-light) !important;
+}
+.email {
+  color: var(--primary-color) !important;
 }
 
 @media screen and (max-width: 550px) {
-    .divBtns {
-        padding: 0;
-    }
+  .mainAdmin{
+    padding: 50px 0px 50px;
+  }
+  .divBtns {
+    padding: 0;
+  }
 }

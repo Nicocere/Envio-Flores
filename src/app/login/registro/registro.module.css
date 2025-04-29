@@ -12,29 +12,57 @@
 }
 
 .loginForm h3 {
-    color: #D4AF37;
+    color: #670000;
 }
 
 .title {
-    color: #2f1a0f;
+    color: #670000;
     margin-bottom: 20px;
 }
 
 .btnRegistro {
     margin: 25px 0;
-    background: #D4AF37;
+    background: #670000;
     font-size: 15px;
-    border: 1px solid #D4AF37;
+    border: 1px solid #670000;
     color: #fcf5f0;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
 .btnRegistro:hover {
     background: #fcf5f0;
-    color: #2f1a0f;
-    border: 1px solid #D4AF37;
+    color: #670000;
+    border: 1px solid #670000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.registroButton {
+    background: #670000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius, 8px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px 0;
+    color: #fcf5f0;
+    border: 1px solid #670000;
+
+}
+
+.registroButton:hover {
+    background: #450101;
+    color: #fff;
+    border: 1px solid #670000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registroButton:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+
 
 .inputGroup {
     display: flex;
@@ -46,7 +74,7 @@
 }
 
 .inputGroup label {
-    color: #D4AF37;
+    color: #670000;
 }
 
 @media (max-width: 600px) {
