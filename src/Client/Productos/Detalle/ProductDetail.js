@@ -9,6 +9,8 @@ export default function ProductDetailComponent(props) {
 
    const {prodId} = props
 
+   console.log("ProductDetailComponent",prodId)
+
   return (
         <ItemDetailContainer  prodId={prodId}/>
   )

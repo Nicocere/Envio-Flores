@@ -4,6 +4,7 @@ import { Check, LocalFlorist } from '@mui/icons-material';
 import {  useCookies } from '../../context/CookieContext';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import './checkout.css';
+import localforage from 'localforage';
 
 // Pasos simplificados y claros para el proceso de checkout
 const steps = [
@@ -38,6 +39,20 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
   const [customLabels, setCustomLabels] = useState([...steps]);
   const { acceptedCookies } = useCookies();
   const { isDarkMode } = useTheme();
+  const [cookiesAccepted, setCookiesAccepted] = useState(false);
+
+  // Verificar si las cookies han sido aceptadas
+  useEffect(() => {
+    const checkCookies = async () => {
+      const cookies = await localforage.getItem('acceptedCookies');
+      if (cookies) {
+        setCookiesAccepted(cookies);
+      } else {
+        setCookiesAccepted(false);
+      }
+    };
+    checkCookies();
+  }, []);
 
   // Actualizar etiquetas de pasos completados
   useEffect(() => {
@@ -109,7 +124,7 @@ const CheckoutStepper = ({ activeStep, cartEmpty }) => {
   }));
 
   // Manejo de estados de error
-  if (!acceptedCookies) {
+  if (!cookiesAccepted) {
     return (
       <div className="checkout-alert-container">
         <Alert 

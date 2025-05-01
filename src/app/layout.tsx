@@ -157,7 +157,7 @@ export const metadata: Metadata = {
       'Diseños florales exclusivos con garantía de frescura por 7 días. Ramos de rosas premium, liliums, orquídeas y más. Envío express en 3 horas a CABA y GBA, seguimiento en tiempo real y atención personalizada 24/7. Complementá con chocolates gourmet, peluches y desayunos personalizados.',
     images: [
       {
-        url: 'https://www.envioflores.com/imagenes/productos/destacados-envio-flores.jpg',
+        url: 'https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas.png',
         width: 1200,
         height: 630,
         alt: 'Envio Flores - Colección Premium de Arreglos Florales y Regalos',
@@ -170,7 +170,7 @@ export const metadata: Metadata = {
     creator: '@EnvioFlores',
     title: 'Arreglos Florales Premium y Regalos Personalizados a Domicilio en Buenos Aires',
     description: 'Ramos de flores frescas, desayunos sorpresa y regalos exclusivos. Envío express en CABA y GBA ✓ Entregas en el día ✓ Atención 24/7',
-    images: ['https://www.envioflores.com/imagenes/productos/destacados-envio-flores.jpg'],
+    images: ['https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas.png',],
   },
   verification: {
     google: '-DJ_c74GOWVHE0hZFrhDOgoyRixR-gy1Re1MGIBEllQ',

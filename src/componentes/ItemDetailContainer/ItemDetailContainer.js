@@ -1,9 +1,10 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { FadeLoader } from "react-spinners";
 import CheckoutStepper from "../ProgressBar/CheckoutStepper";
 import { useProductsContext } from "@/context/ProductsContext";
-;
+
 
 const ItemDetailContainer = ({ activeStep, stepLabels, prodId }) => {
 
@@ -11,11 +12,16 @@ const ItemDetailContainer = ({ activeStep, stepLabels, prodId }) => {
     const [isLoading, setIsLoading] = useState(true)
     const {products} = useProductsContext()
 
+
+
     useEffect(() => {
 
         async function fetchData() {
             try {
                 if (products) {
+
+                    console.log("products", products)
+                    console.log("prodId", prodId)
                     const product = products.find(p =>  p.id === prodId);
                     if (product) {
                         setItem(product);
