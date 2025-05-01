@@ -20,8 +20,6 @@ const ItemDetailContainer = ({ activeStep, stepLabels, prodId }) => {
             try {
                 if (products) {
 
-                    console.log("products", products)
-                    console.log("prodId", prodId)
                     const product = products.find(p =>  p.id === prodId);
                     if (product) {
                         setItem(product);

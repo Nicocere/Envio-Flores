@@ -8,9 +8,7 @@ export default function ProductDetailComponent(props) {
   const isSmallScreen = useMediaQuery('(max-width:650px)');
 
    const {prodId} = props
-
-   console.log("ProductDetailComponent",prodId)
-
+   
   return (
         <ItemDetailContainer  prodId={prodId}/>
   )

@@ -576,7 +576,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: 'Correos enviados correctamente', success: true });
 
     } catch (error) {
-        console.log('Error al procesar la solicitud o enviar correos:', error);
+        ('Error al procesar la solicitud o enviar correos:', error);
         return NextResponse.json({ error: 'Ocurrió un error al procesar la solicitud', details: error }, { status: 500 });
     }
 }

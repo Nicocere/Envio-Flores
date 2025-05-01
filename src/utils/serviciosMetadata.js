@@ -15,12 +15,10 @@ async function getAllProductsWithCache() {
   
   // Si el caché es válido, usarlo
   if (serverSideProductsCache && (now - cacheTimestamp < CACHE_TTL)) {
-    console.log('Usando caché del servidor para productos');
     return serverSideProductsCache;
   }
   
   // Si no hay caché o expiró, consultar Firestore
-  console.log('Consultando todos los productos en Firestore');
   try {
     const productsRef = collection(baseDeDatosServer, 'productos');
     const productsSnapshot = await getDocs(productsRef);
@@ -53,12 +51,8 @@ export const fetchProductById = async (productId) => {
     const cachedProduct = allProducts.find(p => p.id === productId);
     
     if (cachedProduct) {
-      console.log('Producto encontrado en caché del servidor:', productId);
       return cachedProduct;
     }
-    
-    // Si no está en caché, buscamos específicamente en Firestore
-    console.log('Buscando producto específico en Firestore:', productId);
     
     // Intentamos obtener el producto por ID exacto
     const productDoc = await getDoc(doc(baseDeDatosServer, 'productos', productId));
