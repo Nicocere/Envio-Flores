@@ -13,22 +13,14 @@ export default function FechasEspecialesComponent(props) {
 
     return (
         <div style={{
-            background: isDarkMode ? '#fcf5f0' : '#1a0f0a',
-            backdropFilter: !isDarkMode && 'blur(5px)',
-            paddingTop: '50px'
-        }}>      <CheckoutStepper activeStep={0} />
+            paddingTop: '50px',
+        }}>     
+         <CheckoutStepper activeStep={0} />
             <div className={style.products}>
                 <div className={style.productsContent}>
                     <Categories categoryName={category} />
                     <div className={style.productsListContainer}>
-                        <h2 style={{
-                            color: '#670000',
-                            textAlign: '-webkit-center',
-                        }}>
-                            Estas viendo la ocasión: <strong style={{ color: '#670000' }}>
-                                {category}
-                            </strong>
-                        </h2>
+                    
                         <ItemListContainer categoryName={category} />
                     </div>
                 </div>

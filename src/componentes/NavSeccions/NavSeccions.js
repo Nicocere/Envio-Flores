@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import'./navSeccions.css'
+import './navSeccions.css'
 import { CategoriesSubMenu } from '../SubCategories/SubCategory';
 
 import { OcasionesSubMenu } from '../SubMenuOcasiones/OcasionesSubMenu';
@@ -28,24 +28,24 @@ const NavSeccions = () => {
                 <Link className="navSeccions" href='/' onClick={() => setShowMobileMenu(!showMobileMenu)}> Inicio </Link>
 
                 <div className={`navSeccion ${className}`} //onClick={toggleSubMenu}
-                                            onMouseEnter={() => setShowSubMenuProducts(true)} 
-                                            onMouseLeave={() => setShowSubMenuProducts(false)}>
-                    <Link  href='/productos'>Productos
-                    <KeyboardArrowDownIcon sx={{ transition:'transform .54s ease-in-out', transform: showSubMenuProducts && 'rotateX(180deg)'}}/>
+                    onMouseEnter={() => setShowSubMenuProducts(true)}
+                    onMouseLeave={() => setShowSubMenuProducts(false)}>
+                    <Link href='/productos'>Productos
+                        <KeyboardArrowDownIcon sx={{ transition: 'transform .54s ease-in-out', transform: showSubMenuProducts && 'rotateX(180deg)' }} />
                     </Link>
                     {showSubMenuProducts && <CategoriesSubMenu />}
-                </div> 
+                </div>
 
                 <div className={`ocasionesSeccion ${className}`} //onClick={toggleSubMenu}
-                                            onMouseEnter={() => setShowSubMenuOcasiones(true)} 
-                                            onMouseLeave={() => setShowSubMenuOcasiones(false)}>
-                    <Link  href='/ocasiones'>Ocasiones
-                    <KeyboardArrowDownIcon   sx={{ transition:'transform .54s ease-in-out', transform: showSubMenuOcasiones && 'rotateX(180deg)'}}/>
+                    onMouseEnter={() => setShowSubMenuOcasiones(true)}
+                    onMouseLeave={() => setShowSubMenuOcasiones(false)}>
+                    <Link href='/ocasiones'>Ocasiones
+                        <KeyboardArrowDownIcon sx={{ transition: 'transform .54s ease-in-out', transform: showSubMenuOcasiones && 'rotateX(180deg)' }} />
                     </Link>
                     {showSubMenuOcasiones && <OcasionesSubMenu />}
-                </div> 
-               
-                <Link className={`navSeccions ${className}`} href="/ayuda" onClick={() => setShowMobileMenu(!showMobileMenu)}>¿Cómo Comprar?</Link> 
+                </div>
+
+                <Link className={`navSeccions ${className}`} href="/ayuda" onClick={() => setShowMobileMenu(!showMobileMenu)}>¿Cómo Comprar?</Link>
 
                 <Link className={`navSeccions ${className}`} href="/ubicacion" onClick={() => setShowMobileMenu(!showMobileMenu)}>Contacto</Link>
 

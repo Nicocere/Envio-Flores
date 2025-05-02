@@ -3,12 +3,12 @@
     padding: 5px 0;
 }
 
-.divSeccionMobile a {
+.divSeccionMobile a, .divSeccionMobile button {
     text-decoration: none;
     margin: 20px 0;
     color: darkred;
     width: 100%;
-     ;
+     text-align: left;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.75;
@@ -17,15 +17,15 @@
     text-decoration: none;
 }
 
-.divSeccionMobile a:hover {
+.divSeccionMobile a:hover, .divSeccionMobile button:hover {
     color: #420000;
 }
 
-.divSeccionMobile a.dark-mode:hover {
+.divSeccionMobile a.dark-mode:hover, .divSeccionMobile button:hover {
     color: silver;
 }
 
-.divSeccionMobile a.dark-mode {
+.divSeccionMobile a.dark-mode, .divSeccionMobile button:hover {
     color: #d4d4d4;
 }
 

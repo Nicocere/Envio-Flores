@@ -310,23 +310,21 @@ const NavBarMobile = () => {
                 </Link>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}>
-                  <Link 
+                  <button 
                     className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                    href="/productos" 
                     onClick={handleToggleProductsDrawer(true)}
                   >
                     Productos
-                  </Link>
+                  </button>
                 </div>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}>
-                  <Link 
+                  <button 
                     className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                    href="/ocasiones" 
                     onClick={handleToggleOcassionsDrawer(true)}
                   >
                     Ocasiones
-                  </Link>
+                  </button>
                 </div>
 
                 <Link 

@@ -17,11 +17,7 @@ export default function CategoryComponent(props) {
                 <div className={style.productsContent}>
                     <Categories categoryName={categoryName} />
                     <div className={style.productsListContainer}>
-                        <h2 className={style.productsTitle} style={{ color: isDarkMode ? '#fff' : '#000' }}>
-                            Estas viendo la Categoria: <strong style={{ color: isDarkMode ? '#ff6b6b' : '#a70000' }}>
-                                {categoryName}
-                            </strong>
-                        </h2>
+                    
                         <ItemListContainer categoryName={categoryName} />
                     </div>
                 </div>

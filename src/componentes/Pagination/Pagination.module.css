@@ -1,0 +1,224 @@
+/* Variables */
+.paginationContainer {
+    --pagination-primary: #990000;
+  --pagination-primary-dark: #800000;
+  --pagination-primary-light: #cc0000;
+  --pagination-text: #333;
+  --pagination-light-text: #fff;
+  --pagination-border: #ddd;
+  --pagination-bg: #f9f9f9;
+  --pagination-hover-bg: #f0f0f0;
+  --pagination-disabled: #ccc;
+  --pagination-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --pagination-transition: all 0.2s ease-in-out;
+}
+
+/* Contenedor principal */
+.paginationContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Información de paginación */
+.paginationInfo {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  background-color: var(--pagination-bg);
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: var(--pagination-shadow);
+}
+
+.infoText {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--pagination-text);
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.value {
+  font-weight: 500;
+  color: var(--pagination-primary);
+}
+
+/* Controles de paginación */
+.paginationControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 1rem 0;
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Botones de paginación */
+.pageButton {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pagination-border);
+  background-color: white;
+  color: var(--pagination-text);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--pagination-transition);
+}
+
+.pageButton:hover:not(.disabled):not(.currentPage) {
+  background-color: var(--pagination-hover-bg);
+  border-color: var(--pagination-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--pagination-shadow);
+}
+
+.pageButton:active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.navButton {
+  font-weight: bold;
+  background-color: var(--pagination-bg);
+}
+
+.currentPage {
+  background-color: var(--pagination-primary);
+  color: var(--pagination-light-text);
+  border-color: var(--pagination-primary);
+  font-weight: bold;
+  box-shadow: var(--pagination-shadow);
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.arrow {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.doubleArrow {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 2rem;
+  font-weight: bold;
+  color: var(--pagination-text);
+}
+
+/* Formulario para saltar a página */
+.jumpToForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  background-color: var(--pagination-bg);
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: var(--pagination-shadow);
+}
+
+.jumpToLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--pagination-text);
+}
+
+.jumpToInput {
+  width: 3.5rem;
+  height: 2.2rem;
+  padding: 0.5rem;
+  border: 1px solid var(--pagination-border);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.jumpToInput:focus {
+  outline: none;
+  border-color: var(--pagination-primary);
+}
+
+.jumpToButton {
+  background-color: var(--pagination-primary);
+  color: white;
+  border: none;
+  height: 2.2rem;
+  padding: 0 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--pagination-transition);
+}
+
+.jumpToButton:hover {
+  background-color: var(--pagination-primary-dark);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .paginationInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  
+  .pageButton {
+    min-width: 2.2rem;
+    height: 2.2rem;
+  }
+  
+  .jumpToForm {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .paginationControls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .pageNumbers {
+    order: 3;
+    margin-top: 0.5rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .jumpToInput {
+    width: 3rem;
+  }
+}

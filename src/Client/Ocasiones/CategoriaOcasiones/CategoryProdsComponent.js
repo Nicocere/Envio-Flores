@@ -18,15 +18,8 @@ export default function CategoryProdsComponents(props) {
                 <div className={style.productsContent}>
                     <Categories categoryName={category} />
                     <div className={style.productsListContainer}>
-                        <h2 style={{
-                            
-                            textAlign: '-webkit-center',
-                        }}>
-                            Estas viendo la ocasión: <strong style={{ color: isDarkMode ? '#ff6b6b' : '#a70000' }}>
-                                {category}
-                            </strong>
-                        </h2>
-                        <ItemListContainer categoryName={category} />
+                        
+                        <ItemListContainer ocasionName={category} />
                     </div>
                 </div>
             </div>

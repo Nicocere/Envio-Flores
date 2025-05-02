@@ -3,9 +3,13 @@
    CONTENEDOR PRINCIPAL
    ======================================== */
 .products-container {
-  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xl) !important;
+  padding: 0 var(--spacing-md) var(--spacing-xl) !important;
   min-height: 80vh;
   transition: background-color var(--transition-medium);
+}
+
+.dark .product-count {
+  color: var(--text-light) !important;
 }
 
 .products-container.light {

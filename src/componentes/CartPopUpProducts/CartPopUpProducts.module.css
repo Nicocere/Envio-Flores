@@ -1,1033 +1,917 @@
-/* Variables de tema claro y oscuro */
+/* Variables de tema */
+.popupOverlay {
+    --popup-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --popup-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --popup-radius: 16px;
+  --card-radius: 12px;
+  --badge-radius: 30px;
+  --button-radius: 8px;
+}
+
+/* Tema claro y oscuro */
 .light {
-    --bg-primary: var(--background-light);
-    --bg-card: #ffffff;
-    --bg-overlay: var(--overlay-light);
-    --bg-button: var(--primary-color);
-    --bg-button-hover: var(--primary-color-hover);
-    --text-primary: var(--text-dark);
-    --text-secondary: var(--text-muted);
-    --text-accent: var(--primary-color);
-    --accent-color: var(--primary-light);
-    --border-color: var(--border-color);
-    --shadow-color: rgba(47, 26, 15, 0.15);
-    --shadow-light: var(--shadow-sm);
-    --card-shadow: var(--card-shadow);
-    --gradient-overlay: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
-    --loader-color: var(--primary-color);
+  --popup-bg: var(--background-light, #ffffff);
+  --card-bg: #ffffff;
+  --button-bg: var(--primary-color, #990000);
+  --button-text: #ffffff;
+  --button-hover: var(--primary-color-hover, #7a0000);
+  --text-primary: var(--text-dark, #2c2c2c);
+  --text-secondary: var(--text-muted, #666666);
+  --text-tertiary: #888888;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --overlay-bg: rgba(0, 0, 0, 0.75);
+  --accent-color: var(--primary-color, #990000);
+  --accent-color-light: var(--primary-light, #cc0000);
+  --badge-bg: var(--primary-color, #990000);
+  --badge-text: #ffffff;
+  --overlay-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  --close-button-bg: rgba(0, 0, 0, 0.05);
+  --close-button-color: var(--text-dark, #2c2c2c);
+  --close-button-hover: var(--primary-color, #990000);
+  --options-btn-bg: rgba(153, 0, 0, 0.08);
+  --options-btn-text: var(--primary-color, #990000);
+  --modal-overlay: rgba(0, 0, 0, 0.75);
+  --skip-button-bg: transparent;
+  --skip-button-border: rgba(0, 0, 0, 0.1);
+  --skip-button-text: var(--text-secondary, #666666);
+  --skip-button-hover-bg: rgba(0, 0, 0, 0.05);
+  --benefit-border: rgba(153, 0, 0, 0.2);
+  --loader-bg: rgba(0, 0, 0, 0.08);
+  --loader-color: var(--primary-color, #990000);
 }
 
 .dark {
-    --bg-primary: var(--background-dark);
-    --bg-card: var(--background-card-dark);
-    --bg-overlay: var(--overlay-dark);
-    --bg-button: var(--primary-color);
-    --bg-button-hover: var(--primary-light);
-    --text-primary: var(--text-light);
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --text-accent: var(--primary-light);
-    --accent-color: var(--accent-color);
-    --border-color: var(--border-color-dark);
-    --shadow-color: rgba(0, 0, 0, 0.4);
-    --shadow-light: rgba(0, 0, 0, 0.2);
-    --card-shadow: var(--card-shadow-dark);
-    --gradient-overlay: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-    --loader-color: var(--primary-light);
+  --popup-bg: var(--background-dark, #1a1a1a);
+  --card-bg: var(--background-card-dark, #232323);
+  --button-bg: var(--primary-color, #990000);
+  --button-text: #ffffff;
+  --button-hover: var(--primary-light, #cc0000);
+  --text-primary: var(--text-light, #f0f0f0);
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  --accent-color: var(--primary-light, #cc0000);
+  --accent-color-light: var(--primary-light, #cc0000);
+  --badge-bg: var(--primary-light, #cc0000);
+  --badge-text: #ffffff;
+  --overlay-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2));
+  --close-button-bg: rgba(255, 255, 255, 0.1);
+  --close-button-color: var(--text-light, #f0f0f0);
+  --close-button-hover: var(--primary-light, #cc0000);
+  --options-btn-bg: rgba(204, 0, 0, 0.15);
+  --options-btn-text: var(--primary-light, #cc0000);
+  --modal-overlay: rgba(0, 0, 0, 0.9);
+  --skip-button-bg: transparent;
+  --skip-button-border: rgba(255, 255, 255, 0.2);
+  --skip-button-text: var(--text-secondary);
+  --skip-button-hover-bg: rgba(255, 255, 255, 0.05);
+  --benefit-border: rgba(204, 0, 0, 0.3);
+  --loader-bg: rgba(255, 255, 255, 0.08);
+  --loader-color: var(--primary-light, #cc0000);
 }
 
-/* Popup y overlay */
+/* Overlay principal */
 .popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--bg-overlay);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 1rem;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 
-.light.popupOverlay, .popupOverlay.light {
-    background-color: var(--overlay-light);
-}
-
-.dark.popupOverlay, .popupOverlay.dark {
-    background-color: var(--overlay-dark);
-}
-
+/* Contenedor principal del popup */
 .popupContainer {
-    width: 90%;
-    max-width: 1100px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: var(--bg-primary);
-    border-radius: var(--radius-lg, 16px);
-    box-shadow: var(--card-shadow);
-    padding: 2rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  position: relative;
+  width: 95%;
+  max-width: 1100px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--popup-bg);
+  border-radius: var(--popup-radius);
+  box-shadow: var(--popup-shadow);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+  overscroll-behavior: contain;
 }
 
-.light.popupContainer, .popupContainer.light {
-    background: var(--background-light);
-    box-shadow: var(--card-shadow);
-}
-
-.dark.popupContainer, .popupContainer.dark {
-    background: var(--background-dark);
-    box-shadow: var(--card-shadow-dark);
-}
-
-/* Personalización de scrollbar con webkit (para Chrome, Safari, Edge moderno) */
+/* Personalización del scrollbar */
 .popupContainer::-webkit-scrollbar {
-    width: 8px;
+  width: 6px;
 }
 
 .popupContainer::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .popupContainer::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
-    border-radius: 20px;
+  background-color: var(--accent-color);
+  border-radius: var(--popup-radius);
 }
 
+/* Encabezado del popup */
 .popupHeader {
-    display: flex;
-    justify-content: flex-end;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
 }
 
 .closePopupButton {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.1);
-    border: none;
-    color: var(--text-primary);
-    font-size: 1.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--close-button-bg);
+  border: none;
+  color: var(--close-button-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: var(--popup-transition);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.light.closePopupButton, .closePopupButton.light {
-    color: var(--text-dark);
+.closePopupButton:hover, 
+.closePopupButton:focus {
+  background-color: var(--close-button-hover);
+  color: white;
+  transform: rotate(90deg);
 }
 
-.dark.closePopupButton, .closePopupButton.dark {
-    color: var(--text-light);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.closePopupButton:hover {
-    background: var(--bg-button);
-    color: white;
-    opacity: 1;
-}
-
-.popupFooter {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
-    padding-bottom: 1rem;
-}
-
-.skipButton {
-    padding: 0.8rem 2rem;
-    background: transparent;
-    border: 1px solid var(--text-secondary);
-    color: var(--text-secondary);
-    border-radius: var(--radius-sm, 8px);
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: var(--transition-normal);
-    font-family: var(--font-primary);
-}
-
-.light.skipButton, .skipButton.light {
-    border-color: var(--text-muted);
-    color: var(--text-muted);
-}
-
-.dark.skipButton, .skipButton.dark {
-    border-color: rgba(255, 255, 255, 0.7);
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.skipButton:hover {
-    background: rgba(0, 0, 0, 0.05);
-    color: var(--text-primary);
-    border-color: var(--text-primary);
-}
-
-.light.skipButton:hover, .skipButton.light:hover {
-    color: var(--text-dark);
-    border-color: var(--text-dark);
-}
-
-.dark.skipButton:hover, .skipButton.dark:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-light);
-    border-color: var(--text-light);
-}
-
-/* Contenedor de títulos */
+/* Contenedor de título */
 .titleContainer {
-    text-align: center;
-    margin-top: 1rem;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0 1rem;
 }
 
 .title {
-    font-size: 2.2rem;
-    color: var(--text-accent);
-    margin-bottom: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
-    font-family: var(--font-primary);
-    position: relative;
-    display: inline-block;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.light.title, .title.light {
-    color: var(--primary-color);
-}
-
-.dark.title, .title.dark {
-    color: var(--primary-light);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
 }
 
 .title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: var(--accent-color);
-    border-radius: 3px;
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: 3px;
+}
+
+.emoji {
+  font-size: 1.7rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin: 0.7rem 0;
-    font-weight: 400;
-    line-height: 1.5;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.light.subtitle, .subtitle.light {
-    color: var(--text-muted);
-}
-
-.dark.subtitle, .subtitle.dark {
-    color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 1.2rem 0;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subtitle strong {
-    color: var(--text-accent);
-    font-weight: 600;
+  color: var(--accent-color);
+  font-weight: 600;
 }
 
-.light.subtitle strong, .subtitle.light strong {
-    color: var(--primary-color);
+/* Beneficios */
+.benefitsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0.5rem;
+  flex-wrap: wrap;
 }
 
-.dark.subtitle strong, .subtitle.dark strong {
-    color: var(--primary-light);
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--options-btn-bg);
+  border-radius: var(--badge-radius);
+  border: 1px solid var(--benefit-border);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent-color);
 }
 
-.instructionText {
-    font-size: 0.95rem;
-    margin-top: 1.5rem;
-    font-style: italic;
-    opacity: 0.8;
-    font-weight: 300;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 30px;
-    display: inline-block;
+.benefitIcon {
+  font-size: 1.1rem;
 }
 
-.light.instructionText, .instructionText.light {
-    background-color: rgba(0, 0, 0, 0.03);
-}
-
-.dark.instructionText, .instructionText.dark {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Iconos decorativos para el título */
-.titleDecoration {
-    margin: 0 0.5rem;
-    font-size: 90%;
-    vertical-align: middle;
-    color: var(--accent-color);
-}
-
-.light.titleDecoration, .titleDecoration.light {
-    color: var(--primary-light);
-}
-
-.dark.titleDecoration, .titleDecoration.dark {
-    color: var(--accent-color);
-}
-
-/* Loader */
-.loaderContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    width: 100%;
-}
-
-.loader {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top: 4px solid var(--loader-color);
-    width: 40px;
-    height: 40px;
-    will-change: transform;
-    animation: spin 1s linear infinite;
-}
-
-.light.loader, .loader.light {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--primary-color);
-}
-
-.dark.loader, .loader.dark {
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-top: 4px solid var(--primary-light);
-}
-
-/* Corrección de las animaciones para evitar problemas de rendimiento */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.noProductsMessage {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--text-secondary);
-    font-style: italic;
-}
-
-.light.noProductsMessage, .noProductsMessage.light {
-    color: var(--text-muted);
-}
-
-.dark.noProductsMessage, .noProductsMessage.dark {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* Swiper styles */
+/* Contenedor de Swiper */
 .swiperContainer {
-    width: 100%;
-    padding: 1rem 0;
-    position: relative;
-    min-height: 280px;
+  width: 100%;
+  padding: 0.5rem 0;
+  position: relative;
+  min-height: 320px;
 }
 
 .swiper {
-    width: 100%;
-    padding: 1rem 0 3rem;
-    height: 100%;
+  width: 100%;
+  padding: 1rem 0 3rem;
+  height: 100%;
 }
 
 /* Tarjetas de producto */
 .productCard {
-    background: var(--bg-card);
-    border-radius: var(--radius-md, 12px);
-    padding: 1.2rem;
-    cursor: pointer;
-    transition: var(--transition-normal);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 340px; /* Altura mínima para las tarjetas */
-    will-change: transform, box-shadow;
+  position: relative;
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: var(--shadow-card);
+  transition: var(--popup-transition);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.light.productCard, .productCard.light {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark.productCard, .productCard.dark {
-    background: var(--background-card-dark);
-    border: 1px solid var(--border-color-dark);
-    box-shadow: var(--shadow-dark-sm);
-}
-
-.productCard:hover {
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-hover);
-}
-
-.light.productCard:hover, .productCard.light:hover {
-    box-shadow: var(--shadow-hover);
-}
-
-.dark.productCard:hover, .productCard.dark:hover {
-    box-shadow: var(--shadow-dark-hover);
-}
-
-.productCard:hover .productImage {
-    transform: scale(1.08);
-}
-
-.productCard:hover .imageOverlay {
-    opacity: 0.3;
-}
-
-.productCard:hover .viewOptionsBtn {
-    opacity: 1;
-    transform: translateY(0);
+.productCard:hover, 
+.productCard:focus-within {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--accent-color);
 }
 
 .imageContainer {
-    width: 100%;
-    height: 180px;
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    margin-bottom: 1rem;
-    position: relative;
-    flex: 0 0 180px; /* Altura fija para todas las imágenes */
-}
-
-.imageOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--gradient-overlay);
-    opacity: 0.1;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
 }
 
 .productImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    will-change: transform;
-    transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.productInfo {
-    text-align: center;
-    padding: 0 0.5rem 0.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--overlay-image);
+  opacity: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1rem;
+  transition: var(--popup-transition);
 }
 
-.productInfo h3 {
-    font-size: 1.15rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    line-height: 1.3;
-    transition: color 0.3s ease;
-    height: 2.6em; /* Altura fija para el título */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.imageOverlayContent {
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: var(--badge-radius);
+  transform: translateY(10px);
+  transition: var(--popup-transition);
 }
 
-.light .productInfo h3, .productInfo.light h3 {
-    color: var(--text-dark);
+.productCard:hover .imageOverlay,
+.productCard:focus-within .imageOverlay {
+  opacity: 1;
 }
 
-.dark .productInfo h3, .productInfo.dark h3 {
-    color: var(--text-light);
+.productCard:hover .imageOverlayContent,
+.productCard:focus-within .imageOverlayContent {
+  transform: translateY(0);
 }
 
-.productInfo p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    display: -webkit-box;
-    margin-bottom: 1rem;
-    height: 2.6em; /* Altura fija para la descripción */
-}
-
-.light .productInfo p, .productInfo.light p {
-    color: var(--text-muted);
-}
-
-.dark .productInfo p, .productInfo.dark p {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.viewOptionsBtn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    color: var(--accent-color);
-    font-weight: 600;
-    opacity: 0.85;
-    transform: translateY(5px);
-    transition: all 0.3s ease;
-    margin-top: 0.75rem;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid;
-    border-radius: var(--radius-sm);
-    -webkit-backdrop-filter: blur(3px);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(3px);
-    gap: 0.5rem;
-}
-
-.light.viewOptionsBtn, .viewOptionsBtn.light {
-    color: var(--primary-color);
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.dark.viewOptionsBtn, .viewOptionsBtn.dark {
-    color: var(--primary-light);
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.viewOptionsBtn:hover {
-    opacity: 1;
-    background: var(--bg-primary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.light.viewOptionsBtn:hover, .viewOptionsBtn.light:hover {
-    background: var(--background-light);
-}
-
-.dark.viewOptionsBtn:hover, .viewOptionsBtn.dark:hover {
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+.productCard:hover .productImage,
+.productCard:focus-within .productImage {
+  transform: scale(1.08);
 }
 
 .productBadge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background-color: var(--accent-color);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.3rem 0.6rem;
-    border-radius: 20px;
-    z-index: 2;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--badge-radius);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  z-index: 5;
+  box-shadow: var(--shadow-button);
 }
 
-.light.productBadge, .productBadge.light {
-    background-color: var(--primary-color);
+.productInfo {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.dark.productBadge, .productBadge.dark {
-    background-color: var(--primary-light);
+.productInfo h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.8em;
+}
+
+.productInfo p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.viewOptionsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  background-color: var(--options-btn-bg);
+  color: var(--options-btn-text);
+  border-radius: var(--button-radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: var(--popup-transition);
+  margin-top: 0.5rem;
+}
+
+.productCard:hover .viewOptionsBtn,
+.productCard:focus-within .viewOptionsBtn {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Loader */
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--loader-bg);
+  border-radius: 50%;
+  border-top-color: var(--loader-color);
+  animation: spin 1s linear infinite;
+}
+
+.loaderText {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.noProductsMessage {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Footer del popup */
+.popupFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.skipButton {
+  padding: 0.8rem 2rem;
+  background-color: var(--skip-button-bg);
+  border: 1px solid var(--skip-button-border);
+  color: var(--skip-button-text);
+  border-radius: var(--button-radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--popup-transition);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.skipButton:hover, 
+.skipButton:focus {
+  background-color: var(--skip-button-hover-bg);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
 }
 
 /* Modal de opciones */
 .optionsModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--modal-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 
 .modalContent {
-    background: var(--bg-primary);
-    padding: 2.2rem;
-    z-index: 10000;
-    border-radius: var(--radius-lg, 16px);
-    width: 90%;
-    max-width: 900px;
-    max-height: 85vh;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-.light.modalContent, .modalContent.light {
-    background: var(--background-light);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-.dark.modalContent, .modalContent.dark {
-    background: var(--background-dark);
-    box-shadow: var(--shadow-dark-lg);
-    border: 1px solid var(--border-color-dark);
+  background-color: var(--popup-bg);
+  border-radius: var(--popup-radius);
+  box-shadow: var(--popup-shadow);
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+  overscroll-behavior: contain;
 }
 
 .modalContent::-webkit-scrollbar {
-    width: 8px;
+  width: 6px;
 }
 
 .modalContent::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .modalContent::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
-    border-radius: 20px;
-}
-
-.modalTitle {
-    font-size: 1.8rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-    padding-bottom: 0.8rem;
-}
-
-.light.modalTitle, .modalTitle.light {
-    color: var(--text-dark);
-}
-
-.dark.modalTitle, .modalTitle.dark {
-    color: var(--text-light);
-}
-
-.modalTitle::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
-    background-color: var(--accent-color);
-    border-radius: 1px;
-}
-
-.light.modalTitle::after, .modalTitle.light::after {
-    background-color: var(--primary-color);
-}
-
-.dark.modalTitle::after, .modalTitle.dark::after {
-    background-color: var(--primary-light);
-}
-
-.descrOptWrapper {
-    max-width: 700px;
-    margin: 0 auto 1.8rem;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.02);
-    padding: 1.2rem;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-}
-
-.light.descrOptWrapper, .descrOptWrapper.light {
-    background-color: rgba(0, 0, 0, 0.02);
-    border: 1px solid var(--border-color);
-}
-
-.dark.descrOptWrapper, .descrOptWrapper.dark {
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color-dark);
+  background-color: var(--accent-color);
+  border-radius: var(--popup-radius);
 }
 
 .closeButton {
-    position: absolute;
-    top: 1rem;
-    right: 1.2rem;
-    background: none;
-    border: none;
-    font-size: 2.5rem;
-    cursor: pointer;
-    color: var(--text-primary);
-    opacity: .6;
-    transition: var(--transition-normal);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--close-button-bg);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--close-button-color);
+  cursor: pointer;
+  transition: var(--popup-transition);
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.light.closeButton, .closeButton.light {
-    color: var(--text-dark);
+.closeButton:hover, 
+.closeButton:focus {
+  background-color: var(--close-button-hover);
+  color: white;
+  transform: rotate(90deg);
 }
 
-.dark.closeButton, .closeButton.dark {
-    color: var(--text-light);
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.closeButton:hover {
-    opacity: 1;
+.modalIcon {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  margin-right: 0.75rem;
 }
 
-.optionsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    justify-content: center;
+.modalTitle {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
 }
 
-.optionCard {
-    background: var(--bg-card);
-    border-radius: var(--radius-md, 12px);
-    padding: 1.2rem;
-    text-align: center;
-    transition: var(--transition-normal);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100%;
-    will-change: transform, box-shadow;
+.descrOptWrapper {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: var(--card-radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
 }
 
-.light.optionCard, .optionCard.light {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark.optionCard, .optionCard.dark {
-    background: var(--background-card-dark);
-    border: 1px solid var(--border-color-dark);
-    box-shadow: var(--shadow-dark-sm);
-}
-
-.optionCard:hover {
-    border-color: var(--accent-color);
-    box-shadow: var(--shadow-hover);
-}
-
-.light.optionCard:hover, .optionCard.light:hover {
-    box-shadow: var(--shadow-hover);
-}
-
-.dark.optionCard:hover, .optionCard.dark:hover {
-    box-shadow: var(--shadow-dark-hover);
-}
-
-.optionImageWrapper {
-    width: 100%;
-    height: 160px;
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    margin-bottom: 1rem;
-    position: relative;
-    flex: 0 0 160px;
-}
-
-.optionImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    will-change: transform;
-    transition: transform 0.5s ease;
-}
-
-.optionCard:hover .optionImage {
-    transform: scale(1.05);
-}
-
-.optionInfo {
-    padding: 0.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.optionName {
-    margin: 0.4rem 0;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    font-weight: 600;
-    line-height: 1.3;
-    height: 2.6em; /* Altura fija para el nombre */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.light .optionName, .optionName.light {
-    color: var(--text-dark);
-}
-
-.dark .optionName, .optionName.dark {
-    color: var(--text-light);
+.dark .descrOptWrapper {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .descrOpt {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    position: relative;
-    transition: all 0.5s ease;
-    text-align: center;
-    margin-bottom: 0;
-    line-height: 1.5;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
 }
 
-.light.descrOpt, .descrOpt.light {
-    color: var(--text-muted);
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
 }
 
-.dark.descrOpt, .descrOpt.dark {
-    color: rgba(255, 255, 255, 0.7);
+.optionCard {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: var(--popup-transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.optionCard:hover, 
+.optionCard:focus-within {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--accent-color);
+}
+
+.optionImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.optionImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.optionCard:hover .optionImage,
+.optionCard:focus-within .optionImage {
+  transform: scale(1.08);
+}
+
+.optionBadge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--badge-radius);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  z-index: 5;
+  box-shadow: var(--shadow-button);
+}
+
+.optionInfo {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.optionName {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.8em;
 }
 
 .price {
-    color: var(--accent-color);
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin: 1rem 0 0.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-}
-
-.light.price, .price.light {
-    color: var(--primary-color);
-}
-
-.dark.price, .price.dark {
-    color: var(--primary-light);
-}
-
-.priceBadge {
-    font-size: 0.7rem;
-    background-color: var(--bg-button);
-    color: white;
-    padding: 0.2rem 0.5rem;
-    border-radius: 20px;
-    margin-left: 0.5rem;
-    font-weight: 600;
-    display: inline-block;
-    vertical-align: middle;
-    text-transform: uppercase;
-}
-
-.light.priceBadge, .priceBadge.light {
-    background-color: var(--primary-color);
-}
-
-.dark.priceBadge, .priceBadge.dark {
-    background-color: var(--primary-light);
+  font-size: 1.4rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  margin: 0.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .addButton {
-    background: var(--bg-button);
-    color: white;
-    border: none;
-    padding: 0.85rem 1rem;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 0.95rem;
-    width: 100%;
-    margin-top: 0.95rem;
-    transition: var(--transition-normal);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 0;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: var(--button-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--popup-transition);
+  box-shadow: var(--shadow-button);
+  margin-top: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.popupBackground{
+    height: 100%;
+    max-width: -webkit-fill-available;
 }
 
-.light.addButton, .addButton.light {
-    background: var(--primary-color);
-    box-shadow: var(--shadow-sm);
-}
-
-.dark.addButton, .addButton.dark {
-    background: var(--primary-color);
-    box-shadow: var(--shadow-dark-sm);
-}
-
-.addButton:hover {
-    background: var(--bg-button-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.light.addButton:hover, .addButton.light:hover {
-    background: var(--primary-color-hover);
-    box-shadow: var(--shadow-md);
-}
-
-.dark.addButton:hover, .addButton.dark:hover {
-    background: var(--primary-light);
-    box-shadow: var(--shadow-dark-md);
-}
-
-.addButton svg, 
-.viewOptionsBtn svg {
-    font-size: 1.15em;
-}
-
-
-/* Animaciones adicionales para las tarjetas - corregidas para rendimiento */
-.cardPulse {
-    animation: cardPulse 2s infinite ease-in-out;
-}
-
-@keyframes cardPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.98); }
-    100% { transform: scale(1); }
+.addButton:hover, 
+.addButton:focus {
+  background-color: var(--button-hover);
 }
 
 /* Media queries */
 @media (max-width: 992px) {
-    .title {
-        font-size: 1.8rem;
-    }
-    
-    .subtitle {
-        font-size: 1rem;
-    }
-    
-    .popupContainer {
-        padding: 1.5rem;
-        width: -webkit-fill-available;
-        max-height: 100vh;
-
-    }
-    
-
-    .optionsGrid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+  .popupContainer {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .optionsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .modalContent {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .popupContainer {
-        padding: 1.5rem 0;
-        width: -webkit-fill-available;
-        max-height: 100vh;
-        overflow-y: auto;
-    }
-    
-    .title {
-        font-size: 1.5rem;
-    }
-    
-    .subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .modalContent {
-        padding: 1.5rem;
-        width: 95%;
-    }
-    
-    .optionsGrid {
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
-    
-    .optionCard {
-        min-width: auto;
-    }
+  .popupContainer, .modalContent {
+    padding: 1.5rem 1rem;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 12px;
+  }
+  
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .emoji {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .benefitsContainer {
+    gap: 1rem;
+  }
+  
+  .benefitItem {
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .optionCard {
+    max-width: 325px;
+    margin: 0 20px;
+
+  }
+  
+  .modalHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .modalIcon {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .modalTitle {
+    font-size: 1.5rem;
+  }
+  
+  .swiperContainer {
+    min-height: 360px;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+  }
+  
+  .swiper {
+    padding: 1rem 0 2.5rem;
+  }
+  
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .imageContainer, .optionImageWrapper {
+    height: 180px;
+  }
+  
+  .productCard {
+    max-width: 280px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 1.3rem;
-    }
-    
-    .subtitle {
-        font-size: 0.85rem;
-    }
-    
-    .titleContainer {
-        margin-bottom: 1rem;
-    }
-    
-    .closePopupButton {
-        width: 36px;
-        height: 36px;
-        font-size: 1.5rem;
-    }
-    
-    .modalTitle {
-        font-size: 1.5rem;
-    }
-    
-    .optionImageWrapper {
-        height: 140px;
-    }
-    
-    .popupContainer {
-        gap: 1rem;
-    }
-    
-    .optionsGrid {
-        grid-template-columns: 1fr;
-    }
+  .popupOverlay, .optionsModal {
+    padding: 0.5rem;
+  }
+  
+  .popupContainer, .modalContent {
+    padding: 1.25rem 0.75rem;
+    max-height: 95vh;
+    border-radius: 10px;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+  }
+  
+  .title::after {
+    width: 50px;
+    height: 2px;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    margin: 1rem 0;
+  }
+  
+  .benefitsContainer {
+    margin-top: 1rem;
+  }
+  
+  .benefitItem {
+    font-size: 0.8rem;
+  }
+  
+  .closePopupButton, .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+  }
+  
+  .modalTitle {
+    font-size: 1.3rem;
+  }
+  
+  .popupHeader, .closeButton {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  
+  .descrOptWrapper {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .descrOpt {
+    font-size: 0.85rem;
+  }
+  
+  .addButton {
+    padding: 0.7rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .price {
+    font-size: 1.3rem;
+  }
+  
+  .skipButton {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .optionName, .productInfo h3 {
+    font-size: 0.95rem;
+  }
+  
+  .productInfo p {
+    font-size: 0.8rem;
+  }
+  
+  .viewOptionsBtn {
+    font-size: 0.85rem;
+  }
+  
+  .imageOverlayContent {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  /* Mejora para el tactil en móviles */
+  .closePopupButton, .closeButton, .skipButton, .addButton, .productCard {
+    touch-action: manipulation;
+  }
+  
+  /* Ajuste para swiper en móviles */
+  .swiper {
+    padding-bottom: 2rem;
+  }
 }
 
-/* Animación para cambio de tema */
-.container, .popupContainer, .productCard, .optionCard, .addButton, 
-.modalContent, .closeButton, .productInfo h3, .productInfo p,
-.price, .descrOpt, .subtitle, .title, .skipButton {
-    transition: var(--transition-normal);
-}
-
-/* Accesibilidad para focus visible */
-.addButton:focus-visible,
-.skipButton:focus-visible,
+/* Mejora de accesibilidad */
 .closePopupButton:focus-visible,
-.closeButton:focus-visible {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+.closeButton:focus-visible,
+.skipButton:focus-visible,
+.addButton:focus-visible,
+.productCard:focus-visible,
+.optionCard:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Animación suave para cambios de tema */
+.popupContainer, .modalContent, .productCard, .optionCard, .productInfo h3,
+.productInfo p, .optionName, .price, .skipButton, .closePopupButton,
+.closeButton, .addButton, .descrOpt, .title, .subtitle, .viewOptionsBtn {
+  transition: var(--popup-transition);
 }

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useParams, Link } from 'react-router-dom';
 import ItemList from "../itemList/ItemList";
 import { FadeLoader } from "react-spinners";
 import './itemListContainer.css';
@@ -42,8 +41,9 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { collection, getDocs, query } from "firebase/firestore";
 import { baseDeDatos } from "../../admin/FireBaseConfig";
 import { useTheme } from "../../context/ThemeSwitchContext";
+import Link from "next/link";
 
-const ItemListContainer = () => {
+const ItemListContainer = ({categoryName , ocasionName }) => {
     const isSmallScreen = useMediaQuery('(max-width:650px)');
     const isMediumScreen = useMediaQuery('(max-width:960px)');
     const { isDarkMode } = useTheme();
@@ -56,7 +56,6 @@ const ItemListContainer = () => {
       loading: `loading-container ${isDarkMode ? 'dark' : 'light'}`
     };
 
-    const { categoryName, ocasionName } = useParams();
     const { prodEncontrado } = useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -226,6 +225,8 @@ const ItemListContainer = () => {
 
             // Filtrado por ocasión
             if (ocasionName) {
+
+                console.log(ocasionName)
                 const productosConOcasion = processedItems.filter(prod => 
                     prod.ocasiones && prod.ocasiones.length > 0
                 );

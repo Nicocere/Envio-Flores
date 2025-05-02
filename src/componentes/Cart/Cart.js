@@ -424,7 +424,11 @@ const CartComponents = () => {
                                 {
                                     retiraEnLocal ?
 
-                                        <Button variant="contained" sx={{ marginBottom: 0, marginTop: 1.25, marginRight: '10px' }} color='error' onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>
+                                        <Button variant="contained" sx={{
+                                            margin: '5px', marginTop: 1.25, maxWidth: '300px',
+                                            width: '300px',
+                                            alignSelf: 'center'
+                                        }} color='error' onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>
                                             Ver el carrito de compras
                                         </Button>
 
@@ -1602,11 +1606,15 @@ const CartComponents = () => {
 
                                 ) :
                                     <>
-                                        <Button variant="contained" sx={{ marginBottom: 0, marginTop: 1.25, marginRight: isSmallScreen ? '0px' : '10px' }} color='error' onClick={() => handleStepChange(2)}>
+                                        <Button variant="contained" sx={{     margin: '5px', marginTop: 1.25, maxWidth: '300px',
+                                            width: '300px',
+                                            alignSelf: 'center' }} color='error' onClick={() => handleStepChange(2)}>
                                             Ver el carrito de compras
                                         </Button>
 
-                                        <Button variant="outlined" color='error' sx={{ color: isDarkMode ? 'white' : 'var(--text-dark)', width: 'fit-content', alignSelf: 'center', marginBottom: 0, marginTop: 1.25, marginLeft: isSmallScreen ? '0px' : '10px' }} onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>Quiero retirar en el Local </Button>
+                                        <Button variant="outlined" color='error' sx={{     margin: '5px', marginTop: 1.25, maxWidth: '300px',
+                                            width: '300px',
+                                            alignSelf: 'center' }} onClick={() => { handleStepChange(2); handleChangeRetirarProducto(); }}>Quiero retirar en el Local </Button>
                                     </>
                                 }
 

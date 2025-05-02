@@ -9,9 +9,10 @@ import { useTheme } from '@/context/ThemeSwitchContext';
 
 export default function CategoryNameComponent(props) {
 
-    const { categoryName } = props.categoryName;
-    const { isDarkMode } = useTheme();
+    
 
+    const { categoryName } = props;
+    const { isDarkMode } = useTheme();
 
     return (
         <div style={{paddingTop: '50px'}}>
@@ -21,14 +22,7 @@ export default function CategoryNameComponent(props) {
                 <div className={style.productsContent}>
                     <Categories categoryName={categoryName} />
                     <div className={style.productsListContainer}>
-                        <h2 style={{
-                            
-                            textAlign: '-webkit-center',
-                        }}>
-                            Estas viendo la Categoria: <strong style={{ color: isDarkMode ? '#ff6b6b' : '#a70000' }}>
-                                {categoryName}
-                            </strong>
-                        </h2>
+            
                         <ItemListContainer categoryName={categoryName} />
                     </div>
                 </div>

@@ -337,6 +337,8 @@ export default async function Category({ params }: PageProps) {
   const categoryName = formatCategory(rawCategory);
   const categorySlug = rawCategory.toLowerCase();
   
+  console.log('Category:', categoryName, 'Slug:', categorySlug);
+
   // URL canónica para schema
   const siteUrl = `https://www.envioflores.com/categoria/${encodeURIComponent(rawCategory)}`;
   const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
@@ -614,6 +616,8 @@ export default async function Category({ params }: PageProps) {
     JSON.stringify(productSchema)
   ];
 
+
+
   return (
     <>
       {/* Añadimos los schemas JSON-LD como scripts */}
@@ -648,7 +652,7 @@ export default async function Category({ params }: PageProps) {
         <meta itemProp="specialty" content="Flores frescas garantizadas" />
         
         {/* Componente principal */}
-        <CategoryNameComponent categoryName={categoryData.h1Alternative || categoryName} />
+        <CategoryNameComponent categoryName={categoryName} />
       </div>
     </>
   );

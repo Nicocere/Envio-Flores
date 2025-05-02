@@ -12,9 +12,9 @@ import withReactContent from 'sweetalert2-react-content';
 import { Tooltip } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y } from 'swiper/modules';
-import { FaGift, FaHeart, FaShoppingCart, FaStar, FaMagic, FaSearch, FaRegSmile } from 'react-icons/fa';
+import { FaGift, FaShoppingCart, FaMagic, FaSearch } from 'react-icons/fa';
 import { IoFlower, IoClose } from 'react-icons/io5';
-import { BsArrowRight, BsBoxSeam } from 'react-icons/bs';
+import { BsArrowRight } from 'react-icons/bs';
 
 // Importar estilos de Swiper
 import 'swiper/css';
@@ -23,7 +23,7 @@ import 'swiper/css/pagination';
 
 const MySwal = withReactContent(Swal);
 
-// Constantes de animación
+// Constantes de animación optimizadas para rendimiento
 const fadeInAnimation = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
@@ -31,15 +31,15 @@ const fadeInAnimation = {
 };
 
 const popupAnimation = {
-  initial: {  scale: 0.9, y: 20 },
+  initial: { scale: 0.95, y: 10 },
   animate: { opacity: 1, scale: 1, y: 0 },
-  exit: {  scale: 0.9, y: 20 }
+  exit: { opacity: 0, scale: 0.95, y: 10 }
 };
 
 const slideUpAnimation = {
-  initial: {  y: 20 },
+  initial: { opacity: 0, y: 15 },
   animate: { opacity: 1, y: 0 },
-  exit: {  y: 20 }
+  exit: { opacity: 0, y: 15 }
 };
 
 const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
@@ -54,24 +54,39 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
     const isOpen = externalIsOpen || internalIsOpen;
     
     // Validación y destructuración segura del contexto
-    const { cart = [], setCart = () => { }, priceDolar = false, dolar = 1 } = cartContext || {};
+    const { cart = [], setCart = () => {}, priceDolar = false, dolar = 1 } = cartContext || {};
     const { CartID = null, UserID = null } = pageContext || {};
 
     const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showOptions, setShowOptions] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
 
     const titleRef = useRef(null);
     const subtitleRef = useRef(null);
     const isInView = useInView(titleRef, {
-        once: false,
-        amount: 0.5
+        once: true,
+        amount: 0.3
     });
     const isSubtitleInView = useInView(subtitleRef, {
-        once: false,
-        amount: 0.5
+        once: true,
+        amount: 0.3
     });
+
+    // Detectar si es móvil
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    }, []);
 
     // Verificación del contexto
     useEffect(() => {
@@ -110,7 +125,15 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
     useEffect(() => {
         if (isOpen) {
             fetchProducts();
+            // Bloquear scroll del body cuando el modal está abierto
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
         }
+        
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isOpen]);
 
     const fetchProducts = async () => {
@@ -179,7 +202,7 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
 
             MySwal.fire({
                 toast: true,
-                title: `<strong>¡Excelente elección! 🎉</strong>`,
+                title: `<strong>¡Perfecto! Añadido a tu carrito 🎉</strong>`,
                 text: `${product.nombre} (${selectedOption.nombre || product.nombre}) - ${displayPrice}`,
                 icon: 'success',
                 showConfirmButton: false,
@@ -230,13 +253,16 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                             damping: 25
                         }}
                     >
+
+                        <div className={style.popupBackground}>
                         <div className={style.popupHeader}>
                             <motion.button 
                                 className={style.closePopupButton}
                                 onClick={handleClose}
                                 aria-label="Cerrar popup"
-                                whileHover={{ scale: 1.1, backgroundColor: 'var(--bg-button)' }}
-                                transition={{ duration: 0.3 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                transition={{ duration: 0.2 }}
                             >
                                 <IoClose />
                             </motion.button>
@@ -245,71 +271,36 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                         <motion.div
                             ref={titleRef}
                             className={style.titleContainer}
-                            initial={{  y: -20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {  y: -20 }}
-                            transition={{ duration: 0.7 }}
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
                         >
-                            <motion.h1
-                                ref={subtitleRef}
-                                className={style.subtitle}
-                        
-                            >
-                                <span className={style.titleDecoration}><FaMagic /></span>
-                                Dale un toque especial a tu regalo
-                                <span className={style.titleDecoration}><FaGift /></span>
-                            </motion.h1>
+                            <h2 className={style.title}>
+                                <span className={style.emoji}>✨</span>
+                                Complementa tu regalo
+                            </h2>
 
-                            <motion.h2
-                                className={style.title}
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                            >
-                                {isInView && "Haz tu sorpresa inolvidable".split("").map((char, index) => (
-                                    <motion.span
-                                        key={index}
-                                        initial={{  y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{
-                                            duration: 0.5,
-                                            delay: index * 0.03,
-                                            type: "spring"
-                                        }}
-                                        style={{ display: "inline-block" }}
-                                    >
-                                        {char === " " ? "\u00A0" : char}
-                                    </motion.span>
-                                ))}
-                            </motion.h2>
-
-                            <motion.h3
-                                className={style.subtitle}
+                            <p className={style.subtitle} ref={subtitleRef}>
+                                Pequeños detalles que <strong>sorprenderán y emocionarán</strong> a esa persona especial
+                            </p>
                             
-                        
-                            >
-                                Pequeños detalles que <strong>crean momentos mágicos</strong> y hacen de tu regalo una experiencia única
-                            </motion.h3>
-                            
-                            <motion.h6
-                                className={`${style.subtitle} ${style.instructionText}`}
-                                initial={{  y: 20 }}
-                                animate={isSubtitleInView ?
-                                    { opacity: 1, y: 0 } :
-                                    {  y: 20 }
-                                }
-                                transition={{
-                                    duration: 0.7,
-                                    delay: 0.5
-                                }}
-                            >
-                                <FaSearch style={{ marginRight: '5px', verticalAlign: 'middle' }} /> 
-                                Selecciona un producto para explorar las opciones disponibles
-                            </motion.h6>
+                            <div className={style.benefitsContainer}>
+                                <div className={style.benefitItem}>
+                                    <FaMagic className={style.benefitIcon} />
+                                    <span>Experiencia única</span>
+                                </div>
+                                <div className={style.benefitItem}>
+                                    <FaGift className={style.benefitIcon} />
+                                    <span>Mayor impacto</span>
+                                </div>
+                            </div>
                         </motion.div>
 
                         <div className={style.swiperContainer}>
                             {loading ? (
                                 <div className={style.loaderContainer}>
                                     <div className={style.loader}></div>
+                                    <p className={style.loaderText}>Cargando complementos...</p>
                                 </div>
                             ) : products.length > 0 ? (
                                 <Swiper
@@ -317,45 +308,39 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                     spaceBetween={20}
                                     slidesPerView={1}
                                     navigation
-                                    // pagination={{ clickable: true }}
+                                    pagination={{ clickable: true, dynamicBullets: true }}
                                     className={style.swiper}
                                     breakpoints={{
-                                        // Cuando el ancho de la ventana es >= 320px
                                         320: {
-                                            slidesPerView: 1.35,
+                                            slidesPerView: 1.1,
                                             spaceBetween: 10
                                         },
-                                        // Cuando el ancho de la ventana es >= 480px
                                         480: {
-                                            slidesPerView: 1.5,
-                                            spaceBetween: 10
+                                            slidesPerView: 1.8,
+                                            spaceBetween: 15
                                         },
-
-                                        // Cuando el ancho de la ventana es >= 640px
                                         640: {
                                             slidesPerView: 2.2,
                                             spaceBetween: 20
                                         },
-                                        // Cuando el ancho de la ventana es >= 768px
                                         768: {
-                                            slidesPerView: 3.5,
-                                            spaceBetween: 30
+                                            slidesPerView: 3.3,
+                                            spaceBetween: 20
                                         },
-                                        // Cuando el ancho de la ventana es >= 1024px
                                         1024: {
                                             slidesPerView: 4.2,
-                                            spaceBetween: 40
+                                            spaceBetween: 20
                                         }
                                     }}
                                 >
                                     {products.map((product, idx) => (
                                         <SwiperSlide key={product.id || idx}>
-                                            <Tooltip title={`Ver ${product.nombre}`} arrow placement="top">
+                                            <Tooltip title={`Ver opciones de ${product.nombre}`} arrow placement="top">
                                                 <motion.div
                                                     className={style.productCard}
-                                                    initial={{  y: 20 }}
+                                                    initial={{ opacity: 0, y: 15 }}
                                                     animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ duration: 0.3, delay: idx * 0.1 }}
+                                                    transition={{ duration: 0.3, delay: idx * 0.08 }}
                                                     onClick={() => {
                                                         setSelectedProduct(product);
                                                         setShowOptions(true);
@@ -375,19 +360,20 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                                                 className={style.productImage}
                                                                 loading="lazy"
                                                             />
-                                                            <div className={style.imageOverlay}></div>
+                                                            <div className={style.imageOverlay}>
+                                                                <div className={style.imageOverlayContent}>
+                                                                    <span>Ver opciones</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     )}
 
                                                     <div className={style.productInfo}>
                                                         <h3>{product.nombre}</h3>
                                                         <p>{product.descr}</p>
-                                                        <motion.span 
-                                                            className={style.viewOptionsBtn}
-                                                            whileHover={{ scale: 1.05, opacity: 1 }}
-                                                        >
+                                                        <div className={style.viewOptionsBtn}>
                                                             Ver opciones <BsArrowRight />
-                                                        </motion.span>
+                                                        </div>
                                                     </div>
                                                 </motion.div>
                                             </Tooltip>
@@ -405,10 +391,10 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                             <motion.button 
                                 className={style.skipButton}
                                 onClick={handleClose}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                             >
-                                Continuar sin adicionales
+                                Continuar sin complementos
                             </motion.button>
                         </div>
 
@@ -422,28 +408,35 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                     }}
                                 >
                                     <motion.div 
-                                        className={style.modalContent}
-                                        initial={{  scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{  scale: 0.95 }}
+                                        className={`${style.modalContent} ${isDarkMode ? style.dark : style.light}`}
+                                        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.95, y: 10 }}
                                         transition={{ type: "spring", stiffness: 300 }}
                                     >
                                         <motion.button
                                             className={style.closeButton}
                                             onClick={() => setShowOptions(false)}
                                             aria-label="Cerrar"
-                                            whileHover={{ scale: 1.1, opacity: 1 }}
-                                            transition={{ duration: 0.3 }}
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
                                         >
                                             <IoClose />
                                         </motion.button>
-                                        <h3 className={style.modalTitle}>
-                                            <IoFlower style={{ marginRight: '10px', color: 'var(--accent-color)' }} />
-                                            {selectedProduct.nombre}
-                                        </h3>
-                                        <div className={style.descrOptWrapper}>
-                                            <p className={style.descrOpt}>{selectedProduct.descr}</p>
+                                        
+                                        <div className={style.modalHeader}>
+                                            <IoFlower className={style.modalIcon} />
+                                            <h3 className={style.modalTitle}>
+                                                {selectedProduct.nombre}
+                                            </h3>
                                         </div>
+                                        
+                                        {selectedProduct.descr && (
+                                            <div className={style.descrOptWrapper}>
+                                                <p className={style.descrOpt}>{selectedProduct.descr}</p>
+                                            </div>
+                                        )}
+                                        
                                         <div className={style.optionsGrid}>
                                             {selectedProduct.opciones ? (
                                                 selectedProduct.opciones.map((opcion, idx) => (
@@ -451,13 +444,8 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                                         key={idx}
                                                         className={style.optionCard}
                                                         {...slideUpAnimation}
-                                                        transition={{ delay: idx * 0.1 }}
-                                                        whileHover={{ 
-                                                            y: -5, 
-                                                            boxShadow: isDarkMode 
-                                                                ? "0 10px 20px rgba(0,0,0,0.3)" 
-                                                                : "0 10px 20px rgba(0,0,0,0.15)" 
-                                                        }}
+                                                        transition={{ delay: idx * 0.08 }}
+                                                        whileHover={{ y: -5 }}
                                                     >
                                                         <div className={style.optionImageWrapper}>
                                                             <img
@@ -466,22 +454,24 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                                                 className={style.optionImage}
                                                                 loading="lazy"
                                                             />
+                                                            {idx === 0 && (
+                                                                <div className={style.optionBadge}>
+                                                                    Más Popular
+                                                                </div>
+                                                            )}
                                                         </div>
                                                         <div className={style.optionInfo}>
-                                                            <p className={style.optionName}>{opcion.size || selectedProduct.nombre}</p>
+                                                            <h4 className={style.optionName}>{opcion.size || selectedProduct.nombre}</h4>
                                                             <p className={style.price}>
                                                                 ${opcion.precio?.toLocaleString('es-AR')}
-                                                                {idx === 0 && (
-                                                                    <span className={style.priceBadge}>Popular</span>
-                                                                )}
                                                             </p>
                                                             <motion.button
-                                                                whileHover={{ scale: 1.05 }}
-                                                                whileTap={{ scale: 0.95 }}
+                                                                whileHover={{ scale: 1.03 }}
+                                                                whileTap={{ scale: 0.97 }}
                                                                 onClick={() => addToCart(selectedProduct, opcion)}
                                                                 className={style.addButton}
                                                             >
-                                                                <FaShoppingCart /> Agregar al carrito
+                                                                <FaShoppingCart /> Agregar
                                                             </motion.button>
                                                         </div>
                                                     </motion.div>
@@ -490,12 +480,7 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                                 <motion.div
                                                     className={style.optionCard}
                                                     {...slideUpAnimation}
-                                                    whileHover={{ 
-                                                        y: -5, 
-                                                        boxShadow: isDarkMode 
-                                                            ? "0 10px 20px rgba(0,0,0,0.3)" 
-                                                            : "0 10px 20px rgba(0,0,0,0.15)" 
-                                                    }}
+                                                    whileHover={{ y: -5 }}
                                                 >
                                                     <div className={style.optionImageWrapper}>
                                                         <img
@@ -504,16 +489,18 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                                             className={style.optionImage}
                                                             loading="lazy"
                                                         />
+                                                        <div className={style.optionBadge}>
+                                                            Recomendado
+                                                        </div>
                                                     </div>
                                                     <div className={style.optionInfo}>
-                                                        <p className={style.optionName}>{selectedProduct.nombre}</p>
+                                                        <h4 className={style.optionName}>{selectedProduct.nombre}</h4>
                                                         <p className={style.price}>
                                                             ${selectedProduct.precio?.toLocaleString('es-AR')}
-                                                            <span className={style.priceBadge}>Recomendado</span>
                                                         </p>
                                                         <motion.button
-                                                            whileHover={{ scale: 1.05 }}
-                                                            whileTap={{ scale: 0.95 }}
+                                                            whileHover={{ scale: 1.03 }}
+                                                            whileTap={{ scale: 0.97 }}
                                                             onClick={() => addToCart(selectedProduct, selectedProduct)}
                                                             className={style.addButton}
                                                         >
@@ -527,6 +514,9 @@ const CartPopUpProducts = ({ isOpen: externalIsOpen = false, onClose }) => {
                                 </motion.div>
                             )}
                         </AnimatePresence>
+
+                            </div>
+
                     </motion.div>
                 </motion.div>
             )}

@@ -5,115 +5,180 @@ import { collection, getDocs } from 'firebase/firestore';
 import { baseDeDatos } from '@/admin/FireBaseConfig';
 import style from './Categories.module.css';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 const Categories = ({ categoryName }) => {
-  const [categories, setCategories] = useState([]);
+  const [categoryData, setCategoryData] = useState({
+    categoryList: [],
+    ocassionList: [],
+    especialDates: []
+  });
   const [loading, setLoading] = useState(true);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({
+    categoryList: false,
+    ocassionList: false,
+    especialDates: false
+  });
   const { isDarkMode } = useTheme();
   const menuRef = useRef(null);
-  const buttonRef = useRef(null);
   const pathname = usePathname();
 
-  const getCategoryType = (path) => {
-    if (path.includes('/ocasiones')) return 'ocassionList';
-    if (path.includes('/fechas-especiales')) return 'especialDates';
+  // Determinar qué tipo de categoría está activa según la URL
+  const getActiveCategoryType = () => {
+    if (pathname.includes('/ocasiones')) return 'ocassionList';
+    if (pathname.includes('/fechas-especiales')) return 'especialDates';
     return 'categoryList';
   };
 
+  // Obtener el título legible para cada tipo de categoría
+  const getCategoryTypeTitle = (type) => {
+    switch (type) {
+      case 'categoryList': return 'Categorías';
+      case 'ocassionList': return 'Ocasiones';
+      case 'especialDates': return 'Fechas Especiales';
+      default: return 'Categorías';
+    }
+  };
+
+  // Obtener la URL base para cada tipo de categoría
+  const getBaseUrl = (type) => {
+    switch (type) {
+      case 'categoryList': return '/productos';
+      case 'ocassionList': return '/ocasiones';
+      case 'especialDates': return '/fechas-especiales';
+      default: return '/productos';
+    }
+  };
+
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchAllCategories = async () => {
       try {
         const categoriesDoc = await getDocs(collection(baseDeDatos, 'categorias'));
-        const categoryData = categoriesDoc.docs[0]?.data();
+        const rawCategoryData = categoriesDoc.docs[0]?.data();
         
-        if (!categoryData) {
+        if (!rawCategoryData) {
           console.error('No se encontraron categorías');
           return;
         }
 
-        const categoryType = getCategoryType(pathname);
-        const categoryList = categoryData[categoryType] || [];
+        // Procesar y ordenar todas las categorías
+        const processedData = {};
+        
+        // Procesar cada tipo de categoría (categorías, ocasiones, fechas especiales)
+        ['categoryList', 'ocassionList', 'especialDates'].forEach(type => {
+          const list = rawCategoryData[type] || [];
+          
+          // Ordenar alfabéticamente
+          const sortedList = [...list].sort((a, b) => 
+            a.value.localeCompare(b.value)
+          );
 
-        // Ordenar categorías alfabéticamente
-        const sortedCategories = [...categoryList].sort((a, b) => 
-          a.value.localeCompare(b.value)
-        );
+          // Mover "Todos" al principio si existe
+          const todosIndex = sortedList.findIndex(cat => cat.id === 'Todos');
+          if (todosIndex > -1) {
+            const todos = sortedList.splice(todosIndex, 1)[0];
+            sortedList.unshift(todos);
+          }
 
-        // Mover "Todos" al principio si existe
-        const todosIndex = sortedCategories.findIndex(cat => cat.id === 'Todos');
-        if (todosIndex > -1) {
-          const todos = sortedCategories.splice(todosIndex, 1)[0];
-          sortedCategories.unshift(todos);
-        }
+          processedData[type] = sortedList;
+        });
 
-        setCategories(sortedCategories);
+        setCategoryData(processedData);
+        
+        // Determinar qué sección debe estar expandida inicialmente
+        const activeType = getActiveCategoryType();
+        setExpandedSections(prev => ({
+          ...prev,
+          [activeType]: true
+        }));
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error al cargar categorías:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCategories();
-  }, [pathname]);
+    fetchAllCategories();
+  }, []);
 
-  useEffect(() => {
-    const handleDocumentInteraction = (event) => {
-      if (showMobileMenu && !menuRef.current?.contains(event.target) && !buttonRef.current?.contains(event.target)) {
-        setShowMobileMenu(false);
-      }
-    };
-
-    document.addEventListener('click', handleDocumentInteraction);
-    document.addEventListener('touchstart', handleDocumentInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleDocumentInteraction);
-      document.removeEventListener('touchstart', handleDocumentInteraction);
-    };
-  }, [showMobileMenu]);
-
-  if (loading) {
-    return <div style={{color:isDarkMode ? 'var(--text-light)': 'var(--text-dark)'}}>Cargando categorías...</div>;
-  }
-
-  const getBaseUrl = () => {
-    if (pathname.includes('/ocasiones')) return '/ocasiones';
-    if (pathname.includes('/fechas-especiales')) return '/fechas-especiales';
-    return '/productos';
+  // Manejar la expansión/contracción de las secciones
+  const toggleSection = (section) => {
+    setExpandedSections(prev => {
+      const newState = { ...prev };
+      
+      // Cerrar todas las secciones
+      Object.keys(newState).forEach(key => {
+        newState[key] = false;
+      });
+      
+      // Abrir la sección seleccionada (toggle)
+      newState[section] = !prev[section];
+      
+      return newState;
+    });
   };
 
+  if (loading) {
+    return (
+      <div className={`${style.loadingContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
+        <div className={style.spinner}></div>
+        <p>Cargando categorías...</p>
+      </div>
+    );
+  }
+
+  const activeType = getActiveCategoryType();
+
+  // Determinar si una categoría está activa
+  const isActiveCategory = (categoryId, type) => {
+    if (type !== activeType) return false;
+    return categoryName === categoryId || (categoryName === undefined && categoryId === 'Todos');
+  };
+
+  // Ordenar los tipos de categorías para que el activo aparezca primero
+  const orderedCategoryTypes = ['categoryList', 'ocassionList', 'especialDates']
+    .sort((a, b) => {
+      if (a === activeType) return -1;
+      if (b === activeType) return 1;
+      return 0;
+    });
+
   return (
-    <div className={style.divNavBarSeccions}>
-      <h5 style={{
-        color: 'var(--primary-color)',
-        fontWeight: '800',
-        textAlign: '-webkit-center',
-        paddingLeft: '40px',
-      }}>
-        Categorias:
-      </h5>
-      <nav className={style.navBarSeccions}>
-        <ul className={style.openMenu} ref={menuRef}>
-          <div className={`${style.categorySeccion} ${isDarkMode ? style.darkMode : style.lightMode}`}>
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={category.id === 'Todos' ? getBaseUrl() : `${getBaseUrl()}/${category.id}`}
-                className={categoryName === category.id || (categoryName === undefined && category.id === 'Todos')
-                  ? `${style.seccionLi} ${style.active}`
-                  : style.seccionLi}
-              >
-                <ArrowForwardIosIcon sx={{ fontSize: 'small' }} /> {category.value}
-              </Link>
-            ))}
+    <div className={`${style.categoriesContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
+      {orderedCategoryTypes.map(type => (
+        <div key={type} className={style.categorySection}>
+          <button 
+            className={`${style.categoryHeader} ${activeType === type ? style.activeHeader : ''}`}
+            onClick={() => toggleSection(type)}
+            aria-expanded={expandedSections[type]}
+          >
+            <span>{getCategoryTypeTitle(type)}</span>
+            {expandedSections[type] ? 
+              <ExpandLessIcon className={style.expandIcon} /> : 
+              <ExpandMoreIcon className={style.expandIcon} />
+            }
+          </button>
+          
+          <div className={`${style.categoryContent} ${expandedSections[type] ? style.expanded : ''}`}>
+            <div className={style.linksContainer}>
+              {categoryData[type].map((category) => (
+                <Link
+                  key={category.id}
+                  href={category.id === 'Todos' ? getBaseUrl(type) : `${getBaseUrl(type)}/${category.id}`}
+                  className={`${style.categoryLink} ${isActiveCategory(category.id, type) ? style.activeLink : ''}`}
+                >
+                  <ArrowForwardIosIcon className={style.arrowIcon} />
+                  <span>{category.value}</span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </ul>
-      </nav>
+        </div>
+      ))}
     </div>
   );
 };

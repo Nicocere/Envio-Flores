@@ -319,6 +319,10 @@
   .bannerTitle {
     font-size: 3rem;
   }
+
+  .homeBanner {
+    height: 100vh;
+  }
   
   .bannerSubtitle {
     font-size: 1.8rem;
