@@ -10,8 +10,8 @@ Disallow: /app/api/*
 Disallow: /compras
 
 # Host
-Host: https://envioflores.com
+Host: https://www.envioflores.com
 
 # Sitemaps
-Sitemap: https://envioflores.com/sitemap.xml
+Sitemap: https://www.envioflores.com/sitemap.xml
 Sitemap: https://www.envioflores.com/blog-sitemap.xml

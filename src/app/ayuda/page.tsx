@@ -7,17 +7,17 @@ export const metadata: Metadata = {
   title: '¿Cómo Comprar en Envio Flores? - Venta y envío de arreglos florales',
   description: 'Envío de flores, rosas, ramos, bombones, regalos a domicilio en Argentina. Venta online y telefónica. Pagos seguros con múltiples opciones. Entrega inmediata y garantizada.',
   alternates: {
-    canonical: 'https://envioflores.com/como-comprar',
+    canonical: 'https://www.envioflores.com/como-comprar',
   },
   openGraph: {
     type: 'article',
     title: 'Guía de Compra - Envio Flores',
     description: 'Aprende cómo comprar en Envio Flores. Proceso sencillo, formas de pago seguras y políticas de envío transparentes. Garantía de satisfacción en cada entrega.',
-    url: 'https://envioflores.com/como-comprar',
+    url: 'https://www.envioflores.com/como-comprar',
     siteName: 'Envio Flores',
     images: [
       {
-        url: 'https://envioflores.com/images/guia-compra.jpg',
+        url: 'https://www.envioflores.com/images/guia-compra.jpg',
         width: 800,
         height: 600,
         alt: 'Guía de compra Envio Flores',

@@ -242,7 +242,7 @@ export async function POST(request: Request) {
                     <h3 style="color: #A70000; margin-top: 0; font-size: 20px;">Seguimiento de tu pedido</h3>
                     <p style="text-align: center; margin-bottom: 5px; line-height: 1.6;">Puedes consultar el estado de tu pedido respondiendo a este email o contactándonos vía WhatsApp.</p>
                     <p style="text-align: center; margin-bottom: 15px; line-height: 1.6;">Para cualquier consulta, menciona tu número de orden: <strong style="color: #A70000;">#${newCode}</strong></p>
-                    <a href="https://envioflores.com/mi-pedido/${newCode}" style="display: inline-block; background-color: #A70000; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: bold; box-shadow: 0 3px 8px rgba(167, 0, 0, 0.2);">Ver estado de mi pedido</a>
+                    <a href="https://www.envioflores.com/mi-pedido/${newCode}" style="display: inline-block; background-color: #A70000; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; font-weight: bold; box-shadow: 0 3px 8px rgba(167, 0, 0, 0.2);">Ver estado de mi pedido</a>
                 </div>
 
                 <!-- Información adicional -->
@@ -267,14 +267,14 @@ export async function POST(request: Request) {
 
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-                <a href="https://envioflores.com" style="display: inline-block; margin-bottom: 15px;">
+                <a href="https://www.envioflores.com" style="display: inline-block; margin-bottom: 15px;">
                     <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
                 </a>
                 
                 <div style="margin-bottom: 15px;">
                     <a href="https://facebook.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Facebook</a>
                     <a href="https://instagram.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Instagram</a>
-                    <a href="https://envioflores.com" style="text-decoration: none; color: #A70000; margin: 0 10px;">Sitio web</a>
+                    <a href="https://www.envioflores.com" style="text-decoration: none; color: #A70000; margin: 0 10px;">Sitio web</a>
                 </div>
                 
                 <p style="color: #777; font-size: 12px; margin: 0;">
@@ -526,14 +526,14 @@ export async function POST(request: Request) {
 
                 <!-- Botones de gestión -->
                 <div style="text-align: center; margin: 25px 0;">
-                    <a href="https://envioflores.com/admin/orders/edit/${newCode}" style="display: inline-block; background-color: #2E7D32; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-right: 15px;">Gestionar pedido</a>
-                    <a href="https://envioflores.com/admin" style="display: inline-block; background-color: #1976D2; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold;">Panel de administración</a>
+                    <a href="https://www.envioflores.com/admin/orders/edit/${newCode}" style="display: inline-block; background-color: #2E7D32; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-right: 15px;">Gestionar pedido</a>
+                    <a href="https://www.envioflores.com/admin" style="display: inline-block; background-color: #1976D2; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold;">Panel de administración</a>
                 </div>
             </div>
 
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-                <a href="https://envioflores.com/admin" style="display: inline-block; margin-bottom: 15px;">            
+                <a href="https://www.envioflores.com/admin" style="display: inline-block; margin-bottom: 15px;">            
                     <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
                 </a>
                 
@@ -576,7 +576,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: 'Correos enviados correctamente', success: true });
 
     } catch (error) {
-        ('Error al procesar la solicitud o enviar correos:', error);
+        console.log('Error al procesar la solicitud o enviar correos:', error);
         return NextResponse.json({ error: 'Ocurrió un error al procesar la solicitud', details: error }, { status: 500 });
     }
 }

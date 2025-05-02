@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Preguntas Frecuentes | Envío Flores',
     description: 'Resuelve tus dudas sobre nuestros servicios de envío de flores, tiempos de entrega, pagos y más.',
-    url: 'https://envioflores.com/preguntas-frecuentes',
+    url: 'https://www.envioflores.com/preguntas-frecuentes',
     siteName: 'Envío Flores',
     images: [
       {
-        url: 'https://envioflores.com/images/og-faq.jpg',
+        url: 'https://www.envioflores.com/images/og-faq.jpg',
         width: 1200,
         height: 630,
         alt: 'Preguntas Frecuentes - Envío Flores',
@@ -30,14 +30,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Preguntas Frecuentes | Envío Flores',
     description: 'Resuelve tus dudas sobre nuestros servicios de envío de flores, tiempos de entrega, pagos y más.',
-    images: ['https://envioflores.com/images/twitter-faq.jpg'],
+    images: ['https://www.envioflores.com/images/twitter-faq.jpg'],
     creator: '@envioflores',
     site: '@envioflores',
   },
   alternates: {
-    canonical: 'https://envioflores.com/preguntas-frecuentes',
+    canonical: 'https://www.envioflores.com/preguntas-frecuentes',
     languages: {
-      'es-AR': 'https://envioflores.com/preguntas-frecuentes',
+      'es-AR': 'https://www.envioflores.com/preguntas-frecuentes',
     },
   },
 };

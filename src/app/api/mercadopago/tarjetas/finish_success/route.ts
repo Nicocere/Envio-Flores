@@ -321,14 +321,14 @@ export async function POST(request: Request) {
 
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-                <a href="https://envioflores.com" style="display: inline-block; margin-bottom: 15px;">
+                <a href="https://www.envioflores.com" style="display: inline-block; margin-bottom: 15px;">
                     <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
                 </a>
                 
                 <div style="margin-bottom: 15px;">
                     <a href="https://facebook.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Facebook</a>
                     <a href="https://instagram.com/envioflores" style="text-decoration: none; color: #A70000; margin: 0 10px;">Instagram</a>
-                    <a href="https://envioflores.com" style="text-decoration: none; color: #A70000; margin: 0 10px;">Sitio web</a>
+                    <a href="https://www.envioflores.com" style="text-decoration: none; color: #A70000; margin: 0 10px;">Sitio web</a>
                 </div>
                 
                 <p style="color: #777; font-size: 12px; margin: 0;">
@@ -622,7 +622,7 @@ export async function POST(request: Request) {
                     <p style="margin: 0 0 15px; color: #555; line-height: 1.6;">
                         Por favor, asegúrate de verificar todos los detalles antes de preparar el pedido y actualizar el estado en el sistema cuando esté procesado.
                     </p>
-                    <a href="https://envioflores.com/admin" style="display: inline-block; background-color: #333; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: 500; font-size: 14px;">
+                    <a href="https://www.envioflores.com/admin" style="display: inline-block; background-color: #333; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: 500; font-size: 14px;">
                         Ir al Panel de Administración
                     </a>
                 </div>
@@ -630,7 +630,7 @@ export async function POST(request: Request) {
 
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-                <a href="https://envioflores.com" style="display: inline-block; margin-bottom: 15px;">
+                <a href="https://www.envioflores.com" style="display: inline-block; margin-bottom: 15px;">
                     <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
                 </a>
                 

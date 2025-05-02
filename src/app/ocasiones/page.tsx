@@ -155,7 +155,7 @@ export const metadata: Metadata = {
   },
   appLinks: {
     ios: {
-      url: 'https://envioflores.com/app/ios',
+      url: 'https://www.envioflores.com/app/ios',
       app_store_id: 'app-store-id',
     },
     android: {

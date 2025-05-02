@@ -33,7 +33,7 @@ const nexa = localFont({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://envioflores.com'),
+  metadataBase: new URL('https://www.envioflores.com'),
   title: {
     template: '%s | Envio Flores',
     default: 'Envio Flores - Flores Frescas, Ramos y Desayunos a Domicilio 24h en Buenos Aires',
@@ -144,13 +144,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
     languages: {
-      'es-AR': 'https://envioflores.com',
+      'es-AR': 'https://www.envioflores.com',
     },
   },
   openGraph: {
     type: 'website',
     locale: 'es_AR',
-    url: 'https://envioflores.com',
+    url: 'https://www.envioflores.com',
     siteName: 'Envio Flores - Buenos Aires',
     title: 'Envio Flores - Arreglos Florales Premium, Desayunos y Regalos a Domicilio en Buenos Aires',
     description:

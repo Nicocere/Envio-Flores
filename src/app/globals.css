@@ -39,7 +39,7 @@ svg {
   --error-color: #FF1744;
   --success-color: #00C853;
 
-  --banner-height: 100vh;
+  --banner-height: 130vh;
   --shadow-normal: 0 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-strong: 0 8px 20px rgba(0, 0, 0, 0.25);
   --transition-time: 0.3s;

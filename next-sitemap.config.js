@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://envioflores.com',
+    siteUrl: 'https://www.envioflores.com',
     generateRobotsTxt: true,
     sitemapSize: 5000,
     exclude: [
