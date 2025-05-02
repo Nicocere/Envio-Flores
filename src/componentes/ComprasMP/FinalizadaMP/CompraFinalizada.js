@@ -95,8 +95,8 @@ const CompraFinalizada = React.memo(() => {
                         setNewEvent({ ...initialNewEvent, title: 'Compra Finalizada', orderNumber: newCode });
 
                         // Mover la eliminación de los items aquí, después de que la solicitud se haya completado correctamente
-                        // await localforage.removeItem('shoppingCart');
-                        // localStorage.removeItem('c');
+                        await localforage.removeItem('shoppingCart');
+                        localStorage.removeItem('c');
                     } else {
                         setNewEvent(null);
 

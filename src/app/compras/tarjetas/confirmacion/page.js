@@ -107,8 +107,14 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                         });
 
                         setNewEvent({ ...initialNewEvent, title: 'Compra Finalizada', orderNumber: newCode });
+
+                        setIsLoading(false);
+
+                        await localforage.removeItem('shoppingCart');
+                        localStorage.removeItem('c');
                     } else {
                         setNewEvent(null);
+                        setIsLoading(false);
                     }
                 } catch (error) {
                     console.error('Error al generar el pago:', error);
@@ -377,22 +383,22 @@ const CompraFinalizadaTarjetas = React.memo(() => {
 
 
     return (
-            <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
+        <div className={`${style.mainContainer} ${isDarkMode ? style.darkMode : style.lightMode}`}>
             <ConfettiComponent
-               width={width}
-               height={height}
+                width={width}
+                height={height}
                 recycle={false}
                 numberOfPieces={isMobileScreen ? 500 : 850}
                 gravity={0.35}
                 colors={['#FFD700', '#FF6B6B', '#4ecdc4', '#8A2BE2', '#FF1493']}
                 tweenDuration={8500}
             />
-    
+
             <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ 
-                    duration: 0.8, 
+                transition={{
+                    duration: 0.8,
                     type: "spring",
                     stiffness: 100,
                     damping: 15
@@ -401,14 +407,14 @@ const CompraFinalizadaTarjetas = React.memo(() => {
             >
                 {/* Banner de éxito en la parte superior */}
                 <div className={style.successBanner}>
-                    <motion.div 
+                    <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ 
-                            delay: 0.3, 
-                            duration: 0.6, 
-                            type: "spring", 
-                            stiffness: 200 
+                        transition={{
+                            delay: 0.3,
+                            duration: 0.6,
+                            type: "spring",
+                            stiffness: 200
                         }}
                         className={style.successIcon}
                     >
@@ -426,8 +432,8 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                         </svg>
                     </motion.div>
                 </div>
-        
-                <motion.h1 
+
+                <motion.h1
                     className={style.title}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -435,7 +441,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                 >
                     ¡Compra finalizada con éxito!
                 </motion.h1>
-                
+
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -448,8 +454,8 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                     </div>
                     <p className={style.subtitleSmall}>Pronto recibirás un correo con todos los detalles</p>
                 </motion.div>
-        
-                <motion.div 
+
+                <motion.div
                     className={style.iconContainer}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -465,7 +471,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                             </motion.div>
                         </IconButton>
                     </Tooltip>
-        
+
                     <Tooltip title="Productos comprados" arrow placement="top">
                         <IconButton
                             className={`${style.iconButton} ${activeSection === 'producto' ? style.active : ''}`}
@@ -478,7 +484,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                             </motion.div>
                         </IconButton>
                     </Tooltip>
-        
+
                     {newEvent?.retiraEnLocal ? (
                         <Tooltip title="Retiro en tienda" arrow placement="top">
                             <IconButton
@@ -515,13 +521,13 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                         </IconButton>
                     </Tooltip>
                 </motion.div>
-        
+
                 <div className={style.contentWrapper}>
                     <AnimatePresence mode='wait'>
                         {renderSection()}
                     </AnimatePresence>
                 </div>
-        
+
                 <motion.div
                     className={style.footerSection}
                     initial={{ opacity: 0 }}
@@ -536,7 +542,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                             Gracias por confiar en Envío Flores. ¡Esperamos que disfrutes tu compra!
                         </p>
                     </div>
-        
+
                     <motion.div
                         whileHover={{ scale: 1.05 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -557,7 +563,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                     </motion.div>
                 </motion.div>
             </motion.div>
-        
+
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

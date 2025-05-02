@@ -44,8 +44,8 @@ const CompraPayPalFinalizada = React.memo(() => {
                 setNewEvent({ ...initialNewEvent, title: 'Compra Finalizada' });
 
                 // // Limpiar carrito después de procesar la compra
-                // await localforage.removeItem('shoppingCart');
-                // localStorage.removeItem('c');
+                await localforage.removeItem('shoppingCart');
+                localStorage.removeItem('c');
 
             } catch (error) {
                 console.error('Error al procesar la compra:', error);
