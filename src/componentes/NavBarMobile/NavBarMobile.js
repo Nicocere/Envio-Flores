@@ -166,10 +166,7 @@ const NavBarMobile = () => {
               flex:'2',
             }}
           >
-            <motion.div
-
-              className="logo-container"
-            >
+    
               <Link href="/">
                 <Image
                 width={85}
@@ -177,9 +174,13 @@ const NavBarMobile = () => {
                   className='img-navbar'
                   src={'https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23'}
                   alt="logo envio flores"
+                  priority={true}
+                  style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                  
+                  
                 />
               </Link>
-            </motion.div>
+    
           </Box>
           
           {/* Sección derecha - Menú y Carrito */}

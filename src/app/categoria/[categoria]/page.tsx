@@ -337,8 +337,6 @@ export default async function Category({ params }: PageProps) {
   const categoryName = formatCategory(rawCategory);
   const categorySlug = rawCategory.toLowerCase();
   
-  console.log('Category:', categoryName, 'Slug:', categorySlug);
-
   // URL canónica para schema
   const siteUrl = `https://www.envioflores.com/categoria/${encodeURIComponent(rawCategory)}`;
   const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
