@@ -548,14 +548,14 @@ export async function POST(request: Request) {
 
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${datosComprador.email}, ${process.env.GMAIL_USER}, ${process.env.F_A_EMAIL}, ${process.env.AFL_EMAIL}`,
+            to: `${datosComprador.email},${process.env.GMAIL_USER}`,
             subject: `✅ Confirmación de compra - Orden #${newCode} - Envío Flores`,
             html: compradorHtml
         });
 
         await transporter.sendMail({
             from: process.env.GMAIL_USER,
-            to: `${process.env.GMAIL_USER}`,
+            to: `${process.env.GMAIL_USER}, ${process.env.GMAIL_USER}, ${process.env.F_A_EMAIL}, ${process.env.AFL_EMAIL}`,
             subject: `🔔 Nueva venta por MercadoPago #${newCode} - Envío Flores`,
             html: vendedorHtml
         });

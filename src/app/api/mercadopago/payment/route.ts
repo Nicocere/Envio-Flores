@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { MercadoPagoConfig, Preference } from 'mercadopago';
-import { randomUUID } from 'crypto'; // en Next.js (Node.js 18+)
+import { randomUUID } from 'crypto'; 
 
 export async function POST(request: Request) {
     const body = await request.json()
@@ -68,13 +68,11 @@ export async function POST(request: Request) {
         
         const preferenceData = {
             binary_mode: true,
-            // purpose: 'wallet_purchase',
             payment_methods:{
                 excluded_payment_types: [],
                 installments: 1,
             },
             statement_descriptor: 'Envio Flores',
-            // notification_url: `${baseUrl}/compras/mercadopago/webhook`,
             items: itemsForMercadoPago,
             back_urls: {
                 success: `${baseUrl}/compras/mercadopago/exitoso`,

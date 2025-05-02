@@ -97,7 +97,7 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                             pdfUrl = { pdfURL: null };
                         }
 
-                        await fetch('/api/mercadopago/tarjetas/success', {
+                        await fetch('/api/mercadopago/tarjetas/finish_success', {
                             method: 'POST',
                             headers: {
                                 Authorization: `Bearer`,
@@ -167,11 +167,6 @@ const CompraFinalizadaTarjetas = React.memo(() => {
                         <div className={style.orderNumberLabel}>Número de orden</div>
                         <div className={style.orderNumberValue}>{newEvent?.orderNumber || '----'}</div>
                     </div>
-
-                    {/* <motion.div className={style.detailContainer} variants={itemVariants}>
-                        <p className={style.detailLabel}>Fecha de compra:</p>
-                        <p className={style.detailValue}>{format(new Date(newEvent?.createdAt), "PPPP 'a las' p", { locale: es })}</p>
-                    </motion.div> */}
                     <motion.div className={style.detailContainer} variants={itemVariants}>
                         <p className={style.detailLabel}>Nombre:</p>
                         <p className={style.detailValue}>{newEvent?.datosComprador?.nombreComprador} {newEvent?.datosComprador?.apellidoComprador}</p>
