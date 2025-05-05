@@ -127,60 +127,68 @@ export const metadata: Metadata = {
     
     // Datos estructurados para algoritmos
     'structured-data': JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "DeliveryService",
-      "name": "Envio Flores Argentina",
-      "url": "https://www.envioflores.com",
-      "logo": "https://www.envioflores.com/logo.png",
-      "description": "Servicio de envío de flores, arreglos florales y regalos a domicilio en CABA y GBA.",
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": -34.603722,
-          "longitude": -58.381592
-        },
-        "geoRadius": "100km"
+      '@context': 'https://schema.org',
+      '@type': 'FloristOrganization',
+      'name': 'Envio Flores Argentina',
+      'url': 'https://www.envioflores.com',
+      'logo': 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
+      'contactPoint': {
+        '@type': 'ContactPoint',
+        'telephone': '+54-11-4788-9185',
+        'contactType': 'customer service',
+        'areaServed': 'AR',
+        'availableLanguage': 'Spanish'
       },
-      "serviceArea": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": -34.603722,
-          "longitude": -58.381592
-        },
-        "geoRadius": "100km"
+      'address': {
+        '@type': 'PostalAddress',
+        'streetAddress': 'Av. Crámer 1915',
+        'addressLocality': 'Buenos Aires',
+        'postalCode': 'C1428CTC',
+        'addressCountry': 'AR',
+        'addressRegion': 'Ciudad Autónoma de Buenos Aires'
       },
-      "availableChannel": {
-        "@type": "ServiceChannel",
-        "serviceUrl": "https://www.envioflores.com",
-        "servicePhone": "+54 11 4444-5555",
-        "availableLanguage": "Spanish"
+      'geo': {
+        '@type': 'GeoCoordinates',
+        'latitude': '-34.56630121189851',
+        'longitude': '-58.45960052031086'
       },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Servicios de Envío de Flores",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Envío Express de Flores",
-              "description": "Entrega en el mismo día para pedidos realizados antes de las 18:00"
-            }
-          }
-        ]
+      'openingHoursSpecification': {
+        '@type': 'OpeningHoursSpecification',
+        'dayOfWeek': [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday'
+        ],
+        'opens': '09:00',
+        'closes': '20:00'
       },
-      "hoursAvailable": [
+      'paymentAccepted': 'Cash, Credit Card, Debit Card, Check, NFC Mobile Payments',
+      'priceRange': '$$',
+      'additionalProperty': [
         {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "00:00",
-          "closes": "23:59"
+          '@type': 'PropertyValue',
+          'name': 'Service Options',
+          'value': 'Entrega a domicilio, Retiro en tienda, Compras en tienda, Entrega el mismo día'
+        },
+        {
+          '@type': 'PropertyValue',
+          'name': 'Público',
+          'value': 'Amigable con LGBTQ+'
+        },
+        {
+          '@type': 'PropertyValue',
+          'name': 'Planificación',
+          'value': 'Visita rápida'
         }
       ],
-      "paymentAccepted": "Credit Card, Debit Card, Mercado Pago, Transferencia Bancaria",
-      "termsOfService": "https://www.envioflores.com/terminos"
+      'sameAs': [
+        'https://www.facebook.com/envioflores',
+        'https://www.instagram.com/envioflores.arg',
+        'https://twitter.com/EnvioFlores'
+      ]
     })
   },
   verification: {

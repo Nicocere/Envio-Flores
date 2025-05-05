@@ -1,8 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import { useMediaQuery } from '@mui/material';
 import styles from './homeBanner.module.css'
-import { baseDeDatos } from '../../admin/FireBaseConfig';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
 
@@ -64,6 +61,7 @@ const HomeBanner = memo(() => {
                 style={{
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundAttachment: device === 'ios' ? 'initial' : 'fixed',
+                    
                 }}
             >
                 <div className={styles.bannerOverlay}></div>

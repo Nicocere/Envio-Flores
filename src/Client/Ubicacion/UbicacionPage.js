@@ -3,6 +3,7 @@ import React from 'react';
 import style from '@/app/ubicacion/ubicacion.module.css';
 import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaClock, FaEnvelope } from 'react-icons/fa';
 import { useTheme } from '@/context/ThemeSwitchContext';
+import LocalidadPageComponent from '../Envios/EnviosPage';
 
 function UbicacionPage() {
     const {isDarkMode} = useTheme();
@@ -97,8 +98,10 @@ function UbicacionPage() {
                 </div>
                 
                 <div className={style.deliveryInfo}>
-                    <h2>Zonas de entrega</h2>
-                    <p>Realizamos envíos en toda la Ciudad Autónoma de Buenos Aires y Gran Buenos Aires.</p>
+                    
+                    <h2 className={style.deliveryTitle}>Envíos a Domicilio</h2>
+                    <p>Realizamos envíos a domicilio en toda la Ciudad Autónoma de Buenos Aires y Gran Buenos Aires en el día o programado.</p>
+                    <p>Contamos con servicio de entrega express en el día para pedidos realizados antes de las 16:00 hs.</p>
                     <p>Consulta por disponibilidad para entregas express en el día.</p>
                     <a 
                         href="https://wa.me/1165421003?text=Hola%20EnvioFlores%20,%20quisiera%20consultar%20por%20entregas"
@@ -107,6 +110,28 @@ function UbicacionPage() {
                         <FaWhatsapp className={style.buttonIcon} />
                         Consultar por WhatsApp
                     </a>
+                    
+                    <div className={style.featureIcons}>
+                        <div className={style.featureItem}>
+                            <FaMapMarkerAlt className={style.featureIcon} />
+                            <h3 className={style.featureTitle}>Envío Express</h3>
+                            <p className={style.featureText}>Entrega rápida y segura de tus arreglos florales en el día.</p>
+                        </div>
+                        
+                        <div className={style.featureItem}>
+                            <FaEnvelope className={style.featureIcon} />
+                            <h3 className={style.featureTitle}>Regalos que Emocionan</h3>
+                            <p className={style.featureText}>Cada envío está pensado para transmitir felicidad y emociones.</p>
+                        </div>
+                        
+                        <div className={style.featureItem}>
+                            <FaClock className={style.featureIcon} />
+                            <h3 className={style.featureTitle}>Compromiso y Confianza</h3>
+                            <p className={style.featureText}>Más de 15 años brindando un servicio de calidad y puntualidad.</p>
+                        </div>
+                    </div>
+
+                    <LocalidadPageComponent />
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const productDetails = await fetchProductById(productId) as ProductDetails;
   
   // Valores predeterminados para SEO si no hay datos
-  const productName = productDetails?.nombre || `Arreglo floral ${productId.replace(/-/g, ' ')}`;
+  const productName = productDetails?.nombre || `Arreglo floral `;
   
   // Aseguramos que productPrice sea string
   let productPrice = productDetails?.opciones?.[0]?.precio || productDetails?.precio || 'desde $5.000';
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   const productImage = productDetails?.opciones?.[0]?.img || `https://www.envioflores.com/imagenes/productos/${productId.replace(/\s+/g, '-')}.jpg`;
   const productCategory = productDetails?.categoria || 'Flores y Regalos';
-  const productDescription = productDetails?.descripcion || `Hermoso arreglo floral ${productId.replace(/-/g, ' ')} para sorprender a esa persona especial. Envío a domicilio en el día.`;
+  const productDescription = productDetails?.descripcion || `Hermoso arreglo floral  para sorprender a esa persona especial. Envío a domicilio en el día.`;
   
   // Palabras clave optimizadas
   const keywordsList = await getProductKeywords(productId);
@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ];
   
   // URL canónica
-  const siteUrl = `https://www.envioflores.com/productos/${encodeURIComponent(productId)}`;
+  const siteUrl = `https://www.envioflores.com/detail/${encodeURIComponent(productId)}`;
   
   // Título y descripción SEO
   const seoTitle = `${productName} 🌸 Envío de Flores EN EL DÍA | Envíos EXPRESS | Envio Flores Argentina`;
@@ -189,16 +189,19 @@ export default async function DetailProd({ params }: Props) {
   // Obtener detalles del producto para usar tanto en la página como en los schemas
   const productDetails = await fetchProductById(productId) as ProductDetails;
   
+
+  console.log("  ", productId.replace(/-/g, ' '))
   // Extraer datos necesarios
-  const productName = productDetails?.nombre || `Arreglo floral ${productId.replace(/-/g, ' ')}`;
+  const productName = productDetails?.nombre || `Arreglo floral `;
   let productPrice = productDetails?.opciones?.[0]?.precio || productDetails?.precio || 'desde $5.000';
   if (typeof productPrice !== 'string') {
     productPrice = String(productPrice);
   }
-  const productImage = productDetails?.opciones?.[0]?.img || `https://www.envioflores.com/imagenes/productos/${productId.replace(/\s+/g, '-')}.jpg`;
-  const productDescription = productDetails?.descripcion || `Hermoso arreglo floral ${productId.replace(/-/g, ' ')} para sorprender a esa persona especial. Envío a domicilio en el día.`;
+  const productImage = productDetails?.opciones?.[0]?.img || `https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas-rojas.png`;
+  const productDescription = productDetails?.descripcion || `Hermoso arreglo floral para sorprender a esa persona especial. Envío a domicilio en el día.`;
   const siteUrl = `https://www.envioflores.com/productos/${encodeURIComponent(productId)}`;
   const numericPrice = productPrice.replace(/[^\d]/g, '') || '5000';
+  
   
   // Schema.org para producto
   const productSchema = {
@@ -274,35 +277,68 @@ export default async function DetailProd({ params }: Props) {
     }
   };
 
-  // Schema para negocio local
+    // Schema para negocio local
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'FloristOrganization',
     name: 'Envio Flores Argentina',
     url: 'https://www.envioflores.com',
-    logo: 'https://www.envioflores.com/logo.png',
+    logo: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+54-11-xxxx-xxxx',
+      telephone: '+54-11-4788-9185',
       contactType: 'customer service',
       areaServed: 'AR',
       availableLanguage: 'Spanish'
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Av. Corrientes 1234',
+      streetAddress: 'Av. Crámer 1915',
       addressLocality: 'Buenos Aires',
-      postalCode: '1043',
-      addressCountry: 'AR'
+      postalCode: 'C1428CTC',
+      addressCountry: 'AR',
+      addressRegion: 'Ciudad Autónoma de Buenos Aires'
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: '-34.6037',
-      longitude: '-58.3816'
+      latitude: '-34.56630121189851',
+      longitude: '-58.45960052031086'
     },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ],
+      opens: '09:00',
+      closes: '20:00'
+    },
+    paymentAccepted: 'Cash, Credit Card, Debit Card, Check, NFC Mobile Payments',
+    priceRange: '$$',
+    additionalProperty: [
+      {
+        '@type': 'PropertyValue',
+        name: 'Service Options',
+        value: 'Entrega a domicilio, Retiro en tienda, Compras en tienda, Entrega el mismo día'
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Público',
+        value: 'Amigable con LGBTQ+'
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Planificación',
+        value: 'Visita rápida'
+      }
+    ],
     sameAs: [
       'https://www.facebook.com/envioflores',
-      'https://www.instagram.com/envioflores',
+      'https://www.instagram.com/envioflores.arg',
       'https://twitter.com/EnvioFlores'
     ]
   };
@@ -322,10 +358,10 @@ export default async function DetailProd({ params }: Props) {
       },
       {
         '@type': 'Question',
-        name: '¿El envío es gratuito?',
+        name: '¿Cúal es el costo de envío?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, todos nuestros productos incluyen envío gratuito en CABA y zonas cercanas de GBA.'
+          text: 'El costo de envío varía según la ubicación, para consultarlo puedes ingresar a la sección de envíos de nuestro sitio web. '
         }
       },
       {

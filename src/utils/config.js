@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { config } from 'localforage';
 
 dotenv.config();
 

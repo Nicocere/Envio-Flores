@@ -107,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const municipio = localidadInfo.municipio || localidad;
 
   // Construir una descripción más rica y específica con detalles locales
-  const description = `🚚 Envío de flores y regalos a ${localidad} con entrega garantizada en ${tiempoEntrega}. 🌹 Ramos de rosas, girasoles, liliums y más con envío ${costoEnvio === "Consultar precio" ? "GRATUITO" : "desde "+costoEnvio}. Arreglos florales exclusivos, desayunos sorpresa, chocolates gourmet y peluches con entrega a domicilio en toda la zona de ${localidad} y alrededores. Pago seguro con todas las tarjetas ✓ Garantía de frescura ✓ Envíos express ✓ Seguimiento en tiempo real. ¡Sorprende hoy mismo!`;
+  const description = `🚚 Envío de flores y regalos a ${localidad} con entrega garantizada en ${tiempoEntrega}. 🌹 Ramos de rosas, girasoles, liliums y más con envío ${costoEnvio === "Consultar precio" ? "" : "desde "+costoEnvio}. Arreglos florales exclusivos, desayunos sorpresa, chocolates gourmet y peluches con entrega a domicilio en toda la zona de ${localidad} y alrededores. Pago seguro con todas las tarjetas ✓ Garantía de frescura ✓ Envíos express ✓ Seguimiento en tiempo real. ¡Sorprende hoy mismo!`;
 
   // Palabras clave base para cualquier localidad
   const baseKeywords = [
@@ -183,51 +183,83 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     `delivery flores ${areaEspecifica}`
   ].filter(keyword => keyword !== ""); // Eliminar strings vacíos
 
-  // Preparar datos estructurados para esta localidad
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": `Envío de Flores a ${localidad}`,
-    "serviceType": "Servicio de entrega de flores y regalos",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Envio Flores Argentina",
-      "image": "https://www.envioflores.com/logo.png",
-      "telephone": "+541144445555",
-      "email": "info@envioflores.com",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Buenos Aires",
-        "addressRegion": "CABA",
-        "addressCountry": "Argentina"
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": `Envío de Flores a ${localidad}`,
+      "serviceType": "Servicio de entrega de flores y regalos",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Envio Flores Argentina",
+        "image": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png",
+        "telephone": "+54-11-4788-9185",
+        "email": "floreriasargentinas@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Crámer 1915",
+          "addressLocality": "Buenos Aires",
+          "postalCode": "C1428CTC",
+          "addressRegion": "Ciudad Autónoma de Buenos Aires",
+          "addressCountry": "AR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-34.56630121189851",
+          "longitude": "-58.45960052031086"
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "09:00",
+          "closes": "20:00"
+        },
+        "paymentAccepted": "Cash, Credit Card, Debit Card, Check, NFC Mobile Payments",
+        "priceRange": "$$",
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Service Options",
+            "value": "Entrega a domicilio, Retiro en tienda, Compras en tienda, Entrega el mismo día"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Público",
+            "value": "Amigable con LGBTQ+"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Planificación",
+            "value": "Visita rápida"
+          }
+        ]
       },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "-34.603722",
-        "longitude": "-58.381592"
+      "areaServed": {
+        "@type": "City",
+        "name": localidad,
+        "containedIn": municipio
+      },
+      "offers": {
+        "@type": "Offer",
+        "description": `Servicio de envío de flores a ${localidad}`,
+        "price": costoEnvio === "Consultar precio" ? "0" : costoEnvio.replace(/[^0-9]/g, ""),
+        "priceCurrency": "ARS",
+        "availability": "https://schema.org/InStock",
+        "deliveryLeadTime": {
+          "@type": "QuantitativeValue",
+          "value": tiempoEntrega === "En el día" ? "24" : tiempoEntrega.replace(/[^0-9-]/g, "").split("-")[0],
+          "unitCode": "HUR"
+        }
       }
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": localidad,
-      "containedIn": municipio
-    },
-    "offers": {
-      "@type": "Offer",
-      "description": `Servicio de envío de flores a ${localidad}`,
-      "price": costoEnvio === "Consultar precio" ? "0" : costoEnvio.replace(/[^0-9]/g, ""),
-      "priceCurrency": "ARS",
-      "availability": "https://schema.org/InStock",
-      "deliveryLeadTime": {
-        "@type": "QuantitativeValue",
-        "value": tiempoEntrega === "En el día" ? "24" : tiempoEntrega.replace(/[^0-9-]/g, "").split("-")[0],
-        "unitCode": "HUR"
-      }
-    }
-  };
-
+    };
   return {
-    title: `🚚 Envío de Flores a ${localidad} | Entrega en ${tiempoEntrega} | Envío ${costoEnvio === "Consultar precio" ? "GRATUITO ✓" : "desde "+costoEnvio} | Envio Flores Argentina`,
+    title: `🚚 Envío de Flores a ${localidad} | Entrega en ${tiempoEntrega} | Envío ${costoEnvio === "Consultar precio" ? "" : "desde "+costoEnvio} | Envio Flores Argentina`,
     description: description,
     keywords: allKeywords,
     alternates: {
@@ -346,10 +378,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     appLinks: {
-      ios: {
-        url: 'https://www.envioflores.com/app/ios',
-        app_store_id: 'app-store-id',
-      },
+
       android: {
         package: 'com.envioflores.app',
         app_name: 'Envio Flores',

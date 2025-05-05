@@ -28,7 +28,6 @@ interface TimeLeft {
 const PantallaPromocion: React.FC<PantallaPromocionProps> = ({
   nombre,
   descripcion,
-  validoDesde,
   validoHasta,
   background,
   icono,

@@ -24,7 +24,6 @@ const Categories = ({ categoryName }) => {
     especialDates: false
   });
   const { isDarkMode } = useTheme();
-  const menuRef = useRef(null);
   const pathname = usePathname();
 
   // Determinar qué tipo de categoría está activa según la URL

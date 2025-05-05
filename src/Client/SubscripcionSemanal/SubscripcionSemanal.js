@@ -10,7 +10,6 @@ import {
   Schedule,
   Business,
   Home,
-  CalendarMonth,
   LocationOn,
   CheckCircle,
   Email,
@@ -18,12 +17,17 @@ import {
   Phone,
   BusinessCenter,
   DateRange,
-  EventAvailable
+  EventAvailable,
+  Brightness5,
+  Loyalty,
+  Redeem,
+  ThumbUp
 } from '@mui/icons-material';
 import { ZoomIn, Close } from '@mui/icons-material';
 import style from './SubscripcionSemanal.module.css';
 import { CircularProgress } from '@mui/material';
 import { format, addMonths, addDays, getDay } from 'date-fns';
+import { es } from 'date-fns/locale';
 import Swal from 'sweetalert2';
 import Image from 'next/image';
 
@@ -48,14 +52,39 @@ const SubscripcionComponent = () => {
   });
 
   const benefits = [
-    { icon: <LocalFlorist />, text: 'Flores frescas semanales' },
-    { icon: <Schedule />, text: 'Entregas programadas' },
-    { icon: <Business />, text: 'Ideal para empresas' },
-    { icon: <Home />, text: 'Perfecto para hogares' },
-    { icon: <EventAvailable />, text: 'Renovación automática' },
-    { icon: <DateRange />, text: 'Flexibilidad de horarios' }
+    { 
+      icon: <LocalFlorist />, 
+      text: 'Flores frescas premium seleccionadas diariamente por nuestros floristas expertos' 
+    },
+    { 
+      icon: <Schedule />, 
+      text: 'Entregas programadas con puntualidad exacta en el día y horario que prefieras' 
+    },
+    { 
+      icon: <Business />, 
+      text: 'Diseños exclusivos que transformarán tu espacio de trabajo y cautivarán a tus clientes' 
+    },
+    { 
+      icon: <Home />, 
+      text: 'Llena tu hogar de vida, color y fragancia cada semana con arreglos personalizados' 
+    },
+    { 
+      icon: <EventAvailable />, 
+      text: 'Renovación automática sin complicaciones, tú solo disfruta de la belleza floral' 
+    },
+    { 
+      icon: <DateRange />, 
+      text: 'Flexibilidad total: modifica, pausa o cancela cuando lo necesites sin compromisos' 
+    },
+    { 
+      icon: <Brightness5 />, 
+      text: 'Garantía de frescura extendida por 5 días o reemplazamos tu arreglo sin costo' 
+    },
+    { 
+      icon: <Loyalty />, 
+      text: '15% de descuento exclusivo en pedidos especiales para suscriptores premium' 
+    }
   ];
-
 
   const calculateNextDeliveries = () => {
     const deliveries = [];
@@ -68,19 +97,18 @@ const SubscripcionComponent = () => {
 
     // Calcular los 4 jueves del mes
     for (let i = 0; i < 4; i++) {
-      deliveries.push(format(nextDelivery, 'dd/MM/yyyy'));
+      deliveries.push(format(nextDelivery, 'dd/MM/yyyy', { locale: es }));
       nextDelivery = addDays(nextDelivery, 7); // Avanzar al siguiente jueves
     }
 
     return deliveries;
   };
 
-
   const formatWhatsAppMessage = (data) => {
     const message = `
   ¡Hola Envio Flores! 🌸
   
-  Me inscribí en el Plan Semanal de Flores. Estos son mis datos:
+  Me inscribí en el Plan Semanal Premium de Flores. Estos son mis datos:
   
   📋 *Datos Personales*
   - Nombre: ${data.name}
@@ -89,17 +117,16 @@ const SubscripcionComponent = () => {
   - Dirección: ${data.address}
   
   🌺 *Detalles de Suscripción*
-  - Tipo: ${data.type === 'personal' ? 'Personal' : 'Empresa'}
+  - Tipo: ${data.type === 'personal' ? 'Personal' : 'Empresarial'}
   ${data.type === 'empresa' ? `- Empresa: ${data.empresa}\n` : ''}
   - Horario preferido: ${data.horarioPreferido}
   - Preferencias: ${data.preferences || 'Sin preferencias especiales'}
   
   📅 *Información de Entregas*
-  - Inicio: ${new Date(data.fechaInicio).toLocaleDateString()}
+  - Inicio: ${new Date(data.fechaInicio).toLocaleDateString('es-ES')}
   - Próximas entregas: ${data.proximasEntregas.join(', ')}
-  - Presupuesto mensual
   
-  ¡Gracias por confiar en nosotros! 🌹
+  ¡Muchas gracias por hacer mi vida más colorida y fragante cada semana! 🌹
   `;
     return encodeURIComponent(message);
   };
@@ -132,20 +159,20 @@ const SubscripcionComponent = () => {
 
       // Mostrar SweetAlert2 de confirmación
       const result = await Swal.fire({
-        title: '¿Confirmar Suscripción Semanal?',
+        title: '¿Confirmar tu Suscripción Semanal Premium?',
         html: `
           <div style="text-align: left">
             <h3>Datos Personales:</h3>
-            <small><strong>Nombre:</strong> ${subscriptionData.name}</small>
-            <small><strong>Email:</strong> ${subscriptionData.email}</small>
-            <small><strong>Teléfono:</strong> ${subscriptionData.phone}</small>
-            <small><strong>Dirección:</strong> ${subscriptionData.address}</small>
+            <p><strong>Nombre:</strong> ${subscriptionData.name}</p>
+            <p><strong>Email:</strong> ${subscriptionData.email}</p>
+            <p><strong>Teléfono:</strong> ${subscriptionData.phone}</p>
+            <p><strong>Dirección:</strong> ${subscriptionData.address}</p>
             
             <h3>Detalles de Suscripción:</h3>
-            <small><strong>Tipo:</strong> ${subscriptionData.type === 'personal' ? 'Personal' : 'Empresa'}</small>
-            ${subscriptionData.type === 'empresa' ? `<small><strong>Empresa:</strong> ${subscriptionData.empresa}</small>` : ''}
-            <small><strong>Horario preferido:</strong> ${subscriptionData.horarioPreferido}</small>
-            <small><strong>Próximas entregas:</strong> ${deliveryDates.join(', ')}</small>
+            <p><strong>Tipo:</strong> ${subscriptionData.type === 'personal' ? 'Personal' : 'Empresarial'}</p>
+            ${subscriptionData.type === 'empresa' ? `<p><strong>Empresa:</strong> ${subscriptionData.empresa}</p>` : ''}
+            <p><strong>Horario preferido:</strong> ${subscriptionData.horarioPreferido}</p>
+            <p><strong>Próximas entregas:</strong> ${deliveryDates.join(', ')}</p>
           </div>
         `,
         customClass: {
@@ -155,13 +182,13 @@ const SubscripcionComponent = () => {
           confirmButton: style.swalConfirmButton,
           cancelButton: style.swalCancelButton
         },
-        position: 'bottom',
+        position: 'center',
         showCancelButton: true,
-        confirmButtonText: 'Sí, confirmar',
-        cancelButtonText: 'No, cancelar',
+        confirmButtonText: 'Sí, quiero flores cada semana',
+        cancelButtonText: 'Revisar mis datos',
         confirmButtonColor: '#670000',
-        cancelButtonColor: '#A6855D ',
-        background: isDarkMode ? '#f5e9d7' : '#1c0a01f0',
+        cancelButtonColor: '#A6855D',
+        background: isDarkMode ? '#1c0a01f0' : '#f5e9d7',
         reverseButtons: true
       });
 
@@ -173,7 +200,21 @@ const SubscripcionComponent = () => {
         // Enviar mensaje por WhatsApp
         const whatsappMessage = formatWhatsAppMessage(subscriptionData);
         const whatsappUrl = `https://wa.me/5491165421003?text=${whatsappMessage}`;
-        window.open(whatsappUrl, '_blank');
+        
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          title: '¡Suscripción Exitosa!',
+          html: `
+            <p>¡Felicidades! Tu vida estará llena de flores frescas cada semana.</p>
+            <p>Te redirigiremos a WhatsApp para finalizar el proceso y coordinar los detalles de tu primera entrega.</p>
+            <p class="swal-small">Nuestro equipo de expertos te contactará en breve para personalizar tu experiencia floral.</p>
+          `,
+          icon: 'success',
+          confirmButtonColor: '#670000',
+          confirmButtonText: 'Continuar a WhatsApp'
+        }).then(() => {
+          window.open(whatsappUrl, '_blank');
+        });
 
         // Limpiar formulario
         setFormData({
@@ -186,14 +227,6 @@ const SubscripcionComponent = () => {
           preferences: '',
           empresa: '',
           horarioPreferido: '10:00-13:00'
-        });
-
-        // Mostrar mensaje de éxito
-        Swal.fire({
-          title: '¡Suscripción Exitosa!',
-          text: 'Te redirigiremos a WhatsApp para finalizar el proceso',
-          icon: 'success',
-          confirmButtonColor: '#670000'
         });
 
         setTimeout(() => setSuccess(false), 5000);
@@ -229,17 +262,59 @@ const SubscripcionComponent = () => {
 
 
   return (
-    <div className={`${style.container} ${!isDarkMode ? style.dark : style.light}`}>
+    <div className={`${style.container} ${isDarkMode ? style.dark : style.light}`}>
 
       <motion.section className={style.infoSection}>
-        <motion.h2
+
+        <div className={style.sectionTitle}>
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className={style.sectionTitle}
+          className={style.title}
         >
-          <span className={style.subtitle}> Descubre Nuestros Planes de Suscripción
-            de Flores frescas directamente a tu puerta</span>
-        </motion.h2>
+          Cada Semana, Una Nueva Historia
+          <span className={style.subtitle}>
+            Sumérgete en el lujo de recibir arreglos exclusivos con flores frescas de temporada,
+            cuidadosamente seleccionadas por nuestros maestros floristas para convertir tu espacio en un santuario de elegancia natural
+          </span>
+        </motion.h1>
+
+        <motion.button 
+          className={style.subscribeButton}
+          onClick={scrollToForm}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Comenzar ahora
+        </motion.button>
+
+    </div>
+
+        <motion.div 
+          className={style.featuredImageContainer}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Image
+            src="/imagenes/subscripcion/flores-semanales-para-empresas.png"
+            alt="Flores frescas semanales - Envío Flores"
+            width={1200}
+            height={600}
+            priority
+            className={style.featuredImage}
+          />
+          <div className={style.imageOverlay}>
+            <p className={style.imageCaption}>
+              Transforma tu espacio cada semana con nuestros arreglos exclusivos
+            </p>
+          </div>
+        </motion.div>
+
+        <div className={style.valueProposition}>
+          <h3>Eleva tu espacio a un nivel superior</h3>
+          <p>Con nuestra suscripción semanal premium, cada entrega es una nueva experiencia que conecta con la naturaleza y sus ciclos. Seleccionamos las flores más frescas, combinamos colores y texturas, y creamos arreglos que iluminan espacios y alegran corazones.</p>
+        </div>
 
         <div className={style.subscriptionPlans}>
           <motion.div
@@ -249,10 +324,10 @@ const SubscripcionComponent = () => {
           >
             <div className={style.planHeader}>
               <LocalFlorist className={style.planIcon} />
-              <h3>Plan Premium Mensual</h3>
+              <h3>Plan Premium Semanal</h3>
               <h4>
                 <Schedule className={style.scheduleIcon} />
-                Entrega Semanal Garantizada
+                Belleza floral garantizada, cada semana
               </h4>
             </div>
 
@@ -263,8 +338,8 @@ const SubscripcionComponent = () => {
               <Image
                 width={500}
                 height={250}
-                src="/imagenes/subscripcion/flores-semanales-para-empresas.jpg"
-                alt="Suscripción Quincenal"
+                src="/imagenes/subscripcion/flores-semanales-para-empresas.png"
+                alt="Suscripción Semanal - Arreglos florales premium"
                 className={style.planImage}
                 priority
               />
@@ -276,6 +351,10 @@ const SubscripcionComponent = () => {
               )}
             </div>
 
+            <div className={style.priceTag}>
+              <span className={style.priceAmount}>Plan Premium</span>
+              <span className={style.priceInterval}>4 entregas mensuales</span>
+            </div>
 
             <ul className={style.benefitsList}>
               <motion.li
@@ -283,28 +362,35 @@ const SubscripcionComponent = () => {
                 transition={{ type: "spring", stiffness: 400 }}
               >
                 <CheckCircle className={style.checkIcon} />
-                <span>4 entregas mensuales personalizadas</span>
+                <span>4 entregas mensuales con diseños exclusivos</span>
               </motion.li>
               <motion.li
                 whileHover={{ x: 10 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
                 <LocalFlorist className={style.checkIcon} />
-                <span>12 flores premium por entrega</span>
+                <span>12-15 flores premium por entrega según temporada</span>
               </motion.li>
               <motion.li
                 whileHover={{ x: 10 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
                 <Business className={style.checkIcon} />
-                <span>Diseños exclusivos de temporada</span>
+                <span>Arreglos exclusivos adaptados a tu espacio</span>
               </motion.li>
               <motion.li
                 whileHover={{ x: 10 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <CalendarMonth className={style.checkIcon} />
-                <span>Envío premium incluido</span>
+                <Redeem className={style.checkIcon} />
+                <span>Envío premium incluido y garantía de frescura</span>
+              </motion.li>
+              <motion.li
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <ThumbUp className={style.checkIcon} />
+                <span>Atención personalizada y asesoramiento exclusivo</span>
               </motion.li>
             </ul>
 
@@ -314,15 +400,38 @@ const SubscripcionComponent = () => {
               whileTap={{ scale: 0.95 }}
               onClick={scrollToForm}
             >
-              Comenzar Suscripción
+              Comenzar Mi Suscripción Ahora
             </motion.button>
           </motion.div>
         </div>
       </motion.section>
 
+      <div className={style.testimonialSection}>
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div className={style.testimonialContainer}>
+          <div className={style.testimonialCard}>
+            <div className={style.testimonialContent}>
+              <p>"Las flores cada semana han transformado mi recepción. Nuestros clientes siempre comentan lo hermosas que son y el ambiente agradable que crean."</p>
+              <div className={style.testimonialAuthor}>
+                <p className={style.authorName}>María González</p>
+                <p className={style.authorTitle}>Gerente de Marketing</p>
+              </div>
+            </div>
+          </div>
+          <div className={style.testimonialCard}>
+            <div className={style.testimonialContent}>
+              <p>"El servicio es impecable. Las flores siempre están frescas, los arreglos son creativos y la entrega puntual sin falta. Recomiendo totalmente."</p>
+              <div className={style.testimonialAuthor}>
+                <p className={style.authorName}>Carlos Mendoza</p>
+                <p className={style.authorTitle}>Director Ejecutivo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <section className={style.benefitsSection}>
-        <h2>Beneficios de la Suscripción</h2>
+        <h2>Beneficios Exclusivos de Nuestra Suscripción</h2>
         <div className={style.benefitsGrid}>
           {benefits.map((benefit, index) => (
             <motion.div
@@ -331,6 +440,7 @@ const SubscripcionComponent = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
               {benefit.icon}
               <p>{benefit.text}</p>
@@ -339,7 +449,6 @@ const SubscripcionComponent = () => {
         </div>
       </section>
 
-
       <motion.form
         className={style.subscriptionForm}
         ref={formRef}
@@ -347,8 +456,11 @@ const SubscripcionComponent = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
       >
-        <h2>Comienza tu suscripción Semanal</h2>
+        <h2>Comienza tu experiencia floral semanal</h2>
+        <p className={style.formIntro}>Completa el formulario a continuación y comienza a disfrutar de la belleza natural en tu espacio cada semana. Nuestro equipo se pondrá en contacto contigo para personalizar tu experiencia.</p>
+        
         <div className={style.formGrid}>
           <div className={style.inputGroup}>
             <Person />
@@ -410,7 +522,7 @@ const SubscripcionComponent = () => {
               onChange={(e) => setFormData({ ...formData, type: e.target.value })}
               required
             >
-              <option value="empresa">Empresa</option>
+              <option value="empresa">Empresarial</option>
               <option value="personal">Personal</option>
             </select>
           </div>
@@ -435,8 +547,8 @@ const SubscripcionComponent = () => {
               onChange={(e) => setFormData({ ...formData, horarioPreferido: e.target.value })}
               required
             >
-              <option value="10:00-13:00">10:00 - 13:00</option>
-              <option value="13:00-16:00">13:00 - 16:00</option>
+              <option value="10:00-13:00">Mañana (10:00 - 13:00)</option>
+              <option value="13:00-16:00">Tarde (13:00 - 16:00)</option>
             </select>
           </div>
         </div>
@@ -449,9 +561,11 @@ const SubscripcionComponent = () => {
             whileTap={{ scale: 0.95 }}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={24} color="inherit" /> : 'Suscribirse'}
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Suscribirme Ahora'}
           </motion.button>
         </div>
+
+        <p className={style.formDisclaimer}>Al suscribirte, aceptas nuestros términos y condiciones. Tu información será tratada con confidencialidad según nuestra política de privacidad.</p>
 
         <AnimatePresence>
           {error && (
@@ -472,34 +586,46 @@ const SubscripcionComponent = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
             >
-              ¡Suscripción realizada con éxito! Te hemos enviado un correo con los detalles.
+              ¡Suscripción realizada con éxito! En breve recibirás tu primera entrega de flores frescas.
             </motion.div>
           )}
         </AnimatePresence>
       </motion.form>
 
-
       <section className={style.policiesSection}>
-        <h2>Políticas y Términos</h2>
+        <h2>Nuestro Compromiso Contigo</h2>
         <div className={style.policiesGrid}>
           <div className={style.policyCard}>
-            <h3>Política de Cancelación</h3>
-            <p>Puedes cancelar tu suscripción en cualquier momento a través de tu cuenta o contactando con nuestro servicio al cliente. La cancelación será efectiva al final del período actual. No se realizan reembolsos por períodos parciales. Si cancelas antes de tu primera entrega, te reembolsaremos el monto completo.</p>
+            <h3>Política de Garantía Total</h3>
+            <p>Tu satisfacción es nuestra prioridad absoluta. Puedes cancelar tu suscripción cuando lo desees, sin preguntas ni complicaciones. La cancelación será efectiva al final del período actual. Si decides cancelar antes de tu primera entrega, te reembolsaremos el monto completo. ¡Queremos que estés 100% feliz con nuestro servicio!</p>
           </div>
           <div className={style.policyCard}>
-            <h3>Política de Entrega</h3>
-            <p>Las entregas se realizan los días acordados en el horario seleccionado. En caso de no encontrarse en el domicilio, realizaremos un segundo intento el mismo día. Si la segunda entrega no es exitosa, se coordinará una nueva entrega para el siguiente día hábil. Notifícanos con 48 horas de anticipación para cambios en la dirección de entrega. Todas nuestras entregas están aseguradas y son realizadas por personal capacitado.</p>
+            <h3>Entregas Puntuales y Precisas</h3>
+            <p>Nuestras entregas se realizan los días acordados en el horario que elijas. Si no te encuentras en el domicilio, realizamos un segundo intento el mismo día o coordinamos una nueva entrega que se adapte perfectamente a tu agenda. Todas nuestras entregas son realizadas por personal especializado y capacitado en el manejo y cuidado de flores premium.</p>
           </div>
           <div className={style.policyCard}>
-            <h3>Garantía de Frescura</h3>
-            <p>Garantizamos la frescura de nuestras flores por un mínimo de 5 días con los cuidados adecuados. Cada entrega incluye instrucciones detalladas de cuidado y mantenimiento. Si no estás satisfecho con la calidad de las flores, contáctanos dentro de las 24 horas posteriores a la entrega y reemplazaremos el arreglo sin costo adicional. Nuestras flores son seleccionadas diariamente de los mejores proveedores locales.</p>
+            <h3>Garantía de Frescura Extendida</h3>
+            <p>Garantizamos la frescura de nuestras flores por un mínimo de 5 días con los cuidados adecuados. Cada entrega incluye instrucciones personalizadas de cuidado para maximizar la vida de tus flores. Si no estás satisfecho con la calidad, contáctanos dentro de las 24 horas y reemplazaremos tu arreglo sin costo adicional. Seleccionamos diariamente las mejores flores de productores locales certificados.</p>
           </div>
           <div className={style.policyCard}>
-            <h3>Modificaciones y Pausas</h3>
-            <p>Puedes pausar tu suscripción hasta por 4 semanas consecutivas sin perder los beneficios de tu plan. Las modificaciones en la frecuencia o composición de los arreglos pueden realizarse con 5 días de anticipación a tu próxima entrega. Mantén tu suscripción por 3 meses consecutivos y obtén un arreglo especial de regalo.</p>
+            <h3>Flexibilidad a Tu Medida</h3>
+            <p>Puedes modificar tu suscripción en cualquier momento según tus necesidades. ¿Vas de vacaciones? Pausa tu servicio hasta por 4 semanas consecutivas sin perder beneficios ni antigüedad. Las modificaciones en la frecuencia o composición pueden realizarse con 5 días de anticipación. Como agradecimiento a tu fidelidad, después de 3 meses recibirás un arreglo especial de regalo con nuestras flores más exclusivas.</p>
           </div>
         </div>
       </section>
+
+      <div className={style.ctaSection}>
+        <h2>Transforma tu espacio cada semana</h2>
+        <p>Únete a nuestra comunidad de amantes de las flores y descubre cómo un arreglo floral semanal puede cambiar completamente la energía y belleza de tu entorno.</p>
+        <motion.button 
+          onClick={scrollToForm}
+          className={style.ctaButton}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Comenzar ahora
+        </motion.button>
+      </div>
     </div>
   );
 };

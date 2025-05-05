@@ -36,7 +36,7 @@ function RegistroUser() {
                                 objectFit="contain"
                                 priority
                                 onError={(e) => {
-                                    e.target.src = '/default-logo.png';
+                                    e.target.src = '/assets/imagenes/logo-envio-flores.png';
                                 }}
                             />
                         </Box>

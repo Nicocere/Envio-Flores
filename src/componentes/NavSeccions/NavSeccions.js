@@ -17,9 +17,6 @@ const NavSeccions = () => {
     const className = isDarkMode ? 'dark-mode' : '';
 
 
-    // const toggleSubMenu = () => {
-    //     setShowSubMenuProducts(!showSubMenuProducts);
-    // };
 
     return (
         <ul className={`ulSeccion ${className}`}>
@@ -47,9 +44,9 @@ const NavSeccions = () => {
 
                 <Link className={`navSeccions ${className}`} href="/ayuda" onClick={() => setShowMobileMenu(!showMobileMenu)}>¿Cómo Comprar?</Link>
 
-                <Link className={`navSeccions ${className}`} href="/ubicacion" onClick={() => setShowMobileMenu(!showMobileMenu)}>Contacto</Link>
+                <Link className={`navSeccions ${className}`} href="/contacto" onClick={() => setShowMobileMenu(!showMobileMenu)}>Contacto</Link>
 
-                <Link className={`navSeccions ${className}`} href="/envios" onClick={() => setShowMobileMenu(!showMobileMenu)}>Zonas de Envio</Link>
+                <Link className={`navSeccions ${className}`} href="/ubicacion" onClick={() => setShowMobileMenu(!showMobileMenu)}>Nuestro local</Link>
 
             </div>
 

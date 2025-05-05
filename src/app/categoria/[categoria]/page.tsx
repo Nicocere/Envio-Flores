@@ -139,7 +139,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     `${categoryName.toLowerCase()} con descuento`,
     `${categoryName.toLowerCase()} 20% off`,
     `${categoryName.toLowerCase()} mejor precio`,
-    `${categoryName.toLowerCase()} envío gratis`,
+    `${categoryName.toLowerCase()} envío a domicilio`,
     
     // Prioridad 2: Palabras clave específicas de la categoría
     ...categoryData.keywordsPriority,
@@ -164,7 +164,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     'florería con entrega 24hs',
     'flores con tarjeta personalizada',
     'envío de flores baratas',
-    'flores con entrega gratuita',
+    'flores con entrega en el día',
     
     // Prioridad 5: Términos locales geográficos específicos
     'flores CABA',
@@ -295,7 +295,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       
       // Metadatos de entrega
       'shipping:region': 'CABA y GBA',
-      'shipping:cost': 'Gratis',
+      'shipping:cost': '6990',
       'shipping:method': 'Express',
       'shipping:time': '3 horas',
       
@@ -388,7 +388,7 @@ export default async function Category({ params }: PageProps) {
         seller: {
           '@type': 'Organization',
           name: 'Envio Flores Argentina',
-          image: 'https://www.envioflores.com/logo.png'
+          image: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png'
         }
       }]
     },
@@ -432,64 +432,70 @@ export default async function Category({ params }: PageProps) {
     ]
   };
 
-  // Schema para empresa local con horarios de atención
-  const businessSchema = {
+  // Schema para negocio local
+  const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'FloristOrganization',
     name: 'Envio Flores Argentina',
     url: 'https://www.envioflores.com',
-    logo: 'https://www.envioflores.com/logo.png',
-    image: 'https://www.envioflores.com/tienda.jpg',
-    description: `Florería online especializada en ${categoryName} con envío express a domicilio en CABA y Gran Buenos Aires.`,
-    telephone: '+54 11 XXXX-XXXX',
-    email: 'contacto@envioflores.com',
-    currenciesAccepted: 'ARS',
-    paymentAccepted: 'Efectivo, Tarjetas de Crédito, Débito, Transferencia, MercadoPago',
-    priceRange: '$$$',
+    logo: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+54-11-4788-9185',
+      contactType: 'customer service',
+      areaServed: 'AR',
+      availableLanguage: 'Spanish'
+    },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Av. Corrientes 1234',
+      streetAddress: 'Av. Crámer 1915',
       addressLocality: 'Buenos Aires',
-      addressRegion: 'CABA',
-      postalCode: '1043',
-      addressCountry: 'AR'
+      postalCode: 'C1428CTC',
+      addressCountry: 'AR',
+      addressRegion: 'Ciudad Autónoma de Buenos Aires'
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: '-34.6037',
-      longitude: '-58.3816'
+      latitude: '-34.56630121189851',
+      longitude: '-58.45960052031086'
     },
-    openingHoursSpecification: [
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ],
+      opens: '09:00',
+      closes: '20:00'
+    },
+    paymentAccepted: 'Cash, Credit Card, Debit Card, Check, NFC Mobile Payments',
+    priceRange: '$$',
+    additionalProperty: [
       {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '20:00'
+        '@type': 'PropertyValue',
+        name: 'Service Options',
+        value: 'Entrega a domicilio, Retiro en tienda, Compras en tienda, Entrega el mismo día'
       },
       {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Saturday'],
-        opens: '10:00',
-        closes: '18:00'
+        '@type': 'PropertyValue',
+        name: 'Público',
+        value: 'Amigable con LGBTQ+'
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Planificación',
+        value: 'Visita rápida'
       }
     ],
     sameAs: [
       'https://www.facebook.com/envioflores',
-      'https://www.instagram.com/envioflores',
-      'https://twitter.com/EnvioFlores',
-      'https://www.youtube.com/channel/envioflores'
-    ],
-    potentialAction: {
-      '@type': 'OrderAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: siteUrl
-      },
-      deliveryMethod: [
-        'http://schema.org/DeliveryModeDirectDownload',
-        'http://schema.org/DeliveryModeOwnFleet'
-      ]
-    }
+      'https://www.instagram.com/envioflores.arg',
+      'https://twitter.com/EnvioFlores'
+    ]
   };
 
   // FAQ Schema para la categoría
@@ -515,10 +521,10 @@ export default async function Category({ params }: PageProps) {
       },
       {
         '@type': 'Question',
-        name: `¿Tienen ${categoryName.toLowerCase()} con envío gratis?`,
+        name: `¿Tienen ${categoryName.toLowerCase()} con envío a  CABA o GBA?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sí, todos nuestros productos incluyen envío gratuito en CABA y zonas cercanas de GBA. Para zonas más alejadas puede aplicarse un cargo adicional que se calcula automáticamente al ingresar tu dirección.'
+          text: 'Sí, todos nuestros productos incluyen envío en CABA y zonas cercanas de GBA. Para zonas más alejadas puede aplicarse un cargo adicional que se calcula automáticamente al ingresar tu dirección.'
         }
       },
       {
@@ -608,7 +614,7 @@ export default async function Category({ params }: PageProps) {
   const jsonLdScripts = [
     JSON.stringify(collectionSchema),
     JSON.stringify(breadcrumbSchema),
-    JSON.stringify(businessSchema),
+    JSON.stringify(localBusinessSchema),
     JSON.stringify(faqSchema),
     JSON.stringify(reviewSchema),
     JSON.stringify(productSchema)

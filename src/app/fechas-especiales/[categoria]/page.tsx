@@ -1,5 +1,6 @@
 import FechasEspecialesComponent from '@/Client/FechasEspeciales/CategoriaFechasEspeciales/FechasEspecialesCategoria';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 interface Props {
   params: Promise<{
@@ -109,5 +110,63 @@ export default async function Category({ params }: Props) {
   };
 
   const category = formatCategory(rawCategory);
-  return <FechasEspecialesComponent category={category} />;
+
+  // Schema FAQ para fechas especiales
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `¿Cuánto tiempo de anticipación necesito para pedir flores para ${category}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Para fechas especiales como ${category}, recomendamos realizar tu pedido con al menos 48 horas de anticipación para asegurar disponibilidad. Sin embargo, también ofrecemos servicios express para pedidos de último momento.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `¿Qué tipos de arreglos florales son más populares para ${category}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Para ${category}, los arreglos de rosas, liliums y gerberas son muy populares. También ofrecemos opciones combinadas con chocolates, peluches y vinos que son perfectas para esta ocasión especial.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `¿Puedo programar una entrega para una fecha específica de ${category}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sí, puedes programar tu entrega para la fecha exacta que deseas. Nuestro sistema permite seleccionar día y franja horaria preferida para que tu regalo llegue en el momento perfecto.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: '¿Realizan entregas los fines de semana y días festivos?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sí, realizamos entregas todos los días del año, incluyendo fines de semana y días festivos. Entendemos que las fechas especiales no siempre caen en días laborables.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: '¿Puedo añadir un mensaje personalizado a mi regalo?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Absolutamente. Todos nuestros arreglos incluyen una tarjeta donde puedes escribir un mensaje personalizado que será entregado junto con tu regalo.'
+        }
+      }
+    ]
+  };
+
+  return (
+    <>
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <FechasEspecialesComponent category={category} />
+    </>
+  );
 }

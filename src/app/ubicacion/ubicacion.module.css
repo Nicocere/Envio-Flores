@@ -80,6 +80,8 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
+  text-align: end;
+
 }
 
 
@@ -142,6 +144,13 @@
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--card-border);
+  justify-content: space-between;
+
+}
+
+.contactItem p {
+  max-width: 30ch;
+  text-align: right;
 }
 
 .contactItem:last-child {
@@ -346,6 +355,11 @@
 }
 
 @media (max-width: 600px) {
+
+  .infoCard{
+    text-align:center;
+  }
+
   .divUbicacion {
     padding: 50px 15px;
     min-height: auto;
@@ -378,7 +392,7 @@
   .infoCard,
   .socialLinks,
   .deliveryInfo {
-    padding: 18px;
+    padding: 18px 0;
     border-radius: 12px;
   }
 
@@ -399,6 +413,10 @@
     display: flex;
     justify-content: space-between;
     text-align: right;
+  }
+
+  .contactItem p{
+    max-width: 20ch;
   }
 
   .contactItem h3 {
@@ -507,5 +525,100 @@
 
   .deliveryButton {
     width: 100%;
+  }
+}
+
+
+/* Estilos para la sección de características */
+.featureIcons {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.featureItem {
+  flex: 1;
+  min-width: 200px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.featureItem:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.dark .featureIcon {
+  color: var(--primary-light);
+}
+
+.featureTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.dark .featureTitle {
+  color: var(--primary-light);
+}
+
+.featureText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Adaptación responsive */
+@media (max-width: 768px) {
+  .featureIcons {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .featureItem {
+    min-width: unset;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .featureIcon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .featureTitle {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureItem {
+    padding: 15px;
+  }
+  
+  .featureIcon {
+    font-size: 1.8rem;
+  }
+  
+  .featureTitle {
+    font-size: 1rem;
+  }
+  
+  .featureText {
+    font-size: 0.85rem;
   }
 }

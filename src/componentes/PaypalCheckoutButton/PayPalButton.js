@@ -9,9 +9,6 @@ import localforage from 'localforage';
 import { useTheme } from '@/context/ThemeSwitchContext';
 
 const BACKEND_URL = "https://www.envioflores.com/api";
-// const BACKEND_URL = "https://envio-flores.vercel.app/api";
-
-
 
 const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
     phoneDestinatario, mailComprador, localidad, precioLocalidad, calle, altura, piso,
@@ -303,9 +300,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                                                     navigate.push(`/compras/paypal?order=${result.orderNumber}`);
                                                     
                                                 }
-                                                
-                                                    // await localforage.removeItem('shoppingCart');
-                                                    // await localforage.removeItem('cart');
+                                        
                                                 } else {
                                                     const error = await response.json();
                                                     navigate.push(`/compras/paypal?Error=true&ErrorDetail=${error}`);
@@ -313,18 +308,10 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                                                 }
                                             }
 
-                                            // Three cases to handle:
-                                            //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                                            //   (2) Other non-recoverable errors -> Show a failure message
-                                            //   (3) Successful transaction -> Show confirmation or thank you message
-
-                                            // This example reads a v2/checkout/orders capture response, propagated from the server
-                                            // You could use a different API or structure for your 'orderData'
                                             const errorDetail = Array.isArray(details.details) && details.details[0];
 
                                             if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
                                                 return actions.restart();
-                                                // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                                             }
 
                                             if (errorDetail) {
@@ -337,7 +324,6 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
 
                                         } catch (error) {
                                             console.error("no se pudo capturar la compra", error);
-                                            // Handle the error or display an appropriate error message to the user
                                         }
                                     }}
                         />)
@@ -353,7 +339,7 @@ const PayPalButton = ({ itemSelected, nombreDestinatario, apellidoDestinatario,
                 textAlign: 'center',
                 lineHeight: '1.4'
             }}>
-                Al realizar el pago, usted acepta nuestros <a href="#" style={{ color: '#002E82', textDecoration: 'none' }}>términos y condiciones</a> y nuestra <a href="#" style={{ color: '#002E82', textDecoration: 'none' }}>política de privacidad</a>.
+                Al realizar el pago, usted acepta nuestros términos y condiciones y nuestra política de privacidad.
             </p>
         </div>
     );

@@ -27,7 +27,10 @@ export const metadata: Metadata = {
     "globos personalizados", "tarjetas dedicadas", "cestas gourmet", "kits románticos",
     
     // Servicios y beneficios
-    "envío express de flores", "entrega en el día", "envío gratuito flores CABA",
+    "envío express de flores", "entrega en el día", "envío flores a CABA y GBA en el día",
+    "floristería online", "comprar flores online", "regalos a domicilio",
+    "floristería a domicilio", "envío flores urgentes", "entrega rápida de flores",
+    "floristería con entrega inmediata", "arreglos florales a medida", "seguimiento de pedidos",
     "florería online 24/7", "regalos urgentes mismo día", "envíos rápidos zona norte",
     "delivery flores zona sur", "floristería zona oeste", "envíos zona este",
     "flores a domicilio Argentina", "seguimiento de pedidos flores", "pago seguro online",
@@ -154,10 +157,7 @@ export const metadata: Metadata = {
     },
   },
   appLinks: {
-    ios: {
-      url: 'https://www.envioflores.com/app/ios',
-      app_store_id: 'app-store-id',
-    },
+ 
     android: {
       package: 'com.envioflores.app',
       app_name: 'Envio Flores',

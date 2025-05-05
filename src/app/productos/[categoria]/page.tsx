@@ -78,7 +78,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoryName = formatCategory(rawCategory);
   const categoryEmoji = getEmoji(categoryName);
   const categorySlug = rawCategory.toLowerCase();
-  const siteUrl = `https://www.envioflores.com/productos/${categorySlug}`;
+  const siteUrl = `https://www.envioflores.com/productos/${rawCategory}`;
+  console.log(" suteUrl", siteUrl);
   
   // Función para generar imágenes relevantes según categoría
   const getCategoryImage = (categoryName: string) => {
@@ -461,98 +462,100 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     authors: [{ name: 'Envio Flores Argentina' }],
     category: 'Flores, Plantas y Regalos',
     other: {
-      // Información geográfica
-      'geo.region': 'AR-C',
-      'geo.position': '-34.603722;-58.381592',
-      'ICBM': '-34.603722, -58.381592',
-      'geo.placename': 'Buenos Aires, Argentina',
-      'geo.country': 'Argentina',
-      'geo.area.served': 'CABA, Gran Buenos Aires, Argentina',
-      'place:location:latitude': '-34.603722',
-      'place:location:longitude': '-58.381592',
-      'distribution.area': 'CABA, Zona Norte, Zona Sur, Zona Oeste',
-      'coverage.area': 'Capital Federal, Gran Buenos Aires, Argentina',
-      
-      // Información de negocio
-      'business:contact_data:street_address': 'Av. Corrientes 1234',
-      'business:contact_data:locality': 'Ciudad Autónoma de Buenos Aires',
-      'business:contact_data:region': 'CABA',
-      'business:contact_data:postal_code': '1043',
-      'business:contact_data:country_name': 'Argentina',
-      'business:contact_data:email': 'info@envioflores.com',
-      'business:contact_data:phone_number': '+54 11 4444-5555',
-      'business:contact_data:website': 'https://www.envioflores.com',
-      'business:contact_data:whatsapp': '+5491165421003',
-      'business:hours': 'mo,tu,we,th,fr,sa,su 00:00-23:59',
-      'business:type': 'Florist.DeliveryService',
-      'business:status': 'Open.Online',
-      
-      // Configuración de página
-      'language': 'es-AR',
-      'distribution': 'global',
-      'coverage': 'CABA, Gran Buenos Aires, Argentina',
-      'target': 'all',
-      'rating': 'general',
-      'revisit-after': '1 day',
-      'apple-mobile-web-app-capable': 'yes',
-      'mobile-web-app-capable': 'yes',
-      'format-detection': 'telephone=no',
-      'HandheldFriendly': 'True',
-      'apple-mobile-web-app-title': 'Envio Flores',
-      'application-name': 'Envio Flores Argentina',
-      
-      // Metadatos visuales
-      'theme-color': '#670000',
-      'msapplication-TileColor': '#670000',
-      'msapplication-navbutton-color': '#670000',
-      'apple-mobile-web-app-status-bar-style': 'black-translucent',
-      
-      // Información de producto
-      'product:category': categoryName,
-      'product:availability': 'in stock',
-      'product:condition': 'new',
-      'product:retailer': 'Envio Flores Argentina',
-      'product:price:amount.min': '5999',
-      'product:price:amount.max': '35000',
-      'product:price:currency': 'ARS',
-      'product:delivery.method': 'Entrega a domicilio',
-      'product:delivery.time': '2-24 horas',
-      'product:shipping_cost:amount': '0',
-      'product:shipping_cost:currency': 'ARS',
-      
-      // Información de servicio
-      'service:delivery_time': 'Express 2 horas en CABA, Mismo día para pedidos antes de las 18:00 en GBA',
-      'service:coverage': 'CABA y más de 200 localidades de GBA',
-      'service:express': 'Disponible - 2 horas en CABA',
-      'service:tracking': 'Tiempo real por WhatsApp y email',
-      'service:online_payment': 'Tarjetas de crédito/débito, MercadoPago, Transferencia',
-      'service:customer_support': 'WhatsApp 24/7, teléfono Lun-Vie 9:00-20:00, Sab-Dom 9:00-18:00',
-      'service:return_policy': 'Garantía de frescura 7 días',
-      'service:shipping': 'Envios en el día, tenelo en 2 horas',
-      'service:delivery_area': 'CABA y Gran Buenos Aires',
-      'service:warranty': 'Satisfacción garantizada o reemplazo sin cargo',
-      'service:rating': '4.8/5 basado en 750+ opiniones',
-      
-      // Palabras clave adicionales para noticias
-      'news_keywords': `${categoryName.toLowerCase()}, flores frescas, envío express, flores a domicilio CABA, floristería online Buenos Aires, envío flores mismo día, ${categorySpecificKeywords.slice(0, 3).join(', ')}`,
-      
-      // Atributos para búsqueda por voz
-      'speakable.cssSelector': 'h1, h2, h3, .product-description, .delivery-info, .price-info',
-      'speakable.speechType': 'SearchResultsPage',
-      
-      // Tags adicionales para SEO
-      'pinterest-rich-pin': 'true',
-      'twitter:label1': 'Tiempo de entrega',
-      'twitter:data1': 'CABA: 2 horas | GBA: Mismo día',
-      'twitter:label2': 'Garantía',
-      'twitter:data2': 'Frescura garantizada 7 días o reemplazo sin cargo',
-      
-      // Datos estructurados para categoría de productos
-      'category-structured-data': generateCategorySchema(categoryName),
-      
-      // FAQs estructuradas específicas de categoría
-      'faq-structured-data': generateCategoryFAQs(categoryName),
-    }
+          // Información geográfica
+          'geo.region': 'AR-C',
+          'geo.position': '-34.56630121189851;-58.45960052031086',
+          'ICBM': '-34.56630121189851, -58.45960052031086',
+          'geo.placename': 'Buenos Aires, Argentina',
+          'geo.country': 'Argentina',
+          'geo.area.served': 'CABA, Gran Buenos Aires, Argentina',
+          'place:location:latitude': '-34.56630121189851',
+          'place:location:longitude': '-58.45960052031086',
+          'distribution.area': 'CABA, Zona Norte, Zona Sur, Zona Oeste',
+          'coverage.area': 'Capital Federal, Gran Buenos Aires, Argentina',
+          
+          // Información de negocio
+          'business:contact_data:street_address': 'Av. Crámer 1915',
+          'business:contact_data:locality': 'Ciudad Autónoma de Buenos Aires',
+          'business:contact_data:region': 'Ciudad Autónoma de Buenos Aires',
+          'business:contact_data:postal_code': 'C1428CTC',
+          'business:contact_data:country_name': 'Argentina',
+          'business:contact_data:email': 'floreriasargentinas@gmail.com',
+          'business:contact_data:phone_number': '+54 11 4788-9185',
+          'business:contact_data:website': 'https://www.envioflores.com',
+          'business:contact_data:whatsapp': '+5491165421003',
+          'business:hours': 'mo,tu,we,th,fr,sa 09:00-20:00',
+          'business:type': 'Florist.DeliveryService',
+          'business:status': 'Open.Online',
+          'business:local.rating': '4.8',
+          'business:reviews.count': '1250+',
+          
+          // Configuración de página
+          'language': 'es-AR',
+          'distribution': 'global',
+          'coverage': 'CABA, Gran Buenos Aires, Argentina',
+          'target': 'all',
+          'rating': 'general',
+          'revisit-after': '1 day',
+          'apple-mobile-web-app-capable': 'yes',
+          'mobile-web-app-capable': 'yes',
+          'format-detection': 'telephone=no',
+          'HandheldFriendly': 'True',
+          'apple-mobile-web-app-title': 'Envio Flores',
+          'application-name': 'Envio Flores Argentina',
+          
+          // Metadatos visuales
+          'theme-color': '#670000',
+          'msapplication-TileColor': '#670000',
+          'msapplication-navbutton-color': '#670000',
+          'apple-mobile-web-app-status-bar-style': 'black-translucent',
+          
+          // Información de producto
+          'product:category': categoryName,
+          'product:availability': 'in stock',
+          'product:condition': 'new',
+          'product:retailer': 'Envio Flores Argentina',
+          'product:price:amount.min': '5999',
+          'product:price:amount.max': '35000',
+          'product:price:currency': 'ARS',
+          'product:delivery.method': 'Entrega a domicilio, Retiro en tienda, Compras en tienda, Entrega el mismo día',
+          'product:delivery.time': '2-24 horas',
+          'product:shipping_cost:amount': '0',
+          'product:shipping_cost:currency': 'ARS',
+          
+          // Información de servicio
+          'service:delivery_time': 'Express 2 horas en CABA, Mismo día para pedidos antes de las 18:00 en GBA',
+          'service:coverage': 'CABA y más de 200 localidades de GBA',
+          'service:express': 'Disponible - 2 horas en CABA',
+          'service:tracking': 'Tiempo real por WhatsApp y email',
+          'service:online_payment': 'Tarjetas de crédito/débito, MercadoPago, Transferencia, Cheques, Pagos móviles mediante NFC',
+          'service:customer_support': 'WhatsApp 24/7, teléfono Lun-Vie 9:00-20:00, Sab 9:00-20:00',
+          'service:return_policy': 'Garantía de frescura 7 días',
+          'service:shipping': 'Envios en el día, tenelo en 2 horas',
+          'service:delivery_area': 'CABA, Gran Buenos Aires, Argentina',
+          'service:warranty': 'Satisfacción garantizada o reemplazo sin cargo',
+          'service:rating': '4.8/5 basado en 1250+ opiniones',
+          
+          // Palabras clave adicionales para noticias
+          'news_keywords': `${categoryName.toLowerCase()}, flores frescas, envío express, flores a domicilio CABA, floristería online Buenos Aires, envío flores mismo día, ${categorySpecificKeywords.slice(0, 3).join(', ')}`,
+          
+          // Atributos para búsqueda por voz
+          'speakable.cssSelector': 'h1, h2, h3, .product-description, .delivery-info, .price-info',
+          'speakable.speechType': 'SearchResultsPage',
+          
+          // Tags adicionales para SEO
+          'pinterest-rich-pin': 'true',
+          'twitter:label1': 'Tiempo de entrega',
+          'twitter:data1': 'CABA: 2 horas | GBA: Mismo día',
+          'twitter:label2': 'Garantía',
+          'twitter:data2': 'Frescura garantizada 7 días o reemplazo sin cargo',
+          
+          // Datos estructurados para categoría de productos
+          'category-structured-data': generateCategorySchema(categoryName),
+          
+          // FAQs estructuradas específicas de categoría
+          'faq-structured-data': generateCategoryFAQs(categoryName),
+        }
   };
 }
 

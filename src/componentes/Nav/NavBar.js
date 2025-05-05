@@ -23,7 +23,6 @@ const NavBarTop = () => {
 
   const [userData, setUserData] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const [showSubMenu, setShowSubMenu] = useState(false);
   const isSmallScreen = useMediaQuery('(max-width:900px)');
   const isMobileScreen = useMediaQuery('(max-width:800px)');
 

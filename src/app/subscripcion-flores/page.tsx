@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: 'Servicio premium de suscripción floral semanal para empresas y particulares. Transforma tus espacios con flores frescas cada semana. Envíos en CABA y Gran Buenos Aires.',
     siteName: 'Envio Flores',
     images: [{
-      url: 'https://www.envioflores.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg',
+      url: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
       width: 800,
       height: 600,
       alt: 'Servicio de Suscripción Semanal de Flores',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    images: ['https://www.envioflores.com/imagenes/subscripcion/flores-semanales-para-empresas.jpg'],
+    images: ['https://www.envioflores.com/assets/imagenes/logo-envio-flores.png'],
     title: 'Suscripción Semanal de Flores para Empresas y Hogares',
     description: 'Renueva tus espacios cada semana con flores frescas. Servicio premium de suscripción floral con envío a domicilio en CABA y GBA.'
   },

@@ -10,14 +10,7 @@ import naclUtil from 'tweetnacl-util';
 
 export const CartContext = createContext();
 
-const generateRandomCode = (length) => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-};
+
 
 const CartProvider = ({ children }) => {
     // Estado inicial del carrito

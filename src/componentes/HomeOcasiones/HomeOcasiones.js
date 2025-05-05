@@ -229,7 +229,7 @@ export default function HomeOcasiones() {
         transition={{ delay: 0.6, duration: 0.7 }}
         className={styles.sectionFooter}
       >
-        <Link href="/prohrefductos" className={styles.viewAllButton}>
+        <Link href="/productos" className={styles.viewAllButton}>
           <span>Ver todas las colecciones</span>
           <svg className={styles.arrowLong} viewBox="0 0 24 24">
             <path d="M5,12H19M19,12L13,6M19,12L13,18" />

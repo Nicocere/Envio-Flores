@@ -26,8 +26,6 @@ import { RiFlowerFill } from 'react-icons/ri';
 
 export default function MiddleMenu({banners, loading}) {
 
-  const isMobile = useMediaQuery('(max-width:600px)');
-  const isTablet = useMediaQuery('(max-width:900px)');
   const { isDarkMode } = useTheme();
   
   // Detectar cuando el componente está en viewport

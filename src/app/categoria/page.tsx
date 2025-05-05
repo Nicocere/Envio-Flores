@@ -100,7 +100,7 @@ export const metadata: Metadata = {
     'business:contact_data:region': 'CABA',
     'business:contact_data:postal_code': '1043',
     'business:contact_data:country_name': 'Argentina',
-    'business:contact_data:email': 'info@envioflores.com',
+    'business:contact_data:email': 'floreriasargentinas@gmail.com',
     'business:contact_data:phone_number': '+54 11 4444-5555',
     'business:hours': 'mo,tu,we,th,fr,sa,su 00:00-23:59',
     
@@ -236,10 +236,7 @@ export const metadata: Metadata = {
     },
   },
   appLinks: {
-    ios: {
-      url: 'https://www.envioflores.com/app/ios',
-      app_store_id: 'app-store-id',
-    },
+ 
     android: {
       package: 'com.envioflores.app',
       app_name: 'Envio Flores',

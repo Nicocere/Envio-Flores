@@ -1,134 +1,857 @@
+/* Variables para tema claro/oscuro adaptadas desde globals.css */
+.contactoContainer {
+  /* Colores principales */
+  --primary-color:  #a70000;
+  --primary-hover: var(--primary-color-hover, #800000);
+  --primary-light: var(--primary-light, #ff4d4d);
+  --primary-light-hover: var(--primary-light-hover, #ff6b6b);
+  
+  /* Colores de texto */
+  --text-color: var(--text-dark, #333333);
+  --text-light-color: var(--text-light, #FFFFFF);
+  --text-muted: var(--text-muted, #6c757d);
+  
+  /* Colores de fondo */
+  --background-color: var(--background-light, #ffffff);
+  --background-secondary: var(--background-light-gradient, linear-gradient(135deg, #ffffff, #f0f0f0));
+  --background-card: var(--background-light, #ffffff);
+  
+  /* Bordes y sombras */
+  --border-color: var(--border-color, #E0E0E0);
+  --border-radius: var(--radius-md, 0.5rem);
+  --border-radius-lg: var(--radius-lg, 0.75rem);
+  --card-shadow: var(--shadow-normal, 0 4px 12px rgba(0, 0, 0, 0.15));
+  --card-shadow-hover: var(--shadow-strong, 0 8px 20px rgba(0, 0, 0, 0.25));
+  --form-shadow: var(--shadow-normal, 0 4px 12px rgba(0, 0, 0, 0.15));
+  
+  /* Estado y retroalimentación */
+  --error-color: var(--error-color, #FF1744);
+  --success-color: var(--success-color, #00C853);
+  
+  /* Transiciones */
+  --transition-speed: var(--transition-normal, 300ms cubic-bezier(0.4, 0, 0.2, 1));
+  --transition-bounce: var(--transition-bounce, 500ms cubic-bezier(0.34, 1.56, 0.64, 1));
+  
+  /* Entradas */
+  --input-background: var(--background-light, #ffffff);
+  --input-border: var(--border-color, #E0E0E0);
+  --input-focus: var(--primary-color, #a70000);
+  
+  /* Espaciado */
+  --spacing-xs: var(--spacing-2, 0.5rem);
+  --spacing-sm: var(--spacing-4, 1rem);
+  --spacing-md: var(--spacing-6, 1.5rem);
+  --spacing-lg: var(--spacing-8, 2rem);
+  --spacing-xl: var(--spacing-12, 3rem);
+}
+
+/* Variables para modo oscuro alineadas con globals.css */
+.darkMode {
+  /* Colores principales */
+  --primary-color: #ff4d4d;
+  --primary-hover: var(--primary-light-hover, #ff6b6b);
+  --primary-light: rgba(255, 77, 77, 0.2);
+  
+  /* Colores de texto */
+  --text-color: var(--text-light, #FFFFFF);
+  --text-light-color: var(--text-dark, #333333);
+  --text-muted: var(--text-light, #b0b0b0);
+  
+  /* Colores de fondo */
+  --background-color: var(--background-dark, #0a0a0a);
+  --background-secondary: var(--background-dark-gradient, linear-gradient(135deg, #1e1e1e, #121212));
+  --background-card: var(--background-dark-alt, #1e1e1e);
+  
+  /* Bordes y sombras */
+  --border-color: var(--border-color-dark, rgba(255, 255, 255, 0.1));
+  --card-shadow: var(--shadow-dark-md, 0 4px 16px rgba(0, 0, 0, 0.2));
+  --card-shadow-hover: var(--shadow-dark-lg, 0 8px 24px rgba(0, 0, 0, 0.25));
+  --form-shadow: var(--shadow-dark-md, 0 4px 16px rgba(0, 0, 0, 0.2));
+  
+  /* Entradas */
+  --input-background: var(--background-card-dark, #2c2c2c);
+  --input-border: var(--border-color-dark, rgba(255, 255, 255, 0.1));
+  --input-focus: var(--primary-light, #ff4d4d);
+}
+
+/* Estilos globales para el componente */
+.contactoContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-primary, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+/* Barra superior */
 .navTop {
   display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-evenly;
-  text-decoration: none;
-  font-size: 75%;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
 }
 
 
-
-.icons {
-  color: rgba(164, 7, 125, 0.797);
-  margin: 0px 10px 0 10px;
-  font-size: 20px;
-}
-
-.icons:hover{
-  color: rgb(59, 0, 74);
-
-}
-
-.divContacto {
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  justify-content: space-evenly;
-
-}
-
+/* Contenedor de iconos de redes */
 .divContactoIconsRedes {
   display: flex;
-  flex-direction: row;
+  gap: var(--spacing-md);
+  margin-left: auto;
 }
 
-.divContactoIconsRedes a {
-  align-self: center;
-}
-
-
-.divContacto {
-  display: flex;
-  align-items: center;
-}
-
-.contactoMail {
-  border-radius: 3px;
-
-}
-
-.contacto {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: all .5s;
-  margin-left: 10px;
-  margin-right: 5px;
-   ;
-  color: #561b42;
-}
-
-.contacto:hover {
-  color: #460000;
-}
-
-
-.direc {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 25%;
-  transition: all .5s;
-  margin-left: 0px;
-}
-
-.dir {
-  margin-right: .5%;
-  margin-left: .5%;
-  text-decoration: none;
-  transition: color .5s;
-   ;
-  color: #561b42;
-  ;
-}
-
-.dir:hover {
-  color: #460000;
-}
-
+/* Estilo para cada red social */
 .redesSociales {
-  width: 100%;
-  margin-left: 0px;
   display: flex;
-  align-items: self-end;
-  transition: transform .5s;
+  align-items: center;
+  position: relative;
 }
 
+/* Animación de los iconos */
+.icons {
+  color: var(--primary-color);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  position: relative;
+  transition: all var(--transition-bounce);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  justify-content: center;
+}
 
-@media screen and (max-width: 800px) {
+.icons:hover {
+  color: var(--text-light-color);
+  transform: translateY(-3px);
+  background-color: var(--primary-color);
+  box-shadow: var(--card-shadow);
+}
 
-  .navTop {
-    font-size: 9.25px;
+/* Etiqueta que aparece en hover */
+.iconLabel {
+  display: none;
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--background-card);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: var(--card-shadow);
+  z-index: 10;
+  border: 1px solid var(--border-color);
+}
+
+.icons:hover .iconLabel {
+  display: block;
+  animation: fadeInUp var(--transition-speed);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
   }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 
-  .divContacto {
-    display: flex;
-    flex-direction: row;
+/* Contenido principal */
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Sección de información de contacto */
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactTitle, .formTitle {
+  font-size: 32px;
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--primary-color);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.contactTitle::after, .formTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  transition: width var(--transition-speed);
+}
+
+.contactTitle:hover::after, .formTitle:hover::after {
+  width: 100%;
+}
+
+.contactDesc, .formDesc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Tarjeta de información */
+.infoCard {
+  background: var(--background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--card-shadow);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border: 1px solid var(--border-color);
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  transition: transform var(--transition-speed);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+}
+
+.infoItem:hover {
+  transform: translateX(5px);
+  background-color: var(--background-color);
+}
+
+.infoIcon {
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-top: 5px;
+  transition: transform var(--transition-speed);
+}
+
+.infoItem:hover .infoIcon {
+  transform: scale(1.2);
+}
+
+.infoItem h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.infoItem p {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.infoDetail {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Mapa de Google */
+.mapContainer {
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  height: 250px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  position: relative;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.mapContainer:hover {
+  transform: scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.mapContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(var(--primary-color), 0.1), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+  z-index: 1;
+}
+
+.mapContainer:hover::before {
+  opacity: 1;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Formulario de contacto */
+.contactForm {
+  background: var(--background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--form-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.contactForm:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.contactForm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.formGroup label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-speed);
+}
+
+.formGroup label::after {
+  content: '*';
+  color: var(--error-color);
+  margin-left: 4px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+}
+
+.formGroup.required label::after {
+  opacity: 1;
+}
+
+.formGroup input, 
+.formGroup textarea {
+  padding: 14px var(--spacing-sm);
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+  transition: all var(--transition-speed);
+  width: 100%;
+}
+
+.formGroup input:focus, 
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color, 167, 0, 0), 0.2);
+  transform: translateY(-2px);
+}
+
+.formGroup input:hover, 
+.formGroup textarea:hover {
+  border-color: var(--primary-color);
+}
+
+.inputError {
+  border-color: var(--error-color) !important;
+}
+
+.errorText {
+  color: var(--error-color);
+  font-size: 14px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
+
+.formError {
+  background-color: rgba(var(--error-color, 229, 57, 53), 0.1);
+  border-left: 3px solid var(--error-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--error-color);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  animation: slideInLeft 0.3s forwards;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.submitBtn {
+  background-color: var(--primary-color);
+  color: var(--text-light-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all var(--transition-bounce);
+  margin-top: var(--spacing-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.submitBtn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(var(--primary-color, 167, 0, 0), 0.3);
+  color: white;
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+}
+
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 0;
+  height: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.156), rgba(0, 0, 0, 0.313));
+  border-radius: 50%;
+  transform: translate( 50% - 50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.submitBtn:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.submitBtn:disabled {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submitBtn:disabled::before {
+  display: none;
+}
+
+.sendIcon {
+  font-size: 18px;
+  transition: transform var(--transition-speed);
+}
+
+.submitBtn:hover .sendIcon {
+  transform: translateX(5px);
+}
+
+/* Mensaje de éxito */
+.formSuccess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+  animation: fadeIn 1s ease;
+}
+
+.formSuccess p {
+  margin: 5px 0;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.formSuccess p:first-of-type {
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 22px;
+  color: var(--success-color);
+}
+
+/* Animación de checkmark */
+.checkmark {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: var(--success-color);
+  stroke-miterlimit: 10;
+  box-shadow: 0 0 20px rgba(var(--success-color, 67, 160, 71), 0.3);
+  animation: fillCheckmark 0.4s ease-in-out 0.4s forwards, scaleCheckmark 0.3s ease-in-out 0.9s both;
+}
+
+@keyframes fillCheckmark {
+  100% { box-shadow: 0 0 0 30px rgba(var(--success-color, 67, 160, 71), 0); }
+}
+
+@keyframes scaleCheckmark {
+  0%, 100% { transform: none; }
+  50% { transform: scale3d(1.1, 1.1, 1); }
+}
+
+.checkmarkCircle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: var(--success-color);
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmarkCheck {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 3;
+  stroke: var(--success-color);
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sección de horarios */
+.scheduleSection {
+  background: var(--background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border: 1px solid var(--border-color);
+}
+
+.scheduleSection:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.scheduleSection h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--primary-color);
+  font-size: 22px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scheduleSection h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.scheduleItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  background-color: var(--background-color);
+  transition: all var(--transition-bounce);
+  border: 1px solid var(--border-color);
+}
+
+.scheduleItem:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--card-shadow);
+  border-color: var(--primary-color);
+}
+
+.scheduleDay {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+
+.scheduleHours {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 992px) {
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .infoCard {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .scheduleSection {
+    margin-top: var(--spacing-lg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contactoContainer {
+    padding: var(--spacing-sm);
+  }
+  
+  .navTop {
+    flex-direction: column;
+    gap: var(--spacing-sm);
     align-items: center;
+    padding-bottom: var(--spacing-md);
+  }
+  
+  .divContactoIconsRedes {
+    margin: 0;
+    width: 100%;
     justify-content: space-around;
   }
-
+  
   .icons {
+    font-size: 22px;
+  }
+  
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .scheduleGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .contactTitle, .formTitle {
+    font-size: 28px;
+  }
+  
+  .infoCard {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-md);
+  }
+  
+  .contactForm {
+    padding: var(--spacing-md);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .scheduleGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .infoCard {
+    padding: var(--spacing-sm);
+  }
+  
+  .contactTitle, .formTitle {
+    font-size: 24px;
+  }
+  
+  .icons {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+  }
+  
+  .divContactoIconsRedes {
+    gap: 10px;
+  }
+  
+  .iconLabel {
+    font-size: 12px;
+  }
+  
+  .submitBtn {
+    padding: 12px 16px;
     font-size: 15px;
   }
 
-}
-
-
-
-@media screen and (max-width: 400px) {
-  .imgNavBar {
-    width: 250px;
+  .infoItem {
+    padding: var(--spacing-xs);
+    gap: 10px;
+    
+    justify-content: center;
   }
-  .navTop {
-    font-size: 9px;
+  
+  .infoIcon {
+    font-size: 24px;
   }
-  .icons {
+  
+  .infoItem h3 {
+    font-size: 16px;
+  }
+  
+  .infoItem p {
+    font-size: 14px;
+  }
+  
+  .infoDetail {
     font-size: 12px;
   }
+  
+  .formGroup input, 
+  .formGroup textarea {
+    padding: 12px;
+    font-size: 15px;
+  }
+  
+  .errorText {
+    font-size: 12px;
+  }
+}
 
+/* Modo táctil para dispositivos móviles */
+@media (hover: none) {
+  .themeToggle:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .themeToggle:active {
+    background-color: var(--primary-light);
+    transform: scale(0.95);
+  }
+  
+  .icons:hover {
+    transform: none;
+  }
+  
+  .icons:active {
+    transform: scale(0.95);
+    background-color: var(--primary-color);
+    color: var(--text-light-color);
+  }
+  
+  .submitBtn:hover {
+    transform: none;
+    background-color: var(--primary-color);
+  }
+  
+  .submitBtn:active {
+    background-color: var(--primary-hover);
+    transform: scale(0.98);
+  }
+  
+  .iconLabel {
+    display: none !important;
+  }
+  
+  .scheduleItem:hover,
+  .infoCard:hover,
+  .mapContainer:hover,
+  .infoItem:hover {
+    transform: none;
+  }
+  
+  .formGroup input:focus, 
+  .formGroup textarea:focus {
+    transform: none;
+  }
+}
 
+/* Accesibilidad - soporte para modo de alto contraste */
+@media (forced-colors: active) {
+  .themeToggle,
+  .icons,
+  .submitBtn,
+  .checkmark,
+  .checkmarkCircle,
+  .checkmarkCheck {
+    forced-color-adjust: none;
+  }
+  
+  .contactTitle::after,
+  .formTitle::after,
+  .scheduleSection h3::after,
+  .contactForm::before {
+    background-color: ButtonText;
+  }
 }

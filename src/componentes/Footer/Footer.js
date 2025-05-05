@@ -26,12 +26,7 @@ const Footer = () => {
                         desayunos, chocolates, peluches y más.
                     </p>
                     <div className="footer-social">
-                        <a href="http://facebook.com/flores.aflorar" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <FaFacebookF />
-                        </a>
-                        <a href="http://instagram.com/aflorar.arg" className="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <FaInstagram />
-                        </a>
+                    
                         <a href="https://wa.me/5491165421003" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                             <FaWhatsapp />
                         </a>

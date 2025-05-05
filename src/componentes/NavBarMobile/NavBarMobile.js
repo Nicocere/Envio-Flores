@@ -338,7 +338,7 @@ const NavBarMobile = () => {
 
                 <Link 
                   className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href="/ubicacion" 
+                  href="/contacto" 
                   onClick={handleToggleDrawer(!openDrawer)}
                 >
                   Contacto
@@ -346,10 +346,10 @@ const NavBarMobile = () => {
 
                 <Link 
                   className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href="/envios" 
+                  href="/ubicacion" 
                   onClick={handleToggleDrawer(!openDrawer)}
                 >
-                  Zonas de Envio
+                  Nuestro Local
                 </Link>
               </div>
             </div>

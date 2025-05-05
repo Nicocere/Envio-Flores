@@ -234,7 +234,7 @@
 @media (max-width: 768px) {
   .directionsDiv {
     padding: 1.5rem;
-    margin: 1.5rem 1rem;
+    margin: 1.5rem .2rem;
     border-radius: var(--radius-md);
   }
   
@@ -261,7 +261,7 @@
 @media (max-width: 480px) {
   .directionsDiv {
     padding: 1rem;
-    margin: 1rem;
+    margin: 1rem 0; 
   }
   
   .directionsDiv h1 {

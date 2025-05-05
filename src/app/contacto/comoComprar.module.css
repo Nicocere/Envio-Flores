@@ -1,0 +1,98 @@
+.dark{
+    --background: #670000;
+    --secondary-background: #ffffff;
+    --color: #fcf5f0;
+    --color2: #670000;
+
+}
+.light{
+    --background: #fcf5f0;
+    --color: #670000;
+    --color2: #670000;
+}
+
+.divAyudaCompras{
+    color: var(--color);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    padding: 175px 50px 50px;
+    text-align: center;
+    background: var(--background)  ;
+}
+
+
+.divPago{
+    background: #fcf5f0;
+    color: #670000 ;
+    border-radius: 10px;
+    padding: 10px 30px;
+    margin: 20px 20px;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+.divLinksAyuda{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 25px;
+
+}
+
+.linkAyuda{
+    margin: 10px;
+    font-weight: 300;
+    color: #670000 ;
+    transition: color .5s ;
+    flex: 1;
+    
+}
+.linkAyuda:hover{
+    color:   #670000;
+}
+
+
+.divProceso{
+    background: #fcf5f0;
+    color: #670000 ;
+    border-radius: 10px;
+    padding: 10px 30px;
+    margin:0px 20px;
+}
+.proceso{
+    background: #670000  ;
+    padding: 20px;
+    color:white;
+    margin-top: 0px;
+    border-radius: 10px;
+}
+.directions{
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px){
+    .divAyudaCompras{
+        padding: 175px 20px 20px;
+    }
+    .divPago{
+        padding: 10px 10px;
+        margin: 20px 10px;
+    }
+    .divLinksAyuda{
+        margin: 10px;
+    }
+    .divProceso{
+        padding: 10px 20px;
+        margin:0px 10px;
+    }
+    .proceso{
+        padding: 10px;
+    }
+    .directions{
+        display: flex;
+        justify-content: center;
+    }
+    
+}

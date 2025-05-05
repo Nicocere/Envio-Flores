@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { CartContext, useCart } from '../../context/CartContext';
+import React, { useEffect, useState } from 'react'
+import { useCart } from '../../context/CartContext';
 import { Fab, useMediaQuery } from '@mui/material';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';

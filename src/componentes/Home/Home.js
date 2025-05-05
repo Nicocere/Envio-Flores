@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import CarouselComponent from "../Carousel/Carousel";
 import ItemListContainer from "../ItemListContainer/ItemListContainer"
 import MiddleMenu from '../MiddleMenu/MiddleMenu';
-import { ThemeProvider, Typography, createTheme, useMediaQuery } from '@mui/material';
+import { ThemeProvider, createTheme, useMediaQuery } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import HomeBanner from '../HomeBanner/HomeBanner';
 import TopItems from '../ItemsTopSelling/TopItems';
@@ -33,14 +33,6 @@ const Home = () => {
     },
   };
 
-  const [refTheme, inViewTheme] = useInView({
-    threshold: 0.1,
-  });
-
-  const animationTheme = useSpring({
-    opacity: inViewTheme ? 1 : 0,
-    transform: inViewTheme ? 'translateY(0)' : 'translateY(100px)',
-  });
 
   const [refTopItems, inViewTopItems] = useInView({
     threshold: 0.15,
@@ -60,15 +52,6 @@ const Home = () => {
 
   });
 
-
-  const [refTheme2, inViewTheme2] = useInView({
-    threshold: 0.2,
-  });
-
-  const animationTheme2 = useSpring({
-    opacity: inViewTheme2 ? 1 : 0,
-    transform: inViewTheme2 ? 'translateY(0)' : 'translateY(50px)',
-  });
 
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);

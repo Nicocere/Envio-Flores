@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SearchContext, useSearch } from "../../context/SearchContext";
+import React, { useEffect, useState } from "react";
+import { useSearch } from "../../context/SearchContext";
 import nacl from 'tweetnacl';
 import * as naclUtil from 'tweetnacl-util';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from "@mui/material";
-import { red } from "@mui/material/colors";
 import { useTheme } from "../../context/ThemeSwitchContext";
 import './searcherNavBar.css';
 

@@ -72,7 +72,6 @@ export const fetchProductById = async (productId) => {
       return productData;
     }
 
-    console.log('Producto no encontrado:', productId);
     return null;
   } catch (error) {
     console.error('Error al obtener producto por ID:', error);

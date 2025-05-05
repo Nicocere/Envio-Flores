@@ -293,10 +293,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     appLinks: {
-      ios: {
-        url: 'https://www.envioflores.com/app/ios',
-        app_store_id: 'app-store-id',
-      },
+
       android: {
         package: 'com.envioflores.app',
         app_name: 'Envio Flores',

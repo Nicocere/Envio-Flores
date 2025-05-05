@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     'envío a hospitales', 'envío a empresas', 'flores a domicilio CABA', 'florería abierta domingo',
     'florería con tarjeta de crédito', 'flores con mensaje personalizado', 'flores con dedicatoria',
     'suscripción de flores', 'servicio floral para eventos', 'flores urgentes', 
-    'flores envío gratuito', 'flores con descuento', 'flores baratas calidad',
+    'flores envío a domicilio', 'flores con descuento', 'flores baratas calidad',
     'servicio a domicilio flores', 'flores para eventos', 'decoración floral',
     'decoración con flores para eventos', 'arreglos florales para iglesias',
     'flores para oficinas', 'flores promoción', 'ofertas flores', 'flores con MercadoPago',

@@ -5,7 +5,6 @@ import styles from './ItemDetail.module.css';
 import { useCart } from '../../context/CartContext';
 import AdicionalListContainer from '../AdicionalListContainer/AdicionalListContainer';
 import Swal from 'sweetalert2';
-import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Material UI
@@ -47,7 +46,6 @@ const ItemDetail = ({ item, prodId }) => {
   });
 
   const { isDarkMode } = useTheme();
-  const isSmallScreen = useMediaQuery('(max-width:855px)');
   const isMobileScreen = useMediaQuery('(max-width:480px)');
 
   const [costos, setCostos] = useState([]);
@@ -147,25 +145,7 @@ const ItemDetail = ({ item, prodId }) => {
     actualizarPrecioTotal(cantidad);
   };
 
-  const handleTipoProducto = (e) => {
-    const nombre = e.target.value;
-    setTipoProductoSeleccionado(nombre);
-    actualizarPrecioTotal(cantidadRosas, nombre);
-  };
 
-  const handleChangeColor = (e) => {
-    const color = e.target.value;
-    setColorProducto(color);
-
-    if (color === "Mixto") {
-      setShowMixedOptions(true);
-      // Precio adicional para rosas mixtas
-      actualizarPrecioTotal(cantidadRosas, tipoProductoSeleccionado, true);
-    } else {
-      setShowMixedOptions(false);
-      actualizarPrecioTotal(cantidadRosas, tipoProductoSeleccionado);
-    }
-  };
 
   const handleMixedColorChange = (color, value) => {
     const valorNumerico = parseInt(value) || 0;
@@ -217,10 +197,6 @@ const ItemDetail = ({ item, prodId }) => {
     setPrecioTotal(precio);
   };
 
-  const handleChangeRadio = (event) => {
-    const index = parseInt(event.target.value);
-    setSelectedOption(index);
-  };
 
   // Generación de ID único para opciones
   useEffect(() => {
