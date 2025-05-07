@@ -73,6 +73,15 @@
   font-weight: 700;
 }
 
+.darkMode .activeHeader {
+  color: var(--primary-light);
+}
+
+.darkMode .activeLink {
+  color: var(--primary-light);
+  border-left: 1px solid var(--primary-light);
+}
+
 .expandIcon {
   font-size: 1.3rem;
   color: var(--icon-color);

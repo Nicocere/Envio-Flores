@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { baseDeDatos } from '../../admin/FireBaseConfig';
 import { useParams } from 'react-router-dom';
@@ -50,10 +49,7 @@ const LocalidadPage = () => {
 
     return (
         <div className='directions-div'>
-            <Helmet>
-                <title>Zonas de entrega Envio Flores domicilio en el día a Gran Buenos Aires y Capital Federal</title>
-                <meta name="description" content="¡Compra flores frescas, chocolates, bebidas, peluches y más y sorprende a tus seres queridos!" />
-            </Helmet>
+        
             <h1>{`Zonas de envio ${localidad ? localidad : ''}`}</h1>
 
             <div className="grouped-directions" style={{display:'flex', flexDirection:'row', flexWrap:'wrap',}}>

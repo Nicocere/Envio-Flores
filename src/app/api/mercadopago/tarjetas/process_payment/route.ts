@@ -29,11 +29,11 @@ export async function POST(request: Request) {
 
         const newOrder = lastCode + 1;
         envioDatos.order_number = newOrder;
-        envioDatos.paginaCompra = 'Envio Flores';
+        envioDatos.paginaCompra = 'ENVIO FLORES';
 
         // Obtener el precio total del envío
         let shippingCost: number = 0;
-        let title: string = 'Compra en Envio Flores';
+        let title: string = 'Compra en ENVIO FLORES';
 
         if (datosEnvio) {
             if (datosEnvio.servicioPremium) {

@@ -55,7 +55,7 @@ export async function POST(request: Request) {
 
   // Confirmacion de compra para el Comprador
   const userMailOptions = {
-    from: 'Envio Flores',
+    from: 'ENVIO FLORES',
     to: emailUser,
     subject: 'Has realizado una compra con Éxito!',
     html: `
@@ -146,9 +146,9 @@ export async function POST(request: Request) {
 
   // Confirmacion de compra para el Vendedor
   const sellerMailOptions = {
-    from: 'Envio Flores',
+    from: 'ENVIO FLORES',
     to: `${config.gmail_user}`,
-    subject: `Has realizado una venta! N°${ticket.order_number} en Envio Flores`,
+    subject: `Has realizado una venta! N°${ticket.order_number} en ENVIO FLORES`,
     html: `
         <h3>¡ El comprador se llama: <strong style=" color: red; font-weight:600">
          ${datosComprador[0].nombreComprador} ${datosComprador[0].apellidoComprador} </strong>!</h3>

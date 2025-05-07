@@ -112,15 +112,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const titlePrefix = `${titleEmoji} ${categoryName}`;
   
   // Crear título optimizado según categoría
-  let seoTitle = `${titlePrefix} Premium - Envío EXPRESS 2hs CABA y MISMO DÍA GBA | Envio Flores Argentina`;
+  let seoTitle = `${titlePrefix} Premium - Envío EXPRESS 2hs CABA y MISMO DÍA GBA | ENVIO FLORES Argentina`;
   if (categoryName.toLowerCase().includes('rosa')) {
-    seoTitle = `${titlePrefix} Premium Importadas - Envío EXPRESS 2hs CABA | Caja, Ramo o Bouquet | Envio Flores`;
+    seoTitle = `${titlePrefix} Premium Importadas - Envío EXPRESS 2hs CABA | Caja, Ramo o Bouquet | ENVIO FLORES`;
   } else if (categoryName.toLowerCase().includes('planta')) {
-    seoTitle = `${titlePrefix} de Interior y Exterior - Macetas Decorativas | Envío Express 2hs | Envio Flores`;
+    seoTitle = `${titlePrefix} de Interior y Exterior - Macetas Decorativas | Envío Express 2hs | ENVIO FLORES`;
   } else if (categoryName.toLowerCase().includes('regalo') || categoryName.toLowerCase().includes('combo')) {
-    seoTitle = `${titlePrefix} Originales para Sorprender | Flores + Chocolates + Vinos | Envío EXPRESS | Envio Flores`;
+    seoTitle = `${titlePrefix} Originales para Sorprender | Flores + Chocolates + Vinos | Envío EXPRESS | ENVIO FLORES`;
   } else if (categoryName.toLowerCase().includes('caja') || categoryName.toLowerCase().includes('box')) {
-    seoTitle = `${titlePrefix} Elegantes con Flores Premium | Diseños Exclusivos | Envío EXPRESS | Envio Flores`;
+    seoTitle = `${titlePrefix} Elegantes con Flores Premium | Diseños Exclusivos | Envío EXPRESS | ENVIO FLORES`;
   }
   
   // Crear descripción optimizada según categoría
@@ -253,7 +253,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             "url": siteUrl,
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -272,7 +272,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
               },
               "author": {
                 "@type": "Person",
-                "name": "Cliente Envio Flores"
+                "name": "Cliente ENVIO FLORES"
               }
             },
             "aggregateRating": {
@@ -293,7 +293,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             "url": siteUrl,
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -316,7 +316,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             "url": siteUrl,
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -429,12 +429,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: siteUrl,
       title: seoTitle,
       description: seoDescription,
-      siteName: 'Envio Flores Argentina',
+      siteName: 'ENVIO FLORES Argentina',
       images: [{
         url: siteImage,
         width: 1200,
         height: 630,
-        alt: `${categoryName} Premium - Envio Flores Argentina`,
+        alt: `${categoryName} Premium - ENVIO FLORES Argentina`,
       }],
       locale: 'es_AR',
     },
@@ -459,7 +459,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores Argentina' }],
+    authors: [{ name: 'ENVIO FLORES Argentina' }],
     category: 'Flores, Plantas y Regalos',
     other: {
           // Información geográfica
@@ -501,8 +501,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           'mobile-web-app-capable': 'yes',
           'format-detection': 'telephone=no',
           'HandheldFriendly': 'True',
-          'apple-mobile-web-app-title': 'Envio Flores',
-          'application-name': 'Envio Flores Argentina',
+          'apple-mobile-web-app-title': 'ENVIO FLORES',
+          'application-name': 'ENVIO FLORES Argentina',
           
           // Metadatos visuales
           'theme-color': '#670000',
@@ -514,7 +514,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           'product:category': categoryName,
           'product:availability': 'in stock',
           'product:condition': 'new',
-          'product:retailer': 'Envio Flores Argentina',
+          'product:retailer': 'ENVIO FLORES Argentina',
           'product:price:amount.min': '5999',
           'product:price:amount.max': '35000',
           'product:price:currency': 'ARS',

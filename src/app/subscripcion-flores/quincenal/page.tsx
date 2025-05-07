@@ -6,7 +6,7 @@ import Script from 'next/script';
 // Importamos un componente de FAQ (deberás crearlo)
 
 export const metadata: Metadata = {
-  title: "🌹 Suscripción Quincenal de Flores Premium | Envio Flores Buenos Aires - Servicio para Empresas y Particulares",
+  title: "🌹 Suscripción Quincenal de Flores Premium | ENVIO FLORES Buenos Aires - Servicio para Empresas y Particulares",
   description: "✅ Renueva tus espacios cada 15 días con flores frescas. Servicio exclusivo de suscripción quincenal para empresas y hogares en CABA y GBA. Diseños personalizados, instalación profesional, entrega a domicilio y mantenimiento incluidos. Transforma cualquier ambiente con flores naturales de temporada.",
   keywords: [
     "suscripción flores premium",
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/subscripcion-flores/quincenal',
-    title: 'Suscripción Quincenal de Flores Premium - Envio Flores Buenos Aires',
+    title: 'Suscripción Quincenal de Flores Premium - ENVIO FLORES Buenos Aires',
     description: 'Servicio exclusivo de suscripción floral quincenal para empresas y particulares en CABA y Gran Buenos Aires. Transforma tus espacios con flores frescas de temporada cada 15 días. Diseño, entrega e instalación incluidos.',
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [
       {
         url: 'https://www.envioflores.com/imagenes/subscripcion/flores-quincenal-para-empresas.png',
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Envio Flores' }],
+  authors: [{ name: 'ENVIO FLORES' }],
   category: 'Suscripción Floral',
   other: {
     // Información de contacto real y expandida
@@ -135,7 +135,7 @@ export const metadata: Metadata = {
     'product:price:currency': 'ARS',
     'product:availability': 'in stock',
     'product:condition': 'new',
-    'product:brand': 'Envio Flores',
+    'product:brand': 'ENVIO FLORES',
     'product:category': 'Suscripción Floral, Servicios de Decoración',
     'product:retailer_item_id': 'SUSQ-2023',
     'product:price_type': 'starting',
@@ -154,15 +154,15 @@ export const metadata: Metadata = {
     'structured-data': JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Contacto - Envio Flores Argentina",
-      "description": "Página de contacto oficial de Envio Flores Argentina. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas y regalos con entrega a domicilio.",
+      "name": "Contacto - ENVIO FLORES Argentina",
+      "description": "Página de contacto oficial de ENVIO FLORES Argentina. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas y regalos con entrega a domicilio.",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://www.envioflores.com/contacto"
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Envio Flores Argentina",
+        "name": "ENVIO FLORES Argentina",
         "logo": {
           "@type": "ImageObject",
           "url": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png"
@@ -226,7 +226,7 @@ export const metadata: Metadata = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "¿Cuáles son los horarios de atención de Envio Flores?",
+          "name": "¿Cuáles son los horarios de atención de ENVIO FLORES?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Nuestro horario de atención telefónica y tienda física es de lunes a sábado de 9:00 a 20:00 horas. Para consultas por WhatsApp estamos disponibles 24/7, todos los días del año, con respuesta inmediata durante horario comercial y hasta 2 horas fuera de horario."
@@ -320,7 +320,7 @@ export default function SubscripcionQuincenal() {
             "description": "Servicio premium de suscripción floral quincenal para empresas y particulares. Incluye diseño personalizado, flores frescas de temporada, entrega e instalación.",
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "Offer",
@@ -332,7 +332,7 @@ export default function SubscripcionQuincenal() {
               "areaServed": "CABA, Gran Buenos Aires",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores",
+                "name": "ENVIO FLORES",
                 "logo": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png"
               }
             },
@@ -382,7 +382,7 @@ export default function SubscripcionQuincenal() {
             "serviceType": "Suscripción Floral Quincenal",
             "provider": {
               "@type": "LocalBusiness",
-              "name": "Envio Flores",
+              "name": "ENVIO FLORES",
               "image": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png",
               "address": {
                 "@type": "PostalAddress",

@@ -4,7 +4,7 @@ import SubscripcionComponent from '@/Client/SubscripcionSemanal/SubscripcionSema
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: "🌷 Suscripción Semanal de Flores Premium | Envio Flores Buenos Aires - Servicio para Empresas y Particulares",
+  title: "🌷 Suscripción Semanal de Flores Premium | ENVIO FLORES Buenos Aires - Servicio para Empresas y Particulares",
   description: "✅ Renueva tus espacios cada semana con flores frescas. Servicio exclusivo de suscripción semanal para empresas y hogares en CABA y GBA. Diseños personalizados, instalación profesional, entrega a domicilio y mantenimiento incluidos. Transforma cualquier ambiente con flores naturales de temporada.",
   keywords: [
     "suscripción flores premium",
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/subscripcion-flores/semanal',
-    title: 'Suscripción Semanal de Flores Premium - Envio Flores Buenos Aires',
+    title: 'Suscripción Semanal de Flores Premium - ENVIO FLORES Buenos Aires',
     description: 'Servicio exclusivo de suscripción floral semanal para empresas y particulares en CABA y Gran Buenos Aires. Transforma tus espacios con flores frescas de temporada cada semana. Diseño, entrega e instalación incluidos.',
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [
       {
         url: 'https://www.envioflores.com/imagenes/subscripcion/flores-semanales-para-empresas.png',
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Envio Flores' }],
+  authors: [{ name: 'ENVIO FLORES' }],
   category: 'Suscripción Floral',
   other: {
     // Información de contacto real y expandida
@@ -133,7 +133,7 @@ export const metadata: Metadata = {
     'product:price:currency': 'ARS',
     'product:availability': 'in stock',
     'product:condition': 'new',
-    'product:brand': 'Envio Flores',
+    'product:brand': 'ENVIO FLORES',
     'product:category': 'Suscripción Floral, Servicios de Decoración',
     'product:retailer_item_id': 'SUSS-2023',
     'product:price_type': 'starting',
@@ -209,7 +209,7 @@ export default function SubscripcionSemanal() {
             "description": "Servicio premium de suscripción floral semanal para empresas y particulares. Incluye diseño personalizado, flores frescas de temporada, entrega e instalación cada semana.",
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "Offer",
@@ -221,7 +221,7 @@ export default function SubscripcionSemanal() {
               "areaServed": "CABA, Gran Buenos Aires",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores",
+                "name": "ENVIO FLORES",
                 "logo": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png"
               }
             },
@@ -271,7 +271,7 @@ export default function SubscripcionSemanal() {
             "serviceType": "Suscripción Floral Semanal",
             "provider": {
               "@type": "LocalBusiness",
-              "name": "Envio Flores",
+              "name": "ENVIO FLORES",
               "image": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png",
               "address": {
                 "@type": "PostalAddress",

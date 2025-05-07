@@ -2,7 +2,7 @@ import UbicacionPage from '@/Client/Ubicacion/UbicacionPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Ubicación y Contacto - Envio Flores | Florería en Belgrano, CABA - Envíos de Flores y Regalos",
+  title: "ENVIO FLORES | Florería en Belgrano, CABA - Envíos de Flores y Regalos",
   description: "Visita nuestra florería en Av. Cramer 1915, Belgrano. Envíos de flores, ramos, plantas y regalos en CABA y GBA. Atención telefónica y WhatsApp de 9 a 20hs. Arreglos florales personalizados para toda ocasión.",
   keywords: ["envio flores", "floreria argentina", "envios de flores", "envio de flores", "envio de regalos", "flores a domicilio", "arreglos florales", "ramos de flores", "desayunos", "regalos románticos", "envio flores caba", "floreria belgrano", "envio express flores", "whatsapp floreria", "flores para eventos", "flores para cumpleaños", "flores para aniversario", "plantas de interior", "coronas fúnebres", "flores premium"],
   alternates: {
@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',  
     url: 'https://www.envioflores.com/ubicacion',
-    title: "Ubicación y Contacto - Envio Flores | Florería en Belgrano, CABA - Envíos de Flores y Regalos",
+    title: "ENVIO FLORES | Florería en Belgrano, CABA - Envíos de Flores y Regalos",
     description: "Visita nuestra florería en Av. Cramer 1915, Belgrano. Envíos de flores, ramos, plantas y regalos en CABA y GBA. Atención telefónica y WhatsApp de 9 a 20hs. Arreglos florales personalizados para toda ocasión.",
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [{
       url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 800,
       height: 600,
-      alt: 'Sitio oficial de Envio Flores',
+      alt: 'Sitio oficial de ENVIO FLORES',
     }],
     locale: 'es_AR',
   },

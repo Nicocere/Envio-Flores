@@ -5,6 +5,7 @@ import { CartContext } from '../../context/CartContext';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import './Item.css';
+import Image from 'next/image';
 
 // Creamos un div animado con react-spring
 const AnimatedDiv = animated.div;
@@ -58,11 +59,11 @@ const Item = ({ items }) => {
     >
       {/* Imagen del producto */}
       <Link href={`/detail/${items.id}`} className="item-image-container">
-        <img 
+        <Image  width={250} height={250}
           src={items.opciones[0].img || items.img} 
           alt={items.nombre}
           className="item-image"
-          loading="lazy"
+          priority={true}
         />
         
         {/* Overlay para hover */}

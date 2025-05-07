@@ -215,7 +215,7 @@ export const getProductKeywords = async (productId) => {
       'flores', 'envío de flores', 'regalos', 'flores a domicilio', 
       'flores online', 'arreglos florales', 'ramos de flores', 
       'florería', 'entrega de flores', 'envío express', 'flores frescas',
-      'flores Argentina', 'flores Buenos Aires', 'flores CABA', 'Envio Flores'
+      'flores Argentina', 'flores Buenos Aires', 'flores CABA', 'ENVIO FLORES'
     ];
   }
 };

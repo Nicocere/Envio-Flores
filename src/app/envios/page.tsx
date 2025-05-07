@@ -2,7 +2,7 @@ import LocalidadPageComponent from '@/Client/Envios/EnviosPage';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "🚚 Zonas de Entrega | Envío Express de Flores a CABA y 200+ Localidades de GBA | Envíos en el DIA | Envio Flores Argentina",
+  title: "🚚 Zonas de Entrega | Envío Express de Flores a CABA y 200+ Localidades de GBA | Envíos en el DIA | ENVIO FLORES Argentina",
   description: "Enviamos flores, ramos, arreglos florales, chocolates y regalos a CAPITAL FEDERAL y más de 200 localidades de GBA ¡MISMO DÍA! ✓ Seguimiento en tiempo real ✓ Entrega express garantizada ✓ Envíos en el día en muchas zonas ✓ Cobertura en San Isidro, Tigre, La Plata, Quilmes, Morón, Pilar y toda la provincia. Consulta tu localidad para envíos urgentes y sorprende hoy mismo.",
   keywords: [
     // Términos de servicio principales
@@ -50,14 +50,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/envios',
-    title: '🚚 Zonas de Entrega | Envío de Flores a CABA y más de 200 Localidades | Envio Flores',
+    title: '🚚 Zonas de Entrega | Envío de Flores a CABA y más de 200 Localidades | ENVIO FLORES',
     description: 'Enviamos flores, arreglos florales y regalos a CAPITAL FEDERAL y toda la provincia de Buenos Aires ¡MISMO DÍA! Consulta tu localidad y sorprende a quien quieras hoy mismo.',
-    siteName: 'Envio Flores Argentina',
+    siteName: 'ENVIO FLORES Argentina',
     images: [{
       url: 'https://www.envioflores.com/imagenes/banners/mapa-cobertura-envioflores.jpg',
       width: 1200,
       height: 630,
-      alt: 'Mapa de cobertura de entrega de Envio Flores en CABA y GBA',
+      alt: 'Mapa de cobertura de entrega de ENVIO FLORES en CABA y GBA',
     }],
     locale: 'es_AR',
   },
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    title: '🚚 Zonas de Entrega | Envío de Flores a CABA y GBA | Envio Flores',
+    title: '🚚 Zonas de Entrega | Envío de Flores a CABA y GBA | ENVIO FLORES',
     description: 'Enviamos flores, arreglos florales y regalos a CAPITAL FEDERAL y toda la provincia de Buenos Aires ¡MISMO DÍA! ✓ Seguimiento en tiempo real ✓ Entrega express garantizada',
     images: ['https://www.envioflores.com/imagenes/banners/mapa-cobertura-envioflores.jpg'],
   },
@@ -100,7 +100,7 @@ export const metadata: Metadata = {
     
     // Configuración de página
     'revisit-after': '3 days',
-    'author': 'Envio Flores Argentina',
+    'author': 'ENVIO FLORES Argentina',
     'language': 'es-AR',
     'distribution': 'global',
     'coverage': 'CABA, Gran Buenos Aires, Argentina',
@@ -129,7 +129,7 @@ export const metadata: Metadata = {
     'structured-data': JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'FloristOrganization',
-      'name': 'Envio Flores Argentina',
+      'name': 'ENVIO FLORES Argentina',
       'url': 'https://www.envioflores.com',
       'logo': 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
       'contactPoint': {
@@ -200,7 +200,7 @@ export const metadata: Metadata = {
       'facebook-domain-verification': 'facebook-verification-code'
     },
   },
-  authors: [{ name: 'Envio Flores Argentina' }],
+  authors: [{ name: 'ENVIO FLORES Argentina' }],
 };
 
 export default function EnviosPage() {

@@ -560,7 +560,7 @@ const CartComponents = () => {
                                                                 <div className='datos-recibe'>
                                                                     <Typography variant="h6" sx={{ color: '#670000', fontWeight: 600, marginBottom: '10px' }}>
                                                                         <CheckCircleIcon sx={{ verticalAlign: 'middle', marginRight: '8px' }} />
-                                                                        Gracias por elegir Envio Flores para su compra
+                                                                        Gracias por elegir ENVIO FLORES para su compra
                                                                     </Typography>
                                                                     <Typography variant="body1">
                                                                         <LocalFloristIcon sx={{ verticalAlign: 'middle', marginRight: '8px', color: '#670000' }} />

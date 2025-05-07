@@ -279,7 +279,7 @@ function ComoComprar() {
               </div>
               
               <p className={style.internationalText}>
-                <strong>Envio Flores</strong> cuenta con acuerdos directos con florerías de diversos países, como España, Inglaterra, Italia, Estados Unidos, Canadá, entre otros, permitiendo gestionar, <u>sin intermediarios y con precios reducidos para nuestros clientes</u>, envíos de arreglos florales.
+                <strong>ENVIO FLORES</strong> cuenta con acuerdos directos con florerías de diversos países, como España, Inglaterra, Italia, Estados Unidos, Canadá, entre otros, permitiendo gestionar, <u>sin intermediarios y con precios reducidos para nuestros clientes</u>, envíos de arreglos florales.
               </p>
               
               <p className={style.internationalText}>

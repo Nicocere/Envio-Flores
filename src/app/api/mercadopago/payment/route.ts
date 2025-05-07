@@ -72,7 +72,7 @@ export async function POST(request: Request) {
                 excluded_payment_types: [],
                 installments: 1,
             },
-            statement_descriptor: 'Envio Flores',
+            statement_descriptor: 'ENVIO FLORES',
             items: itemsForMercadoPago,
             back_urls: {
                 success: `${baseUrl}/compras/mercadopago/exitoso`,

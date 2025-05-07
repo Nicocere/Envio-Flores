@@ -1,101 +1,121 @@
-
-
 .navSeccions {
   margin: 0 14px;
-   ;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
-  color: white;
-  transition: all .5s;
+  color: var(--text-light);
+  transition: all 0.3s ease;
   text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
 }
 
 .navSeccions.active {
-  color: white;
-  font-size: 18px;
-  border-radius: 5px;
-
+  color: var(--text-light);
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navSeccions:hover {
-  font-size: 18px;
+  color: var(--text-light) !important;
+  transform: translateY(-2px);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.navSeccions::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--text-light);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navSeccions:hover::after {
+  width: 80%;
 }
 
 .ulSeccion {
   padding: 14px 0;
-  background: linear-gradient(to top, #a70000, #670000);
+  background: var(--background-navbar-light);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-.ulSeccion.dark-mode{
-  background:  #420000;
-
+.ulSeccion.dark-mode {
+  background: var(--background-primary-dark-gradient);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .divSeccion {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-}
-.divSeccion a{
-  color: white !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 @media screen and (max-width: 800px) {
-  .navSeccions{
+  .navSeccions {
     font-size: 13px;
+    margin: 0 8px;
+    padding: 5px 10px;
   }
+  
   .navSeccions.active {
-    font-size: 14px;
-
+    font-size: 13px;
   }
 
   .navSeccions:hover {
-    color: white;
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
-
 @media screen and (max-width: 650px) {
-
   .navSeccions {
-    margin: 0 10px;
-    font-size: 15px;
-    font-weight: 800;
+    margin: 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 8px;
   }
 
   .ocasionesSeccion {
-    margin: 0 10px;
-    font-size: 15px;
-    font-weight: 800;
+    margin: 0 6px;
+    font-size: 14px;
+    font-weight: 600;
   }
 
   .ulSeccion {
-    padding-bottom: 0px;
+    padding: 10px 0;
     margin: 5px 0;
-
   }
-
 }
 
 @media screen and (max-width: 450px) {
-
   .navSeccions {
-    margin: 0 10px;
-    font-size: 10px;
-    font-weight: 800;
+    margin: 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 6px;
   }
   
   .ocasionesSeccion {
-    margin: 0 10px;
-    font-size: 15px;
-    font-weight: 800;
+    margin: 0 4px;
+    font-size: 11px;
+    font-weight: 600;
   }
 
   .ulSeccion {
-    padding-bottom: 0px;
-    margin: 5px 0;
-
+    padding: 8px 0;
+    margin: 3px 0;
   }
-
+  
+  .navSeccions:hover::after {
+    width: 60%;
+  }
 }

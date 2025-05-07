@@ -51,7 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Sección visible de FAQs */}
         <section className="preguntas-frecuentes my-8 max-w-4xl mx-auto px-4">
-        <h2 className="titulo-principal text-2xl font-bold text-center mb-6">Preguntas Frecuentes - Suscripción de Envio Flores</h2>
+        <h2 className="titulo-principal text-2xl font-bold text-center mb-6">Preguntas Frecuentes - Suscripción de ENVIO FLORES</h2>
         <div className="grid gap-6">
           {faqData.map((faq, index) => (
             <div key={index} className="border-b pb-4">

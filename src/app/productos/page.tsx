@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import ProductsComponent from '@/Client/Productos/ProductosPage';
 
 export const metadata: Metadata = {
-  title: "🌹 Flores, Ramos, Regalos y Plantas a Domicilio | Entrega EXPRESS 2hs en CABA | Envío MISMO DÍA GBA | Envio Flores Argentina",
+  title: "🌹 Flores, Ramos, Regalos y Plantas a Domicilio | Entrega EXPRESS 2hs en CABA | Envío MISMO DÍA GBA | ENVIO FLORES Argentina",
   description: "🔝 Amplio catálogo de flores frescas, rosas premium (rojas, blancas, azules, preservadas), girasoles, liliums, gerberas y orquídeas. Arreglos florales exclusivos, cajas de rosas, bouquets de temporada, plantas ornamentales y suculentas. 🎁 Combina con chocolates gourmet, peluches, vinos, desayunos sorpresa y gift boxes. ✓ Garantía de frescura 7 días ✓ Envío EXPRESS 2 horas en CABA ✓ Entrega el MISMO DÍA en +200 localidades GBA ✓ Seguimiento en tiempo real ✓ Atención personalizada 24/7 ✓ Flores para toda ocasión: cumpleaños, aniversarios, amor, condolencias, nacimientos, graduaciones. ¡Sorprende con calidad y puntualidad garantizada! Descuentos en tu primera compra.",
   keywords: [
     // Categorías principales de productos (expandidas)
@@ -167,27 +167,27 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/productos',
-    title: '🌹 Flores y Regalos a Domicilio | Rosas, Plantas, Arreglos Premium | Entrega EXPRESS 2hs | Envio Flores Argentina',
+    title: '🌹 Flores y Regalos a Domicilio | Rosas, Plantas, Arreglos Premium | Entrega EXPRESS 2hs | ENVIO FLORES Argentina',
     description: 'Descubre nuestra colección exclusiva de flores frescas, rosas importadas, plantas, regalos, chocolates, peluches y más. ✓ Garantía de frescura 7 días ✓ Entrega en 2hs CABA ✓ Mismo día GBA ✓ Atención 24/7 ✓ ¡Sorprende hoy mismo!',
-    siteName: 'Envio Flores Argentina',
+    siteName: 'ENVIO FLORES Argentina',
     images: [
       {
         url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
         width: 1200,
         height: 630,
-        alt: 'Flores, Ramos Premium y Plantas - Envío Express a CABA y GBA - Envio Flores Argentina',
+        alt: 'Flores, Ramos Premium y Plantas - Envío Express a CABA y GBA - ENVIO FLORES Argentina',
       },
       {
         url: 'https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas-rojas.png',
         width: 1200,
         height: 630,
-        alt: 'Ramo de Rosas Rojas Premium - Envío a Domicilio - Envio Flores Argentina',
+        alt: 'Ramo de Rosas Rojas Premium - Envío a Domicilio - ENVIO FLORES Argentina',
       },
       {
         url: 'https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas-rojas.png',
         width: 1200,
         height: 630,
-        alt: 'Plantas de Interior en Macetas de Diseño - Envio Flores Argentina',
+        alt: 'Plantas de Interior en Macetas de Diseño - ENVIO FLORES Argentina',
       }
     ],
     locale: 'es_AR',
@@ -196,7 +196,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    title: '🌹 Flores, Ramos, Plantas y Regalos a Domicilio | Envío EXPRESS 2hs | Envio Flores Argentina',
+    title: '🌹 Flores, Ramos, Plantas y Regalos a Domicilio | Envío EXPRESS 2hs | ENVIO FLORES Argentina',
     description: 'La mayor variedad de flores frescas, rosas importadas, arreglos exclusivos, plantas, regalos y complementos con envío MISMO DÍA en CABA y GBA. Calidad premium garantizada y entrega puntual.',
     images: [
       'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
@@ -216,7 +216,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Envio Flores Argentina' }],
+  authors: [{ name: 'ENVIO FLORES Argentina' }],
   category: 'Flores, Plantas y Regalos',
   other: {
       // Información geográfica (expandida)
@@ -258,8 +258,8 @@ export const metadata: Metadata = {
       'mobile-web-app-capable': 'yes',
       'format-detection': 'telephone=no',
       'HandheldFriendly': 'True',
-      'apple-mobile-web-app-title': 'Envio Flores',
-      'application-name': 'Envio Flores Argentina',
+      'apple-mobile-web-app-title': 'ENVIO FLORES',
+      'application-name': 'ENVIO FLORES Argentina',
       
       // Metadatos visuales (expandidos)
       'theme-color': '#670000',
@@ -273,11 +273,11 @@ export const metadata: Metadata = {
       'msapplication-square310x310logo': '/logo-310x310.png',
       
       // Información de producto (expandida)
-      'product:brand': 'Envio Flores',
+      'product:brand': 'ENVIO FLORES',
       'product:availability': 'in stock',
       'product:condition': 'new',
       'product:category': 'Flores, Plantas, Regalos',
-      'product:retailer': 'Envio Flores Argentina',
+      'product:retailer': 'ENVIO FLORES Argentina',
       'product:retailer_item_id': 'RAM-ROS-12R',
       'product:price:amount.min': '5999',
       'product:price:amount.max': '35000',
@@ -301,8 +301,8 @@ export const metadata: Metadata = {
       'og:price:amount.min': '5999',
       'og:price:amount.max': '35000',
       'og:locale': 'es_AR',
-      'og:site_name': 'Envio Flores Argentina',
-      'og:brand': 'Envio Flores',
+      'og:site_name': 'ENVIO FLORES Argentina',
+      'og:brand': 'ENVIO FLORES',
       'og:product:category': 'Flores y Regalos',
       'og:video': 'https://www.envioflores.com/videos/catalogo-productos.mp4',
       'og:see_also': 'https://www.instagram.com/envioflores.arg',
@@ -322,7 +322,7 @@ export const metadata: Metadata = {
       'service:quality': 'Flores premium seleccionadas diariamente',
       
       // Información de negocio extendida
-      'business:founder': 'Equipo Envio Flores',
+      'business:founder': 'Equipo ENVIO FLORES',
       'business:founding_date': '2015',
       'business:opening_hours': 'Lun-Vie 9:00-20:00, Sab 9:00-20:00, Online 24/7',
       'business:employees': '25+',
@@ -412,7 +412,7 @@ export const metadata: Metadata = {
       'structured-data': JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Store",
-        "name": "Envio Flores Argentina",
+        "name": "ENVIO FLORES Argentina",
         "image": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png",
         "description": "Florería online especializada en rosas premium, arreglos florales exclusivos, plantas decorativas y regalos con entrega a domicilio en CABA y Gran Buenos Aires. Servicio Express en 2 horas, atención 24/7 y garantía de frescura de 7 días.",
         "url": "https://www.envioflores.com",
@@ -540,7 +540,7 @@ export const metadata: Metadata = {
                 "sku": "RAM-ROS-12R",
                 "brand": {
                   "@type": "Brand",
-                  "name": "Envio Flores"
+                  "name": "ENVIO FLORES"
                 },
                 "gtin13": "7798123456789",
                 "category": "Ramos > Rosas > Premium",
@@ -608,7 +608,7 @@ export const metadata: Metadata = {
               "url": "https://www.envioflores.com/productos/ramo-12-rosas-rojas",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               },
               "deliveryLeadTime": {
                 "@type": "QuantitativeValue",
@@ -654,7 +654,7 @@ export const metadata: Metadata = {
                 "sku": "BOX-GIR-CHO",
                 "brand": {
                   "@type": "Brand",
-                  "name": "Envio Flores"
+                  "name": "ENVIO FLORES"
                 },
                 "gtin13": "7798123456790",
                 "category": "Arreglos > Cajas > Girasoles",
@@ -705,7 +705,7 @@ export const metadata: Metadata = {
               "url": "https://www.envioflores.com/productos/box-girasoles-chocolates",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               },
               "deliveryLeadTime": {
                 "@type": "QuantitativeValue",
@@ -751,7 +751,7 @@ export const metadata: Metadata = {
                 "sku": "PLA-INT-SET3",
                 "brand": {
                   "@type": "Brand",
-                  "name": "Envio Flores"
+                  "name": "ENVIO FLORES"
                 },
                 "category": "Plantas > Interior > Sets",
                 "material": "Plantas Vivas, Macetas Cerámica",
@@ -774,7 +774,7 @@ export const metadata: Metadata = {
               "url": "https://www.envioflores.com/productos/plantas-interior-set",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               },
               "deliveryLeadTime": {
                 "@type": "QuantitativeValue",
@@ -793,7 +793,7 @@ export const metadata: Metadata = {
                 "sku": "ROS-PRE-CUP",
                 "brand": {
                   "@type": "Brand",
-                  "name": "Envio Flores"
+                  "name": "ENVIO FLORES"
                 },
                 "category": "Rosas > Preservadas > Premium"
               },
@@ -803,7 +803,7 @@ export const metadata: Metadata = {
               "url": "https://www.envioflores.com/productos/Rosas",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               }
             }
           ]
@@ -826,7 +826,7 @@ export const metadata: Metadata = {
 
     android: {
       package: 'com.envioflores.app',
-      app_name: 'Envio Flores',
+      app_name: 'ENVIO FLORES',
     },
     web: {
       url: 'https://www.envioflores.com/productos',

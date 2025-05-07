@@ -84,7 +84,7 @@ const Informacion = () => {
       url: "https://www.aflorar.com.ar/"
     },
     {
-      name: "Envio Flores",
+      name: "Florerias Argentinas",
       image: "/assets/imagenes/empresas-asociadas/FloreriasArgentinas.png",
       url: "https://floreriasargentinas.com/"
     },

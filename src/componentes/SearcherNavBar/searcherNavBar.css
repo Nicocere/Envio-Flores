@@ -1,29 +1,357 @@
+/* Estilos originales del SearcherMobile */
+.searcher-mobile-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 8px;
+  z-index: 1200;
+}
 
+/* Nuevos estilos para el SearcherMobile en navbar */
+.navbar-searcher-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 1200;
+}
 
-.div-buscador-navBar {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-  }
-  
-.input-buscador{
-    color: #670000!important;
+.navbar-search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--searcher-input-bg-light, rgba(255, 255, 255, 0.8));
+  border-radius: 20px;
+  padding: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  height: 45px;
+  min-width: 45px;
 }
 
 
+.dark-mode .navbar-search-wrapper {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
 
+.navbar-search-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 45px;
+  height: 45px;
 
-  @media screen and (max-width: 650px) {
+  cursor: pointer;
+  /* background: linear-gradient(145deg, var(--primary-color, #A70000), var(--primary-color-hover, #800000)); */
+  border-radius: 50%;
+}
 
-    /* BUSCADOR */
-    .div-buscador-chg-usd {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      flex-wrap: nowrap;
-      justify-content: space-around;
-    }
-  
+.navbar-search-icon-container.dark-mode {
+  /* background: linear-gradient(145deg, var(--primary-dark, #350000), var(--primary-color, #A70000)); */
+}
+
+.navbar-search-icon-button {
+  color: #A70000 !important;
+  padding: 4px !important;
+}
+
+.dark-mode .navbar-search-icon-button {
+  color: #fff !important;
+}
+
+.navbar-search-input-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.navbar-search-input {
+  font-family: var(--font-primary, "Nexa", sans-serif);
+  font-size: 14px;
+  padding: 2px 6px;
+  transition: all 0.3s ease;
+  color: var(--text-dark, #333);
+}
+
+.navbar-search-input.dark-mode {
+  color: var(--text-light, #eee);
+}
+
+.navbar-search-input::placeholder {
+  color: var(--text-muted, #666);
+  opacity: 0.7;
+}
+
+.navbar-search-input.dark-mode::placeholder {
+  color: #aaa;
+}
+
+.navbar-clear-button {
+  color: #999 !important;
+  padding: 2px !important;
+  transition: all 0.2s ease;
+}
+
+.navbar-clear-button:hover {
+  color: var(--primary-color, #A70000) !important;
+}
+
+.navbar-clear-button.dark-mode {
+  color: #777 !important;
+}
+
+.navbar-clear-button.dark-mode:hover {
+  color: var(--primary-light, #ff4d4d) !important;
+}
+
+/* Resultados de búsqueda */
+.navbar-search-results-container {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 400px;
+  z-index: 1500;
+}
+
+.navbar-search-results-paper {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: white;
+  overflow: hidden;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.navbar-search-results-paper.dark-mode {
+  background-color: var(--adicional-bg-dark-alt, #1a1a1a);
+  border: 1px solid var(--adicional-border-dark, #333);
+}
+
+.navbar-results-title {
+  padding: 6px 4px;
+  font-weight: 600 !important;
+  border-bottom: 1px solid var(--border-color, #eaeaea);
+  margin-bottom: 8px !important;
+  color: var(--text-dark, #333);
+  font-size: 0.85rem !important;
+}
+
+.navbar-results-title.dark-mode {
+  color: var(--text-light, #eee);
+  border-bottom: 1px solid var(--adicional-border-dark, #333);
+}
+
+.navbar-search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.navbar-product-search-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.navbar-product-card {
+  border-radius: 6px !important;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navbar-product-card.dark-mode {
+  background-color: var(--adicional-bg-dark, #292929);
+  border: 1px solid var(--adicional-border-dark, #333);
+}
+
+.navbar-product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: #f5f5f5;
+}
+
+.navbar-product-card-content {
+  flex: 1;
+  gap: 4px;
+  height: 100px;
+  display: flex;
+  padding: 10px !important;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+}
+
+.navbar-product-name {
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-dark, #333);
+}
+
+.navbar-product-card.dark-mode .navbar-product-name {
+  color: var(--text-light, #eee);
+}
+
+.navbar-price-chip {
+  padding: 13px 8px ;
+  align-self: center;
+  background-color: var(--primary-color, #a70000) !important;
+  color: #fff !important;
+  height: 20px !important;
+  font-size: .85rem !important
+}
+
+.navbar-price-chip.dark-mode {
+  background-color: var(--primary-dark, #350000) !important;
+  border: 1px solid var(--primary-light, #ff4d4d);
+}
+
+.navbar-view-all-link {
+  display: block;
+  text-align: center;
+  padding: 6px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border-color, #eaeaea);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: var(--primary-color, #A70000);
+}
+
+.navbar-view-all-link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.navbar-view-all-link.dark-mode {
+  border-top: 1px solid var(--adicional-border-dark, #333);
+  color: var(--primary-light, #ff4d4d);
+}
+
+.navbar-view-all-link.dark-mode:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-no-results-text {
+  font-weight: 500 !important;
+  margin-bottom: 4px !important;
+  color: var(--text-dark, #333);
+  font-size: 0.9rem !important;
+}
+
+.navbar-search-results-paper.dark-mode .navbar-no-results-text {
+  color: var(--text-light, #eee);
+}
+
+.navbar-suggestion-text {
+  color: var(--text-muted, #666);
+  font-style: italic;
+  font-size: 0.8rem !important;
+}
+
+.navbar-search-results-paper.dark-mode .navbar-suggestion-text {
+  color: var(--adicional-text-muted-dark, #999);
+}
+
+.navbar-search-results-paper.no-results {
+  padding: 12px;
+  text-align: center;
+}
+
+/* Mantener estilos originales para compatibilidad */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--searcher-input-bg-light);
+  border-radius: var(--searcher-radius-lg);
+  padding: 3px;
+  box-shadow: var(--searcher-shadow-light);
+  overflow: hidden;
+  position: relative;
+  transition: var(--searcher-transition);
+  margin: 8px 0;
+}
+
+.search-wrapper.dark-mode {
+  background-color: var(--searcher-input-bg-dark);
+  box-shadow: var(--searcher-shadow-dark);
+}
+
+.search-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  /* background: linear-gradient(145deg, var(--primary-color), var(--primary-color-hover)); */
+  border-radius: var(--searcher-radius-lg);
+  margin-right: 4px;
+}
+
+.search-icon-container.dark-mode {
+  /* background: linear-gradient(145deg, var(--primary-dark), var(--primary-color)); */
+}
+
+.search-icon-button {
+  color: white !important;
+  padding: 8px !important;
+}
+
+.search-input-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.search-input {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  padding: 4px 8px;
+  transition: var(--searcher-transition);
+  color: var(--searcher-text-light);
+}
+
+.search-input.dark-mode {
+  color: var(--searcher-text-dark);
+}
+
+.search-input::placeholder {
+  color: var(--searcher-text-muted-light);
+  opacity: 0.7;
+}
+
+.search-input.dark-mode::placeholder {
+  color: var(--searcher-text-muted-dark);
+}
+
+.clear-button {
+  color: var(--searcher-text-muted-light) !important;
+  transition: var(--searcher-transition);
+}
+
+.clear-button:hover {
+  color: var(--searcher-primary-dark) !important;
+}
+
+.clear-button.dark-mode {
+  color: var(--searcher-text-muted-dark) !important;
+}
+
+.clear-button.dark-mode:hover {
+  color: var(--primary-light) !important;
 }

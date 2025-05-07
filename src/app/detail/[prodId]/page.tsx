@@ -1,7 +1,7 @@
 import ProductDetailComponent from '@/Client/Productos/Detalle/ProductDetail';
 import { Metadata } from 'next';
 import { fetchProductById, getProductKeywords } from '@/utils/serviciosMetadata';
-import Script from 'next/script';
+
 
 interface ProductDetails {
   nombre: string;
@@ -24,16 +24,6 @@ interface Props {
   }>;
 }
 
-// Esta función es reconocida por Next.js para pre-renderizar rutas
-export async function generateStaticParams() {
-  return [
-    { prodId: 'ramo-de-rosas-rojas' },
-    { prodId: 'caja-de-chocolates-y-flores' },
-    { prodId: 'arreglo-floral-premium' },
-    { prodId: 'peluche-con-rosas' },
-    { prodId: 'bouquet-mixto-primaveral' }
-  ];
-}
 
 // Esta función es reconocida por Next.js para generar metadatos
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -82,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const siteUrl = `https://www.envioflores.com/detail/${encodeURIComponent(productId)}`;
   
   // Título y descripción SEO
-  const seoTitle = `${productName} 🌸 Envío de Flores EN EL DÍA | Envíos EXPRESS | Envio Flores Argentina`;
+  const seoTitle = `${productName} 🌸 Envío de Flores EN EL DÍA | Envíos EXPRESS | ENVIO FLORES Argentina`;
   const seoDescription = `🌸 ¡${productName} con envíos express en el día! ${productDescription.substring(0, 70)}... ⭐ Garantía de frescura ⭐ Entrega en 3hs en CABA y GBA. ¡Haz tu pedido ahora!`;
   
   // Extraer números de precio de forma segura
@@ -104,12 +94,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: siteUrl,
       title: seoTitle,
       description: seoDescription,
-      siteName: 'Envio Flores Argentina',
+      siteName: 'ENVIO FLORES Argentina',
       images: [{
         url: productImage,
         width: 1200,
         height: 630,
-        alt: `${productName} - Envío Express - Envio Flores Argentina`,
+        alt: `${productName} - Envío Express - ENVIO FLORES Argentina`,
       }],
       locale: 'es_AR',
     },
@@ -117,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       site: '@EnvioFlores',
       creator: '@EnvioFlores',
-      title: `${productName} | Envío EXPRESS | Envio Flores`,
+      title: `${productName} | Envío EXPRESS | ENVIO FLORES`,
       description: `🌸 ${productName} con 20% OFF y garantía de entrega en el día. La mejor calidad en flores y regalos para sorprender.`,
       images: [productImage],
     },
@@ -137,7 +127,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores Argentina', url: 'https://www.envioflores.com' }],
+    authors: [{ name: 'ENVIO FLORES Argentina', url: 'https://www.envioflores.com' }],
     category: productCategory,
     other: {
       'geo.region': 'AR',
@@ -151,7 +141,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'og:availability': 'instock',
       'og:price:amount': numericPrice,
       'og:price:currency': 'ARS',
-      'product:brand': 'Envio Flores',
+      'product:brand': 'ENVIO FLORES',
       'product:availability': 'in stock',
       'product:condition': 'new',
       'product:price:amount': numericPrice,
@@ -183,14 +173,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+
 export default async function DetailProd({ params }: Props) {
   const productId = decodeURIComponent((await params).prodId);
   
-  // Obtener detalles del producto para usar tanto en la página como en los schemas
+  // Obtener detalles del producto
   const productDetails = await fetchProductById(productId) as ProductDetails;
   
-
-  console.log("  ", productId.replace(/-/g, ' '))
   // Extraer datos necesarios
   const productName = productDetails?.nombre || `Arreglo floral `;
   let productPrice = productDetails?.opciones?.[0]?.precio || productDetails?.precio || 'desde $5.000';
@@ -199,9 +188,10 @@ export default async function DetailProd({ params }: Props) {
   }
   const productImage = productDetails?.opciones?.[0]?.img || `https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas-rojas.png`;
   const productDescription = productDetails?.descripcion || `Hermoso arreglo floral para sorprender a esa persona especial. Envío a domicilio en el día.`;
-  const siteUrl = `https://www.envioflores.com/productos/${encodeURIComponent(productId)}`;
-  const numericPrice = productPrice.replace(/[^\d]/g, '') || '5000';
   
+  // Corregir inconsistencia de URL en schemas
+  const siteUrl = `https://www.envioflores.com/detail/${encodeURIComponent(productId)}`;
+  const numericPrice = productPrice.replace(/[^\d]/g, '') || '5000';
   
   // Schema.org para producto
   const productSchema = {
@@ -214,7 +204,7 @@ export default async function DetailProd({ params }: Props) {
     mpn: `EF-${productId}`,
     brand: {
       '@type': 'Brand',
-      name: 'Envio Flores'
+      name: 'ENVIO FLORES'
     },
     offers: {
       '@type': 'Offer',
@@ -226,7 +216,7 @@ export default async function DetailProd({ params }: Props) {
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: 'Envio Flores Argentina'
+        name: 'ENVIO FLORES Argentina'
       },
       shippingDetails: {
         '@type': 'OfferShippingDetails',
@@ -277,11 +267,12 @@ export default async function DetailProd({ params }: Props) {
     }
   };
 
-    // Schema para negocio local
+  // Schema para negocio local (corregido)
   const localBusinessSchema = {
     '@context': 'https://schema.org',
-    '@type': 'FloristOrganization',
-    name: 'Envio Flores Argentina',
+    '@type': 'LocalBusiness',                // Tipo correcto
+    'additionalType': 'https://schema.org/Florist', // Especificar que es una floristería
+    name: 'ENVIO FLORES Argentina',
     url: 'https://www.envioflores.com',
     logo: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
     contactPoint: {
@@ -291,6 +282,7 @@ export default async function DetailProd({ params }: Props) {
       areaServed: 'AR',
       availableLanguage: 'Spanish'
     },
+    // Resto sin cambios
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Av. Crámer 1915',
@@ -343,7 +335,7 @@ export default async function DetailProd({ params }: Props) {
     ]
   };
 
-  // Schema FAQ
+  // Schema FAQ (corregido ortografía)
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -358,10 +350,10 @@ export default async function DetailProd({ params }: Props) {
       },
       {
         '@type': 'Question',
-        name: '¿Cúal es el costo de envío?',
+        name: '¿Cuál es el costo de envío?', // Corregido "Cuál"
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'El costo de envío varía según la ubicación, para consultarlo puedes ingresar a la sección de envíos de nuestro sitio web. '
+          text: 'El costo de envío varía según la ubicación, para consultarlo puedes ingresar a la sección de envíos de nuestro sitio web.'
         }
       },
       {
@@ -375,42 +367,31 @@ export default async function DetailProd({ params }: Props) {
     ]
   };
 
-  // Preparar scripts JSON-LD
-  const jsonLdScripts = [
-    JSON.stringify(productSchema),
-    JSON.stringify(localBusinessSchema),
-    JSON.stringify(faqSchema)
-  ];
-  
+  // SOLUCIÓN CORRECTA PARA NEXT.JS APP ROUTER
+  // Con esto garantizamos que el JSON-LD se renderice correctamente en el HTML
   return (
     <>
-      {/* Schemas JSON-LD */}
-      {jsonLdScripts.map((jsonScript, index) => (
-        <Script 
-          key={`json-ld-${index}`}
-          id={`json-ld-${index}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonScript }}
-        />
-      ))}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
       
-      {/* Microdata en HTML */}
-      <div itemScope itemType="https://schema.org/Product">
-        <meta itemProp="name" content={productName} />
-        <meta itemProp="description" content={productDescription} />
-        <meta itemProp="sku" content={`EF-${productId}`} />
-        <meta itemProp="image" content={productImage} />
-        <meta itemProp="category" content={productDetails?.categoria || 'Flores y Regalos'} />
-        
-        <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-          <meta itemProp="price" content={numericPrice} />
-          <meta itemProp="priceCurrency" content="ARS" />
-          <meta itemProp="availability" content="https://schema.org/InStock" />
-        </div>
-        
-        {/* Componente principal */}
-        <ProductDetailComponent prodId={productId} />
-      </div>
+      {/* Componente principal sin microdata redundante */}
+      <ProductDetailComponent prodId={productId} />
     </>
   );
 }

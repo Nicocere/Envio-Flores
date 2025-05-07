@@ -4,23 +4,23 @@ import type { Metadata } from 'next';
 
 
 export const metadata: Metadata = {
-  title: '¿Cómo Comprar en Envio Flores? - Venta y envío de arreglos florales',
+  title: '¿Cómo Comprar en ENVIO FLORES? - Venta y envío de arreglos florales',
   description: 'Envío de flores, rosas, ramos, bombones, regalos a domicilio en Argentina. Venta online y telefónica. Pagos seguros con múltiples opciones. Entrega inmediata y garantizada.',
   alternates: {
     canonical: 'https://www.envioflores.com/como-comprar',
   },
   openGraph: {
     type: 'article',
-    title: 'Guía de Compra - Envio Flores',
-    description: 'Aprende cómo comprar en Envio Flores. Proceso sencillo, formas de pago seguras y políticas de envío transparentes. Garantía de satisfacción en cada entrega.',
+    title: 'Guía de Compra - ENVIO FLORES',
+    description: 'Aprende cómo comprar en ENVIO FLORES. Proceso sencillo, formas de pago seguras y políticas de envío transparentes. Garantía de satisfacción en cada entrega.',
     url: 'https://www.envioflores.com/como-comprar',
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [
       {
         url: 'https://www.envioflores.com/images/guia-compra.jpg',
         width: 800,
         height: 600,
-        alt: 'Guía de compra Envio Flores',
+        alt: 'Guía de compra ENVIO FLORES',
       },
     ],
   },
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
     },
   },
   keywords: 'comprar flores online, envío flores Argentina, formas pago florería, entrega flores a domicilio, ramos florales, arreglos florales, enviar flores, regalo flores, flores para cumpleaños, flores para aniversarios, flores para eventos, flores premium',
-  authors: [{ name: 'Envio Flores' }],
-  creator: 'Envio Flores',
-  publisher: 'Envio Flores',
+  authors: [{ name: 'ENVIO FLORES' }],
+  creator: 'ENVIO FLORES',
+  publisher: 'ENVIO FLORES',
 };
 
 

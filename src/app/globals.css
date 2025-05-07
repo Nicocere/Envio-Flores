@@ -18,6 +18,9 @@ svg {
   --background-primary-gradient: linear-gradient(135deg, #A70000, #ff4d4d);
   --background-primary-dark-gradient: linear-gradient(135deg, #800000, #670000);
 
+  --background-navbar-light: linear-gradient(to top, #a70000, #670000);
+  --background-navbar-light-reverse: linear-gradient(to bottom, #a70000, #670000);
+
   --background-primary-dark-gradient-hover: linear-gradient(135deg, #3e1717, #9c1717);
 
   /* --textos */
@@ -242,8 +245,8 @@ svg {
   --item-transition: 0.3s ease;
 
   /* Dimensiones fijas */
-  --item-card-width: 100%;
-  --item-card-max-width: 450px;
+  --item-card-width: 250px;
+  --item-card-max-width: 250px;
   --item-card-height: 450px;
   --item-card-mobile-height: 130px;
   --item-image-height: 220px;
@@ -2768,9 +2771,14 @@ input {
 }
 
 .loadDetailProd {
-  color: white;
+  color: #670000;
   font-family: "Nexa", sans-serif !important;
+  font-size: xx-large;
+}
 
+.dark .loadDetailProd {
+  color: #fff;
+  font-family: "Nexa", sans-serif !important;
   font-size: xx-large;
 }
 

@@ -35,11 +35,11 @@ const nexa = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.envioflores.com'),
   title: {
-    template: '%s | Envio Flores',
-    default: 'Envio Flores - Flores Frescas, Ramos y Desayunos a Domicilio 24h en Buenos Aires',
+    template: '%s | ENVIO FLORES',
+    default: '🌹ENVIO FLORES a Domicilio en el día a todo CABA y GBA',
   },
   description:
-    'Envío express de arreglos florales, ramos de rosas premium, plantas exóticas, chocolates gourmet y regalos personalizados a domicilio en CABA y GBA. Entregas en el día, seguimiento en tiempo real. Especialistas en ramos para cumpleaños, aniversarios y ocasiones especiales con garantía de frescura por 7 días ✓ Atención 24/7 ✓ Pago seguro con todas las tarjetas.',
+    'Envío express de arreglos florales, rosas premium y regalos a domicilio en CABA y GBA. Entregas en el día con garantía de frescura. Atención 24/7.🌸',
   keywords: [
     // Términos principales - búsquedas directas
     'envío de flores', 'flores a domicilio', 'florería online', 'flores frescas',
@@ -151,8 +151,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_AR',
     url: 'https://www.envioflores.com',
-    siteName: 'Envio Flores - Buenos Aires',
-    title: 'Envio Flores - Arreglos Florales Premium, Desayunos y Regalos a Domicilio en Buenos Aires',
+    siteName: 'ENVIO FLORES - Buenos Aires',
+    title: 'ENVIO FLORES - Arreglos Florales Premium, Desayunos y Regalos a Domicilio en Buenos Aires',
     description:
       'Diseños florales exclusivos con garantía de frescura por 7 días. Ramos de rosas premium, liliums, orquídeas y más. Envío express en 3 horas a CABA y GBA, seguimiento en tiempo real y atención personalizada 24/7. Complementá con chocolates gourmet, peluches y desayunos personalizados.',
     images: [
@@ -160,7 +160,7 @@ export const metadata: Metadata = {
         url: 'https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas.png',
         width: 1200,
         height: 630,
-        alt: 'Envio Flores - Colección Premium de Arreglos Florales y Regalos',
+        alt: 'ENVIO FLORES - Colección Premium de Arreglos Florales y Regalos',
       },
     ],
   },
@@ -197,10 +197,10 @@ export const metadata: Metadata = {
     'geo.position': '-34.603722;-58.381592',
     ICBM: '-34.603722, -58.381592',
     'theme-color': '#ff5b84',
-    'application-name': 'Envio Flores',
+    'application-name': 'ENVIO FLORES',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'apple-mobile-web-app-title': 'Envio Flores',
+    'apple-mobile-web-app-title': 'ENVIO FLORES',
     'format-detection': 'telephone=no',
     'revisit-after': '7 days',
     'rating': 'general',
@@ -216,8 +216,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" className={nexa.className}>
       <head>
       <meta name="mobile-web-app-capable" content="yes"/>
-        <meta name="author" content="Envio Flores" />
-        <meta name="copyright" content="© 2024 Envio Flores" />
+        <meta name="author" content="ENVIO FLORES" />
+        <meta name="copyright" content="© 2024 ENVIO FLORES" />
         {/* <link rel="manifest" href="/manifest.json" /> */}
       </head>
       <body className={nexa.className}>

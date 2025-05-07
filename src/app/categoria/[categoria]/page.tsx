@@ -54,7 +54,7 @@ const categoryOptions: CategoryOptionsType = {
     description: 'Catálogo completo de flores, plantas y regalos con envío EXPRESS. ✓ 20% OFF ✓ Descubre todas nuestras opciones para sorprender a esa persona especial en cualquier ocasión.',
     keywordsPriority: ['flores y regalos', 'catálogo de flores', 'regalos con flores', 'envío de regalos'],
     subCategories: ['ramos', 'arreglos', 'plantas', 'regalos', 'ocasiones especiales'],
-    metaTitle: 'Flores, Plantas y Regalos 🎁🌸🌿 Envío EXPRESS | 20% OFF | Envio Flores',
+    metaTitle: 'Flores, Plantas y Regalos 🎁🌸🌿 Envío EXPRESS | 20% OFF | ENVIO FLORES',
     priceRange: { min: '3200', max: '25000' },
   },
 };
@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: `Descubre nuestra selección premium de ${categoryName}. ✓ 20% OFF ✓ Flores frescas, arreglos florales y regalos con ENVÍO EXPRESS en el día. ✓ Entrega garantizada en CABA y GBA en 3 horas.`,
     keywordsPriority: [`${categoryName.toLowerCase()} premium`, `${categoryName.toLowerCase()} con envío`, `${categoryName.toLowerCase()} a domicilio`, `comprar ${categoryName.toLowerCase()}`],
     subCategories: [`${categoryName.toLowerCase()} destacados`, `${categoryName.toLowerCase()} económicos`, `${categoryName.toLowerCase()} premium`, `${categoryName.toLowerCase()} con envío`],
-    metaTitle: `${categoryName} 🌸 Envío EXPRESS en 3hs | 20% OFF | Envio Flores Argentina`,
+    metaTitle: `${categoryName} 🌸 Envío EXPRESS en 3hs | 20% OFF | ENVIO FLORES Argentina`,
     priceRange: { min: '3500', max: '15000' },
   };
   
@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   // Título optimizado con keywords principales - usar título específico de la categoría si existe
-  const seoTitle = categoryData.metaTitle || `${categoryName} 🌸 Envío EXPRESS en 3hs | 20% OFF | Envio Flores Argentina`;
+  const seoTitle = categoryData.metaTitle || `${categoryName} 🌸 Envío EXPRESS en 3hs | 20% OFF | ENVIO FLORES Argentina`;
   
   // Descripción optimizada con llamada a la acción
   const seoDescription = categoryData.description;
@@ -205,12 +205,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: siteUrl,
       title: seoTitle,
       description: seoDescription,
-      siteName: 'Envio Flores Argentina',
+      siteName: 'ENVIO FLORES Argentina',
       images: [{
         url: siteImage,
         width: 1200,
         height: 630,
-        alt: `${categoryName} - Envío Express en 3hs - Envio Flores Argentina`,
+        alt: `${categoryName} - Envío Express en 3hs - ENVIO FLORES Argentina`,
       }],
       locale: 'es_AR',
     },
@@ -238,7 +238,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores Argentina', url: 'https://www.envioflores.com' }],
+    authors: [{ name: 'ENVIO FLORES Argentina', url: 'https://www.envioflores.com' }],
     category: categoryName,
     other: {
       // Metadatos geográficos
@@ -268,7 +268,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       'og:price:currency': 'ARS',
       'og:price:range': `ARS${priceRange.min} - ARS${priceRange.max}`,
       'og:availability': 'instock',
-      'og:brand': 'Envio Flores Argentina',
+      'og:brand': 'ENVIO FLORES Argentina',
       
       // Metadatos para voice search y asistentes
       'language': 'es',
@@ -279,12 +279,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       'spoken-price': `desde ${priceRange.min} pesos hasta ${priceRange.max} pesos`,
       
       // Schema de producto implícito
-      'product:brand': 'Envio Flores',
+      'product:brand': 'ENVIO FLORES',
       'product:availability': 'in stock',
       'product:condition': 'new',
       'product:price:amount': priceRange.min,
       'product:price:currency': 'ARS',
-      'product:retailer': 'Envio Flores Argentina',
+      'product:retailer': 'ENVIO FLORES Argentina',
       'product:retailer_item_id': `cat-${categorySlug}`,
       'product:item_group_id': 'flores-y-regalos',
       
@@ -355,14 +355,14 @@ export default async function Category({ params }: PageProps) {
   const collectionSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `${categoryName} - Envio Flores Argentina`,
+    name: `${categoryName} - ENVIO FLORES Argentina`,
     description: categoryData.description,
     url: siteUrl,
     image: siteImage,
     inLanguage: 'es-AR',
     isPartOf: {
       '@type': 'WebSite',
-      name: 'Envio Flores Argentina',
+      name: 'ENVIO FLORES Argentina',
       url: 'https://www.envioflores.com'
     },
     about: {
@@ -387,7 +387,7 @@ export default async function Category({ params }: PageProps) {
         priceValidUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         seller: {
           '@type': 'Organization',
-          name: 'Envio Flores Argentina',
+          name: 'ENVIO FLORES Argentina',
           image: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png'
         }
       }]
@@ -436,7 +436,7 @@ export default async function Category({ params }: PageProps) {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'FloristOrganization',
-    name: 'Envio Flores Argentina',
+    name: 'ENVIO FLORES Argentina',
     url: 'https://www.envioflores.com',
     logo: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
     contactPoint: {
@@ -560,7 +560,7 @@ export default async function Category({ params }: PageProps) {
     '@type': 'Review',
     itemReviewed: {
       '@type': 'Product',
-      name: `${categoryName} - Envio Flores Argentina`,
+      name: `${categoryName} - ENVIO FLORES Argentina`,
       image: siteImage,
       category: categoryName
     },
@@ -585,12 +585,12 @@ export default async function Category({ params }: PageProps) {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: `${categoryName} - Envio Flores`,
+    name: `${categoryName} - ENVIO FLORES`,
     image: siteImage,
     description: categoryData.description,
     brand: {
       '@type': 'Brand',
-      name: 'Envio Flores'
+      name: 'ENVIO FLORES'
     },
     offers: {
       '@type': 'AggregateOffer',
@@ -636,7 +636,7 @@ export default async function Category({ params }: PageProps) {
       
       {/* Estructura semántica para SEO con microdatos */}
       <div itemScope itemType="https://schema.org/CollectionPage">
-        <meta itemProp="name" content={`${categoryName} - Envio Flores Argentina`} />
+        <meta itemProp="name" content={`${categoryName} - ENVIO FLORES Argentina`} />
         <meta itemProp="description" content={categoryData.description} />
         <meta itemProp="url" content={siteUrl} />
         <link itemProp="image" href={siteImage} />

@@ -15,7 +15,7 @@ function UbicacionPage() {
                 <div className={style.contactGrid}>
                     <div className={style.contactInfo}>
                         <div className={style.infoCard}>
-                            <h2 className={style.infoTitle}>Sobre Envio Flores</h2>
+                            <h2 className={style.infoTitle}>Sobre ENVIO FLORES</h2>
                             <p className={style.description}>
                                 Somos una florería especializada en arreglos florales personalizados y envíos a domicilio. Con más de 15 años de experiencia, 
                                 nos destacamos por la frescura de nuestras flores y la puntualidad en nuestras entregas.
@@ -89,7 +89,7 @@ function UbicacionPage() {
                             height="100%"
                             style={{ border: 0 }}
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.4946009088108!2d-58.46220712511634!3d-34.566349655524135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5d6f32252a9%3A0xe6ccbfb70807bab0!2sAv.%20Cr%C3%A1mer%201915%2C%20C1428CTC%20CABA!5e0!3m2!1ses!2sar!4v1698074048732!5m2!1ses!2sar"
-                            title="Ubicación de Envio Flores"
+                            title="Ubicación de ENVIO FLORES"
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
                             className={style.map}

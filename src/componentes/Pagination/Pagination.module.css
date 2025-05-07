@@ -34,7 +34,13 @@
   background-color: var(--pagination-bg);
   padding: 0.8rem;
   border-radius: 8px;
+}
+
+.darkMode .paginationInfo {
+  background: var(--pagination-text);
+  color: var(--pagination-light-text);
   box-shadow: var(--pagination-shadow);
+
 }
 
 .infoText {
@@ -45,6 +51,10 @@
   align-items: center;
 }
 
+.darkMode .infoText {
+  color: var(--primary-light);
+}
+
 .label {
   font-weight: 600;
   margin-right: 0.5rem;
@@ -53,6 +63,10 @@
 .value {
   font-weight: 500;
   color: var(--pagination-primary);
+}
+
+.darkMode .value {
+  color: var(--pagination-light-text);
 }
 
 /* Controles de paginación */
@@ -109,6 +123,12 @@
   border-color: var(--pagination-primary);
   font-weight: bold;
   box-shadow: var(--pagination-shadow);
+}
+
+.darkMode .currentPage {
+  background-color: var(--primary-light);
+  color: var(--pagination-light-text);
+  border-color: var(--primary-light);
 }
 
 .disabled {

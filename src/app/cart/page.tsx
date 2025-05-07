@@ -2,7 +2,7 @@ import CartComponents from "@/componentes/Cart/Cart";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Carrito de Compras 🛒 | Envio Flores",
+  title: "Carrito de Compras 🛒 | ENVIO FLORES",
   description: "Revisa y finaliza tu compra de flores, regalos y más. Envíos seguros a todo Argentina. Medios de pago: Mercado Pago, PayPal, transferencia bancaria y más.",
   keywords: [
     "carrito de compras",
@@ -22,14 +22,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/cart',
-    title: 'Carrito de Compras 🛒 | Envio Flores',
+    title: 'Carrito de Compras 🛒 | ENVIO FLORES',
     description: 'Revisa y finaliza tu compra de flores, regalos y más. Envíos seguros a todo Argentina.',
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [{
       url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 800,
       height: 600,
-      alt: 'Carrito de Compras - Envio Flores',
+      alt: 'Carrito de Compras - ENVIO FLORES',
     }],
   },
   twitter: {
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       'msvalidate.01': 'microsoft-site-verification-code',
     },
   },
-  authors: [{ name: 'Envio Flores' }],
+  authors: [{ name: 'ENVIO FLORES' }],
   category: 'ecommerce',
   other: {
     'geo.region': 'AR',

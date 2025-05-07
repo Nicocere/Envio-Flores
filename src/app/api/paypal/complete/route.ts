@@ -124,7 +124,7 @@ export async function POST(request: Request) {
         <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; margin-bottom: 20px;">
             <!-- Cabecera -->
             <div style="background: linear-gradient(135deg, #A70000 0%, #800000 100%); padding: 25px 20px; text-align: center;">
-                <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 220px; height: auto;">
+                <img src="${imgLogo}" alt="Logo ENVIO FLORES" style="width: 220px; height: auto;">
                 <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px; font-weight: 600;">¡Tu compra ha sido confirmada!</h1>
             </div>
 
@@ -408,7 +408,7 @@ export async function POST(request: Request) {
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
                 <a href="https://www.envioflores.com" style="display: inline-block; margin-bottom: 15px;">
-                    <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
+                    <img src="${imgLogo}" alt="Logo ENVIO FLORES" style="width: 150px; height: auto;">
                 </a>
                 
                 <div style="margin-bottom: 15px;">
@@ -440,7 +440,7 @@ export async function POST(request: Request) {
         <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 20px; margin-bottom: 20px;">
             <!-- Cabecera -->
             <div style="background: linear-gradient(135deg, #A70000 0%, #800000 100%); padding: 25px 20px; text-align: center;">
-                <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 220px; height: auto;">
+                <img src="${imgLogo}" alt="Logo ENVIO FLORES" style="width: 220px; height: auto;">
                 <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px; font-weight: 600;">¡NUEVA VENTA POR PAYPAL!</h1>
                 <p style="color: #ffffff; opacity: 0.9; margin: 10px 0 0;">Orden #${newCode} - ${formattedDate}</p>
             </div>
@@ -729,10 +729,10 @@ export async function POST(request: Request) {
             <!-- Footer -->
             <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
                 <a href="https://www.envioflores.com/admin" style="display: inline-block; margin-bottom: 15px;">            
-                    <img src="${imgLogo}" alt="Logo Envio Flores" style="width: 150px; height: auto;">
+                    <img src="${imgLogo}" alt="Logo ENVIO FLORES" style="width: 150px; height: auto;">
                 </a>
                 
-                <p style="color: #777; font-size: 14px; margin: 0 0 5px;">Este correo fue generado automáticamente por el sistema de ventas de Envio Flores.</p>
+                <p style="color: #777; font-size: 14px; margin: 0 0 5px;">Este correo fue generado automáticamente por el sistema de ventas de ENVIO FLORES.</p>
                 <p style="font-style: italic; color: #777; font-size: 12px; margin: 0;">Por favor no responder a este correo electrónico.</p>
             </div>
         </div>

@@ -17,7 +17,7 @@ const Footer = () => {
         <footer className={`footer-container ${className}`}>
             <div className="footer-content">
                 <div className="footer-section about">
-                    <h3 className="footer-title">Envio Flores</h3>
+                    <h3 className="footer-title">ENVIO FLORES</h3>
                     <p className="footer-description">
                         Envío de flores a domicilio en el día a todo CABA (Capital Federal) y Gran Buenos Aires.
                     </p>
@@ -97,7 +97,7 @@ const Footer = () => {
             <div className={`footer-bottom ${className}`}>
                 <div className="footer-bottom-content">
                     <div className="developer-info">
-                    <p>© {currentYear} Envio Flores. Todos los derechos reservados.</p>
+                    <p>© {currentYear} ENVIO FLORES. Todos los derechos reservados.</p>
                         <p>Desarrollado por 
                             <a className={`developer-link ${className}`} 
                                href="https://www.spaziodigitalsolutions.com/" 

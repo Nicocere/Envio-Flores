@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import Contacto from '@/componentes/Contacto/Contacto';
 
 export const metadata: Metadata = {
-  title: '📞 Contacto | Envio Flores Argentina | Atención 24/7 | WhatsApp, Teléfono, Email',
-  description: 'Comunícate con Envio Flores: WhatsApp 24/7 +5491165421003, teléfono +54 11 4788-9185, email floreriasargentinas@gmail.com. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas, regalos. Dirección: Av. Crámer 1915, CABA (C1428CTC). Horario: Lun-Sáb 9:00-20:00.',
+  title: '📞 Contacto | ENVIO FLORES Argentina | Atención 24/7 | WhatsApp, Teléfono, Email',
+  description: 'Comunícate con ENVIO FLORES: WhatsApp 24/7 +5491165421003, teléfono +54 11 4788-9185, email floreriasargentinas@gmail.com. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas, regalos. Dirección: Av. Crámer 1915, CABA (C1428CTC). Horario: Lun-Sáb 9:00-20:00.',
   alternates: {
     canonical: 'https://www.envioflores.com/contacto',
     languages: {
@@ -13,16 +13,16 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: '📞 Contacto - Envio Flores Argentina | Atención personalizada 24/7',
+    title: '📞 Contacto - ENVIO FLORES Argentina | Atención personalizada 24/7',
     description: 'Comunícate con nosotros para pedidos y consultas sobre nuestras flores premium. WhatsApp 24/7: +5491165421003, Tel: +54 11 4788-9185, Email: floreriasargentinas@gmail.com. Horario: Lun-Sáb 9:00-20:00. Dirección: Av. Crámer 1915, CABA.',
     url: 'https://www.envioflores.com/contacto',
-    siteName: 'Envio Flores Argentina',
+    siteName: 'ENVIO FLORES Argentina',
     images: [
       {
         url: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
         width: 1200,
         height: 630,
-        alt: 'Tienda Envio Flores Argentina - Atención personalizada',
+        alt: 'Tienda ENVIO FLORES Argentina - Atención personalizada',
       },
     ],
     locale: 'es_AR',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    title: '📞 Contacto - Envio Flores Argentina | Atención 24/7',
+    title: '📞 Contacto - ENVIO FLORES Argentina | Atención 24/7',
     description: 'WhatsApp, teléfono y email para pedidos de flores, rosas y regalos con entrega a domicilio en CABA y GBA. Dirección: Av. Crámer 1915, CABA.',
     images: ['https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',],
   },
@@ -52,16 +52,16 @@ export const metadata: Metadata = {
     'contacto envio flores', 'teléfono florería', 'whatsapp florería', 
     'email florería', 'dirección florería CABA', 'horario atención florería',
     'enviar flores WhatsApp', 'pedir ramo por teléfono', 'consultas entrega flores',
-    'servicio al cliente florería', 'contacto Envio Flores Argentina', 
+    'servicio al cliente florería', 'contacto ENVIO FLORES Argentina', 
     'soporte florería online', 'ubicación florería Buenos Aires', 
-    'cómo llegar Envio Flores', 'florería Crámer', 'florería Belgrano',
+    'cómo llegar ENVIO FLORES', 'florería Crámer', 'florería Belgrano',
     'atención personalizada flores', 'consulta envío flores', 'reclamos florería',
     'WhatsApp 24/7 flores', 'contactar florista', 'atención florista profesional',
     'consulta precio flores', 'consulta disponibilidad rosas', 'cómo comprar flores'
   ],
-  authors: [{ name: 'Envio Flores Argentina' }],
-  creator: 'Envio Flores Argentina',
-  publisher: 'Envio Flores Argentina',
+  authors: [{ name: 'ENVIO FLORES Argentina' }],
+  creator: 'ENVIO FLORES Argentina',
+  publisher: 'ENVIO FLORES Argentina',
   category: 'Contacto',
   other: {
     // Información de contacto real y expandida
@@ -106,15 +106,15 @@ export const metadata: Metadata = {
     'structured-data': JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      "name": "Contacto - Envio Flores Argentina",
-      "description": "Página de contacto oficial de Envio Flores Argentina. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas y regalos con entrega a domicilio.",
+      "name": "Contacto - ENVIO FLORES Argentina",
+      "description": "Página de contacto oficial de ENVIO FLORES Argentina. Atención personalizada para pedidos y consultas sobre flores, rosas, ramos, plantas y regalos con entrega a domicilio.",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://www.envioflores.com/contacto"
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Envio Flores Argentina",
+        "name": "ENVIO FLORES Argentina",
         "logo": {
           "@type": "ImageObject",
           "url": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png"
@@ -178,7 +178,7 @@ export const metadata: Metadata = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "¿Cuáles son los horarios de atención de Envio Flores?",
+          "name": "¿Cuáles son los horarios de atención de ENVIO FLORES?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Nuestro horario de atención telefónica y tienda física es de lunes a sábado de 9:00 a 20:00 horas. Para consultas por WhatsApp estamos disponibles 24/7, todos los días del año, con respuesta inmediata durante horario comercial y hasta 2 horas fuera de horario."

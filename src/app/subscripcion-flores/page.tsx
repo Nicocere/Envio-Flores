@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import SubscripcionComponent from '@/Client/SubscripcionFlores/SubscripcionFlores';
 
 export const metadata: Metadata = {
-  title: "Suscripción de Flores - Envio Flores | Servicio para Empresas y Particulares",
+  title: "Suscripción de Flores - ENVIO FLORES | Servicio para Empresas y Particulares",
   description: "Renueva tus espacios con flores frescas. Servicio de suscripción semanal o quincenal para empresas y hogares en CABA y Gran Buenos Aires. Diseños exclusivos, instalación, mantenimiento y envío a domicilio incluidos.",
   keywords: [
     "suscripción flores",
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/suscripcion-semanal',
-    title: 'Suscripción de Flores - Envio Flores',
+    title: 'Suscripción de Flores - ENVIO FLORES',
     description: 'Servicio premium de suscripción floral semanal para empresas y particulares. Transforma tus espacios con flores frescas cada semana. Envíos en CABA y Gran Buenos Aires.',
-    siteName: 'Envio Flores',
+    siteName: 'ENVIO FLORES',
     images: [{
       url: 'https://www.envioflores.com/assets/imagenes/logo-envio-flores.png',
       width: 800,
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Envio Flores' }],
+  authors: [{ name: 'ENVIO FLORES' }],
   other: {
     'geo.region': 'AR',
     'geo.placename': 'Buenos Aires',

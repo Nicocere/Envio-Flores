@@ -190,7 +190,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "serviceType": "Servicio de entrega de flores y regalos",
       "provider": {
         "@type": "LocalBusiness",
-        "name": "Envio Flores Argentina",
+        "name": "ENVIO FLORES Argentina",
         "image": "https://www.envioflores.com/assets/imagenes/logo-envio-flores.png",
         "telephone": "+54-11-4788-9185",
         "email": "floreriasargentinas@gmail.com",
@@ -259,7 +259,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       }
     };
   return {
-    title: `🚚 Envío de Flores a ${localidad} | Entrega en ${tiempoEntrega} | Envío ${costoEnvio === "Consultar precio" ? "" : "desde "+costoEnvio} | Envio Flores Argentina`,
+    title: `🚚 Envío de Flores a ${localidad} | Entrega en ${tiempoEntrega} | Envío ${costoEnvio === "Consultar precio" ? "" : "desde "+costoEnvio} | ENVIO FLORES Argentina`,
     description: description,
     keywords: allKeywords,
     alternates: {
@@ -271,14 +271,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `🌹 Flores a Domicilio en ${localidad} | Entrega Garantizada en ${tiempoEntrega} | Envio Flores`,
+      title: `🌹 Flores a Domicilio en ${localidad} | Entrega Garantizada en ${tiempoEntrega} | ENVIO FLORES`,
       description: description,
-      siteName: 'Envio Flores Argentina',
+      siteName: 'ENVIO FLORES Argentina',
       images: [{
         url: siteImage,
         width: 1200,
         height: 630,
-        alt: `Envío de Flores y Regalos a ${localidad} - Entrega en ${tiempoEntrega} - Envio Flores Argentina`,
+        alt: `Envío de Flores y Regalos a ${localidad} - Entrega en ${tiempoEntrega} - ENVIO FLORES Argentina`,
       }],
       locale: 'es_AR',
     },
@@ -286,7 +286,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       site: '@EnvioFlores',
       creator: '@EnvioFlores',
-      title: `🌹 Flores a Domicilio en ${localidad} | Entrega en ${tiempoEntrega} | Envio Flores`,
+      title: `🌹 Flores a Domicilio en ${localidad} | Entrega en ${tiempoEntrega} | ENVIO FLORES`,
       description: description.substring(0, 200) + "...",
       images: [siteImage],
     },
@@ -303,7 +303,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores Argentina' }],
+    authors: [{ name: 'ENVIO FLORES Argentina' }],
     category: 'Flores y Regalos',
     other: {
       // Información geográfica
@@ -327,7 +327,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       // Metadatos de redes sociales adicionales
       'og:locale': 'es_AR',
       'og:type': 'website',
-      'og:site_name': 'Envio Flores Argentina',
+      'og:site_name': 'ENVIO FLORES Argentina',
       
       // Información específica del servicio para esta localidad
       'service:area': localidad,
@@ -381,7 +381,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
       android: {
         package: 'com.envioflores.app',
-        app_name: 'Envio Flores',
+        app_name: 'ENVIO FLORES',
       },
       web: {
         url: siteUrl,

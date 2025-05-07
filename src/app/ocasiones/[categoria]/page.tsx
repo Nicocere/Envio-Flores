@@ -128,7 +128,10 @@ const categoryMetadata: {[key: string]: {
       "regalos para hombres", "flores para caballeros", "arreglos florales masculinos",
       "canastas para hombres", "regalos originales para él", "vinos y chocolates para hombres",
       "plantas para regalar a hombres", "regalos ejecutivos hombres", "flores para papá",
-      "regalos para esposo", "detalles para novio", "arreglos florales para hombres"
+      "regalos para esposo", "detalles para novio", "arreglos florales para hombres",
+      "regalos sofisticados para hombres", "ideas de regalo para hombre", "kits cerveceros",
+      "regalos premium para caballeros", "box gourmet para hombres", "regalos para hombres empresarios",
+      "whisky y chocolates para hombres", "regalos de cumpleaños para hombres"
     ],
     schema: "Product",
     specialFeatures: ["Vinos premium", "Opciones para ejecutivos", "Packs cerveceros"]
@@ -197,7 +200,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const allKeywords = [...generalKeywords, ...metadata.specificKeywords];
 
   return {
-    title: `${metadata.emoji} Regalos para ${category} | ${metadata.titleSuffix} | Envio Flores Argentina`,
+    title: `${metadata.emoji} Regalos para ${category} | ${metadata.titleSuffix} | ENVIO FLORES Argentina`,
     description: metadata.description,
     keywords: allKeywords,
     alternates: {
@@ -209,14 +212,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `${metadata.emoji} Regalos para ${category} | ${metadata.titleSuffix} | Envio Flores`,
+      title: `${metadata.emoji} Regalos para ${category} | ${metadata.titleSuffix} | ENVIO FLORES`,
       description: metadata.description,
-      siteName: 'Envio Flores Argentina',
+      siteName: 'ENVIO FLORES Argentina',
       images: [{
         url: siteImage,
         width: 1200,
         height: 630,
-        alt: `Regalos y Flores para ${category} - Envio Flores Argentina`,
+        alt: `Regalos y Flores para ${category} - ENVIO FLORES Argentina`,
       }],
       locale: 'es_AR',
     },
@@ -224,7 +227,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       site: '@EnvioFlores',
       creator: '@EnvioFlores',
-      title: `${metadata.emoji} Regalos para ${category} | Envio Flores`,
+      title: `${metadata.emoji} Regalos para ${category} | ENVIO FLORES`,
       description: metadata.description.substring(0, 200),
       images: [siteImage],
     },
@@ -241,7 +244,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores Argentina' }],
+    authors: [{ name: 'ENVIO FLORES Argentina' }],
     category: `Flores y Regalos para ${category}`,
     other: {
       // Información geográfica
@@ -260,10 +263,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       // Información de negocio
       'revisit-after': '3 days',
       'rating': 'general',
-      'copyright': 'Envio Flores Argentina',
+      'copyright': 'ENVIO FLORES Argentina',
       
       // Rich Snippets y datos estructurados
-      'product:brand': 'Envio Flores',
+      'product:brand': 'ENVIO FLORES',
       'product:availability': 'in stock',
       'product:condition': 'new',
       'og:availability': 'instock',
@@ -296,7 +299,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
       android: {
         package: 'com.envioflores.app',
-        app_name: 'Envio Flores',
+        app_name: 'ENVIO FLORES',
       },
       web: {
         url: siteUrl,
@@ -306,6 +309,65 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function generateSchemaOrgData(category: string, metadata: any, siteUrl: string, siteImage: string) {
+  // Determinar el tipo de esquema según el valor en metadata
+  const schemaType = metadata.schema === "Product" ? "Product" : 
+                    metadata.schema === "Event" ? "Event" : 
+                    metadata.schema === "Gift" ? "Product" : "Product";
+
+  // Base común para todos los esquemas
+  const baseSchema = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    "name": `Regalos para ${category}`,
+    "description": metadata.description,
+    "url": siteUrl,
+    "image": siteImage,
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "ARS",
+      "lowPrice": "3999.00",
+      "highPrice": "15999.00",
+      "offerCount": "20+",
+      "availability": "https://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Brand",
+      "name": "ENVIO FLORES Argentina"
+    }
+  };
+
+  // Añadir propiedades específicas según el tipo de esquema
+  if (schemaType === "Product") {
+    return {
+      ...baseSchema,
+      "category": `Flores y Regalos para ${category}`,
+      "additionalProperty": metadata.specialFeatures.map((feature: string) => ({
+        "@type": "PropertyValue",
+        "name": "Característica especial",
+        "value": feature
+      }))
+    };
+  } else if (schemaType === "Event") {
+    return {
+      ...baseSchema,
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Buenos Aires, Argentina",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Buenos Aires",
+          "addressRegion": "CABA",
+          "addressCountry": "Argentina"
+        }
+      }
+    };
+  }
+
+  return baseSchema;
+}
 export default async function Category({ params }: Props) {
   const resolvedParams = await params;
   const rawCategory = decodeURIComponent(resolvedParams.categoria);
@@ -317,6 +379,31 @@ export default async function Category({ params }: Props) {
   };
 
   const category = formatCategory(rawCategory);
+  const categoryKey = rawCategory.toLowerCase().replace(/\s+/g, '');
+  
+  // Obtener metadatos para generar el esquema
+  const metadata = categoryMetadata[categoryKey] || {
+    emoji: "🎁",
+    titleSuffix: "Envío Express Garantizado | Flores Premium",
+    description: `Encuentra los mejores regalos para ${category}...`,
+    specificKeywords: [`mejores regalos para ${category}`],
+    schema: "Product",
+    specialFeatures: ["Entrega en el día", "Productos premium", "Opciones personalizadas"]
+  };
 
-  return <CategoryProdsComponents category={category} />;
+  const siteUrl = `https://www.envioflores.com/ocasiones/${encodeURIComponent(rawCategory)}`;
+  const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
+
+  // Generar el esquema JSON-LD
+  const schemaOrgData = generateSchemaOrgData(category, metadata, siteUrl, siteImage);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgData) }}
+      />
+      <CategoryProdsComponents category={category} />
+    </>
+  );
 }

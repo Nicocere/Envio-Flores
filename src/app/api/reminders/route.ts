@@ -64,12 +64,12 @@ function generateEmailHTML(recordatorio: any) {
             ` : ''}
 
             <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #670000; color: white; border-radius: 10px;">
-            <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
+            <p style="color: #f5f5f5;">¡Gracias por confiar en ENVIO FLORES para tus momentos especiales!</p>
             <p style="color: #670000;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #670000;"><em>Equipo Envio Flores</em></p>
+                                <p style="margin: 0; color: #670000;"><em>Equipo ENVIO FLORES</em></p>
                             </div>
         </div>
     `;
@@ -124,12 +124,12 @@ function generateLastEmailHTML(recordatorio: any) {
             ` : ''}
 
             <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #670000; color: white; border-radius: 10px;">
-            <p style="color: #f5f5f5;">¡Gracias por confiar en Envio Flores para tus momentos especiales!</p>
+            <p style="color: #f5f5f5;">¡Gracias por confiar en ENVIO FLORES para tus momentos especiales!</p>
             <p style="color: #670000;">¡No olvides realizar tu pedido para que llegue a tiempo!</p>
         
             </div>
                 <div style="background-color: #f9f9f9; padding: 10px; text-align: center; margin:30px 10px; border-radius: 2px;">
-                                <p style="margin: 0; color: #670000;"><em>Equipo Envio Flores</em></p>
+                                <p style="margin: 0; color: #670000;"><em>Equipo ENVIO FLORES</em></p>
                             </div>
         </div>
     `;

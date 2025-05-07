@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const siteImage = "https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png";
 
   return {
-    title: `Regalos para ${category} - Envio Flores`,
+    title: `Regalos para ${category} - ENVIO FLORES`,
     description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a CABA, Gran Buenos Aires y todo Argentina.`,
     keywords: [
       `regalos ${category}`, 
@@ -56,14 +56,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: 'website',
       url: siteUrl,
-      title: `Regalos para ${category} - Envio Flores`,
+      title: `Regalos para ${category} - ENVIO FLORES`,
       description: `Encuentra los mejores regalos para ${category}. Flores frescas, chocolates, peluches, ramos personalizados y más. Envíos a CABA, Gran Buenos Aires y todo Argentina.`,
-      siteName: 'Envio Flores',
+      siteName: 'ENVIO FLORES',
       images: [{
         url: siteImage,
         width: 800,
         height: 600,
-        alt: `Regalos para ${category} - Envio Flores`,
+        alt: `Regalos para ${category} - ENVIO FLORES`,
       }],
     },
     twitter: {
@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'max-snippet': -1,
       },
     },
-    authors: [{ name: 'Envio Flores' }],
+    authors: [{ name: 'ENVIO FLORES' }],
     other: {
       'geo.region': 'AR',
       'geo.placename': 'Buenos Aires',

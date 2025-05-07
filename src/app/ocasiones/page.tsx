@@ -2,7 +2,7 @@ import OcasionesComponent from '@/Client/Ocasiones/OcasionesComponent';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Regalos para Ocasiones Especiales 🌹 | Envío EXPRESS Garantizado | Flores, Peluches y Chocolates | Envio Flores Argentina",
+  title: "Regalos para Ocasiones Especiales 🌹 | Envío EXPRESS Garantizado | Flores, Peluches y Chocolates | ENVIO FLORES Argentina",
   description: "🎁 Regalos perfectos para cada momento especial: cumpleaños, aniversarios, San Valentín, Día de la Madre, nacimientos y más. Flores frescas, arreglos premium, chocolates gourmet, peluches y regalos personalizados con entrega EXPRESS en el día en CABA y Gran Buenos Aires. ¡Sorprende a tus seres queridos con calidad y puntualidad garantizada! Pedidos online 24/7.",
   keywords: [
     // Términos principales de ocasiones
@@ -57,14 +57,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/ocasiones',
-    title: 'Regalos para Ocasiones Especiales 🌹 | Envío Garantizado | Envio Flores',
+    title: 'Regalos para Ocasiones Especiales 🌹 | Envío Garantizado | ENVIO FLORES',
     description: '🎁 Encuentra el regalo perfecto para cada momento especial. Flores frescas, arreglos premium, chocolates y peluches con entrega EXPRESS en CABA y Gran Buenos Aires. ¡Sorprende a tus seres queridos con calidad y puntualidad!',
-    siteName: 'Envio Flores Argentina',
+    siteName: 'ENVIO FLORES Argentina',
     images: [{
       url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 1200,
       height: 630,
-      alt: 'Regalos y Flores para Ocasiones Especiales - Envio Flores Argentina',
+      alt: 'Regalos y Flores para Ocasiones Especiales - ENVIO FLORES Argentina',
     }],
     locale: 'es_AR',
   },
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    title: 'Regalos para Ocasiones Especiales 🌹 | Envío Express | Envio Flores',
+    title: 'Regalos para Ocasiones Especiales 🌹 | Envío Express | ENVIO FLORES',
     description: '🎁 Encuentra el regalo perfecto para cada momento especial. Flores frescas, arreglos premium y más con entrega garantizada en CABA y GBA.',
     images: ['https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png'],
   },
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  authors: [{ name: 'Envio Flores Argentina' }],
+  authors: [{ name: 'ENVIO FLORES Argentina' }],
   category: 'Flores y Regalos',
   other: {
     // Información geográfica
@@ -113,20 +113,20 @@ export const metadata: Metadata = {
     'target': 'all',
     'apple-mobile-web-app-capable': 'yes',
     'mobile-web-app-capable': 'yes',
-    'application-name': 'Envio Flores',
+    'application-name': 'ENVIO FLORES',
     'msapplication-TileColor': '#670000',
     'theme-color': '#670000',
     
     // Información de negocio
     'revisit-after': '3 days',
     'rating': 'general',
-    'copyright': 'Envio Flores Argentina',
-    'og:site_name': 'Envio Flores Argentina',
+    'copyright': 'ENVIO FLORES Argentina',
+    'og:site_name': 'ENVIO FLORES Argentina',
     'og:type': 'website',
     'og:locale': 'es_AR',
     
     // Rich Snippets y datos estructurados
-    'product:brand': 'Envio Flores',
+    'product:brand': 'ENVIO FLORES',
     'product:availability': 'in stock',
     'product:condition': 'new',
     'og:availability': 'instock',
@@ -160,7 +160,7 @@ export const metadata: Metadata = {
  
     android: {
       package: 'com.envioflores.app',
-      app_name: 'Envio Flores',
+      app_name: 'ENVIO FLORES',
     },
     web: {
       url: 'https://www.envioflores.com/ocasiones',

@@ -1,141 +1,280 @@
+/* Variables tomadas de :root para mantener consistencia */
 .dark {
-    --background: #670000;
-    --secondary-background: #ffffff;
-    --color: #fcf5f0;
-    --color2: #670000;
+    --card-bg: var(--background-dark);
+    --card-bg-hover: var(--background-card-dark);
+    --text-color: var(--text-light);
+    --accent-color: var(--primary-light);
+    --modal-bg: var(--background-dark-gradient);
+    --modal-shadow: var(--card-shadow-dark);
+    --button-bg: var(--primary-color);
+    --button-hover: var(--primary-color-hover);
+    --shadow: var(--shadow-strong);
+    --border-color: var(--border-color-dark);
 }
+
 .light {
-    --background: #fcf5f0;
-    --secondary-background: #670000;
-    --color: #670000;
-    --color2: #670000;
+    --card-bg: var(--background-light);
+    --card-bg-hover: var(--secondary-color);
+    --text-color: var(--primary-dark);
+    --accent-color: var(--primary-color);
+    --modal-bg: var(--background-light-gradient);
+    --modal-shadow: var(--card-shadow);
+    --button-bg: var(--primary-color);
+    --button-hover: var(--primary-color-hover);
+    --shadow: var(--shadow-normal);
+    --border-color: var(--border-color);
 }
 
-
+/* Contenedor principal */
 .container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1400px;
+    margin: 3rem auto;
     padding: 2rem;
     position: relative;
+    color: var(--text-color);
+    transition: all 0.5s ease;
+}
 
+/* Estilos para el título */
+.titleContainer {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
 }
 
 .title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 500;
-}
-
-.carousel {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    background: linear-gradient(120deg, var(--accent-color), var(--text-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
     position: relative;
 }
 
-.carouselTrack {
-    display: flex;
-    gap: 1rem;
-    overflow: hidden;
-    width: 100%;
-    padding: 1rem 0;
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 3px;
 }
 
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+    color: var(--text-color);
+    opacity: 0.9;
+    max-width: 80%;
+    margin: 1rem auto 0;
+}
+
+/* Swiper estilos */
+.swiperContainer {
+    width: 100%;
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.swiper {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.swiperSlide {
+    width: 300px;
+    height: 450px;
+    margin: 0 15px;
+    transition: all 0.3s ease;
+    transform-origin: center center;
+}
+
+/* Navegación de Swiper personalizada */
+.swiperPagination {
+    position: relative;
+    margin-top: 2rem;
+}
+
+.swiperButtonPrev, .swiperButtonNext {
+    color: var(--accent-color) !important;
+    transition: all 0.3s ease;
+    transform: scale(0.8);
+}
+
+.swiperButtonPrev:hover, .swiperButtonNext:hover {
+    color: var(--button-hover) !important;
+    transform: scale(0.9);
+}
+
+/* Tarjeta de producto */
 .productCard {
-    flex: 0 0 calc(33.333% - 1rem);
-    background: rgba(255, 255, 255, 0.8);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 1rem;
+    position: relative;
+    height: 100%;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .productCard:hover {
     transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .imageContainer {
+    position: relative;
     width: 100%;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 1rem;
 }
 
 .productImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.7s ease;
+}
+
+.productCard:hover .productImage {
+    transform: scale(1.05);
+}
+
+.productBadge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.productCard:hover .productBadge {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .productInfo {
-    text-align: center;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
 }
 
 .productInfo h3 {
-    font-size: 1.1rem;
-    color: #333;
-    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 .productInfo p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.5;
 }
 
-.navButton {
-    background: rgba(212, 175, 55, 0.1);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #670000;
+.viewOptions {
+    display: inline-block;
+    margin-top: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    position: relative;
     transition: all 0.3s ease;
+    align-self: flex-start;
 }
 
-.navButton:hover {
-    background: rgba(212, 175, 55, 0.2);
+.viewOptions::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
 }
 
+.productCard:hover .viewOptions::after {
+    width: 100%;
+}
+
+/* Modal de opciones */
 .optionsModal {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 3000;
+    backdrop-filter: blur(5px);
+    padding: 2rem 5px;
 }
 
 .modalContent {
-    background: var(--background);
-    padding: 2rem;
-    border-radius: 16px;
+    background: var(--modal-bg);
+    border-radius: var(--border-radius);
     width: 90%;
-    max-width: 800px;
-    max-height: 80vh;
+    max-width: 900px;
+    max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    box-shadow: var(--modal-shadow);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) transparent;
+}
+
+.modalContent.closing {
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+}
+
+.modalContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
 }
 
 .closeButton {
@@ -144,108 +283,280 @@
     right: 1rem;
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    line-height: 1;
     cursor: pointer;
-    color: #666;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-.optionsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
+.closeButton:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.optionCard {
-    background: #f8f8f8;
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
+.modalHeader {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
 }
 
-.optionImage {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 0.5rem;
+.modalHeader h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
 }
 
-.optionInfo p {
-    margin: 0.5rem 0;
+.descrOptContainer {
+    position: relative;
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.descrOptContainer:hover {
+    max-height: 300px;
 }
 
 .descrOpt {
-    font-size: 0.9rem;
-    color: var(--color);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
     position: relative;
-    transition: max-height 0.5s ease, color 0.5s ease;
-    max-height: 3rem; /* Ajusta según la altura de dos líneas de texto */
+    margin: 0;
 }
 
-.descrOpt::before {
+.descrOptContainer::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 1.5rem; /* Ajusta según sea necesario */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background));
-    transition: opacity 0.5s ease;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--card-bg));
+    pointer-events: none;
     opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
-.descrOpt:hover::before {
+.descrOptContainer:hover::after {
     opacity: 0;
 }
 
-.descrOpt:hover {
-    color: var(--color2);
-    display: -webkit-box;
-    -webkit-line-clamp: unset;
-    line-clamp: unset;
-    -webkit-box-orient: vertical;
-    max-height: 100rem; /* Un valor grande para permitir la expansión completa */
+.optionsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.optionCard {
+    background: var(--card-bg-hover);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
+}
+
+.optionImageContainer {
+    height: 180px;
+    overflow: hidden;
+}
+
+.optionImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.optionCard:hover .optionImage {
+    transform: scale(1.05);
+}
+
+.optionInfo {
+    padding: 1.25rem;
+}
+
+.optionInfo h4 {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.priceTag {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.currency {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-right: 2px;
+    align-self: flex-start;
 }
 
 .price {
-    color: #670000;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1;
 }
 
 .addButton {
-    background: #670000;
+    background: var(--button-bg);
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
     width: 100%;
-    margin-top: 0.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.addButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
 }
 
 .addButton:hover {
-    background: #b38e2e;
+    background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(167, 0, 0, 0.3);
+}
+
+.addButton:hover::before {
+    left: 100%;
+}
+
+.addButtonText {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.addButtonIcon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.addButton:hover .addButtonIcon {
+    transform: rotate(90deg);
+}
+
+.modalFooter {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.modalFooterText {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .title {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+        max-width: 90%;
+    }
+    
+    .optionsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
-    .carouselTrack {
-        gap: 0.5rem;
+    .container {
+        padding: 1.5rem;
+        margin: 2rem auto;
     }
-
-    .productCard {
-        flex: 0 0 calc(100% - 1rem);
+    
+    .title {
+        font-size: 1.8rem;
     }
+    
+    .subtitle {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .swiperSlide {
+        width: 250px;
+        height: 400px;
+    }
+    
+    .optionsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .modalContent {
+        padding: 2rem 1.5rem;
+    }
+}
 
+@media (max-width: 576px) {
+    .title {
+        font-size: 1.6rem;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .swiperSlide {
+        width: 220px;
+        height: 380px;
+    }
+    
     .optionsGrid {
         grid-template-columns: 1fr;
+    }
+    
+    .modalContent {
+        padding: 1.5rem;
+    }
+    
+    .modalHeader h3 {
+        font-size: 1.5rem;
+    }
+    
+    .productInfo h3 {
+        font-size: 1.1rem;
     }
 }

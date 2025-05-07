@@ -2,7 +2,7 @@ import ProductsCategoryComponent from '@/Client/Categorias/CategoryComponent';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "🌹 Todas las Categorías de Flores y Regalos | Ramos, Arreglos, Chocolates, Peluches | Envío EXPRESS | Envio Flores Argentina",
+  title: "🌹 Todas las Categorías de Flores y Regalos | Ramos, Arreglos, Chocolates, Peluches | Envío EXPRESS | ENVIO FLORES Argentina",
   description: "Explora nuestra amplia selección de productos: rosas premium, girasoles, liliums, gerberas, ramos combinados, arreglos exclusivos, peluches, chocolates gourmet, vinos, desayunos sorpresa y combos regalo para toda ocasión. ✓ Envío EXPRESS garantizado ✓ Entrega MISMO DÍA en CABA y GBA ✓ Servicio 24/7 ✓ Flores frescas con garantía ✓ Pago seguro online. ¡Haz tu pedido ahora y sorprende a quien más quieres!",
   keywords: [
     // Categorías principales
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     "flores para sorprender", "regalos originales con flores", "ideas regalo con flores",
     "cuánto cuesta enviar flores", "como elegir un ramo de flores", "flores que duran más tiempo"
   ],
-  authors: [{ name: "Envio Flores Argentina" }],
+  authors: [{ name: "ENVIO FLORES Argentina" }],
   alternates: {
     canonical: 'https://www.envioflores.com/categoria',
     languages: {
@@ -54,14 +54,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.envioflores.com/categoria',
-    title: '🌹 Flores y Regalos por Categorías | Envío Express Garantizado | Envio Flores',
+    title: '🌹 Flores y Regalos por Categorías | Envío Express Garantizado | ENVIO FLORES',
     description: 'Descubre nuestro catálogo completo de flores frescas, arreglos exclusivos, regalos, chocolates, peluches y más. Envío EXPRESS mismo día en CABA y GBA. ¡Sorprende ahora!',
-    siteName: 'Envio Flores Argentina',
+    siteName: 'ENVIO FLORES Argentina',
     images: [{
       url: 'https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png',
       width: 1200,
       height: 630,
-      alt: 'Categorías de productos - Ramos, Arreglos, Regalos y más - Envio Flores Argentina',
+      alt: 'Categorías de productos - Ramos, Arreglos, Regalos y más - ENVIO FLORES Argentina',
     }],
     locale: 'es_AR',
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EnvioFlores',
     creator: '@EnvioFlores',
-    title: '🌹 Categorías de Flores y Regalos | Envío Express | Envio Flores',
+    title: '🌹 Categorías de Flores y Regalos | Envío Express | ENVIO FLORES',
     description: 'Explora nuestro catálogo: flores frescas, arreglos exclusivos, peluches, chocolates y más con envío garantizado mismo día en CABA y GBA.',
     images: ['https://www.envioflores.com/imagenes/productos/Caja-peluche-vino-rosas.png'],
   },
@@ -119,16 +119,16 @@ export const metadata: Metadata = {
     'theme-color': '#670000',
     'msapplication-TileColor': '#670000',
     'msapplication-config': '/browserconfig.xml',
-    'application-name': 'Envio Flores',
+    'application-name': 'ENVIO FLORES',
     
     // Información comercial
-    'product:brand': 'Envio Flores',
+    'product:brand': 'ENVIO FLORES',
     'product:availability': 'in stock',
     'product:condition': 'new',
     'og:availability': 'instock',
     'og:price:currency': 'ARS',
     'og:locale': 'es_AR',
-    'og:site_name': 'Envio Flores Argentina',
+    'og:site_name': 'ENVIO FLORES Argentina',
     
     // Detalles del servicio
     'service:delivery_time': 'Mismo día para pedidos antes de las 18:00',
@@ -156,7 +156,7 @@ export const metadata: Metadata = {
             "image": "https://www.envioflores.com/imagenes/categorias/ramos.jpg",
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -166,7 +166,7 @@ export const metadata: Metadata = {
               "availability": "https://schema.org/InStock",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               }
             }
           }
@@ -182,7 +182,7 @@ export const metadata: Metadata = {
             "image": "https://www.envioflores.com/imagenes/categorias/arreglos.jpg",
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -192,7 +192,7 @@ export const metadata: Metadata = {
               "availability": "https://schema.org/InStock",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               }
             }
           }
@@ -208,7 +208,7 @@ export const metadata: Metadata = {
             "image": "https://www.envioflores.com/imagenes/categorias/combos.jpg",
             "brand": {
               "@type": "Brand",
-              "name": "Envio Flores"
+              "name": "ENVIO FLORES"
             },
             "offers": {
               "@type": "AggregateOffer",
@@ -218,7 +218,7 @@ export const metadata: Metadata = {
               "availability": "https://schema.org/InStock",
               "seller": {
                 "@type": "Organization",
-                "name": "Envio Flores Argentina"
+                "name": "ENVIO FLORES Argentina"
               }
             }
           }
@@ -239,7 +239,7 @@ export const metadata: Metadata = {
  
     android: {
       package: 'com.envioflores.app',
-      app_name: 'Envio Flores',
+      app_name: 'ENVIO FLORES',
     },
     web: {
       url: 'https://www.envioflores.com/categoria',

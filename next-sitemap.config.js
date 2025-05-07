@@ -11,6 +11,7 @@ module.exports = {
       '/api/*',
       '/app/api/*',
       '/compras',
+      '/cart',
     ],
     robotsTxtOptions: {
       policies: [
@@ -25,6 +26,7 @@ module.exports = {
             '/api/*',
             '/app/api/*',
             '/compras',
+            '/cart'
           ],
         },
       ],

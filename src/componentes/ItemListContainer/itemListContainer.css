@@ -26,9 +26,9 @@
    ENCABEZADO DE PRODUCTOS
    ======================================== */
 .product-header-section {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 0;
   position: relative;
-  padding-top: var(--spacing-md);
+  padding-top: 0;
 }
 
 .back-link {
@@ -77,7 +77,7 @@
   font-family: var(--font-primary);
   font-size: 2.5rem !important;
   font-weight: 700 !important;
-  margin-bottom: var(--spacing-xs) !important;
+  margin: 0 !important;
   position: relative;
   display: inline-block;
 }
@@ -104,7 +104,7 @@
 .product-count {
   color: var(--text-muted) !important;
   font-size: 1rem !important;
-  margin-top: var(--spacing-sm) !important;
+  margin: 0 !important;
 }
 
 /* ========================================
@@ -379,7 +379,7 @@
 .pagination-wrapper {
   display: flex;
   justify-content: center;
-  margin: var(--spacing-lg) 0;
+  margin: 0;
 }
 
 /* ========================================
