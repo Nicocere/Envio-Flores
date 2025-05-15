@@ -189,7 +189,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // URL alternativas para hreflang
   const alternateUrls = {
     'es-AR': siteUrl,
-    'es': `https://www.envioflores.com/es/categoria/${encodeURIComponent(rawCategory)}`,
+    'es': `https://www.envioflores.com/categoria/${encodeURIComponent(rawCategory)}`,
   };
 
   return {
@@ -421,7 +421,7 @@ export default async function Category({ params }: PageProps) {
         '@type': 'ListItem',
         position: 2,
         name: 'Catálogo',
-        item: 'https://www.envioflores.com/catalogo'
+        item: 'https://www.envioflores.com/categoria'
       },
       {
         '@type': 'ListItem',

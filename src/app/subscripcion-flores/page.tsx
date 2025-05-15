@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     "suscripción flores Buenos Aires"
   ],
   alternates: {
-    canonical: 'https://www.envioflores.com/suscripcion-semanal',
+    canonical: 'https://www.envioflores.com/subscripcion-flores/semanal',
     languages: {
-      'es-AR': 'https://www.envioflores.com/suscripcion-semanal',
+      'es-AR': 'https://www.envioflores.com/subscripcion-flores/semanal',
     },
   },
   openGraph: {
     type: 'website',
-    url: 'https://www.envioflores.com/suscripcion-semanal',
+    url: 'https://www.envioflores.com/subscripcion-flores/semanal',
     title: 'Suscripción de Flores - ENVIO FLORES',
     description: 'Servicio premium de suscripción floral semanal para empresas y particulares. Transforma tus espacios con flores frescas cada semana. Envíos en CABA y Gran Buenos Aires.',
     siteName: 'ENVIO FLORES',

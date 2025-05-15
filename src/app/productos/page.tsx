@@ -304,7 +304,6 @@ export const metadata: Metadata = {
       'og:site_name': 'ENVIO FLORES Argentina',
       'og:brand': 'ENVIO FLORES',
       'og:product:category': 'Flores y Regalos',
-      'og:video': 'https://www.envioflores.com/videos/catalogo-productos.mp4',
       'og:see_also': 'https://www.instagram.com/envioflores.arg',
       
       // Información del servicio (expandida)
