@@ -1,0 +1,24 @@
+{
+  "products": [
+    { "name": "Ramo de Rosas", "size": "Grande", "quantity": 1, "precio": 2500 }
+  ],
+  "datosComprador": {
+    "nombreComprador": "Juan",
+    "apellidoComprador": "Pérez",
+    "email": "juan@example.com",
+    "tel_comprador": "123456789"
+  },
+  "datosEnvio": {
+    "fecha": "2025-06-14",
+    "horario": "10:00-12:00",
+    "dedicatoria": "¡Feliz cumpleaños te re amoooo! ❤ Hola te amo ♥ ♥ 😍 🎁🎂❤️😍🎈",
+    "nombreDestinatario": "Ana",
+    "apellidoDestinatario": "García",
+    "calle": "Calle Falsa",
+    "altura": "123",
+    "piso": "1A",
+    "localidad": { "name": "Ciudad" },
+    "servicioPremium": true
+  },
+  "retiraEnLocal": false
+}
