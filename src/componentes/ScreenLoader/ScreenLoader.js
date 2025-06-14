@@ -41,7 +41,7 @@ const ScreenLoader = ({ minDuration = 2000 }) => {
       <div className="loader-content">
         <div className="logo-animation">
           <img
-            src={'/assets/imagenes/logo-envio-flores.png'}
+            src={isDarkMode ? '/assets/imagenes/logo-envio-flores.png' : '/assets/imagenes/logo-envio-flores2.png'}
             alt="Envío Flores"
             className="loader-logo"
           />

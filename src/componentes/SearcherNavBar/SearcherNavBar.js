@@ -19,6 +19,7 @@ import { BsSearchHeart } from "react-icons/bs";
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
 import { useProductsContext } from "@/context/ProductsContext";
+import { slugify } from '../../utils/serviciosMetadata';
 
 const SearcherNavBar = ({ onClick }) => {
   const { changeList, setNavBarSearcher, navBarSearcher } = useSearch();
@@ -246,7 +247,7 @@ const SearcherNavBar = ({ onClick }) => {
                     whileTap="tap"
                   >
                     <Link 
-                      href={`/detail/${product.id}`} 
+                      href={`/detail/${slugify(product.nombre)}`} 
                       onClick={handleProductClick}
                       className="navbar-product-search-link"
                     >

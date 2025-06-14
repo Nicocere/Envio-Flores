@@ -3,13 +3,14 @@
     padding: 5px 0;
 }
 
-.divSeccionMobile a, .divSeccionMobile button {
+.divSeccionMobile a,
+.divSeccionMobile button {
     text-decoration: none;
     margin: 20px 0;
     color: darkred;
     width: 100%;
-     text-align: left;
-    font-weight: 500;
+    text-align: left;
+    font-weight: 600;
     font-size: 0.875rem;
     line-height: 1.75;
     letter-spacing: 0.02857em;
@@ -17,38 +18,42 @@
     text-decoration: none;
 }
 
-.divSeccionMobile a:hover, .divSeccionMobile button:hover {
+.divSeccionMobile a:hover,
+.divSeccionMobile button:hover {
     color: #420000;
 }
 
-.divSeccionMobile a.dark-mode:hover, .divSeccionMobile button:hover {
-    color: silver;
+.divSeccionMobile a.dark-mode:hover,
+.divSeccionMobile button.dark-mode:hover {
+    color: var(--primary-light-hover);
 }
 
-.divSeccionMobile a.dark-mode, .divSeccionMobile button:hover {
-    color: #d4d4d4;
+.divSeccionMobile a.dark-mode,
+.divSeccionMobile button.dark-mode {
+    color: var(--secondary-color);
 }
 
 .divSeccionMobile {
     display: flex;
     flex-direction: column;
     flex: 2;
-    padding: 15px  0px 0px 25px;
+    padding: 15px 0px 0px 25px;
 }
 
 
 .link-products {
-    font-weight: 400;
+    font-weight: 600;
     transition: 1s ease-in
 }
 
 .link-products.active {
     font-weight: 700;
     color: #420000;
-     ;
+
     font-size: larger;
 }
-.dark-mode .link-products.active{
+
+.dark-mode .link-products.active {
     color: silver;
 
 }
@@ -58,7 +63,7 @@
     flex-direction: row;
 }
 
-.list-products{
+.list-products {
     margin-left: 15px;
     margin-bottom: 10px;
 }
@@ -67,8 +72,8 @@
     text-decoration: none;
     margin: 0px 0px 0px 20px;
     color: darkred;
-     ;
-    font-weight: 500;
+
+    font-weight: 600;
     font-size: 0.875rem;
     line-height: 1.75;
     letter-spacing: 0.02857em;
@@ -88,20 +93,22 @@
 }
 
 
-.div-prods-SeccionMobile{
-    display: flex;
+.div-prods-SeccionMobile {
     flex-direction: column;
-    height: 100%;
     flex: 2;
-    padding: 15px  0px 0px 25px;
+    height: 100%;
+    padding-top: 15px;
+    display: flex;
+    max-width: -webkit-fill-available;
+    width: 90%;
+    padding-left: 30px;
 }
 
 .div-prods-SeccionMobile a {
     margin: 20px 0;
     color: darkred;
     width: 100%;
-     ;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.875rem;
     line-height: 1.15;
     letter-spacing: 0.02857em;
@@ -123,6 +130,84 @@
     color: #d4d4d4;
 }
 
+/* Estilos para el listado de categorías en el drawer de productos */
+.listProducts {
+    display: block;
+    text-decoration: none;
+    margin: 12px 0 0 0;
+    color: darkred;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+}
+
+.listProducts:hover {
+    color: #420000;
+}
+
+.dark-mode .listProducts {
+    color: #d4d4d4;
+}
+
+.dark-mode .listProducts:hover {
+    color: silver;
+}
+
+.categoryLink {
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Se sobreescribe inline según dark mode */
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.categoryLink:active {
+    transform: scale(0.95);
+}
+
+/* Estilos para el listado de ocasiones en el drawer de ocasiones */
+.ocasionesSeccion {
+  display: block;
+  text-decoration: none;
+  margin: 12px 0 0 0;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+
+.ocasionesSeccion:hover {
+  color: #a70000;
+}
+
+.dark-mode .ocasionesSeccion {
+  color: var(--secondary-color);
+}
+
+.dark-mode .ocasionesSeccion:hover {
+  color: silver;
+}
+
+.ocasionLink {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05); /* Se sobreescribe inline según dark mode */
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ocasionLink:active {
+  transform: scale(0.95);
+}
 
 @media screen and (max-width: 550px) {
 
@@ -130,10 +215,27 @@
         text-decoration: none;
         font-size: small;
         margin: 15px 0;
-        font-weight: 500;
+        font-weight: 600;
         color: darkred;
-         ;
-    }
-    
 
+    }
+
+    .listProducts {
+        font-size: 0.85rem;
+        margin: 10px 0 0 0;
+    }
+
+    .categoryLink {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    .ocasionesSeccion {
+    font-size: 0.85rem;
+    margin: 10px 0 0 0;
+  }
+  .ocasionLink {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
 }

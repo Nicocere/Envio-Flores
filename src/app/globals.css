@@ -30,6 +30,7 @@ svg {
   --primary-light: #ff4d4d;
   --primary-light-hover: #ff6b6b;
   --secondary-color: #FFF5F5;
+  --text-color: #333333;
   --accent-color: #ffcaca;
   --text-light: #FFFFFF;
   --text-muted: #030303;
@@ -113,7 +114,7 @@ svg {
 
   --searcher-transition: 0.3s ease;
   --searcher-font: "Nexa", sans-serif;
-  ;
+ 
 
   --searcher-spacing-xs: 0.5rem;
   --searcher-spacing-sm: 1rem;
@@ -170,7 +171,7 @@ svg {
   --transition-slow: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
 
   --font-primary: "Nexa", sans-serif;
-  ;
+ 
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -2759,7 +2760,7 @@ input {
 #selectId {
   font-family: "Nexa", sans-serif !important;
 
-  ;
+ 
 }
 
 /* Loader */

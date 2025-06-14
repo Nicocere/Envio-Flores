@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import {  Clear as ClearIcon } from '@mui/icons-material';
 import { BsSearchHeart } from "react-icons/bs";
+import { slugify } from '../../utils/serviciosMetadata';
 
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
@@ -245,7 +246,7 @@ const SearcherMobile = ({ onClick }) => {
                     whileTap="tap"
                   >
                     <Link 
-                      href={`/detail/${product.id}`} 
+                      href={`/detail/${slugify(product.nombre)}`} 
                       onClick={handleProductClick}
                       className="navbar-product-search-link"
                     >

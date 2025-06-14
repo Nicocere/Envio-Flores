@@ -110,7 +110,7 @@ export default function MiddleMenu({banners, loading}) {
                   key={banner.id || index}
                 >
                   <div className="simple-card-image">
-                  <LazyLoadImage
+                  <LazyLoadImage 
                     src={banner.imagen || '/assets/imagenes/placeholder-banner.jpg'}
                     alt={banner.nombre || 'Colección floral'}
                     effect="blur"

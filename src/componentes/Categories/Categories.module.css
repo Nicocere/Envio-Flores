@@ -23,18 +23,20 @@
 .categoriesContainer {
   width: 100%;
   max-width: 300px;
-  
+  margin-left: 15px;
+
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--category-bg);
   box-shadow: var(--category-shadow);
-  margin: 1rem 0;
+  margin-top: 1rem;
   transition: all 0.3s ease;
 }
 
 /* Sección de categoría */
 .categorySection {
   margin-bottom: 0.5rem;
+  padding-left: 20px;
   border-bottom: 1px solid var(--category-border);
 }
 
@@ -96,7 +98,8 @@
 }
 
 .expanded {
-  max-height: 500px; /* Altura máxima suficiente para el contenido */
+  max-height: 100%;
+  /* Altura máxima suficiente para el contenido */
 }
 
 .linksContainer {
@@ -158,23 +161,25 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (max-width: 650px) {
   .navBarSeccions {
     display: contents;
   }
-  
-  .categoriesContainer{
+
+  .categoriesContainer {
     display: none;
   }
-  
-  .divNavBarSeccions{
+
+  .divNavBarSeccions {
     display: none;
   }
-  
-  
+
+
 }
 
 

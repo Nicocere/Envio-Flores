@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import './Item.css';
 import Image from 'next/image';
+import { slugify } from '../../utils/serviciosMetadata';
 
 // Creamos un div animado con react-spring
 const AnimatedDiv = animated.div;
@@ -58,7 +59,7 @@ const Item = ({ items }) => {
       className={`item-card ${isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop'}`}
     >
       {/* Imagen del producto */}
-      <Link href={`/detail/${items.id}`} className="item-image-container">
+      <Link href={`/detail/${slugify(items.nombre)}`} className="item-image-container">
         <Image  width={250} height={250}
           src={items.opciones[0].img || items.img} 
           alt={items.nombre}
@@ -87,7 +88,7 @@ const Item = ({ items }) => {
         {/* Encabezado: título y precio */}
         <div className="item-header">
           <h3 className="item-title">
-            <Link href={`/detail/${items.id}`} className="item-title-link">
+            <Link href={`/detail/${slugify(items.nombre)}`} className="item-title-link">
               {items.nombre}
             </Link>
           </h3>
@@ -149,7 +150,7 @@ const Item = ({ items }) => {
           {/* Botón Ver más opciones */}
           {items.opciones.length > 1 && (
             <div className="view-more-container">
-              <Link href={`/detail/${items.id}`} className="view-more-button">
+              <Link href={`/detail/${slugify(items.nombre)}`} className="view-more-button">
                 {isDesktop ? 'Ver opciones' : 'Ver más'}
               </Link>
             </div>
@@ -159,7 +160,7 @@ const Item = ({ items }) => {
       
       {/* Versión móvil: botón de acción rápida */}
       {isMobile && (
-        <Link href={`/detail/${items.id}`} className="mobile-action-button">
+        <Link href={`/detail/${slugify(items.nombre)}`} className="mobile-action-button">
           <span className="mobile-action-icon"></span>
         </Link>
       )}

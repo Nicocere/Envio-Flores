@@ -40,41 +40,54 @@ async function getAllProductsWithCache() {
 }
 
 /**
- * Obtiene un producto específico por su ID
- * @param {string} productId - ID del producto a buscar
+ * Convierte un string a slug amigable para URLs
+ */
+export function slugify(str = '') {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Elimina tildes
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/--+/g, '-');
+}
+
+/**
+ * Obtiene un producto específico por su ID o slug amigable
+ * @param {string} productIdOrSlug - ID o slug del producto a buscar
  * @returns {Promise<Object|null>} - Datos del producto o null si no se encuentra
  */
-export const fetchProductById = async (productId) => {
+export const fetchProductById = async (productIdOrSlug) => {
   try {
     // Intentar buscar en el caché primero
     const allProducts = await getAllProductsWithCache();
-    const cachedProduct = allProducts.find(p => p.id === productId);
-    
+    const cachedProduct = allProducts.find(p => p.id === productIdOrSlug);
     if (cachedProduct) {
       return cachedProduct;
     }
-    
     // Intentamos obtener el producto por ID exacto
-    const productDoc = await getDoc(doc(baseDeDatosServer, 'productos', productId));
-    
+    const productDoc = await getDoc(doc(baseDeDatosServer, 'productos', productIdOrSlug));
     if (productDoc.exists()) {
       const productData = { id: productDoc.id, ...productDoc.data() };
       return productData;
     }
-
-    // Si no se encuentra por ID exacto, intentamos buscar por coincidencia en nombre
+    // Si no se encuentra por ID exacto, intentamos buscar por slug amigable en el nombre
+    const slug = slugify(productIdOrSlug);
+    const productBySlug = allProducts.find(p => slugify(p.nombre) === slug);
+    if (productBySlug) {
+      return productBySlug;
+    }
+    // Si no está en caché, buscar en Firestore por nombre exacto (por compatibilidad)
     const productsRef = collection(baseDeDatosServer, 'productos');
-    const q = query(productsRef, where('nombre', '==', productId.replace(/-/g, ' ')));
+    const q = query(productsRef, where('nombre', '==', productIdOrSlug.replace(/-/g, ' ')));
     const querySnapshot = await getDocs(q);
-    
     if (!querySnapshot.empty) {
       const productData = { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
       return productData;
     }
-
     return null;
   } catch (error) {
-    console.error('Error al obtener producto por ID:', error);
+    console.error('Error al obtener producto por ID o slug:', error);
     return null;
   }
 };

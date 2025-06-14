@@ -386,7 +386,7 @@ body.dark-mode .item-divider {
 
 .item-card.desktop .item-actions,
 .item-card.tablet .item-actions {
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: stretch;
   gap: var(--item-spacing-sm);
 }

@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 
 export async function GET(request: Request) {
-    
+
     const authHeader = request.headers.get('authorization');
     if (authHeader !== `Bearer ${process.env.PRODS_SECRET}`) {
         return new Response('Unauthorized', {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const productsCollection = collection(baseDeDatosServer, 'productos');
+        const productsCollection = collection(baseDeDatosServer, 'categorias');
         const productSnapshot = await getDocs(productsCollection);
         const productList = productSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         

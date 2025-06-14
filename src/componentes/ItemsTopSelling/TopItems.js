@@ -8,6 +8,7 @@ import { CartContext } from '../../context/CartContext';
 import { useTheme } from '../../context/ThemeSwitchContext';
 import './topItems.css';
 import { RiFlowerFill } from 'react-icons/ri';
+import { slugify } from '../../utils/serviciosMetadata';
 
 // Importaciones de Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -120,7 +121,7 @@ export default function TopItems() {
                                 </div>
                                 
                                 <div className="product-image-container">
-                                    <Link href={`/detail/${item.id}`} className="product-image-link">
+                                    <Link href={`/detail/${slugify(item.nombre)}`} className="product-image-link">
                                         <img 
                                             src={item?.opciones[0].img} 
                                             alt={item.nombre} 
@@ -129,7 +130,7 @@ export default function TopItems() {
                                         />
                                     </Link>
                                     <div className="product-quick-view">
-                                        <Link href={`/detail/${item.id}`} className="quick-view-button">
+                                        <Link href={`/detail/${slugify(item.nombre)}`} className="quick-view-button">
                                             Ver Detalles
                                         </Link>
                                     </div>
@@ -142,7 +143,7 @@ export default function TopItems() {
                                     </div>
                                     
                                     <h3 className="product-title">
-                                        <Link href={`/detail/${item.id}`}>{item.nombre}</Link>
+                                        <Link href={`/detail/${slugify(item.nombre)}`}>{item.nombre}</Link>
                                     </h3>
                                     
                                     <div className="product-details">

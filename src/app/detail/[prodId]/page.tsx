@@ -1,9 +1,11 @@
 import ProductDetailComponent from '@/Client/Productos/Detalle/ProductDetail';
 import { Metadata } from 'next';
-import { fetchProductById, getProductKeywords } from '@/utils/serviciosMetadata';
+import { fetchProductById, getProductKeywords, slugify } from '@/utils/serviciosMetadata';
+import { redirect } from 'next/navigation';
 
 
 interface ProductDetails {
+  id: string; // <-- Agregado para que productDetails.id esté disponible
   nombre: string;
   descripcion?: string;
   categoria?: string;
@@ -27,7 +29,19 @@ interface Props {
 
 // Esta función es reconocida por Next.js para generar metadatos
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const productId =  decodeURIComponent((await params).prodId);
+  const productIdRaw = await params;
+  const productId = decodeURIComponent(productIdRaw?.prodId ?? '');
+  if (!productId || productId === 'undefined' || productId.trim() === '') {
+    // Si el prodId no es válido, no generes metadata canónica
+    return {
+      title: 'Producto no encontrado | ENVIO FLORES',
+      description: 'El producto solicitado no existe o no se encuentra disponible.',
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
   
   // Obtener detalles del producto
   const productDetails = await fetchProductById(productId) as ProductDetails;
@@ -175,11 +189,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 
 export default async function DetailProd({ params }: Props) {
-  const productId = decodeURIComponent((await params).prodId);
-  
-  // Obtener detalles del producto
-  const productDetails = await fetchProductById(productId) as ProductDetails;
-  
+  const productIdOrSlug = decodeURIComponent((await params).prodId);
+  // Obtener detalles del producto (puede ser por ID o slug)
+  const productDetails = await fetchProductById(productIdOrSlug) as ProductDetails;
+  if (!productDetails) {
+    // Producto no encontrado
+    return <div>Producto no encontrado</div>;
+  }
+  // Si el parámetro es un slug, redirigir a la URL canónica si no coincide
+  const canonicalSlug = slugify(productDetails.nombre);
+  if (productIdOrSlug !== productDetails.id && productIdOrSlug !== canonicalSlug) {
+    // Redirigir 301 a la URL canónica con el slug correcto
+    redirect(`/detail/${canonicalSlug}`);
+  }
   // Extraer datos necesarios
   const productName = productDetails?.nombre || `Arreglo floral `;
   let productPrice = productDetails?.opciones?.[0]?.precio || productDetails?.precio || 'desde $5.000';
@@ -188,9 +210,8 @@ export default async function DetailProd({ params }: Props) {
   }
   const productImage = productDetails?.opciones?.[0]?.img || `https://www.envioflores.com/imagenes/productos/Caja-ferrero-rocher-rosas-rojas.png`;
   const productDescription = productDetails?.descripcion || `Hermoso arreglo floral para sorprender a esa persona especial. Envío a domicilio en el día.`;
-  
   // Corregir inconsistencia de URL en schemas
-  const siteUrl = `https://www.envioflores.com/detail/${encodeURIComponent(productId)}`;
+  const siteUrl = `https://www.envioflores.com/detail/${canonicalSlug}`;
   const numericPrice = productPrice.replace(/[^\d]/g, '') || '5000';
   
   // Schema.org para producto
@@ -200,8 +221,8 @@ export default async function DetailProd({ params }: Props) {
     name: productName,
     image: [productImage],
     description: productDescription,
-    sku: `EF-${productId}`,
-    mpn: `EF-${productId}`,
+    sku: `EF-${productIdOrSlug}`,
+    mpn: `EF-${productIdOrSlug}`,
     brand: {
       '@type': 'Brand',
       name: 'ENVIO FLORES'
@@ -389,9 +410,8 @@ export default async function DetailProd({ params }: Props) {
           __html: JSON.stringify(faqSchema)
         }}
       />
-      
       {/* Componente principal sin microdata redundante */}
-      <ProductDetailComponent prodId={productId} />
+      <ProductDetailComponent prodId={productDetails.id} />
     </>
   );
 }

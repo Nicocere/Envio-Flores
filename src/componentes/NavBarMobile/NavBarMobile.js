@@ -17,8 +17,14 @@ import { useTheme } from '../../context/ThemeSwitchContext';
 import Image from 'next/image';
 import { SubMenuUsers } from '../SubMenuUsers/SubMenuUsers';
 import { ArrowBackIosNew } from '@mui/icons-material';
+import useCategoriesData from '../UseCategoriesData/UseCategoryData';
 
 const NavBarMobile = () => {
+
+  const {
+    categoryList,
+    ocassionList } = useCategoriesData();
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -31,11 +37,11 @@ const NavBarMobile = () => {
   const handleToggleProfileDrawer = (open) => (event) => {
     event.stopPropagation();
 
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift' || event.key === 'Esc') || (event.type === 'click' && event.target.tagName === 'A' )) {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift' || event.key === 'Esc') || (event.type === 'click' && event.target.tagName === 'A')) {
       return;
     }
     setOpenProfileDrawer(open);
-    
+
   };
 
 
@@ -77,8 +83,8 @@ const NavBarMobile = () => {
     fontSize: '14px',
     padding: 0,
     backgroundColor: isDarkMode ? 'var(--primary-dark)' : 'var(--background-light)',
-    background: isDarkMode 
-      ? 'linear-gradient(145deg, #2d0000, #670000)' 
+    background: isDarkMode
+      ? 'linear-gradient(145deg, #2d0000, #670000)'
       : 'linear-gradient(145deg, #ffffff, #f8f8f8)',
     flexWrap: 'nowrap',
     top: 0,
@@ -135,7 +141,7 @@ const NavBarMobile = () => {
         setCurrentUser(null);
       }
     });
-    
+
     return () => unsubscribe();
   }, []);
 
@@ -144,10 +150,10 @@ const NavBarMobile = () => {
       <CustomizedAppBar position="fixed">
         <CustomizedToolbar>
           {/* Sección izquierda - Buscador */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'flex-start', 
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
               alignItems: 'center',
               padding: '0 5px',
               flex: '4'
@@ -156,58 +162,59 @@ const NavBarMobile = () => {
           >
             <SearcherMobile onClick={handleToggleDrawer(false)} />
           </Box>
-          
+
           {/* Sección central - Logo */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
-              flex:'2',
+              flex: '2',
             }}
           >
-    
-              <Link href="/">
-                <Image
-                width={85}
-                height={85} 
-                  className='img-navbar'
-                  src={'https://firebasestorage.googleapis.com/v0/b/envio-flores.appspot.com/o/logos%2Flogo-envio-flores.png?alt=media&token=182d6496-4444-4a41-ab34-d8f0e571dc23'}
-                  alt="logo envio flores"
-                  priority={true}
-                  style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
-                  
-                  
-                />
-              </Link>
-    
+
+            <Link href="/">
+              <Image
+                width={100}
+                height={85}
+                className='img-navbar'
+                src={isDarkMode ? '/assets/imagenes/logo-envio-flores.png' : '/assets/imagenes/logo-envio-flores2.png'}
+                alt="logo envio flores"
+                priority={true}
+                style={{ width: '85px', height: 'auto', objectFit: 'contain' }}
+
+
+              />
+            </Link>
+
           </Box>
-          
+
           {/* Sección derecha - Menú y Carrito */}
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              justifyContent: 'flex-end', 
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
               alignItems: 'center',
               gap: '10px',
               flex: '4'
             }}
           >
-  
-            
+
+
             {/* Botón del menú */}
             <motion.div
               initial="initial"
               whileHover="whileHover"
               whileTap="whileTap"
               variants={menuIconVariants}
-              style={{ padding:'0 5px' }}
+              style={{ padding: '0 5px' }}
             >
               <IconButton
                 onClick={handleToggleDrawer(!openDrawer)}
                 size="medium"
                 aria-label="menu"
-                sx={{ padding:'0 5px',
+                sx={{
+                  padding: '0 5px',
                   color: isDarkMode ? 'white' : 'var(--primary-color)',
                   backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.7)',
                   '&:hover': {
@@ -237,8 +244,10 @@ const NavBarMobile = () => {
           onKeyDown={handleToggleDrawer(false)}
           style={{
             width: '300px',
-            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
-            height: '100%',
+            background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), white)',
+height: '100%',
+            paddingBottom: '90px',
+
           }}
         >
           {openDrawer && (
@@ -247,24 +256,24 @@ const NavBarMobile = () => {
               height: '100%', justifyContent: 'space-between', color: '#0000000'
             }}>
               <Paper sx={{
-                marginBottom: '10px', 
+                marginBottom: '10px',
                 backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio20.png")' : 'url("/assets/imagenes/fondosHome/fondo-inicio5.png")',
                 backgroundSize: 'cover',
-                WebkitBackgroundSize: 'cover', 
+                WebkitBackgroundSize: 'cover',
                 backgroundPosition: 'right'
               }}>
                 <Typography variant="subtitle1" sx={{
                   fontSize: '1.25rem',
-                  fontWeight: '600', 
-                  background: isDarkMode ? '#7d000085' : '#ffffff85', 
+                  fontWeight: '600',
+                  background: isDarkMode ? '#7d000085' : '#ffffff85',
                   color: isDarkMode ? 'white' : '#670000',
-                  display: 'flex', 
-                  alignItems: 'flex-end', 
-                  margin: '85px 0 0', 
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  margin: '85px 0 0',
                   paddingLeft: '10px',
-                  justifyContent: 'space-between', 
-                  borderBottom: '2px solid darkred', 
-                  flex: '0', 
+                  justifyContent: 'space-between',
+                  borderBottom: '2px solid darkred',
+                  flex: '0',
                   backdropFilter: 'blur(5px)'
                 }}>
                   Menú
@@ -278,7 +287,7 @@ const NavBarMobile = () => {
                   currentUser && (
                     <div className='user-data'>
                       <div className='user-data-container'>
-                    
+
                         <span className='user-name'>{userData?.name}</span>
                       </div>
                       <Button
@@ -302,17 +311,17 @@ const NavBarMobile = () => {
                     </div>
                   )
                 }
-                <Link 
-                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href='/' 
+                <Link
+                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
+                  href='/'
                   onClick={handleToggleDrawer(!openDrawer)}
-                > 
-                  Inicio 
+                >
+                  Inicio
                 </Link>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}>
-                  <button 
-                    className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
+                  <button
+                    className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
                     onClick={handleToggleProductsDrawer(true)}
                   >
                     Productos
@@ -320,33 +329,33 @@ const NavBarMobile = () => {
                 </div>
 
                 <div className='' onClick={handleToggleDrawer(!openDrawer)}>
-                  <button 
-                    className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
+                  <button
+                    className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
                     onClick={handleToggleOcassionsDrawer(true)}
                   >
                     Ocasiones
                   </button>
                 </div>
 
-                <Link 
-                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href="/ayuda" 
+                <Link
+                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
+                  href="/ayuda"
                   onClick={handleToggleDrawer(!openDrawer)}
                 >
                   ¿Cómo Comprar?
                 </Link>
 
-                <Link 
-                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href="/contacto" 
+                <Link
+                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
+                  href="/contacto"
                   onClick={handleToggleDrawer(!openDrawer)}
                 >
                   Contacto
                 </Link>
 
-                <Link 
-                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`} 
-                  href="/ubicacion" 
+                <Link
+                  className={`link-products ${isDarkMode ? 'dark-mode' : ''}`}
+                  href="/ubicacion"
                   onClick={handleToggleDrawer(!openDrawer)}
                 >
                   Nuestro Local
@@ -372,28 +381,29 @@ const NavBarMobile = () => {
             width: '300px',
             background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
             display: 'flex',
-            height: '100%',
+            paddingBottom: '90px',
+
             flexDirection: 'column'
           }}>
             <Paper sx={{
-              marginBottom: '10px', 
-              backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio18.png")' : 'url("/assets/imagenes/fondosHome/fondo-inicio15.png")', 
+              marginBottom: '10px',
+              backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio18.png")' : 'url("/assets/imagenes/fondosHome/fondo-inicio15.png")',
               backgroundSize: 'cover',
               WebkitBackgroundSize: 'cover',
             }}>
               <Typography variant="subtitle1" sx={{
                 fontSize: '1.25rem',
-                fontWeight: '600', 
-                background: isDarkMode ? '#7d000085' : '#ffffff85', 
-                color: isDarkMode ? 'white' : '#670000', 
+                fontWeight: '600',
+                background: isDarkMode ? '#7d000085' : '#ffffff85',
+                color: isDarkMode ? 'white' : '#670000',
                 paddingTop: '14px',
-                display: 'flex', 
-                alignItems: 'flex-end', 
-                margin: '85px 0 0', 
+                display: 'flex',
+                alignItems: 'flex-end',
+                margin: '85px 0 0',
                 paddingLeft: '10px',
-                justifyContent: 'space-between', 
-                borderBottom: '2px solid darkred', 
-                flex: '0', 
+                justifyContent: 'space-between',
+                borderBottom: '2px solid darkred',
+                flex: '0',
                 backdropFilter: 'blur(5px)'
               }}>
                 Categorias
@@ -422,15 +432,37 @@ const NavBarMobile = () => {
             </div>
 
             <div className="div-prods-SeccionMobile">
-              <Link className='list-products' href='/categoria/Rosas'>Rosas</Link>
-              <Link className='list-products' href="/categoria/Floreros">Floreros</Link>
-              <Link className='list-products' href="/categoria/Arreglos">Arreglos</Link>
-              <Link className='list-products' href="/categoria/Especiales">Especiales</Link>
-              <Link className='list-products' href="/categoria/Canastas">Canastas</Link>
-              <Link className='list-products' href="/categoria/Ramos">Ramos</Link>
-              <Link className='list-products' href="/categoria/Plantas">Plantas</Link>
-              <Link className='list-products' href="/categoria/Comestibles">Comestibles</Link>
-              <Link className='list-products' href="/categoria/Desayunos">Desayunos</Link>
+              {
+                categoryList.map((category, index) => (
+                  <motion.div
+                    key={category.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: [0.43, 0.13, 0.23, 0.96]
+                    }}
+                  >
+                    <Link
+                      href={category.id === 'Todos' ? '/productos' : `/productos/${category.id}`}
+                      className="listProducts"
+                      style={{
+                        color: isDarkMode ? 'var(--secondary-color)' : 'var(--primary-color)'
+                      }}
+                    >
+                      <motion.div
+                        className="categoryLink"
+                        whileHover={{ x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{ background: isDarkMode ? 'rgba(47,26,15,0.1)' : 'rgba(255,255,255,0.05)' }}
+                      >
+                        {category.name}
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                ))}
+
             </div>
           </div>
         )}
@@ -451,27 +483,27 @@ const NavBarMobile = () => {
             background: isDarkMode ? 'linear-gradient(to bottom, #a70000, #670000)' : 'linear-gradient(136deg, rgb(255, 255, 255), rgb(194 194 194))',
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
+            paddingBottom: '90px',
           }}>
             <Paper sx={{
-              marginBottom: '10px', 
-              backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio19.jpg")' : 'url("/assets/imagenes/ocasiones/ocasiones-sanvalentin2.jpeg")', 
+              marginBottom: '10px',
+              backgroundImage: isDarkMode ? 'url("/assets/imagenes/fondosHome/fondo-inicio19.jpg")' : 'url("/assets/imagenes/ocasiones/ocasiones-sanvalentin2.jpeg")',
               backgroundSize: 'cover',
               WebkitBackgroundSize: 'cover',
             }}>
               <Typography variant="subtitle1" sx={{
                 fontSize: '1.25rem',
-                fontWeight: '600', 
-                background: isDarkMode ? '#7d000085' : '#ffffff85', 
-                color: isDarkMode ? 'white' : '#670000', 
+                fontWeight: '600',
+                background: isDarkMode ? '#7d000085' : '#ffffff85',
+                color: isDarkMode ? 'white' : '#670000',
                 paddingTop: '14px',
-                display: 'flex', 
-                alignItems: 'flex-end', 
-                margin: '85px 0 0', 
+                display: 'flex',
+                alignItems: 'flex-end',
+                margin: '85px 0 0',
                 paddingLeft: '10px',
-                justifyContent: 'space-between', 
-                borderBottom: '2px solid darkred', 
-                flex: '0', 
+                justifyContent: 'space-between',
+                borderBottom: '2px solid darkred',
+                flex: '0',
                 backdropFilter: 'blur(5px)'
               }}>
                 Ocasiones
@@ -496,50 +528,74 @@ const NavBarMobile = () => {
             </Button>
 
             <div className="div-prods-SeccionMobile">
-              <Link className='ocasionesSeccion' href='/ocasiones/Aniversarios'>Aniversarios</Link>
-              <Link className='ocasionesSeccion' href="/ocasiones/Casamientos">Casamientos</Link>
-              <Link className='ocasionesSeccion' href="/ocasiones/Cumpleaños">Cumpleaños</Link>
-              <Link className='ocasionesSeccion' href="/ocasiones/Condolencias">Condolencias</Link>
-              <Link className='ocasionesSeccion' href="/ocasiones/Nacimientos">Nacimientos</Link>
-              <Link className='ocasionesSeccion' href="/ocasiones/RegalosHombres">Regalos para Ellos</Link>
+              {
+                ocassionList.map((ocasion, index) => (
+                  <motion.div
+                    key={ocasion.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: [0.43, 0.13, 0.23, 0.96]
+                    }}
+                  >
+                    <Link
+                      href={ocasion.id === 'Todos' ? '/ocasiones' : `/ocasiones/${ocasion.id}`}
+                      className="ocasionesSeccion"
+                      style={{
+                        color: isDarkMode ? 'var(--secondary-color)' : 'var(--primary-color)'
+                      }}
+                    >
+                      <motion.div
+                        className="ocasionLink"
+                        whileHover={{ x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{ background: isDarkMode ? 'rgba(47,26,15,0.1)' : 'rgba(255,255,255,0.05)' }}
+                      >
+                        {ocasion.name}
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                ))}
             </div>
           </div>
         )}
       </SwipeableDrawer>
 
-            {/* Drawer */}
-                <SwipeableDrawer
-                  anchor="right"
-                  open={openProfileDrawer}
-                  onClick={handleToggleProfileDrawer(false)}
-                  onClose={handleToggleProfileDrawer(false)}
-                  onOpen={handleToggleProfileDrawer(true)}
-                  disableBackdropTransition={true}
-                  disableDiscovery={true}
-                >
-                  {openProfileDrawer && (
-                    <div style={{
-                      width: '280px', display: 'flex', flexDirection: 'column',
-                      background: 'linear-gradient(to right, red , darkred)',
-                      height: '100%', padding: '0 14px 0',
-                    }}>
-                
-                      {openProfileDrawer &&
-                        <>
-                          <Button endIcon={<ArrowBackIosNew sx={{transform:'rotateY(180deg)'}}/>} sx={{
-                            margin: 0, fontWeight: '600', color:'white', cursor:'pointer',marginBottom:'150px', 
-                            position: 'relative', marginTop:'70px', borderBottom: '1px solid silver'
-                          }}>
-      
-                            Menu de Usuario
-      
-                          </Button>
-                          <SubMenuUsers userData={userData} />
-                        </>
-                      }
-                    </div>
-                  )}
-                </SwipeableDrawer>
+      {/* Drawer */}
+      <SwipeableDrawer
+        anchor="right"
+        open={openProfileDrawer}
+        onClick={handleToggleProfileDrawer(false)}
+        onClose={handleToggleProfileDrawer(false)}
+        onOpen={handleToggleProfileDrawer(true)}
+        disableBackdropTransition={true}
+        disableDiscovery={true}
+      >
+        {openProfileDrawer && (
+          <div style={{
+            width: '280px', display: 'flex', flexDirection: 'column',
+            background: 'linear-gradient(to right, red , darkred)',
+            height: '100%', padding: '0 14px 0',
+          }}>
+
+            {openProfileDrawer &&
+              <>
+                <Button endIcon={<ArrowBackIosNew sx={{ transform: 'rotateY(180deg)' }} />} sx={{
+                  margin: 0, fontWeight: '600', color: 'white', cursor: 'pointer', marginBottom: '150px',
+                  position: 'relative', marginTop: '70px', borderBottom: '1px solid silver'
+                }}>
+
+                  Menu de Usuario
+
+                </Button>
+                <SubMenuUsers userData={userData} />
+              </>
+            }
+          </div>
+        )}
+      </SwipeableDrawer>
     </div>
   );
 };

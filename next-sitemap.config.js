@@ -32,7 +32,8 @@ module.exports = {
       ],
       additionalSitemaps: [
         'https://www.envioflores.com/blog-sitemap.xml',
+        'https://www.envioflores.com/sitemap-products.xml',
+        'https://www.envioflores.com/sitemap-categorias.xml',
       ],
     },
   };
-  

@@ -2,10 +2,14 @@ import React, { useState, useEffect, memo } from 'react';
 import styles from './homeBanner.module.css'
 import { useTheme } from '../../context/ThemeSwitchContext';
 import Link from 'next/link';
+import Skeleton from '@mui/material/Skeleton';
+
+const defaultBg = '/assets/imagenes/fondosHome/fondo-inicio.png';
 
 const HomeBanner = memo(() => {
     // Estado para la imagen de fondo
-    const [backgroundImage, setBackgroundImage] = useState('');
+    const [backgroundImage, setBackgroundImage] = useState(defaultBg);
+    const [isBgLoaded, setIsBgLoaded] = useState(true);
     
     // DarkMode
     const { isDarkMode } = useTheme();
@@ -39,7 +43,14 @@ const HomeBanner = memo(() => {
     
     // Efecto para cambiar la imagen de fondo cuando cambia el tema
     useEffect(() => {
-        setBackgroundImage(getRandomBackgroundImage());
+        const img = new window.Image();
+        const newBg = getRandomBackgroundImage();
+        setIsBgLoaded(false);
+        img.src = newBg;
+        img.onload = () => {
+            setBackgroundImage(newBg);
+            setIsBgLoaded(true);
+        };
     }, [isDarkMode]);
     
     // Detectar dispositivo
@@ -61,9 +72,12 @@ const HomeBanner = memo(() => {
                 style={{
                     backgroundImage: `url(${backgroundImage})`,
                     backgroundAttachment: device === 'ios' ? 'initial' : 'fixed',
-                    
                 }}
             >
+                {!isBgLoaded && (
+                    <Skeleton variant="rectangular" width="100%" height="100%" className={styles.bgLoader} />
+                )}
+                
                 <div className={styles.bannerOverlay}></div>
                 
                 <div className={styles.bannerContent}>

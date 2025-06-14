@@ -32,10 +32,10 @@
 
 
 .imgNavBar {
-  width: 150px;
-  margin: 5px;
-  height: 95px;
-  object-fit: contain;
+    object-fit: contain;
+    width: 95px;
+    height: min-content;
+    margin: 15px 0 5px;
 }
 .searcher-navseccions{
   display: flex;
@@ -129,10 +129,7 @@
     font-size: x-small;
   }
 
-  .imgNavBar {
-    width: 110px;
-    height: 80px;
-  }
+
 
 
 }
