@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storageServer } from '@/utils/firebaseServer';
+import { readFile } from 'fs/promises';
+import path from 'path';
+import fontkit from '@pdf-lib/fontkit';
 
 // 🔹 Función para generar PDF usando pdf-lib
 export async function POST(request: Request): Promise<NextResponse> {
@@ -9,15 +12,23 @@ export async function POST(request: Request): Promise<NextResponse> {
     const { products, datosComprador, datosEnvio, retiraEnLocal } = body;
 
     try {
+        // Cargar fuentes personalizadas
+        const fontPath = path.join(process.cwd(), 'public', 'assets', 'fonts', 'noto-sans.ttf');
+        const emojiFontPath = path.join(process.cwd(), 'public', 'assets', 'fonts', 'NotoEmoji-Regular.ttf');
+        const fontBuffer = await readFile(fontPath);
+        const emojiFontBuffer = await readFile(emojiFontPath);
+        const fontBytes = new Uint8Array(fontBuffer);
+        const emojiFontBytes = new Uint8Array(emojiFontBuffer);
+
         // Crear un nuevo documento PDF
         const pdfDoc = await PDFDocument.create();
-
+        pdfDoc.registerFontkit(fontkit);
         // Agregar una página al PDF con tamaño A4 (595 x 842 puntos)
         const page = pdfDoc.addPage([595, 842]);
 
-        // Establecer una fuente estándar
-        // const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-        const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+        // Incrustar la fuente Noto Sans y Noto Emoji
+        const font = await pdfDoc.embedFont(fontBytes, { subset: false });
+        const emojiFont = await pdfDoc.embedFont(emojiFontBytes, { subset: false });
 
 
         // Definir las posiciones para agregar texto
@@ -76,64 +87,86 @@ export async function POST(request: Request): Promise<NextResponse> {
             const maxWidth = (pageWidth / 2) - 70; // Ancho disponible para texto en la mitad derecha
             let startY = 300; // Posición vertical inicial
 
-            // Normalizar la dedicatoria: reemplazar saltos de línea con espacios y eliminar caracteres no compatibles
+            // Normalizar la dedicatoria: reemplazar saltos de línea con espacios
             let dedicatoria = datosEnvio.dedicatoria
-                .replace(/\r\n|\r|\n/g, ' ') // Reemplazar todos los saltos de línea con espacios
-                // .replace(/[^\x20-\x7E]/g, '') // Eliminar caracteres no ASCII imprimibles
+                .replace(/\r\n|\r|\n/g, ' ')
                 .trim();
 
+            // Utilidad para detectar emojis y símbolos fuera del BMP
+            function splitTextAndEmojis(str: string) {
+                // Regex para emojis y símbolos fuera del BMP
+                const emojiRegex = /([\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27BF\u2764\uFE0F])/g;
+                let result: { text: string, isEmoji: boolean }[] = [];
+                let lastIndex = 0;
+                let match;
+                while ((match = emojiRegex.exec(str)) !== null) {
+                    if (match.index > lastIndex) {
+                        result.push({ text: str.slice(lastIndex, match.index), isEmoji: false });
+                    }
+                    result.push({ text: match[0], isEmoji: true });
+                    lastIndex = match.index + match[0].length;
+                }
+                if (lastIndex < str.length) {
+                    result.push({ text: str.slice(lastIndex), isEmoji: false });
+                }
+                return result;
+            }
+
             // Dividir la dedicatoria en palabras
-            const palabras = dedicatoria.split(' ').filter((p: string | any[]) => p.length > 0); // Eliminar espacios vacíos
-            let lineaActual = '';
+            const palabras = dedicatoria.split(' ').filter((p: string) => p.length > 0);
+            let lineaActual: { text: string, isEmoji: boolean }[] = [];
             let posY = startY;
 
-            // Construir línea por línea respetando el ancho máximo
             for (let i = 0; i < palabras.length; i++) {
                 const palabra = palabras[i];
-                const posibleLinea = lineaActual ? `${lineaActual} ${palabra}` : palabra;
-
-                // Verificar si la línea posible se ajusta al ancho máximo
-                try {
-                    const textWidth = font.widthOfTextAtSize(posibleLinea, dedicatoriaFontSize);
-
-                    if (textWidth <= maxWidth) {
-                        lineaActual = posibleLinea;
+                const fragmentos = splitTextAndEmojis(palabra);
+                const posibleLinea = lineaActual.concat({ text: ' ', isEmoji: false }, ...fragmentos).filter((f, idx) => !(i === 0 && idx === 0 && f.text === ' '));
+                // Calcular ancho de la línea
+                let width = 0;
+                for (const frag of posibleLinea) {
+                    if (frag.isEmoji) {
+                        width += emojiFont.widthOfTextAtSize(frag.text, dedicatoriaFontSize);
                     } else {
-                        // Dibujar la línea actual y comenzar una nueva
-                        page.drawText(lineaActual, {
-                            x: startX,
+                        width += font.widthOfTextAtSize(frag.text, dedicatoriaFontSize);
+                    }
+                }
+                if (width <= maxWidth) {
+                    lineaActual = posibleLinea;
+                } else {
+                    // Dibujar la línea actual
+                    let x = startX;
+                    for (const frag of lineaActual) {
+                        if (!frag.text) continue;
+                        const usedFont = frag.isEmoji ? emojiFont : font;
+                        page.drawText(frag.text, {
+                            x,
                             y: posY,
-                            font,
+                            font: usedFont,
                             size: dedicatoriaFontSize,
                             color: rgb(0, 0, 0)
                         });
-                        posY -= dedicatoriaLineHeight;
-                        lineaActual = palabra;
-
-                        // Verificar si hemos llegado al límite inferior de la página
-                        if (posY < 100) {
-                            break; // Detener el proceso si nos acercamos demasiado al borde inferior
-                        }
+                        x += usedFont.widthOfTextAtSize(frag.text, dedicatoriaFontSize);
                     }
-                } catch (error) {
-                    // Si ocurre un error con alguna palabra, la omitimos y continuamos
-                    console.warn('Error al procesar palabra en dedicatoria:', error);
-                    continue;
+                    posY -= dedicatoriaLineHeight;
+                    lineaActual = fragmentos;
+                    // Verificar si hemos llegado al límite inferior de la página
+                    if (posY < 100) break;
                 }
             }
-
             // Dibujar la última línea
-            if (lineaActual) {
-                try {
-                    page.drawText(lineaActual, {
-                        x: startX,
+            if (lineaActual.length > 0) {
+                let x = startX;
+                for (const frag of lineaActual) {
+                    if (!frag.text) continue;
+                    const usedFont = frag.isEmoji ? emojiFont : font;
+                    page.drawText(frag.text, {
+                        x,
                         y: posY,
-                        font,
+                        font: usedFont,
                         size: dedicatoriaFontSize,
                         color: rgb(0, 0, 0)
                     });
-                } catch (error) {
-                    console.warn('Error al dibujar última línea de dedicatoria:', error);
+                    x += usedFont.widthOfTextAtSize(frag.text, dedicatoriaFontSize);
                 }
             }
         }
